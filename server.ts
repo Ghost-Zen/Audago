@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('./client/build'));
 
-// import Accounts, { Iaccounts } from './server/models/Accounts';
+// import Accounts, { Iaccounts } from './server/services/models/Accounts';
 
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db';
 

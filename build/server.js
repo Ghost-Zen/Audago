@@ -20,7 +20,7 @@ const app = express_1.default();
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
 app.use(express_1.default.static('./client/build'));
-// import Accounts, { Iaccounts } from './server/models/Accounts';
+// import Accounts, { Iaccounts } from './server/services/models/Accounts';
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db';
 mongoose_1.default.connect(url, { useUnifiedTopology: true, useNewUrlParser: true }); // establishing the connection
 mongoose_1.default.connection
