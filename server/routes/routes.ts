@@ -12,7 +12,7 @@ export default class AppRoutes {
 
         })
 
-        this.app.post('/api/signup', userApi.userSignUp)
+        this.app.get('/api/signup', userApi.userSignUp)
         this.app.post('/api/signin', userApi.userSignIn)
         this.app.post('/api/edituser', userApi.editUserData)
         this.app.get('/api/user', userApi.getUserData)

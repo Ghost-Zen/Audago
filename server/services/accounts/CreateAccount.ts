@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
-import Account, { Iaccounts } from '../models/Accounts';
+import Accounts, { Iaccounts } from '../models/Accounts';
 
-export class CreateAccount {
-    create() {
+export default class CreateAccount {
+
+    create(account: Iaccounts) {
+            console.log(account)
     }
 }

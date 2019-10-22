@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface Iaccounts extends Document {
+export interface Iaccounts {
     firstName: string;
     lastName: string;
     username: string;
@@ -12,7 +12,7 @@ export interface Iaccounts extends Document {
         created: string;
         lastSeen: string;
     };
-    playlists: [string];
+    playlists: Array<string>;
 }
 
 const AccountSchema: Schema = new Schema({
@@ -30,7 +30,7 @@ const AccountSchema: Schema = new Schema({
     "playlists": {"type": [String], "required":false, "unique": false}
 });
 
-export default mongoose.model<Iaccounts>('Accounts', AccountSchema);
+export default mongoose.model('Accounts', AccountSchema);
 
 // sample data for this schema
 // {

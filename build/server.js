@@ -26,22 +26,6 @@ mongoose_1.default.connect(url, { useUnifiedTopology: true, useNewUrlParser: tru
 mongoose_1.default.connection
     .once('open', () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Connection established');
-    // const account: Iaccounts = new Accounts({
-    //   firstName: 'John',
-    //   lastName: 'Doe',
-    //   username: 'johndoe123',
-    //   password: '12345',
-    //   email: 'johndoe@gmail.com',
-    //   image: '',
-    //   active: false,
-    //   timestamp: {
-    //     created: 'date',
-    //     lastSeen: 'date'
-    //   },
-    //   playlists: ['house', 'chill', 'rap']
-    // });
-    // await account.save();
-    // console.log("done!");
 }))
     .on('error', (error) => {
     console.log('Warning : ' + error);

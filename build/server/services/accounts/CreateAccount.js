@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class CreateAccount {
-    create() {
+    create(account) {
+        console.log(account);
     }
 }
-exports.CreateAccount = CreateAccount;
+exports.default = CreateAccount;
 //# sourceMappingURL=CreateAccount.js.map
