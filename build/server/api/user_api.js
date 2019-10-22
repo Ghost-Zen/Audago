@@ -7,12 +7,13 @@ const CreateAccount_1 = __importDefault(require("../services/accounts/CreateAcco
 const createAccount = new CreateAccount_1.default;
 class UserApi {
     userSignUp(req, res) {
+        let { firstName, lastName, username, password, email } = req.body;
         let user = {
-            firstName: 'John',
-            lastName: 'Doe',
-            username: 'johndoe123',
-            password: '12345',
-            email: 'johndoe@gmail.com',
+            firstName,
+            lastName,
+            username,
+            password,
+            email,
             image: '',
             active: false,
             timestamp: {
