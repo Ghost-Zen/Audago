@@ -17,6 +17,7 @@ class DeleteAccount {
     delete(username) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Accounts_1.default.deleteOne({ username: username });
+            console.log(`${username} was deleted!`);
         });
     }
 }
