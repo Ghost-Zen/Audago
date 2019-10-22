@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const routes_1 = __importDefault(require("./server/routes/routes"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const app = express_1.default();
@@ -25,6 +26,8 @@ mongoose_1.default.connect(url, { useUnifiedTopology: true, useNewUrlParser: tru
 mongoose_1.default.connection
     .once('open', () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Connection established');
+    const appRouting = new routes_1.default(app);
+    appRouting.router();
 }))
     .on('error', (error) => {
     console.log('Warning : ' + error);
