@@ -24,8 +24,11 @@ export default class UserApi {
     }
 
     deleteUser(req,res){
-      let user = 'johndoe123';
-      deleteAccount.delete(user);
+      let {username} = req.body;
+      deleteAccount.delete(username);
+      res.json({
+        status:'success'
+      });
     }
 
     userSignIn(req, res) {
