@@ -26,28 +26,12 @@ mongoose_1.default.connect(url, { useUnifiedTopology: true, useNewUrlParser: tru
 mongoose_1.default.connection
     .once('open', () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Connection established');
-    // const account: Iaccounts = new Accounts({
-    //   firstName: 'John',
-    //   lastName: 'Doe',
-    //   username: 'johndoe123',
-    //   password: '12345',
-    //   email: 'johndoe@gmail.com',
-    //   image: '',
-    //   active: false,
-    //   timestamp: {
-    //     created: 'date',
-    //     lastSeen: 'date'
-    //   },
-    //   playlists: ['house', 'chill', 'rap']
-    // });
-    // await account.save();
-    // console.log("done!");
+    const appRouting = new routes_1.default(app);
+    appRouting.router();
 }))
     .on('error', (error) => {
     console.log('Warning : ' + error);
 });
-const appRouting = new routes_1.default(app);
-appRouting.router();
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, function () {
     console.log(`App starting on port: ${PORT}`);

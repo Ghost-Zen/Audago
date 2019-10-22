@@ -12,7 +12,7 @@ export interface Iaccounts extends Document {
         created: string;
         lastSeen: string;
     };
-    playlists: [string];
+    playlists: Array<string>;
 }
 
 const AccountSchema: Schema = new Schema({
@@ -34,16 +34,16 @@ export default mongoose.model<Iaccounts>('Accounts', AccountSchema);
 
 // sample data for this schema
 // {
-//     firstName: 'John',
-//     lastName: 'Doe',
-//     username: 'johndoe123',
-//     password; '12345',
-//     email: 'johndoe@gmail.com',
+//     firstName: 'Dyllan',
+//     lastName: 'Hope',
+//     username: 'dyllanhope123',
+//     password: '12345',
+//     email: 'dyllanjhope@gmail.com',
 //     image: '',
-//     active: false,
+//     active: true,
 //     timestamp: {
 //         created: 'date',
 //         lastSeen: 'date'
 //     },
-//     playlists: ['house','chill','rap']
+//     playlists: ['trance','chill','rap']
 // }

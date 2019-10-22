@@ -25,17 +25,17 @@ const AccountSchema = new mongoose_1.Schema({
 exports.default = mongoose_1.default.model('Accounts', AccountSchema);
 // sample data for this schema
 // {
-//     firstName: 'John',
-//     lastName: 'Doe',
-//     username: 'johndoe123',
-//     password; '12345',
-//     email: 'johndoe@gmail.com',
+//     firstName: 'Dyllan',
+//     lastName: 'Hope',
+//     username: 'dyllanhope123',
+//     password: '12345',
+//     email: 'dyllanjhope@gmail.com',
 //     image: '',
-//     active: false,
+//     active: true,
 //     timestamp: {
 //         created: 'date',
 //         lastSeen: 'date'
 //     },
-//     playlists: ['house','chill','rap']
+//     playlists: ['trance','chill','rap']
 // }
 //# sourceMappingURL=Accounts.js.map

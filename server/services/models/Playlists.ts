@@ -4,7 +4,7 @@ export interface Iplaylist extends Document {
     name: string,
     follower_count: number,
     song_count: number,
-    songs: [string]
+    songs: Array<string>
 }
 
 const Playlist: Schema = new Schema({

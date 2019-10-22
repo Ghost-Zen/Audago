@@ -18,31 +18,12 @@ mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true }); // e
 mongoose.connection
   .once('open', async () => {
     console.log('Connection established');
-    // const account: Iaccounts = new Accounts({
-    //   firstName: 'John',
-    //   lastName: 'Doe',
-    //   username: 'johndoe123',
-    //   password: '12345',
-    //   email: 'johndoe@gmail.com',
-    //   image: '',
-    //   active: false,
-    //   timestamp: {
-    //     created: 'date',
-    //     lastSeen: 'date'
-    //   },
-    //   playlists: ['house', 'chill', 'rap']
-    // });
-    // await account.save();
-    // console.log("done!");
-    
+    const appRouting = new AppRoutes(app)
+    appRouting.router();
   })
   .on('error', (error) => {
     console.log('Warning : ' + error);
   });
-
-const appRouting = new AppRoutes(app)
-appRouting.router()
-
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, function () {
