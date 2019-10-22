@@ -14,7 +14,8 @@ export default class AppRoutes {
 
         this.app.get('/api/signup', userApi.userSignUp)
         this.app.post('/api/signin', userApi.userSignIn)
-        this.app.post('/api/edituser', userApi.editUserData)
+        this.app.get('/api/delete/user', userApi.deleteUser)
+        this.app.post('/api/edit/user', userApi.editUserData)
         this.app.get('/api/user', userApi.getUserData)
 
     }

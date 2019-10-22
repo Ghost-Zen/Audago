@@ -1,10 +1,12 @@
 import CreateAccount from '../services/accounts/CreateAccount';
-const createAccount = new CreateAccount
+import DeletingAccount from '../services/accounts/DeletingAccount';
+const createAccount = new CreateAccount;
+const deleteAccount = new DeletingAccount;
 export default class UserApi {
 
 userSignUp(req,res){
     let user = {
-        firstName: 'John',
+    firstName: 'John',
     lastName: 'Doe',
     username: 'johndoe123',
     password: '12345',
@@ -18,6 +20,11 @@ userSignUp(req,res){
     playlists: ['house']
   }
   createAccount.create(user)
+}
+
+deleteUser(req,res){
+  let user = 'johndoe123';
+  deleteAccount.delete(user);
 }
 
  

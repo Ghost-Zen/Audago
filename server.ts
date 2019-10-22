@@ -19,7 +19,7 @@ mongoose.connection
   .once('open', async () => {
     console.log('Connection established');
     const appRouting = new AppRoutes(app)
-    appRouting.router();
+    appRouting.router()
   })
   .on('error', (error) => {
     console.log('Warning : ' + error);

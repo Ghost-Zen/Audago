@@ -4,7 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const CreateAccount_1 = __importDefault(require("../services/accounts/CreateAccount"));
+const DeletingAccount_1 = __importDefault(require("../services/accounts/DeletingAccount"));
 const createAccount = new CreateAccount_1.default;
+const deleteAccount = new DeletingAccount_1.default;
 class UserApi {
     userSignUp(req, res) {
         let user = {
@@ -22,6 +24,10 @@ class UserApi {
             playlists: ['house']
         };
         createAccount.create(user);
+    }
+    deleteUser(req, res) {
+        let user = 'johndoe123';
+        deleteAccount.delete(user);
     }
     userSignIn(req, res) {
     }
