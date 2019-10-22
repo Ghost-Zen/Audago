@@ -12,7 +12,7 @@ app.use(express.static('./client/build'));
 
 // import Accounts, { Iaccounts } from './server/models/Accounts';
 
-const url = 'mongodb://localhost:27017/audago_db';
+const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db';
 
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true }); // establishing the connection
 mongoose.connection
