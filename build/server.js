@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const routes_1 = __importDefault(require("./server/routes/routes"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const app = express_1.default();
@@ -30,8 +29,6 @@ mongoose_1.default.connection
     .on('error', (error) => {
     console.log('Warning : ' + error);
 });
-const appRouting = new routes_1.default(app);
-appRouting.router();
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, function () {
     console.log(`App starting on port: ${PORT}`);
