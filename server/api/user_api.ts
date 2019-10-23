@@ -1,11 +1,10 @@
 import CreateAccount from '../services/accounts/CreateAccount';
 import DeletingAccount from '../services/accounts/DeletingAccount';
-import { ObjectID } from 'bson';
 const createAccount = new CreateAccount;
 const deleteAccount = new DeletingAccount;
 export default class UserApi {
 
-    userSignUp(req, res) {
+    async userSignUp(req, res) {
         let { firstName, lastName, username, password, email } = req.body;
         let user = {
             firstName,
@@ -20,7 +19,7 @@ export default class UserApi {
                 lastSeen: 'date'
             }
         }
-        createAccount.create(user)
+        await createAccount.create(user)
     }
 
     deleteUser(req,res){

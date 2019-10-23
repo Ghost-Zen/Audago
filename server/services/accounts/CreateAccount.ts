@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
 import Accounts, { Iaccounts } from '../models/Accounts';
 
 export default class CreateAccount {
 
-    create(account: Iaccounts) {
+    async create(account: Iaccounts) {
            let user = new Accounts(account)
-            user.save()
+            await user.save()
+            console.log(`${account.username} has been added!`)
         }
 }

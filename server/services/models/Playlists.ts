@@ -1,12 +1,14 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface Iplaylist extends Document {
+export interface Iplaylist {
     name: string,
     follower_count: number,
     song_count: number,
     songs: Array<string>
     users: Array<string>
 }
+
+interface PlaylistModel extends Iplaylist, Document{}
 
 const Playlist: Schema = new Schema({
     "name": { "type": String, "required": true, "unique": true },
@@ -16,7 +18,7 @@ const Playlist: Schema = new Schema({
     "users": [{ "type": Schema.Types.ObjectId, ref: 'Accounts' }]
 });
 
-export default mongoose.model<Iplaylist>('Playlist', Playlist);
+export default mongoose.model<PlaylistModel>('Playlist', Playlist);
 
 // sample data
 // {

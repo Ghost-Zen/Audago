@@ -20,22 +20,12 @@ class DeleteAccount {
             console.log(`${username} was deleted!`);
         });
     }
+    deleteAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield Accounts_1.default.deleteMany({});
+            console.log('All accounts deleted!');
+        });
+    }
 }
 exports.default = DeleteAccount;
-//   const account: Iaccounts = new Accounts({
-//     firstName: 'Dyllan',
-//     lastName: 'Hope',
-//     username: 'dyllanhope123',
-//     password: '12345',
-//     email: 'dyllanjhope@gmail.com',
-//     image: '',
-//     active: true,
-//     timestamp: {
-//         created: 'date',
-//         lastSeen: 'date'
-//     },
-//     playlists: ['trance','chill','rap']
-// });
-//   await account.save();
-//   console.log("done!");
 //# sourceMappingURL=DeletingAccount.js.map
