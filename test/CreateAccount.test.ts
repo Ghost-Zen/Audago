@@ -13,7 +13,6 @@ describe('Testing the create account functionality', () => {
         const db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error'));
         db.once('open', function () {
-            console.log('Connection established!');
             done();
         });
     });
@@ -42,7 +41,44 @@ describe('Testing the create account functionality', () => {
 
         Account.find({}, { '_id': 0, 'username': 1 })
             .then((accounts) => {
-                assert.strict.deepEqual(accounts[0].username, 'dyllanhope123');
+                assert.strict.equal(accounts[0].username, 'dyllanhope123');
+            });
+    });
+    it('Should return that "Dyllan & Daniel" were added as new accounts', async () => {
+        const createAccount = new CreateAccount;
+        let user: Iaccounts = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        await createAccount.create(user);
+        user = {
+            firstName: 'Daniel',
+            lastName: 'Minter',
+            username: 'danielminter123',
+            password: '12345',
+            email: 'danielminter@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        await createAccount.create(user);
+
+        Account.find({})
+            .then((accounts) => {
+                assert.strict.equal(accounts[0].username, 'dyllanhope123');
+                assert.strict.equal(accounts[1].username, 'danielminter123');
             });
     });
 });

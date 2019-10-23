@@ -18,7 +18,6 @@ class CreateAccount {
         return __awaiter(this, void 0, void 0, function* () {
             let user = new Accounts_1.default(account);
             yield user.save();
-            console.log(`${account.username} has been added!`);
         });
     }
 }

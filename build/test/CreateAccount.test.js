@@ -25,7 +25,6 @@ describe('Testing the create account functionality', () => {
         const db = mongoose_1.default.connection;
         db.on('error', console.error.bind(console, 'connection error'));
         db.once('open', function () {
-            console.log('Connection established!');
             done();
         });
     });
@@ -53,7 +52,43 @@ describe('Testing the create account functionality', () => {
         yield createAccount.create(user);
         Accounts_1.default.find({}, { '_id': 0, 'username': 1 })
             .then((accounts) => {
-            assert_1.default.strict.deepEqual(accounts[0].username, 'dyllanhope123');
+            assert_1.default.strict.equal(accounts[0].username, 'dyllanhope123');
+        });
+    }));
+    it('Should return that "Dyllan & Daniel" were added as new accounts', () => __awaiter(void 0, void 0, void 0, function* () {
+        const createAccount = new CreateAccount_1.default;
+        let user = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        };
+        yield createAccount.create(user);
+        user = {
+            firstName: 'Daniel',
+            lastName: 'Minter',
+            username: 'danielminter123',
+            password: '12345',
+            email: 'danielminter@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        };
+        yield createAccount.create(user);
+        Accounts_1.default.find({})
+            .then((accounts) => {
+            assert_1.default.strict.equal(accounts[0].username, 'dyllanhope123');
+            assert_1.default.strict.equal(accounts[1].username, 'danielminter123');
         });
     }));
 });
