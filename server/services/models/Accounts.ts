@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 export interface Iaccounts {
     firstName: string;
@@ -12,7 +12,6 @@ export interface Iaccounts {
         created: string;
         lastSeen: string;
     };
-    playlists: Array<string>;
 }
 
 const AccountSchema: Schema = new Schema({
@@ -26,8 +25,7 @@ const AccountSchema: Schema = new Schema({
     "timestamp": {
         "created": { "type": String, "required": true, "unique": false },
         "lastSeen": { "type": String, "required": true, "unique": false },
-    },
-    "playlists": {"type": [String], "required":false, "unique": false}
+    }
 });
 
 export default mongoose.model('Accounts', AccountSchema);

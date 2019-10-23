@@ -17,7 +17,6 @@ export default class AppRoutes {
         this.app.post('/api/delete/user', userApi.deleteUser)
         this.app.post('/api/edit/user', userApi.editUserData)
         this.app.get('/api/user', userApi.getUserData)
-
     }
 
 }

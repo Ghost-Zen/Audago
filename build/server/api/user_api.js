@@ -21,8 +21,7 @@ class UserApi {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            },
-            playlists: ['house']
+            }
         };
         createAccount.create(user);
     }
