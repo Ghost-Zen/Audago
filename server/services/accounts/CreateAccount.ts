@@ -4,6 +4,7 @@ import Accounts, { Iaccounts } from '../models/Accounts';
 export default class CreateAccount {
 
     create(account: Iaccounts) {
-            console.log(account)
-    }
+           let user = new Accounts(account)
+            user.save()
+        }
 }

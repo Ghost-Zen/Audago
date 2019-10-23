@@ -1,1 +1,1 @@
-{"version":3,"file":"CreateAccount.js","sourceRoot":"","sources":["../../../../server/services/accounts/CreateAccount.ts"],"names":[],"mappings":";;AAGA,MAAqB,aAAa;IAE9B,MAAM,CAAC,OAAkB;QACjB,OAAO,CAAC,GAAG,CAAC,OAAO,CAAC,CAAA;IAC5B,CAAC;CACJ;AALD,gCAKC"}
+{"version":3,"file":"CreateAccount.js","sourceRoot":"","sources":["../../../../server/services/accounts/CreateAccount.ts"],"names":[],"mappings":";;;;;AACA,kEAAyD;AAEzD,MAAqB,aAAa;IAE9B,MAAM,CAAC,OAAkB;QAClB,IAAI,IAAI,GAAG,IAAI,kBAAQ,CAAC,OAAO,CAAC,CAAA;QAC/B,IAAI,CAAC,IAAI,EAAE,CAAA;IACf,CAAC;CACR;AAND,gCAMC"}
