@@ -1,5 +1,6 @@
 import CreateAccount from '../services/accounts/CreateAccount';
 import DeletingAccount from '../services/accounts/DeletingAccount';
+import { ObjectID } from 'bson';
 const createAccount = new CreateAccount;
 const deleteAccount = new DeletingAccount;
 export default class UserApi {
@@ -17,8 +18,7 @@ export default class UserApi {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            },
-            playlists: ['house']
+            }
         }
         createAccount.create(user)
     }

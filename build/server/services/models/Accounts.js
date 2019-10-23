@@ -19,8 +19,7 @@ const AccountSchema = new mongoose_1.Schema({
     "timestamp": {
         "created": { "type": String, "required": true, "unique": false },
         "lastSeen": { "type": String, "required": true, "unique": false },
-    },
-    "playlists": { "type": [String], "required": false, "unique": false }
+    }
 });
 exports.default = mongoose_1.default.model('Accounts', AccountSchema);
 // sample data for this schema
