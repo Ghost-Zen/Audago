@@ -4,14 +4,13 @@ import { gql } from 'apollo-boost';
 
 const DATA = gql`
   {
-    song
+    hello
   }
 `;
 
   function Test() {
   const { loading, error, data } = useQuery(DATA);
     console.log(data)
-    console.log(loading)
  return(
      <div>
 

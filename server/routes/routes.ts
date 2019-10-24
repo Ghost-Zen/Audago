@@ -1,6 +1,7 @@
 import UserApi from '../api/user_api';
 import graphqlHTTP from 'express-graphql';
-import { buildSchema } from 'graphql';
+import Query from '../api/resolver';
+import schema from '../api/schema';
 const userApi = new UserApi();
 export default class AppRoutes {
     private app: any;
@@ -11,20 +12,9 @@ export default class AppRoutes {
 
     router() {
 
-        var schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
-        var root = { hello: () => 'Hello world!' };
-
-        // this.app.get('/', (req, res) => {
-
-        // })
-
         this.app.use('/graphql', graphqlHTTP({
             schema: schema,
-            rootValue: root,
+            rootValue: Query,
             graphiql: true,
         }));
 
