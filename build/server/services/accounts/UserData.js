@@ -13,23 +13,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
-class CreateAccount {
-    create(account) {
+class UserData {
+    loginData(username) {
         return __awaiter(this, void 0, void 0, function* () {
-            let exists = false;
-            let user = new Accounts_1.default(account);
-            yield Accounts_1.default.find({ username: user.username }) //search for username (unique field) in DB
+            let found = false;
+            let data = { username: '', password: '', email: '' };
+            yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 }) // searching for user's data only want the username, password and email
                 .then(res => {
-                if (res.length > 0) { //checking if their was a response for the user (if that account doesn't exists)
-                    exists = true;
+                if (res) {
+                    data.username = res.username;
+                    data.password = res.password;
+                    data.email = res.email;
+                    found = true;
                 }
             });
-            if (!exists) {
-                yield user.save(); //if account is new, add it
+            if (found) {
+                return data;
             }
-            return exists; //return whether the account exists or not, reference for when we want to return an error
+            else {
+                return `User "${username}" not found`; //if the user's data isn't found then return an error
+            }
         });
     }
+    ;
 }
-exports.default = CreateAccount;
-//# sourceMappingURL=CreateAccount.js.map
+exports.default = UserData;
+//# sourceMappingURL=UserData.js.map

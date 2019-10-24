@@ -15,9 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const assert_1 = __importDefault(require("assert"));
 const Accounts_1 = __importDefault(require("../server/services/models/Accounts"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const DeletingAccount_1 = __importDefault(require("../server/services/accounts/DeletingAccount"));
 const CreateAccount_1 = __importDefault(require("../server/services/accounts/CreateAccount"));
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
-describe('Testing the create account functionality', () => {
+describe('Testing the delete account functionality', () => {
     before(function (done) {
         mongoose_1.default.Promise = global.Promise;
         mongoose_1.default.set('useCreateIndex', true);
@@ -34,29 +35,9 @@ describe('Testing the create account functionality', () => {
     after(() => {
         mongoose_1.default.connection.close();
     });
-    it('Should return that "Dyllan" was added as a new account', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return an empty array after using the "deleteAll" function', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: '12345',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
-        };
-        yield createAccount.create(user);
-        Accounts_1.default.find({}, { '_id': 0, 'username': 1 })
-            .then((accounts) => {
-            assert_1.default.strict.equal(accounts[0].username, 'dyllanhope123');
-        });
-    }));
-    it('Should return that "Dyllan & Daniel" were added as new accounts', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
+        const deleteAccount = new DeletingAccount_1.default;
         let user = {
             firstName: 'Dyllan',
             lastName: 'Hope',
@@ -85,14 +66,15 @@ describe('Testing the create account functionality', () => {
             }
         };
         yield createAccount.create(user);
+        yield deleteAccount.deleteAll();
         Accounts_1.default.find({})
             .then((accounts) => {
-            assert_1.default.strict.equal(accounts[0].username, 'dyllanhope123');
-            assert_1.default.strict.equal(accounts[1].username, 'danielminter123');
+            assert_1.default.strict.deepEqual(accounts, []);
         });
     }));
-    it('Should return that "Dyllan" is already an existing account', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return an array with only "Daniel" as Dyllans account was deleted separately', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
+        const deleteAccount = new DeletingAccount_1.default;
         let user = {
             firstName: 'Dyllan',
             lastName: 'Hope',
@@ -106,14 +88,13 @@ describe('Testing the create account functionality', () => {
                 lastSeen: 'date'
             }
         };
-        let status = yield createAccount.create(user);
-        assert_1.default.strict.equal(status, false);
+        yield createAccount.create(user);
         user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
+            firstName: 'Daniel',
+            lastName: 'Minter',
+            username: 'danielminter123',
             password: '12345',
-            email: 'dyllanhope@gmail.com',
+            email: 'danielminter@gmail.com',
             image: '',
             active: false,
             timestamp: {
@@ -121,8 +102,14 @@ describe('Testing the create account functionality', () => {
                 lastSeen: 'date'
             }
         };
-        status = yield createAccount.create(user);
-        assert_1.default.strict.equal(status, true);
+        yield createAccount.create(user);
+        yield deleteAccount.delete('dyllanhope123');
+        Accounts_1.default.find({})
+            .then((accounts) => {
+            // sketchy test, but trust.. it works.. if it didn't delete then dyllanhope123 would be in index 0.
+            // the issue is 'accounts' is carrying more than whats in the database so assert.strict.deepEqual() doesn't work with the full array
+            assert_1.default.strict.deepEqual(accounts[0].username, 'danielminter123');
+        });
     }));
 });
-//# sourceMappingURL=CreateAccount.test.js.map
+//# sourceMappingURL=DeleteAccount.test.js.map
