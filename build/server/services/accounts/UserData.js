@@ -13,28 +13,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
-class CreateAccount {
-    create(account) {
+class UserData {
+    loginData(username) {
         return __awaiter(this, void 0, void 0, function* () {
-            let exists = false;
-            let user = new Accounts_1.default(account);
-            //search for username (unique field) in DB
-            yield Accounts_1.default.find({ username: user.username })
-                //returns array, if empty then the record doesn't exist else the username is already in use
+            let found = false;
+            let data = { username: '', password: '', email: '' };
+            // searching for user's data only want the username, password and email
+            yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 })
                 .then(res => {
-                //checking if their was a response for the user (if that account doesn't exists)
-                if (res.length > 0) {
-                    exists = true;
+                //if a record was found with that username then return the user's data
+                if (res) {
+                    data.username = res.username;
+                    data.password = res.password;
+                    data.email = res.email;
+                    found = true;
                 }
             });
-            if (!exists) {
-                //if account is new, add it
-                yield user.save();
+            if (found) {
+                return data;
             }
-            //return whether the account exists or not, reference for when we want to return an error
-            return exists;
+            else {
+                //if the user's data isn't found then return an error
+                return `User "${username}" not found`;
+            }
         });
     }
+    ;
 }
-exports.default = CreateAccount;
-//# sourceMappingURL=CreateAccount.js.map
+exports.default = UserData;
+//# sourceMappingURL=UserData.js.map

@@ -5,15 +5,20 @@ export default class CreateAccount {
     async create(account: Iaccounts) {
         let exists = false;
         let user = new Accounts(account)
-        await Accounts.find({ username: user.username })    //search for username (unique field) in DB
-            .then(res => {                                  //returns array, if empty then the record doesn't exist else the username is already in use
-                if (res.length > 0) {                       //checking if their was a response for the user (if that account doesn't exists)
+        //search for username (unique field) in DB
+        await Accounts.find({ username: user.username })
+        //returns array, if empty then the record doesn't exist else the username is already in use
+            .then(res => {
+                //checking if their was a response for the user (if that account doesn't exists)
+                if (res.length > 0) {
                     exists = true;
                 }
             });
         if (!exists) {
-            await user.save();                              //if account is new, add it
+            //if account is new, add it
+            await user.save();
         }
-        return exists;                                      //return whether the acocunt exists or not, reference for when we want to return an error.
+        //return whether the account exists or not, reference for when we want to return an error
+        return exists;
     }
 }

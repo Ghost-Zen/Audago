@@ -1,8 +1,10 @@
 import CreateAccount from '../services/accounts/CreateAccount';
 import DeletingAccount from '../services/accounts/DeletingAccount';
 import { Iaccounts } from '../services/models/Accounts';
+import UserData from '../services/accounts/UserData';
 const createAccount = new CreateAccount;
 const deleteAccount = new DeletingAccount;
+const userData = new UserData;
 export default class UserApi {
 
     async userSignUp(req, res) {
@@ -35,10 +37,11 @@ export default class UserApi {
 
     }
 
-    getUserData(req, res) {
+    async getUserData(req, res) {
+        const username = req.params.user;
         res.json({
-            status: 'Dummy Data',
-            response: { firstname: 'John', lastname: 'Doe', username: 'johndoe123' }
+            status: 'success',
+            response:  await userData.loginData(username)
         })
     }
 

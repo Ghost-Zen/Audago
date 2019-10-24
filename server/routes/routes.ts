@@ -32,7 +32,7 @@ export default class AppRoutes {
         this.app.post('/api/signin', userApi.userSignIn)
         this.app.post('/api/delete/user', userApi.deleteUser)
         this.app.post('/api/edit/user', userApi.editUserData)
-        this.app.get('/api/user', userApi.getUserData)
+        this.app.get('/api/user/data/:user', userApi.getUserData)
     }
 
 }
