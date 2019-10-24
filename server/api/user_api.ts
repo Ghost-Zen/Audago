@@ -51,20 +51,18 @@ export default class UserApi {
     }
 
     async editUserData(req, res) {
+        let { firstName, lastName, username, password, email, image, active, timestamp } = req.body;
         let user: Iaccounts = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: '12345',
-            email: 'dyllanjhope@gmail.com',
-            image: '',
-            active: true,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
+            firstName,
+            lastName,
+            username,
+            password,
+            email,
+            image,
+            active,
+            timestamp
         }
-        await updateAccount.update('danielminter123', user);
+        await updateAccount.update(username, user);
         res.json({
             status: 'success'
         });

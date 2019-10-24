@@ -63,20 +63,18 @@ class UserApi {
     }
     editUserData(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            let { firstName, lastName, username, password, email, image, active, timestamp } = req.body;
             let user = {
-                firstName: 'Dyllan',
-                lastName: 'Hope',
-                username: 'dyllanhope123',
-                password: '12345',
-                email: 'dyllanjhope@gmail.com',
-                image: '',
-                active: true,
-                timestamp: {
-                    created: 'date',
-                    lastSeen: 'date'
-                }
+                firstName,
+                lastName,
+                username,
+                password,
+                email,
+                image,
+                active,
+                timestamp
             };
-            yield updateAccount.update('danielminter123', user);
+            yield updateAccount.update(username, user);
             res.json({
                 status: 'success'
             });
