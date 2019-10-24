@@ -43,6 +43,5 @@ export default mongoose.model<UserModel>('Accounts', AccountSchema);
 //     timestamp: {
 //         created: 'date',
 //         lastSeen: 'date'
-//     },
-//     playlists: ['trance','chill','rap']
+//     }
 // }

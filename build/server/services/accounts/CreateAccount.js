@@ -16,8 +16,18 @@ const Accounts_1 = __importDefault(require("../models/Accounts"));
 class CreateAccount {
     create(account) {
         return __awaiter(this, void 0, void 0, function* () {
+            let exists = false;
             let user = new Accounts_1.default(account);
-            yield user.save();
+            yield Accounts_1.default.find({ username: user.username }) //search for username (unique field) in DB
+                .then(res => {
+                if (res.length > 0) { //checking if their was a response for the user (if that account doesn't exists)
+                    exists = true;
+                }
+            });
+            if (!exists) {
+                yield user.save(); //if account is new, add it
+            }
+            return exists; //return whether the acocunt exists or not, reference for when we want to return an error.
         });
     }
 }

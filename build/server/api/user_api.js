@@ -19,15 +19,15 @@ const deleteAccount = new DeletingAccount_1.default;
 class UserApi {
     userSignUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let { firstName, lastName, username, password, email } = req.body;
+            // let { firstName, lastName, username, password, email } = req.body;
             let user = {
-                firstName,
-                lastName,
-                username,
-                password,
-                email,
+                firstName: 'Daniel',
+                lastName: 'Minter',
+                username: 'danielminter123',
+                password: '12345',
+                email: 'danielminter@gmail.com',
                 image: '',
-                active: false,
+                active: true,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'

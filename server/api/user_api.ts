@@ -1,19 +1,20 @@
 import CreateAccount from '../services/accounts/CreateAccount';
 import DeletingAccount from '../services/accounts/DeletingAccount';
+import { Iaccounts } from '../services/models/Accounts';
 const createAccount = new CreateAccount;
 const deleteAccount = new DeletingAccount;
 export default class UserApi {
 
     async userSignUp(req, res) {
-        let { firstName, lastName, username, password, email } = req.body;
-        let user = {
-            firstName,
-            lastName,
-            username,
-            password,
-            email,
+        // let { firstName, lastName, username, password, email } = req.body;
+        let user: Iaccounts = {
+            firstName: 'Daniel',
+            lastName: 'Minter',
+            username: 'danielminter123',
+            password: '12345',
+            email: 'danielminter@gmail.com',
             image: '',
-            active: false,
+            active: true,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
@@ -22,12 +23,12 @@ export default class UserApi {
         await createAccount.create(user)
     }
 
-    deleteUser(req,res){
-      let {username} = req.body;
-      deleteAccount.delete(username);
-      res.json({
-        status:'success'
-      });
+    deleteUser(req, res) {
+        let { username } = req.body;
+        deleteAccount.delete(username);
+        res.json({
+            status: 'success'
+        });
     }
 
     userSignIn(req, res) {
