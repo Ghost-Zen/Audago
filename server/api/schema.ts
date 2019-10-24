@@ -4,10 +4,14 @@ type Query {
   test: String
 }
 type userSchema {
-   descript:String
+   firstname:String
+   lastname:String
+   username:String
+   email:String
+   password:String
  }
 type Mutation {
-   createAccount(input: String):userSchema
+   createAccount(firstname:String,lastname:String,username:String,email:String,password:String):userSchema
 }
 `);
 export default schema
