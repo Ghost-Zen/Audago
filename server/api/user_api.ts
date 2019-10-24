@@ -8,13 +8,13 @@ const userData = new UserData;
 export default class UserApi {
 
     async userSignUp(req, res) {
-        // let { firstName, lastName, username, password, email } = req.body;
+        let { firstName, lastName, username, password, email } = req.body;
         let user: Iaccounts = {
-            firstName: 'Daniel',
-            lastName: 'Minter',
-            username: 'danielminter123',
-            password: '12345',
-            email: 'danielminter@gmail.com',
+            firstName,
+            lastName,
+            username,
+            password,
+            email,
             image: '',
             active: true,
             timestamp: {
@@ -22,7 +22,10 @@ export default class UserApi {
                 lastSeen: 'date'
             }
         }
-        await createAccount.create(user)
+        res.json({
+            staus: 'success',
+            exists: await createAccount.create(user)
+        });
     }
 
     deleteUser(req, res) {
@@ -41,7 +44,7 @@ export default class UserApi {
         const username = req.params.user;
         res.json({
             status: 'success',
-            response:  await userData.loginData(username)
+            response: await userData.loginData(username)
         })
     }
 

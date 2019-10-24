@@ -21,13 +21,13 @@ const userData = new UserData_1.default;
 class UserApi {
     userSignUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            // let { firstName, lastName, username, password, email } = req.body;
+            let { firstName, lastName, username, password, email } = req.body;
             let user = {
-                firstName: 'Daniel',
-                lastName: 'Minter',
-                username: 'danielminter123',
-                password: '12345',
-                email: 'danielminter@gmail.com',
+                firstName,
+                lastName,
+                username,
+                password,
+                email,
                 image: '',
                 active: true,
                 timestamp: {
@@ -35,7 +35,10 @@ class UserApi {
                     lastSeen: 'date'
                 }
             };
-            yield createAccount.create(user);
+            res.json({
+                staus: 'success',
+                exists: yield createAccount.create(user)
+            });
         });
     }
     deleteUser(req, res) {

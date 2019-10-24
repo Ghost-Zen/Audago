@@ -18,21 +18,16 @@ class CreateAccount {
         return __awaiter(this, void 0, void 0, function* () {
             let exists = false;
             let user = new Accounts_1.default(account);
-            //search for username (unique field) in DB
-            yield Accounts_1.default.find({ username: user.username })
-                //returns array, if empty then the record doesn't exist else the username is already in use
+            yield Accounts_1.default.find({ username: user.username }) //search for username (unique field) in DB
                 .then(res => {
-                //checking if their was a response for the user (if that account doesn't exists)
-                if (res.length > 0) {
+                if (res.length > 0) { //checking if their was a response for the user (if that account doesn't exists)
                     exists = true;
                 }
             });
             if (!exists) {
-                //if account is new, add it
-                yield user.save();
+                yield user.save(); //if account is new, add it
             }
-            //return whether the account exists or not, reference for when we want to return an error
-            return exists;
+            return exists; //return whether the account exists or not, reference for when we want to return an error
         });
     }
 }

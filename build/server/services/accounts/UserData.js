@@ -18,10 +18,8 @@ class UserData {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
             let data = { username: '', password: '', email: '' };
-            // searching for user's data only want the username, password and email
-            yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 })
+            yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 }) // searching for user's data only want the username, password and email
                 .then(res => {
-                //if a record was found with that username then return the user's data
                 if (res) {
                     data.username = res.username;
                     data.password = res.password;
@@ -33,8 +31,7 @@ class UserData {
                 return data;
             }
             else {
-                //if the user's data isn't found then return an error
-                return `User "${username}" not found`;
+                return `User "${username}" not found`; //if the user's data isn't found then return an error
             }
         });
     }
