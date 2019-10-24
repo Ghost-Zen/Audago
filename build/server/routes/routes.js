@@ -28,7 +28,7 @@ class AppRoutes {
         this.app.get('/api/signup', userApi.userSignUp);
         this.app.post('/api/signin', userApi.userSignIn);
         this.app.post('/api/delete/user', userApi.deleteUser);
-        this.app.post('/api/edit/user', userApi.editUserData);
+        this.app.get('/api/edit/user', userApi.editUserData);
         this.app.get('/api/user/data/:user', userApi.getUserData);
     }
 }

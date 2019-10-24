@@ -1,10 +1,12 @@
 import CreateAccount from '../services/accounts/CreateAccount';
 import DeletingAccount from '../services/accounts/DeletingAccount';
-import { Iaccounts } from '../services/models/Accounts';
 import UserData from '../services/accounts/UserData';
+import UpdateAccount from '../services/accounts/UpdateAccount';
+import { Iaccounts } from '../services/models/Accounts';
 const createAccount = new CreateAccount;
 const deleteAccount = new DeletingAccount;
 const userData = new UserData;
+const updateAccount = new UpdateAccount;
 export default class UserApi {
 
     async userSignUp(req, res) {
@@ -48,8 +50,24 @@ export default class UserApi {
         })
     }
 
-    editUserData(req, res) {
-
+    async editUserData(req, res) {
+        let user: Iaccounts = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanjhope@gmail.com',
+            image: '',
+            active: true,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        await updateAccount.update('danielminter123', user);
+        res.json({
+            status: 'success'
+        });
     }
 
 

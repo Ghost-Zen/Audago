@@ -15,9 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const CreateAccount_1 = __importDefault(require("../services/accounts/CreateAccount"));
 const DeletingAccount_1 = __importDefault(require("../services/accounts/DeletingAccount"));
 const UserData_1 = __importDefault(require("../services/accounts/UserData"));
+const UpdateAccount_1 = __importDefault(require("../services/accounts/UpdateAccount"));
 const createAccount = new CreateAccount_1.default;
 const deleteAccount = new DeletingAccount_1.default;
 const userData = new UserData_1.default;
+const updateAccount = new UpdateAccount_1.default;
 class UserApi {
     userSignUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -60,6 +62,25 @@ class UserApi {
         });
     }
     editUserData(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let user = {
+                firstName: 'Dyllan',
+                lastName: 'Hope',
+                username: 'dyllanhope123',
+                password: '12345',
+                email: 'dyllanjhope@gmail.com',
+                image: '',
+                active: true,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield updateAccount.update('danielminter123', user);
+            res.json({
+                status: 'success'
+            });
+        });
     }
 }
 exports.default = UserApi;
