@@ -5,6 +5,12 @@ const schema = graphql_1.buildSchema(`
 type Query {
   test: String
 }
+type userSchema {
+   descript:String
+ }
+type Mutation {
+   createAccount(input: String):userSchema
+}
 `);
 exports.default = schema;
 //# sourceMappingURL=schema.js.map
