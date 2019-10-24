@@ -13,23 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
-class CreateAccount {
-    create(account) {
+// *** NEEDS WORK or DISCUSSION ON HOW WE WANT THIS TO WORK ***
+class UpdateAccount {
+    update(username, account) {
         return __awaiter(this, void 0, void 0, function* () {
-            let exists = false;
-            let user = new Accounts_1.default(account);
-            yield Accounts_1.default.find({ username: user.username }) //search for username (unique field) in DB
-                .then(res => {
-                if (res.length > 0) { //checking if their was a response for the user (if that account doesn't exists)
-                    exists = true;
-                }
-            });
-            if (!exists) {
-                yield user.save(); //if account is new, add it
-            }
-            return exists; //return whether the account exists or not, reference for when we want to return an error
+            yield Accounts_1.default.updateOne({ username }, account); //use the username as a primary key
         });
     }
 }
-exports.default = CreateAccount;
-//# sourceMappingURL=CreateAccount.js.map
+exports.default = UpdateAccount;
+//# sourceMappingURL=UpdateAccount.js.map

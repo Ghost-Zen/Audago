@@ -1,18 +1,22 @@
 import CreateAccount from '../services/accounts/CreateAccount';
 import DeletingAccount from '../services/accounts/DeletingAccount';
+import UserData from '../services/accounts/UserData';
+import UpdateAccount from '../services/accounts/UpdateAccount';
 import { Iaccounts } from '../services/models/Accounts';
 const createAccount = new CreateAccount;
 const deleteAccount = new DeletingAccount;
+const userData = new UserData;
+const updateAccount = new UpdateAccount;
 export default class UserApi {
 
     async userSignUp(req, res) {
-        // let { firstName, lastName, username, password, email } = req.body;
+        let { firstName, lastName, username, password, email } = req.body;
         let user: Iaccounts = {
-            firstName: 'Daniel',
-            lastName: 'Minter',
-            username: 'danielminter123',
-            password: '12345',
-            email: 'danielminter@gmail.com',
+            firstName,
+            lastName,
+            username,
+            password,
+            email,
             image: '',
             active: true,
             timestamp: {
@@ -20,7 +24,10 @@ export default class UserApi {
                 lastSeen: 'date'
             }
         }
-        await createAccount.create(user)
+        res.json({
+            staus: 'success',
+            exists: await createAccount.create(user)
+        });
     }
 
     deleteUser(req, res) {
@@ -35,15 +42,30 @@ export default class UserApi {
 
     }
 
-    getUserData(req, res) {
+    async getUserData(req, res) {
+        const username = req.params.user;
         res.json({
-            status: 'Dummy Data',
-            response: { firstname: 'John', lastname: 'Doe', username: 'johndoe123' }
+            status: 'success',
+            response: await userData.loginData(username)
         })
     }
 
-    editUserData(req, res) {
-
+    async editUserData(req, res) {
+        let { firstName, lastName, username, password, email, image, active, timestamp } = req.body;
+        let user: Iaccounts = {
+            firstName,
+            lastName,
+            username,
+            password,
+            email,
+            image,
+            active,
+            timestamp
+        }
+        await updateAccount.update(username, user);
+        res.json({
+            status: 'success'
+        });
     }
 
 

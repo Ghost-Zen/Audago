@@ -12,7 +12,7 @@ const Playlist = new mongoose_1.Schema({
     "name": { "type": String, "required": true, "unique": true },
     "follower_count": { "type": Number, "required": true },
     "song_count": { "type": Number, "required": true },
-    "songs": { "type": [String], "required": true },
+    "songs": { "type": [String], "required": false },
     "users": [{ "type": mongoose_1.Schema.Types.ObjectId, ref: 'Accounts' }]
 });
 exports.default = mongoose_1.default.model('Playlist', Playlist);

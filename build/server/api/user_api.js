@@ -14,18 +14,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const CreateAccount_1 = __importDefault(require("../services/accounts/CreateAccount"));
 const DeletingAccount_1 = __importDefault(require("../services/accounts/DeletingAccount"));
+const UserData_1 = __importDefault(require("../services/accounts/UserData"));
+const UpdateAccount_1 = __importDefault(require("../services/accounts/UpdateAccount"));
 const createAccount = new CreateAccount_1.default;
 const deleteAccount = new DeletingAccount_1.default;
+const userData = new UserData_1.default;
+const updateAccount = new UpdateAccount_1.default;
 class UserApi {
     userSignUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            // let { firstName, lastName, username, password, email } = req.body;
+            let { firstName, lastName, username, password, email } = req.body;
             let user = {
-                firstName: 'Daniel',
-                lastName: 'Minter',
-                username: 'danielminter123',
-                password: '12345',
-                email: 'danielminter@gmail.com',
+                firstName,
+                lastName,
+                username,
+                password,
+                email,
                 image: '',
                 active: true,
                 timestamp: {
@@ -33,7 +37,10 @@ class UserApi {
                     lastSeen: 'date'
                 }
             };
-            yield createAccount.create(user);
+            res.json({
+                staus: 'success',
+                exists: yield createAccount.create(user)
+            });
         });
     }
     deleteUser(req, res) {
@@ -46,12 +53,32 @@ class UserApi {
     userSignIn(req, res) {
     }
     getUserData(req, res) {
-        res.json({
-            status: 'Dummy Data',
-            response: { firstname: 'John', lastname: 'Doe', username: 'johndoe123' }
+        return __awaiter(this, void 0, void 0, function* () {
+            const username = req.params.user;
+            res.json({
+                status: 'success',
+                response: yield userData.loginData(username)
+            });
         });
     }
     editUserData(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { firstName, lastName, username, password, email, image, active, timestamp } = req.body;
+            let user = {
+                firstName,
+                lastName,
+                username,
+                password,
+                email,
+                image,
+                active,
+                timestamp
+            };
+            yield updateAccount.update(username, user);
+            res.json({
+                status: 'success'
+            });
+        });
     }
 }
 exports.default = UserApi;

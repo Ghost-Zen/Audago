@@ -14,11 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
 class DeleteAccount {
+    //deleting specific users
     delete(username) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Accounts_1.default.deleteOne({ username: username });
         });
     }
+    //deleting all users
     deleteAll() {
         return __awaiter(this, void 0, void 0, function* () {
             yield Accounts_1.default.deleteMany({});

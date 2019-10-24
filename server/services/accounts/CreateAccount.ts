@@ -14,6 +14,6 @@ export default class CreateAccount {
         if (!exists) {
             await user.save();                              //if account is new, add it
         }
-        return exists;                                      //return whether the acocunt exists or not, reference for when we want to return an error.
+        return exists;                                      //return whether the account exists or not, reference for when we want to return an error
     }
 }
