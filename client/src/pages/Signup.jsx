@@ -1,9 +1,7 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import {ADD_USER} from '../Queries';
-// import { Mutation } from '@apollo/react-components'
+import {ADD_USER} from '../queries';
 import { Mutation } from 'react-apollo'
-import { useQuery } from '@apollo/react-hooks';
 
 
 export default class Signup extends React.Component {
@@ -23,13 +21,10 @@ export default class Signup extends React.Component {
 
   handleSubmit = () => {
     let { firstname,lastname,username,email,password,confirm } = this.state
-    console.log('test1')
     if(password === confirm){
-      console.log('test2')
-    // const createMutation = useQuery(ADD_USER, { variables: { firstname,lastname,username,email,password }});
-    // return createMutation  
+      ///must still add code
   }else{
-      ///display message
+      ///display message, passwords dont match
     }
   }
 
@@ -67,8 +62,8 @@ export default class Signup extends React.Component {
             onChange={this.handleChange}
           />
 <Mutation mutation={ADD_USER} variables={{ firstname,lastname,username,email,password,confirm }}>
-  {() => (
-     <Button type="submit" color='teal' fluid size='large' onClick={this.handleSubmit}>
+  {createAccount => (
+     <Button type="submit" color='teal' fluid size='large' onClick={createAccount}>
      Signup
    </Button>
   )}
