@@ -5,15 +5,19 @@ const schema = graphql_1.buildSchema(`
 type Query {
   test: String
 }
+
 type userSchema {
-   firstname:String
-   lastname:String
+   firstName:String
+   lastName:String
    username:String
    email:String
    password:String
+   image:String
+   active:Boolean
+   timestamp:String
  }
 type Mutation {
-   createAccount(firstname:String,lastname:String,username:String,email:String,password:String):userSchema
+   createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean,timestamp:String):userSchema
 }
 `);
 exports.default = schema;

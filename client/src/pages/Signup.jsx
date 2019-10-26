@@ -1,17 +1,24 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 import {ADD_USER} from '../queries';
 import { Mutation } from 'react-apollo'
 
 
 export default class Signup extends React.Component {
   state = {
-    firstname: "",
-    lastname:"",
+    firstName: "",
+    lastName:"",
     username:"",
     email: "",
     password: "",
-    confirm:""
+    confirm:"",
+    image:"",
+    active:true,
+  //   timestamp: {
+  //     created: 'date',
+  //     lastSeen: 'date'
+  // }
+  timestamp:""
   }
   handleChange = (event) => {
     this.setState({
@@ -20,16 +27,16 @@ export default class Signup extends React.Component {
   }
 
   handleSubmit = () => {
-    let { firstname,lastname,username,email,password,confirm } = this.state
-    if(password === confirm){
+    // let { firstName,lastName,username,email,password,confirm } = this.state
+    // if(password === confirm){
       ///must still add code
-  }else{
+  // }else{
       ///display message, passwords dont match
-    }
+    // }
   }
 
     render(){
-      let { firstname,lastname,username,email,password,confirm } = this.state
+      let { firstName,lastName,username,email,password,image,active,timestamp } = this.state
         return(
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
@@ -39,8 +46,8 @@ export default class Signup extends React.Component {
       </Header>
       <Form size='large'>
         <Segment stacked>
-        <Form.Input  name='firstname' fluid icon='user' iconPosition='left' placeholder='Firstname' onChange={this.handleChange} />
-        <Form.Input name='lastname' fluid icon='user' iconPosition='left' placeholder='Lastname' onChange={this.handleChange} />
+        <Form.Input  name='firstName' fluid icon='user' iconPosition='left' placeholder='Firstname' onChange={this.handleChange} />
+        <Form.Input name='lastName' fluid icon='user' iconPosition='left' placeholder='Lastname' onChange={this.handleChange} />
         <Form.Input name='username' fluid icon='user' iconPosition='left' placeholder='Username' onChange={this.handleChange} />
           <Form.Input name='email' fluid icon='user' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
           <Form.Input
@@ -61,7 +68,7 @@ export default class Signup extends React.Component {
             type='password'
             onChange={this.handleChange}
           />
-<Mutation mutation={ADD_USER} variables={{ firstname,lastname,username,email,password,confirm }}>
+<Mutation mutation={ADD_USER} variables={{ firstName,lastName,username,email,password,image,active,timestamp }}>
   {createAccount => (
      <Button type="submit" color='teal' fluid size='large' onClick={createAccount}>
      Signup
