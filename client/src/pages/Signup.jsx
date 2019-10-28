@@ -14,11 +14,6 @@ export default class Signup extends React.Component {
     confirm:"",
     image:"",
     active:true,
-  //   timestamp: {
-  //     created: 'date',
-  //     lastSeen: 'date'
-  // }
-  timestamp:""
   }
   handleChange = (event) => {
     this.setState({
@@ -36,7 +31,7 @@ export default class Signup extends React.Component {
   }
 
     render(){
-      let { firstName,lastName,username,email,password,image,active,timestamp } = this.state
+      let { firstName,lastName,username,email,password,image,active } = this.state
         return(
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
@@ -68,7 +63,7 @@ export default class Signup extends React.Component {
             type='password'
             onChange={this.handleChange}
           />
-<Mutation mutation={ADD_USER} variables={{ firstName,lastName,username,email,password,image,active,timestamp }}>
+<Mutation mutation={ADD_USER} variables={{ firstName,lastName,username,email,password,image,active }}>
   {createAccount => (
      <Button type="submit" color='teal' fluid size='large' onClick={createAccount}>
      Signup

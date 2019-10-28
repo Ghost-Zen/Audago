@@ -12,10 +12,16 @@ type userSchema {
    password:String
    image:String
    active:Boolean
-   timestamp:String
  }
+
+ type searchSchema{
+  search:String
+ }
+
+
 type Mutation {
-   createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean,timestamp:String):userSchema
-}
+   createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean):userSchema
+   searchSong(search:String):searchSchema
+  }
 `);
 export default schema
