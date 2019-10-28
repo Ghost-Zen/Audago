@@ -3,11 +3,19 @@ const schema = buildSchema(`
 type Query {
   test: String
 }
+
 type userSchema {
-   descript:String
+   firstName:String
+   lastName:String
+   username:String
+   email:String
+   password:String
+   image:String
+   active:Boolean
+   timestamp:String
  }
 type Mutation {
-   createAccount(input: String):userSchema
+   createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean,timestamp:String):userSchema
 }
 `);
 export default schema

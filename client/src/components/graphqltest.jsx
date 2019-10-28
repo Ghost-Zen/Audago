@@ -4,7 +4,7 @@ import { gql } from 'apollo-boost';
 
 const DATA = gql`
   {
-    hello
+    test
   }
 `;
 
