@@ -9,7 +9,7 @@ export interface Iaccounts{
     image: string;
     active: boolean;
     timestamp: {
-        created: string;
+        created: any;
         lastSeen: string;
     };
 }

@@ -20,8 +20,8 @@ export default class UserApi {
             image: '',
             active: true,
             timestamp: {
-                created: 'date',
-                lastSeen: 'date'
+                created: '',
+                lastSeen: '',
             }
         }
         res.json({

@@ -13,12 +13,7 @@ export default class Signup extends React.Component {
     password: "",
     confirm: "",
     image: "",
-    active: true,
-    //   timestamp: {
-    //     created: 'date',
-    //     lastSeen: 'date'
-    // }
-    timestamp: ""
+    active: true
   }
   handleChange = (event) => {
     this.setState({

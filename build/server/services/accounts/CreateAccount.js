@@ -16,7 +16,12 @@ const Accounts_1 = __importDefault(require("../models/Accounts"));
 class CreateAccount {
     create(account) {
         return __awaiter(this, void 0, void 0, function* () {
+            let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            let date = new Date();
+            let created = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
             let exists = false;
+            account.timestamp.created = created;
+            account.timestamp.lastSeen = created;
             let user = new Accounts_1.default(account);
             yield Accounts_1.default.find({ username: user.username }) //search for username (unique field) in DB
                 .then(res => {
