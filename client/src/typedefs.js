@@ -9,8 +9,19 @@ export const ADD_USER = gql`
         email,
         password,
         image,
+<<<<<<< HEAD
         active
+=======
+        active,
+>>>>>>> 618388f51ee2a1ca5952d35f214217a7eba571f7
 }
     }
 `;
 
+export const SEARCH_SONG = gql`
+  mutation($search:String) {
+   searchSong (search:$search){
+        search
+}
+    }
+`;

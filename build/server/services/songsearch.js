@@ -12,21 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const CreateAccount_1 = __importDefault(require("../services/accounts/CreateAccount"));
-const songsearch_1 = __importDefault(require("../services/songsearch"));
-const Query = {
-    hello: () => 'Hello World',
-    test: () => 'Test Success, GraphQL server is up & running !!',
-    createAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(input);
-        const createAccount = new CreateAccount_1.default;
-        // await createAccount.create(input) commented out must fix schema for graphql *timestamp
-    }),
-    searchSong: (input) => {
-        console.log(input);
-        const searchSong = new songsearch_1.default();
-        searchSong.getFromItunesAPI(input);
+const axios_1 = __importDefault(require("axios"));
+class SearchSong {
+    constructor() {
+        this.getFromItunesAPI = (e) => __awaiter(this, void 0, void 0, function* () {
+            let allSongsByArtist = [];
+            yield axios_1.default
+                .get('https://itunes.apple.com/search?term=' + e.search)
+                .then(function (response) {
+                let data = response.data.results;
+                for (let item of data) {
+                    if (item.kind === 'song') {
+                        allSongsByArtist.push(item.trackName);
+                    }
+                }
+                console.log(allSongsByArtist);
+            });
+        });
     }
-};
-exports.default = Query;
-//# sourceMappingURL=resolver.js.map
+}
+exports.default = SearchSong;
+//# sourceMappingURL=songsearch.js.map
