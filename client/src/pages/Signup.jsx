@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
-import {ADD_USER} from '../queries';
+import {ADD_USER} from '../typedefs';
 import { Mutation } from 'react-apollo'
 
 
