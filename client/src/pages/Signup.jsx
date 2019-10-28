@@ -7,8 +7,8 @@ import { Mutation } from 'react-apollo'
 export default class Signup extends React.Component {
   state = {
     firstName: "",
-    lastName:"",
-    username:"",
+    lastName: "",
+    username: "",
     email: "",
     password: "",
     confirm:"",
@@ -17,16 +17,16 @@ export default class Signup extends React.Component {
   }
   handleChange = (event) => {
     this.setState({
-      [event.target.name]:event.target.value
+      [event.target.name]: event.target.value
     })
   }
 
   handleSubmit = () => {
     // let { firstName,lastName,username,email,password,confirm } = this.state
     // if(password === confirm){
-      ///must still add code
-  // }else{
-      ///display message, passwords dont match
+    ///must still add code
+    // }else{
+    ///display message, passwords dont match
     // }
   }
 
@@ -68,14 +68,14 @@ export default class Signup extends React.Component {
      <Button type="submit" color='teal' fluid size='large' onClick={createAccount}>
      Signup
    </Button>
-  )}
-</Mutation>
-        
-        </Segment>
-      </Form>
-    </Grid.Column>
-  </Grid>
-        )
-    }
+                )}
+              </Mutation>
+
+            </Segment>
+          </Form>
+        </Grid.Column>
+      </Grid>
+    )
+  }
 
 }
