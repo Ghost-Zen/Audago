@@ -1,7 +1,7 @@
 import Account from '../models/Accounts';
 
 export default class UserData {
-    async loginData(username: string) {
+    async loginData(username: string, password: string, email: string) {
         let found: boolean = false;
         let data: any = { username: '', password: '', email: '' };
         await Account.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 })   // searching for user's data only want the username, password and email
@@ -14,9 +14,13 @@ export default class UserData {
                 }
             })
         if (found) {
-            return data;
+            if (password === data.password) {
+                return { response: `You logged in successfully!` };
+            } else {
+                return { response: `Password incorrect` };
+            }
         } else {
-            return false;                                                              //if the user's data isn't found then return an error
+            return { response: `Username ${username} not found` };                                                             //if the user's data isn't found then return an error
         }
     };
 }

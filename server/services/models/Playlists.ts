@@ -6,7 +6,7 @@ export interface Iplaylist {
     follower_count: number,
     song_count: number,
     songs?: Array<{ song_name: string, artist: string }>
-    users?: Array<string>
+    users?: Array<any>
 }
 
 interface PlaylistModel extends Iplaylist, Document { }

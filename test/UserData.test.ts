@@ -23,7 +23,7 @@ describe('Testing the UserData functionality', () => {
     after(() => {
         mongoose.connection.close();
     });
-    it("Should return with Michael's username, password and email", async () => {
+    it("Should return with that Michael has logged in successfully", async () => {
         const createAccount = new CreateAccount;
         const userData = new UserData;
         let user: Iaccounts = {
@@ -40,11 +40,8 @@ describe('Testing the UserData functionality', () => {
             }
         }
         await createAccount.create(user);
-        assert.strict.deepEqual(await userData.loginData('michaeldollman123'), {
-            username: 'michaeldollman123',
-            password: '12345',
-            email: 'michaeldollman@gmail.com'
-        }
+        assert.strict.deepEqual(await userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com'),
+            { response: 'You logged in successfully!' }
         );
     });
     it("Should return with an error that John's data could not be found, as the account wasn't made", async () => {
@@ -64,6 +61,6 @@ describe('Testing the UserData functionality', () => {
             }
         }
         await createAccount.create(user);
-        assert.strict.deepEqual(await userData.loginData('johnhope123'),'User "johnhope123" not found');
+        assert.strict.deepEqual(await userData.loginData('johnhope123', '12345', 'michaeldollman@gmail.com'), { response: 'Username johnhope123 not found' });
     });
 });

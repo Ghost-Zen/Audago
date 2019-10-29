@@ -20,16 +20,8 @@ const Query = {
     hello: () => 'Hello World',
     test: () => 'Test Success, GraphQL server is up & running !!',
     createAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        // console.log(input)
         const createAccount = new CreateAccount_1.default;
-        let response = yield createAccount.create(input);
-        if (!response) {
-            return { response: `Account created` };
-        }
-        else {
-            return { response: `Username ${input.username} already exists` };
-        }
-        // commented out must fix schema for graphql *timestamp
+        return yield createAccount.create(input);
     }),
     searchSong: (input) => {
         console.log(input);
@@ -37,18 +29,7 @@ const Query = {
         searchSong.getFromItunesAPI(input);
     },
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        let response = yield userData.loginData(input.username);
-        if (response) {
-            if (response.password === input.password) {
-                return { response: `You logged in successfully!` };
-            }
-            else {
-                return { response: `Password incorrect` };
-            }
-        }
-        else {
-            return { response: `Username ${input.username} not found` };
-        }
+        return yield userData.loginData(input.username, input.password, input.email);
     })
 };
 exports.default = Query;

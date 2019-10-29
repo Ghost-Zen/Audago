@@ -97,7 +97,7 @@ describe('Testing the create account functionality', () => {
             }
         }
         let status = await createAccount.create(user);
-        assert.strict.equal(status, false);
+        assert.strict.deepEqual(status, { response: `Account created` });
 
         user = {
             firstName: 'Dyllan',
@@ -113,6 +113,6 @@ describe('Testing the create account functionality', () => {
             }
         }
         status = await createAccount.create(user);
-        assert.strict.equal(status, true);
+        assert.strict.deepEqual(status, { response: `Username dyllanhope123 already exists` });
     });
 });
