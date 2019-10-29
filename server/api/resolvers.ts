@@ -9,28 +9,31 @@ const Query = {
         // console.log(input)
         const createAccount = new CreateAccount;
         let response = await createAccount.create(input)
-        if(!response){
-        return {response:`Account created`}
-        }else{
-            return {response:`Username ${input.username} already exists`}
+        if (!response) {
+            return { response: `Account created` }
+        } else {
+            return { response: `Username ${input.username} already exists` }
         }
         // commented out must fix schema for graphql *timestamp
     },
-    searchSong: (input) => {
+    searchSong: async (input) => {
         console.log(input)
         const searchSong = new SearchSong()
-        searchSong.getFromItunesAPI(input)
+        let result = await searchSong.getFromItunesAPI(input)
+        // console.log(result)
+        return {search: result}
     },
+    
     loginCheck: async (input) => {
         let response = await userData.loginData(input.username);
         if (response) {
             if (response.password === input.password) {
-                return {response:`You logged in successfully!`};
+                return { response: `You logged in successfully!` };
             } else {
-               return {response:`Password incorrect`};
+                return { response: `Password incorrect` };
             }
         } else {
-           return {response:`Username ${input.username} not found`};
+            return { response: `Username ${input.username} not found` };
         }
     }
 }

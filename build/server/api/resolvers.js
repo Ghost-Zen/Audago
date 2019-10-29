@@ -31,11 +31,13 @@ const Query = {
         }
         // commented out must fix schema for graphql *timestamp
     }),
-    searchSong: (input) => {
+    searchSong: (input) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(input);
         const searchSong = new songsearch_1.default();
-        searchSong.getFromItunesAPI(input);
-    },
+        let result = yield searchSong.getFromItunesAPI(input);
+        // console.log(result)
+        return { search: result };
+    }),
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
         let response = yield userData.loginData(input.username);
         if (response) {

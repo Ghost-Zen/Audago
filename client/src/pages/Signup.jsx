@@ -44,7 +44,7 @@ export default class Signup extends React.Component {
               <Form.Input name='firstName' fluid icon='user' iconPosition='left' placeholder='Firstname' onChange={this.handleChange} />
               <Form.Input name='lastName' fluid icon='user' iconPosition='left' placeholder='Lastname' onChange={this.handleChange} />
               <Form.Input name='username' fluid icon='user' iconPosition='left' placeholder='Username' onChange={this.handleChange} />
-              <Form.Input name='email' fluid icon='user' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
+              <Form.Input name='email' fluid icon='mail' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
               <Form.Input
                 name='password'
                 fluid
@@ -63,7 +63,12 @@ export default class Signup extends React.Component {
                 type='password'
                 onChange={this.handleChange}
               />
-              <Mutation mutation={ADD_USER} variables={{ firstName, lastName, username, email, password, image, active }}>
+              <Mutation mutation={ADD_USER} variables={{ firstName, lastName, username, email, password, image, active }}       
+              update={(cache, { data: { addTodo } }) => {
+              
+              }
+              }
+                >
                 {createAccount => (
                   <Button type="submit" color='teal' fluid size='large' onClick={createAccount}>
                     Signup

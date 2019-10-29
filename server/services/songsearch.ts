@@ -3,17 +3,19 @@ import axios from 'axios'
 export default class SearchSong {
 
     getFromItunesAPI = async (e) => {
-        let allSongsByArtist = [];
+        let allSongsBySearch = [];
          await axios
-          .get('https://itunes.apple.com/search?term='+e.search)
+          .get(`https://itunes.apple.com/search?term=${e.search}&entity=song`)
           .then(function (response) {
           let data = response.data.results
           for(let item of data){
-            if(item.kind === 'song'){
-                allSongsByArtist.push(item.trackName)
-            }
+            // if(item.kind === 'song'){
+              allSongsBySearch.push(item)
+            // }
           }
-          console.log(allSongsByArtist)  
         });
+        //  let result = allSongsBySearch)
+          console.log(allSongsBySearch)
+          return allSongsBySearch
       }
 }
