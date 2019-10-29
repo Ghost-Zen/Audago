@@ -9,11 +9,7 @@ export const ADD_USER = gql`
         email,
         password,
         image,
-<<<<<<< HEAD
         active
-=======
-        active,
->>>>>>> 618388f51ee2a1ca5952d35f214217a7eba571f7
 }
     }
 `;
@@ -23,5 +19,14 @@ export const SEARCH_SONG = gql`
    searchSong (search:$search){
         search
 }
+    }
+`;
+
+export const LOGIN_CHECK = gql`
+    mutation($username:String, $password:String) {
+      loginCheck (username:$username, password:$password){
+        username,
+        password
+      }
     }
 `;

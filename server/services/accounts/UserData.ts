@@ -16,7 +16,7 @@ export default class UserData {
         if (found) {
             return data;
         } else {
-            return `User "${username}" not found`;                                                              //if the user's data isn't found then return an error
+            return false;                                                              //if the user's data isn't found then return an error
         }
     };
 }

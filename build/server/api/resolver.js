@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const CreateAccount_1 = __importDefault(require("../services/accounts/CreateAccount"));
 const songsearch_1 = __importDefault(require("../services/songsearch"));
+const UserData_1 = __importDefault(require("../services/accounts/UserData"));
+const userData = new UserData_1.default();
 const Query = {
     hello: () => 'Hello World',
     test: () => 'Test Success, GraphQL server is up & running !!',
@@ -26,7 +28,21 @@ const Query = {
         console.log(input);
         const searchSong = new songsearch_1.default();
         searchSong.getFromItunesAPI(input);
-    }
+    },
+    loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        let response = yield userData.loginData(input.username);
+        if (response) {
+            if (response.password === input.password) {
+                console.log('You logged in successfully!');
+            }
+            else {
+                console.log('Password incorrect');
+            }
+        }
+        else {
+            console.log('User not found');
+        }
+    })
 };
 exports.default = Query;
 //# sourceMappingURL=resolver.js.map

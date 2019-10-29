@@ -20,10 +20,16 @@ type userSchema {
   search:String
  }
 
+ type loginSchema{
+   username:String
+   password:String
+ }
+
 
 type Mutation {
    createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean):userSchema
    searchSong(search:String):searchSchema
+   loginCheck(username:String,password:String):loginSchema
   }
 `);
 exports.default = schema;
