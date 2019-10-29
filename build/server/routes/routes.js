@@ -23,6 +23,7 @@ class AppRoutes {
         this.app.post('/api/delete/user', userApi.deleteUser);
         this.app.get('/api/edit/user', userApi.editUserData);
         this.app.get('/api/user/data/:user', userApi.getUserData);
+        this.app.get('/api/create/playlist', userApi.createPlaylist);
     }
 }
 exports.default = AppRoutes;

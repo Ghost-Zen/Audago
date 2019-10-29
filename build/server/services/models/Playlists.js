@@ -10,9 +10,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const Playlist = new mongoose_1.Schema({
     "name": { "type": String, "required": true, "unique": true },
+    "creator": { "type": String, "required": true, "unique": false },
     "follower_count": { "type": Number, "required": true },
     "song_count": { "type": Number, "required": true },
-    "songs": { "type": [String], "required": false },
+    "songs": { "type": [{ "song_name": String, "artist": String }], "required": false },
     "users": [{ "type": mongoose_1.Schema.Types.ObjectId, ref: 'Accounts' }]
 });
 exports.default = mongoose_1.default.model('Playlist', Playlist);
@@ -20,6 +21,7 @@ exports.default = mongoose_1.default.model('Playlist', Playlist);
 // {
 //     name: '2019 Rap',
 //     follower_count: 20034,
+//     creator: 'Dyllan',
 //     song_count: 1,
 //     songs: ['Blessings'],
 //     users: ["507f1f77bcf86cd799439011"]
