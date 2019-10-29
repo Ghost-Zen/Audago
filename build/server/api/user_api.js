@@ -16,10 +16,12 @@ const CreateAccount_1 = __importDefault(require("../services/accounts/CreateAcco
 const DeletingAccount_1 = __importDefault(require("../services/accounts/DeletingAccount"));
 const UserData_1 = __importDefault(require("../services/accounts/UserData"));
 const UpdateAccount_1 = __importDefault(require("../services/accounts/UpdateAccount"));
+const CreatePlaylist_1 = require("../services/playlists/CreatePlaylist");
 const createAccount = new CreateAccount_1.default;
 const deleteAccount = new DeletingAccount_1.default;
 const userData = new UserData_1.default;
 const updateAccount = new UpdateAccount_1.default;
+const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
 class UserApi {
     userSignUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -78,6 +80,17 @@ class UserApi {
             res.json({
                 status: 'success'
             });
+        });
+    }
+    createPlaylist(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let playlist = {
+                name: '2019 Rap',
+                follower_count: 0,
+                creator: 'Dyllan',
+                song_count: 0
+            };
+            console.log(yield createPlaylist.create(playlist));
         });
     }
 }

@@ -3,10 +3,13 @@ import DeletingAccount from '../services/accounts/DeletingAccount';
 import UserData from '../services/accounts/UserData';
 import UpdateAccount from '../services/accounts/UpdateAccount';
 import { Iaccounts } from '../services/models/Accounts';
+import { Iplaylist } from '../services/models/Playlists';
+import { CreatePlaylist } from '../services/playlists/CreatePlaylist';
 const createAccount = new CreateAccount;
 const deleteAccount = new DeletingAccount;
 const userData = new UserData;
 const updateAccount = new UpdateAccount;
+const createPlaylist = new CreatePlaylist;
 export default class UserApi {
 
     async userSignUp(req, res) {
@@ -66,6 +69,16 @@ export default class UserApi {
         res.json({
             status: 'success'
         });
+    }
+
+    async createPlaylist(req, res) {
+        let playlist: Iplaylist = {
+            name: '2019 Rap',
+            follower_count: 0,
+            creator: 'Dyllan',
+            song_count: 0
+        }
+        console.log(await createPlaylist.create(playlist));
     }
 
 

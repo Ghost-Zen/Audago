@@ -9,6 +9,7 @@ const Query = {
         console.log(input)
         const createAccount = new CreateAccount;
         // await createAccount.create(input) commented out must fix schema for graphql *timestamp
+        return input;
     },
     searchSong: (input) => {
         console.log(input)
