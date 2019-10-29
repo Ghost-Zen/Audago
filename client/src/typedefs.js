@@ -19,8 +19,7 @@ export const SEARCH_SONG = gql`
 export const LOGIN_CHECK = gql`
     mutation($username:String, $password:String) {
       loginCheck (username:$username, password:$password){
-        username,
-        password
+        response
       }
     }
 `;
