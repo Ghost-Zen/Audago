@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_api_1 = __importDefault(require("../api/user_api"));
 const express_graphql_1 = __importDefault(require("express-graphql"));
-const resolver_1 = __importDefault(require("../api/resolver"));
-const schema_1 = __importDefault(require("../api/schema"));
+const resolvers_1 = __importDefault(require("../api/resolvers"));
+const typeDefs_1 = __importDefault(require("../api/typeDefs"));
 const userApi = new user_api_1.default();
 class AppRoutes {
     constructor(app) {
@@ -14,8 +14,8 @@ class AppRoutes {
     }
     router() {
         this.app.use('/graphql', express_graphql_1.default({
-            schema: schema_1.default,
-            rootValue: resolver_1.default,
+            schema: typeDefs_1.default,
+            rootValue: resolvers_1.default,
             graphiql: true,
         }));
         this.app.get('/api/signup', userApi.userSignUp);

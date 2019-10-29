@@ -52,4 +52,4 @@ const Query = {
     })
 };
 exports.default = Query;
-//# sourceMappingURL=resolver.js.map
+//# sourceMappingURL=resolvers.js.map

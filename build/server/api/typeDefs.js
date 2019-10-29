@@ -1,7 +1,9 @@
-import { buildSchema } from 'graphql';
-const schema = buildSchema(`
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const graphql_1 = require("graphql");
+const schema = graphql_1.buildSchema(`
 type Query {
-  test: String
+  response: String
 }
 
 type userSchema {
@@ -25,9 +27,10 @@ type userSchema {
 
 
 type Mutation {
-   createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean):userSchema
+   createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean):Query
    searchSong(search:String):searchSchema
    loginCheck(username:String,password:String):loginSchema
   }
 `);
-export default schema
+exports.default = schema;
+//# sourceMappingURL=typeDefs.js.map
