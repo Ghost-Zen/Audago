@@ -6,10 +6,15 @@ const Query = {
     hello: () => 'Hello World',
     test: () => 'Test Success, GraphQL server is up & running !!',
     createAccount: async (input) => {
-        console.log(input)
+        // console.log(input)
         const createAccount = new CreateAccount;
-        // await createAccount.create(input) commented out must fix schema for graphql *timestamp
-        return input;
+        let response = await createAccount.create(input)
+        if(!response){
+        return {response:`Account created`}
+        }else{
+            return {response:`Username ${input.username} already exists`}
+        }
+        // commented out must fix schema for graphql *timestamp
     },
     searchSong: (input) => {
         console.log(input)
@@ -20,12 +25,12 @@ const Query = {
         let response = await userData.loginData(input.username);
         if (response) {
             if (response.password === input.password) {
-                console.log('You logged in successfully!');
+                return {response:`You logged in successfully!`};
             } else {
-                console.log('Password incorrect');
+               return {response:`Password incorrect`};
             }
         } else {
-            console.log('User not found');
+           return {response:`Username ${input.username} not found`};
         }
     }
 }

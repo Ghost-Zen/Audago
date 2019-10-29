@@ -7,9 +7,11 @@ export default class CreateAccount {
         let date = new Date();
         let created = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
         let exists = false;
+        account.timestamp = {created:"",lastSeen:""}
         account.timestamp.created = created;
         account.timestamp.lastSeen = created;
-        let user = new Accounts(account);
+        console.log(account)
+        let user = new Accounts(account)
         await Accounts.find({ username: user.username })    //search for username (unique field) in DB
             .then(res => {                                  //returns array, if empty then the record doesn't exist else the username is already in use
                 if (res.length > 0) {                       //checking if their was a response for the user (if that account doesn't exists)

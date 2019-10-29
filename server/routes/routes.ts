@@ -1,7 +1,7 @@
 import UserApi from '../api/user_api';
 import graphqlHTTP from 'express-graphql';
-import Query from '../api/resolver';
-import schema from '../api/schema';
+import Query from '../api/resolvers';
+import schema from '../api/typeDefs';
 const userApi = new UserApi();
 export default class AppRoutes {
     private app: any;
