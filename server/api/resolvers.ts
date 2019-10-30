@@ -10,6 +10,8 @@ const createAccount = new CreateAccount;
 const searchSong = new SearchSong()
 const deleteAccount = new DeleteAccount;
 const updateAccount = new UpdateAccount;
+const createPlaylist = new CreatePlaylist;
+const removeTrack = new RemoveTrack;
 
 const Query = {
     hello: () => 'Hello World',
@@ -32,7 +34,16 @@ const Query = {
         return await deleteAccount.deleteAll();
     },
     updateUser: async (input) => {
-        return await updateAccount.update(input.username, input.account);
+        return await updateAccount.update(input.username, input.account); //input.account needs to match Iaccounts interface in ../server/services.models/Accounts.ts
+    },
+    newPlaylist: async (input) => {
+        return await createPlaylist.create(input.playlist);     //input.playlist needs to match Iplaylist interface in ../server/services/models/Playlists.ts
+    },
+    newTrack: async (input) => {
+        return await createPlaylist.addToPlaylist(input.track); //input.track needs to match TrackInfo interface in ../server/services/models/Playlists.ts
+    },
+    deleteTrack: async (input) => {
+        return await removeTrack.remove(input.track);           //input.track needs to match TrackInfo interface in ../server/services/models/Playlists.ts
     }
 }
 export default Query

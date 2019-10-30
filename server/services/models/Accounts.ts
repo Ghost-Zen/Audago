@@ -1,17 +1,17 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface Iaccounts{
-    firstName: string;
-    lastName: string;
-    username: string;
-    password: string;
-    email: string;
-    image: string;
-    active: boolean;
+    firstName: string,
+    lastName: string,
+    username: string,
+    password: string,
+    email: string,
+    image: string,
+    active: boolean,
     timestamp: {
-        created: any;
-        lastSeen: string;
-    };
+        created: any,
+        lastSeen: string
+    }
 }
 interface UserModel extends Iaccounts, Document {}
 

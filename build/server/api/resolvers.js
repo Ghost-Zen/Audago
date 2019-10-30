@@ -17,11 +17,15 @@ const DeletingAccount_1 = __importDefault(require("../services/accounts/Deleting
 const UpdateAccount_1 = __importDefault(require("../services/accounts/UpdateAccount"));
 const UserData_1 = __importDefault(require("../services/accounts/UserData"));
 const songsearch_1 = __importDefault(require("../services/songsearch"));
+const CreatePlaylist_1 = require("../services/playlists/CreatePlaylist");
+const RemoveTrack_1 = __importDefault(require("../services/playlists/RemoveTrack"));
 const userData = new UserData_1.default();
 const createAccount = new CreateAccount_1.default;
 const searchSong = new songsearch_1.default();
 const deleteAccount = new DeletingAccount_1.default;
 const updateAccount = new UpdateAccount_1.default;
+const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
+const removeTrack = new RemoveTrack_1.default;
 const Query = {
     hello: () => 'Hello World',
     test: () => 'Test Success, GraphQL server is up & running !!',
@@ -43,7 +47,16 @@ const Query = {
         return yield deleteAccount.deleteAll();
     }),
     updateUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield updateAccount.update(input.username, input.account);
+        return yield updateAccount.update(input.username, input.account); //input.account needs to match Iaccounts interface in ../server/services.models/Accounts.ts
+    }),
+    newPlaylist: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield createPlaylist.create(input.playlist); //input.playlist needs to match Iplaylist interface in ../server/services/models/Playlists.ts
+    }),
+    newTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield createPlaylist.addToPlaylist(input.track); //input.track needs to match TrackInfo interface in ../server/services/models/Playlists.ts
+    }),
+    deleteTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield removeTrack.remove(input.track); //input.track needs to match TrackInfo interface in ../server/services/models/Playlists.ts
     })
 };
 exports.default = Query;
