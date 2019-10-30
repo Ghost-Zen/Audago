@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom';
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import { ADD_USER } from '../typedefs';
-import { Mutation } from 'react-apollo'
+import { Mutation } from 'react-apollo';
 
 
 export default class Signup extends React.Component {
@@ -14,24 +15,26 @@ export default class Signup extends React.Component {
     confirm: "",
     image: "",
     active: true,
+    gql_res: {
+      createAccount: {
+        response: false
+      }
+    }
   }
+  
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
-  handleSubmit = () => {
-    // let { firstName,lastName,username,email,password,confirm } = this.state
-    // if(password === confirm){
-    ///must still add code
-    // }else{
-    ///display message, passwords dont match
-    // }
-  }
 
   render() {
     let { firstName, lastName, username, email, password, image, active } = this.state
+
+    if (this.state.gql_res.createAccount.response === "Account created") {
+      return <Redirect to="/" />
+    }
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -45,34 +48,18 @@ export default class Signup extends React.Component {
               <Form.Input name='lastName' fluid icon='user' iconPosition='left' placeholder='Lastname' onChange={this.handleChange} />
               <Form.Input name='username' fluid icon='user' iconPosition='left' placeholder='Username' onChange={this.handleChange} />
               <Form.Input name='email' fluid icon='mail' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
-              <Form.Input
-                name='password'
-                fluid
-                icon='lock'
-                iconPosition='left'
-                placeholder='Password'
-                type='password'
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                name='confirm'
-                fluid
-                icon='lock'
-                iconPosition='left'
-                placeholder='Confirm Password'
-                type='password'
-                onChange={this.handleChange}
-              />
-              <Mutation mutation={ADD_USER} variables={{ firstName, lastName, username, email, password, image, active }}       
-              update={(cache, { data: { addTodo } }) => {
-              
-              }
-              }
-                >
+              <Form.Input name='password' fluid icon='lock' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />
+              <Form.Input name='confirm' fluid icon='lock' iconPosition='left' placeholder='Confirm Password' type='password' onChange={this.handleChange} />
+              <Mutation mutation={ADD_USER} variables={{ firstName, lastName, username, email, password, image, active }}
+                update={(cache, { data }) => {
+                  this.setState({ gql_res: data })
+                }
+                }
+              >
                 {createAccount => (
                   <Button type="submit" color='teal' fluid size='large' onClick={createAccount}>
                     Signup
-   </Button>
+                  </Button>
                 )}
               </Mutation>
 
