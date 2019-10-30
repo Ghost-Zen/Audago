@@ -6,15 +6,8 @@ const Query = {
     hello: () => 'Hello World',
     test: () => 'Test Success, GraphQL server is up & running !!',
     createAccount: async (input) => {
-        // console.log(input)
         const createAccount = new CreateAccount;
-        let response = await createAccount.create(input)
-        if (!response) {
-            return { response: `Account created` }
-        } else {
-            return { response: `Username ${input.username} already exists` }
-        }
-        // commented out must fix schema for graphql *timestamp
+        return await createAccount.create(input)
     },
     searchSong: async (input) => {
         console.log(input)
@@ -25,16 +18,7 @@ const Query = {
     },
     
     loginCheck: async (input) => {
-        let response = await userData.loginData(input.username);
-        if (response) {
-            if (response.password === input.password) {
-                return { response: `You logged in successfully!` };
-            } else {
-                return { response: `Password incorrect` };
-            }
-        } else {
-            return { response: `Username ${input.username} not found` };
-        }
+        return await userData.loginData(input.username, input.password, input.email);
     }
 }
 export default Query

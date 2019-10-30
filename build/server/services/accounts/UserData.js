@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
 class UserData {
-    loginData(username) {
+    loginData(username, password, email) {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
             let data = { username: '', password: '', email: '' };
@@ -28,10 +28,15 @@ class UserData {
                 }
             });
             if (found) {
-                return data;
+                if (password === data.password) {
+                    return { response: `You logged in successfully!` };
+                }
+                else {
+                    return { response: `Password incorrect` };
+                }
             }
             else {
-                return false; //if the user's data isn't found then return an error
+                return { response: `Username ${username} not found` }; //if the user's data isn't found then return an error
             }
         });
     }

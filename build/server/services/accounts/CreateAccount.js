@@ -23,7 +23,6 @@ class CreateAccount {
             account.timestamp = { created: "", lastSeen: "" };
             account.timestamp.created = created;
             account.timestamp.lastSeen = created;
-            console.log(account);
             let user = new Accounts_1.default(account);
             yield Accounts_1.default.find({ username: user.username }) //search for username (unique field) in DB
                 .then(res => {
@@ -32,9 +31,12 @@ class CreateAccount {
                 }
             });
             if (!exists) {
-                yield user.save(); //if account is new, add it
+                yield user.save();
+                return { response: `Account created` }; //if account created successfully return this message 
             }
-            return exists; //return whether the account exists or not, reference for when we want to return an error
+            else {
+                return { response: `Username ${account.username} already exists` }; //return whether the account exists or not
+            }
         });
     }
 }

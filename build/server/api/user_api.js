@@ -54,15 +54,13 @@ class UserApi {
     }
     userSignIn(req, res) {
     }
-    getUserData(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const username = req.params.user;
-            res.json({
-                status: 'success',
-                response: yield userData.loginData(username)
-            });
-        });
-    }
+    // async getUserData(req, res) {
+    //     const username = req.params.user;
+    //     res.json({
+    //         status: 'success',
+    //         response: await userData.loginData(username)
+    //     })
+    // }
     editUserData(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let { firstName, lastName, username, password, email, image, active, timestamp } = req.body;
@@ -85,12 +83,13 @@ class UserApi {
     createPlaylist(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let playlist = {
-                name: '2019 Rap',
+                name: '2019 House',
                 follower_count: 0,
-                creator: 'Dyllan',
+                creator: 'dyllanhope123',
                 song_count: 0
             };
-            console.log(yield createPlaylist.create(playlist));
+            // await createPlaylist.create(playlist);
+            yield createPlaylist.addToPlaylist('Middle Child', 'J. Cole', '2019 Rap');
         });
     }
 }
