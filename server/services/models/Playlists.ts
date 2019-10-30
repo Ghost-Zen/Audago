@@ -5,8 +5,13 @@ export interface Iplaylist {
     creator: string,
     follower_count: number,
     song_count: number,
-    songs?: Array<{ song_name: string, artist: string }>
+    songs?: Array<{ song: string, artist: string }>
     users?: Array<any>
+}
+export interface TrackInfo {
+    song: string,
+    artist: string,
+    playlist_name:string
 }
 
 interface PlaylistModel extends Iplaylist, Document { }
@@ -16,7 +21,7 @@ const Playlist: Schema = new Schema({
     "creator": { "type": String, "required": true, "unique": false },
     "follower_count": { "type": Number, "required": true },
     "song_count": { "type": Number, "required": true },
-    "songs": { "type": [{ "song_name": String, "artist": String }], "required": false },
+    "songs": { "type": [{ "song": String, "artist": String }], "required": false },
     "users": [{ "type": Schema.Types.ObjectId, ref: 'Accounts' }]
 });
 
