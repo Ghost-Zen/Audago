@@ -3,7 +3,7 @@ const schema = buildSchema(`
 
 type Query {
   response: String
-  search:String
+  search:[String]
 }
 
 type Mutation {

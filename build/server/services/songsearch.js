@@ -16,18 +16,20 @@ const axios_1 = __importDefault(require("axios"));
 class SearchSong {
     constructor() {
         this.getFromItunesAPI = (e) => __awaiter(this, void 0, void 0, function* () {
-            let allSongsByArtist = [];
+            let allSongsBySearch = [];
             yield axios_1.default
-                .get('https://itunes.apple.com/search?term=' + e.search)
+                .get(`https://itunes.apple.com/search?term=${e.search}&entity=song`)
                 .then(function (response) {
                 let data = response.data.results;
                 for (let item of data) {
-                    if (item.kind === 'song') {
-                        allSongsByArtist.push(item.trackName);
-                    }
+                    // if(item.kind === 'song'){
+                    allSongsBySearch.push(item);
+                    // }
                 }
-                console.log(allSongsByArtist);
             });
+            //  let result = allSongsBySearch)
+            console.log(allSongsBySearch);
+            return allSongsBySearch;
         });
     }
 }

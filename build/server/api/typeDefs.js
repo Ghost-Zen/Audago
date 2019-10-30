@@ -5,7 +5,7 @@ const schema = graphql_1.buildSchema(`
 
 type Query {
   response: String
-  search:String
+  search:[String]
 }
 
 type Mutation {

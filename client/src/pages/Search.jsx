@@ -26,8 +26,8 @@ export default class Search extends React.Component {
               <Form.Input fluid icon='music' iconPosition='left' placeholder='Search Song' onChange={this.handleChange} />
 
               <Mutation mutation={SEARCH_SONG} variables={{ search }}>
-                {createAccount => (
-                  <Button type="submit" color='teal' fluid size='large' onClick={createAccount}>
+                {runSearch => (
+                  <Button type="submit" color='teal' fluid size='large' onClick={runSearch}>
                     Search
           </Button>
                 )}
