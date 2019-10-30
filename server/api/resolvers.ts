@@ -13,8 +13,8 @@ const Query = {
         console.log(input)
         const searchSong = new SearchSong()
         let result = await searchSong.getFromItunesAPI(input)
-        // console.log(result)
-        return {search: result}
+        console.log(result)
+        return {Search: result}
     },
     
     loginCheck: async (input) => {

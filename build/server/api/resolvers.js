@@ -27,8 +27,8 @@ const Query = {
         console.log(input);
         const searchSong = new songsearch_1.default();
         let result = yield searchSong.getFromItunesAPI(input);
-        // console.log(result)
-        return { search: result };
+        console.log(result);
+        return { Search: result };
     }),
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield userData.loginData(input.username, input.password, input.email);

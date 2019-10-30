@@ -5,12 +5,20 @@ const schema = graphql_1.buildSchema(`
 
 type Query {
   response: String
-  search:[String]
+  search:String
+}
+
+type Search {
+  artist: String
+  track: String
+  song: String
+  album: String
+  artwork:String
 }
 
 type Mutation {
    createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean):Query
-   searchSong(search:String):Query
+   searchSong(search:String):Search
    loginCheck(username:String,password:String):Query
   }
 `);

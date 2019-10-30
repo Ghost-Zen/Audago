@@ -22,13 +22,16 @@ class SearchSong {
                 .then(function (response) {
                 let data = response.data.results;
                 for (let item of data) {
-                    // if(item.kind === 'song'){
-                    allSongsBySearch.push(item);
-                    // }
+                    let search = {
+                        artist: item.artistName,
+                        track: item.trackCensoredName,
+                        song: item.previewUrl,
+                        album: item.collectionCensoredName,
+                        artwork: item.artworkUrl100
+                    };
+                    allSongsBySearch.push(search);
                 }
             });
-            //  let result = allSongsBySearch)
-            console.log(allSongsBySearch);
             return allSongsBySearch;
         });
     }

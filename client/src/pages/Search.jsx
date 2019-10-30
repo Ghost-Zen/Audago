@@ -4,7 +4,8 @@ import { SEARCH_SONG } from '../typedefs';
 import { Mutation } from 'react-apollo'
 export default class Search extends React.Component {
   state = {
-    search: ""
+    search: "",
+    gql_res: ""
   }
 
   handleChange = (event) => {
@@ -25,7 +26,12 @@ export default class Search extends React.Component {
             <Segment stacked>
               <Form.Input fluid icon='music' iconPosition='left' placeholder='Search Song' onChange={this.handleChange} />
 
-              <Mutation mutation={SEARCH_SONG} variables={{ search }}>
+              <Mutation mutation={SEARCH_SONG} variables={{ search }}  
+              update={(cache, { data }) => {
+                console.log(data)
+              this.setState({ gql_res: data })
+                }
+                }>
                 {runSearch => (
                   <Button type="submit" color='teal' fluid size='large' onClick={runSearch}>
                     Search
