@@ -23,11 +23,13 @@ const Query = {
         const createAccount = new CreateAccount_1.default;
         return yield createAccount.create(input);
     }),
-    searchSong: (input) => {
+    searchSong: (input) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(input);
         const searchSong = new songsearch_1.default();
-        searchSong.getFromItunesAPI(input);
-    },
+        let result = yield searchSong.getFromItunesAPI(input);
+        // console.log(result)
+        return { search: result };
+    }),
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield userData.loginData(input.username, input.password, input.email);
     })

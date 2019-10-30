@@ -9,11 +9,14 @@ const Query = {
         const createAccount = new CreateAccount;
         return await createAccount.create(input)
     },
-    searchSong: (input) => {
+    searchSong: async (input) => {
         console.log(input)
         const searchSong = new SearchSong()
-        searchSong.getFromItunesAPI(input)
+        let result = await searchSong.getFromItunesAPI(input)
+        // console.log(result)
+        return {search: result}
     },
+    
     loginCheck: async (input) => {
         return await userData.loginData(input.username, input.password, input.email);
     }
