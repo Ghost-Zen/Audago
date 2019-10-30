@@ -31,10 +31,10 @@ class CreatePlaylist {
             }));
             if (!exists) {
                 yield newPlaylist.save();
-                return { response: `Playlist created!` };
+                return { response: `Playlist created!`, status: true };
             }
             else {
-                return { response: `Playlist ${playlist.name} already exists` };
+                return { response: `Playlist ${playlist.name} already exists`, status: false };
             }
         });
     }
@@ -61,13 +61,13 @@ class CreatePlaylist {
                 }
             }));
             if (!found) {
-                return { response: `${track.playlist_name} not found` };
+                return { response: `${track.playlist_name} not found`, status: false };
             }
             else if (exists) {
-                return { response: `${track.song} is already in the playlist` };
+                return { response: `${track.song} is already in the playlist`, status: false };
             }
             else {
-                return { response: `track added successfully` };
+                return { response: `track added successfully`, status: true };
             }
         });
     }

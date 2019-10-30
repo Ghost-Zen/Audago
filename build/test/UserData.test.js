@@ -52,13 +52,13 @@ describe('Testing the UserData functionality', () => {
             }
         };
         yield createAccount.create(user);
-        assert_1.default.strict.deepEqual(yield userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com'), { response: 'You logged in successfully!' });
+        assert_1.default.strict.deepEqual(yield userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com'), { response: 'You logged in successfully!', status: true });
     }));
     it("Should return with an error that John's data could not be found, as the account wasn't made", () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
         const userData = new UserData_1.default;
         let user = {
-            firstName: 'Micheal',
+            firstName: 'Michael',
             lastName: 'Dollman',
             username: 'michaeldollman123',
             password: '12345',
@@ -71,7 +71,26 @@ describe('Testing the UserData functionality', () => {
             }
         };
         yield createAccount.create(user);
-        assert_1.default.strict.deepEqual(yield userData.loginData('johnhope123', '12345', 'michaeldollman@gmail.com'), { response: 'Username johnhope123 not found' });
+        assert_1.default.strict.deepEqual(yield userData.loginData('johnhope123', '12345', 'michaeldollman@gmail.com'), { response: 'Username johnhope123 not found', status: false });
+    }));
+    it("Should return with an error that the entered password is  incorrect", () => __awaiter(void 0, void 0, void 0, function* () {
+        const createAccount = new CreateAccount_1.default;
+        const userData = new UserData_1.default;
+        let user = {
+            firstName: 'Michael',
+            lastName: 'Dollman',
+            username: 'michaeldollman123',
+            password: '12345',
+            email: 'michaeldollman@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        };
+        yield createAccount.create(user);
+        assert_1.default.strict.deepEqual(yield userData.loginData('michaeldollman123', '1245', 'michaeldollman@gmail.com'), { response: 'Password incorrect', status: false });
     }));
 });
 //# sourceMappingURL=UserData.test.js.map

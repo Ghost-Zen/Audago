@@ -17,9 +17,9 @@ export default class RemoveTrack {
                 await Playlist.updateOne({ name: track.playlist_name }, { songs: newList });
             });
         if(!found){
-            return {response: `The song ${track.song} was not found in the playlist ${track.playlist_name}`};
+            return {response: `The song ${track.song} was not found in the playlist ${track.playlist_name}`, status: false};
         } else {
-            return {response: `The song ${track.song} was successfully removed from the playlist ${track.playlist_name}`};
+            return {response: `The song ${track.song} was successfully removed from the playlist ${track.playlist_name}`, status: true};
         }
     }
 }

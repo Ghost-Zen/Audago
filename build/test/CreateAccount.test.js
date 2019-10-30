@@ -107,7 +107,7 @@ describe('Testing the create account functionality', () => {
             }
         };
         let status = yield createAccount.create(user);
-        assert_1.default.strict.deepEqual(status, { response: `Account created` });
+        assert_1.default.strict.deepEqual(status, { response: `Account created`, status: true });
         user = {
             firstName: 'Dyllan',
             lastName: 'Hope',
@@ -122,7 +122,7 @@ describe('Testing the create account functionality', () => {
             }
         };
         status = yield createAccount.create(user);
-        assert_1.default.strict.deepEqual(status, { response: `Username dyllanhope123 already exists` });
+        assert_1.default.strict.deepEqual(status, { response: `Username dyllanhope123 already exists`, status: false });
     }));
 });
 //# sourceMappingURL=CreateAccount.test.js.map

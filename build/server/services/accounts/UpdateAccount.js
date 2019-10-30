@@ -18,6 +18,7 @@ class UpdateAccount {
     update(username, account) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Accounts_1.default.updateOne({ username }, account); //use the username as a primary key
+            return { response: `Account updated successfully!`, status: true };
         });
     }
 }

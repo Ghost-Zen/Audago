@@ -67,7 +67,7 @@ describe('Testing the "remove track" functionality', () => {
         yield createPlaylist.addToPlaylist(track);
         track = { song: "Midnight", artist: "Logic", playlist_name: "2019 Rap" };
         let response = yield removeTrack.remove(track);
-        assert_1.default.strict.deepEqual(response, { response: 'The song Midnight was not found in the playlist 2019 Rap' });
+        assert_1.default.strict.deepEqual(response, { response: 'The song Midnight was not found in the playlist 2019 Rap', status: false });
     }));
     it('Should return "The song Middle Child was successfully removed from the playlist 2019 Rap"', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
@@ -100,7 +100,7 @@ describe('Testing the "remove track" functionality', () => {
         yield createPlaylist.addToPlaylist(track);
         track = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
         let response = yield removeTrack.remove(track);
-        assert_1.default.strict.deepEqual(response, { response: 'The song Middle Child was successfully removed from the playlist 2019 Rap' });
+        assert_1.default.strict.deepEqual(response, { response: 'The song Middle Child was successfully removed from the playlist 2019 Rap', status: true });
     }));
 });
 //# sourceMappingURL=RemoveTrack.test.js.map

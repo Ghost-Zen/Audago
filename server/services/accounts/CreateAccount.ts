@@ -19,9 +19,9 @@ export default class CreateAccount {
             });
         if (!exists) {
             await user.save(); 
-            return { response: `Account created` };                             //if account created successfully return this message 
+            return { response: `Account created`, status: true };                             //if account created successfully return this message 
         } else {
-            return { response: `Username ${account.username} already exists` }  //return whether the account exists or not
+            return { response: `Username ${account.username} already exists`, status:false }  //return whether the account exists or not
         }
     }
 }
