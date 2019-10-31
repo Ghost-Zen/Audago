@@ -29,7 +29,6 @@ const Query = {
         return yield createAccount.create(input);
     }),
     searchSong: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(input);
         let result = yield searchSong.getFromItunesAPI(input);
         console.log(result);
         return { Search: result };
