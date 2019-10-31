@@ -11,6 +11,23 @@ type Query {
 type Search {
   artist: String
   track: String
+}
+
+  input Playlist {
+  name: String
+  creator: String
+  follower_count: Int
+  song_count: Int
+  songs: [Track]
+  users: [String]
+}
+
+input Track {
+  song: String
+  artist: String
+}
+
+input PlaylistTrack {
   song: String
   album: String
   artwork:String
