@@ -31,12 +31,8 @@ const Query = {
     searchSong: (input) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(input);
         let result = yield searchSong.getFromItunesAPI(input);
-<<<<<<< HEAD
         console.log(result);
         return { Search: result };
-=======
-        return { search: result };
->>>>>>> 89973c2a33eecfe4e38932c99c341c2af4e26f8f
     }),
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield userData.loginData(input.username, input.password, input.email);
