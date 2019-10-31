@@ -30,9 +30,6 @@ const Query = {
     deleteUser: async (input) => {
         return await deleteAccount.delete(input.username);
     },
-    deleteAll: async () => {
-        return await deleteAccount.deleteAll();
-    },
     updateUser: async (input) => {
         return await updateAccount.update(input.username, input.account); //input.account needs to match Iaccounts interface in ../server/services.models/Accounts.ts
     },
@@ -44,6 +41,9 @@ const Query = {
     },
     deleteTrack: async (input) => {
         return await removeTrack.remove(input.track);           //input.track needs to match TrackInfo interface in ../server/services/models/Playlists.ts
+    },
+    deleteAll: async () => {
+        return await deleteAccount.deleteAll();
     }
 }
 export default Query

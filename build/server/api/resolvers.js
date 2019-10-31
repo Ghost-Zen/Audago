@@ -43,9 +43,6 @@ const Query = {
     deleteUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield deleteAccount.delete(input.username);
     }),
-    deleteAll: () => __awaiter(void 0, void 0, void 0, function* () {
-        return yield deleteAccount.deleteAll();
-    }),
     updateUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield updateAccount.update(input.username, input.account); //input.account needs to match Iaccounts interface in ../server/services.models/Accounts.ts
     }),
@@ -57,6 +54,9 @@ const Query = {
     }),
     deleteTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield removeTrack.remove(input.track); //input.track needs to match TrackInfo interface in ../server/services/models/Playlists.ts
+    }),
+    deleteAll: () => __awaiter(void 0, void 0, void 0, function* () {
+        return yield deleteAccount.deleteAll();
     })
 };
 exports.default = Query;

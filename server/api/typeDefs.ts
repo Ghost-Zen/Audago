@@ -1,37 +1,45 @@
 import { buildSchema } from 'graphql';
 const schema = buildSchema(`
+input TimeStamp {
+  created: String
+  lastSeen: String
+}
+
+input Account {
+  firstName: String
+  lastName: String
+  username: String
+  password: String
+  email: String
+  image: String
+  active: Boolean
+  timestamp: TimeStamp
+}
+
+input Playlist = {
+  name: String
+  creator: String
+  follower_count: Number
+  song_count: Number
+  songs: [Track]
+  users: [String]
+}
+
+input Track = {
+  song: String
+  artist: String
+}
+
+input PlaylistTrack = {
+  song: String
+  artist: String
+  playlist_name: String
+}
 
 type Query {
   response: String
   status: Boolean
   search:[String]
-}
-
-type Playlist {
-  name: String
-  creator: String
-  follower_count: Number
-  song_count: Number
-}
-
-type Track {
-  song: String,
-  artist: String,
-  playlist_name:String
-}
-
-type Account {
-  firstName: String
-    lastName: String
-    username: String
-    password: String
-    email: String
-    image: String
-    active: boolean
-    timestamp: {
-        created: any
-        lastSeen: String
-    }
 }
 
 type Mutation {
@@ -40,10 +48,12 @@ type Mutation {
    loginCheck(username:String,password:String):Query
    deleteUser(username:String):Query
    deleteAll:Query
-   updateUser(username:String,account:Account):Query
+   updateUser(username:String,account:Account!):Query
    newPlaylist(playlist:Playlist ):Query
-   newTrack(track:Track):Query
-   deleteTrack(track:Track):Query
+   newTrack(track:PlaylistTrack):Query
+   deleteTrack(track:PlaylistTrack):Query
   }
 `);
 export default schema
+
+
