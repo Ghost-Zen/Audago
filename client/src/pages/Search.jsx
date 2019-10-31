@@ -5,7 +5,8 @@ import { Mutation } from 'react-apollo'
 export default class Search extends React.Component {
   state = {
     search: "",
-    gql_res: ""
+    gql_res: "",
+    loading: false
   }
 
   handleChange = (event) => {
@@ -16,6 +17,12 @@ export default class Search extends React.Component {
 
   render() {
     let { search } = this.state
+    if(this.state.gql_res === "7"){
+      // this.setState({loading:false})
+      return(
+        <div>Test...</div>
+      )
+    }
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -28,8 +35,11 @@ export default class Search extends React.Component {
 
               <Mutation mutation={SEARCH_SONG} variables={{ search }}  
               update={(cache, { data }) => {
-                console.log(data)
-              this.setState({ gql_res: data })
+                console.log(cache)
+                data = JSON.parse(data.searchSong.response)
+              this.setState({ gql_res: data,
+                              loading:true
+              })
                 }
                 }>
                 {runSearch => (

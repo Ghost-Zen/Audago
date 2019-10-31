@@ -19,8 +19,7 @@ const Query = {
     },
     searchSong: async (input) => {
         let result = await searchSong.getFromItunesAPI(input)
-        console.log(result)
-        return {Search: result}
+        return {response: result}
     },
     loginCheck: async (input) => {
         return await userData.loginData(input.username, input.password, input.email);

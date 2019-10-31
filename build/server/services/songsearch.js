@@ -32,7 +32,7 @@ class SearchSong {
                     allSongsBySearch.push(search);
                 }
             });
-            return allSongsBySearch;
+            return JSON.stringify(allSongsBySearch);
         });
     }
 }
