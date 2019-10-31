@@ -16,21 +16,21 @@ input Account {
   timestamp: TimeStamp
 }
 
-input Playlist = {
+input Playlist {
   name: String
   creator: String
-  follower_count: Number
-  song_count: Number
+  follower_count: Int
+  song_count: Int
   songs: [Track]
   users: [String]
 }
 
-input Track = {
+input Track {
   song: String
   artist: String
 }
 
-input PlaylistTrack = {
+input PlaylistTrack {
   song: String
   artist: String
   playlist_name: String
