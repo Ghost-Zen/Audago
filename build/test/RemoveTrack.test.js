@@ -16,8 +16,11 @@ const assert_1 = __importDefault(require("assert"));
 const Accounts_1 = __importDefault(require("../server/services/models/Accounts"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const CreateAccount_1 = __importDefault(require("../server/services/accounts/CreateAccount"));
+const CreatePlaylist_1 = require("../server/services/playlists/CreatePlaylist");
+const RemoveTrack_1 = __importDefault(require("../server/services/playlists/RemoveTrack"));
+const Playlists_1 = __importDefault(require("../server/services/models/Playlists"));
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
-describe('Testing the create account functionality', () => {
+describe('Testing the "remove track" functionality', () => {
     before(function (done) {
         mongoose_1.default.Promise = global.Promise;
         mongoose_1.default.set('useCreateIndex', true);
@@ -29,13 +32,16 @@ describe('Testing the create account functionality', () => {
         });
     });
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield Playlists_1.default.deleteMany({});
         yield Accounts_1.default.deleteMany({});
     }));
     after(() => {
         mongoose_1.default.connection.close();
     });
-    it('Should return that "Dyllan" was added as a new account', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return "The song Middle was not found in the playlist 2019 Rap"', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
+        const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
+        const removeTrack = new RemoveTrack_1.default;
         let user = {
             firstName: 'Dyllan',
             lastName: 'Hope',
@@ -50,13 +56,23 @@ describe('Testing the create account functionality', () => {
             }
         };
         yield createAccount.create(user);
-        Accounts_1.default.find({}, { '_id': 0, 'username': 1 })
-            .then((accounts) => {
-            assert_1.default.strict.equal(accounts[0].username, 'dyllanhope123');
-        });
+        let playlist = {
+            name: '2019 Rap',
+            follower_count: 0,
+            creator: 'dyllanhope123',
+            song_count: 0
+        };
+        let track = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
+        yield createPlaylist.create(playlist);
+        yield createPlaylist.addToPlaylist(track);
+        track = { song: "Midnight", artist: "Logic", playlist_name: "2019 Rap" };
+        let response = yield removeTrack.remove(track);
+        assert_1.default.strict.deepEqual(response, { response: 'The song Midnight was not found in the playlist 2019 Rap', status: false });
     }));
-    it('Should return that "Dyllan & Daniel" were added as new accounts', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return "The song Middle Child was successfully removed from the playlist 2019 Rap"', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
+        const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
+        const removeTrack = new RemoveTrack_1.default;
         let user = {
             firstName: 'Dyllan',
             lastName: 'Hope',
@@ -71,58 +87,20 @@ describe('Testing the create account functionality', () => {
             }
         };
         yield createAccount.create(user);
-        user = {
-            firstName: 'Daniel',
-            lastName: 'Minter',
-            username: 'danielminter123',
-            password: '12345',
-            email: 'danielminter@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
+        let playlist = {
+            name: '2019 Rap',
+            follower_count: 0,
+            creator: 'dyllanhope123',
+            song_count: 0
         };
-        yield createAccount.create(user);
-        Accounts_1.default.find({})
-            .then((accounts) => {
-            assert_1.default.strict.equal(accounts[0].username, 'dyllanhope123');
-            assert_1.default.strict.equal(accounts[1].username, 'danielminter123');
-        });
-    }));
-    it('Should return that "Dyllan" is already an existing account', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: '12345',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
-        };
-        let status = yield createAccount.create(user);
-        assert_1.default.strict.deepEqual(status, { response: `Account created`, status: true });
-        user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: '12345',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
-        };
-        status = yield createAccount.create(user);
-        assert_1.default.strict.deepEqual(status, { response: `Username dyllanhope123 already exists`, status: false });
+        let track = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
+        yield createPlaylist.create(playlist);
+        yield createPlaylist.addToPlaylist(track);
+        track = { song: "Midnight", artist: "Logic", playlist_name: "2019 Rap" };
+        yield createPlaylist.addToPlaylist(track);
+        track = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
+        let response = yield removeTrack.remove(track);
+        assert_1.default.strict.deepEqual(response, { response: 'The song Middle Child was successfully removed from the playlist 2019 Rap', status: true });
     }));
 });
-//# sourceMappingURL=CreateAccount.test.js.map
+//# sourceMappingURL=RemoveTrack.test.js.map

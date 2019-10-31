@@ -61,7 +61,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         };
         let response = yield createPlaylist.create(playlist);
-        assert_1.default.strict.deepEqual(response, { response: 'Playlist created!' });
+        assert_1.default.strict.deepEqual(response, { response: 'Playlist created!', status: true });
     }));
     it('Should return that the playlist "2019 House" already exists', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
@@ -94,7 +94,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         };
         let response = yield createPlaylist.create(playlist);
-        assert_1.default.strict.deepEqual(response, { response: 'Playlist 2019 House already exists' });
+        assert_1.default.strict.deepEqual(response, { response: 'Playlist 2019 House already exists', status: false });
     }));
     it('Should return that the playlist "2019 House" was not found', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
@@ -121,7 +121,7 @@ describe('Testing the "adding to playlist" functionality', () => {
         };
         yield createPlaylist.create(playlist);
         let response = yield createPlaylist.addToPlaylist({ song: "Middle Child", artist: "J. Cole", playlist_name: "2019 House" });
-        assert_1.default.strict.deepEqual(response, { response: '2019 House not found' });
+        assert_1.default.strict.deepEqual(response, { response: '2019 House not found', status: false });
     }));
     it('Should return that the song "Middle Child" by "J. Cole" was added to the playlist "2019 rap" successfully', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
@@ -148,7 +148,7 @@ describe('Testing the "adding to playlist" functionality', () => {
         };
         yield createPlaylist.create(playlist);
         let response = yield createPlaylist.addToPlaylist({ song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" });
-        assert_1.default.strict.deepEqual(response, { response: 'track added successfully' });
+        assert_1.default.strict.deepEqual(response, { response: 'track added successfully', status: true });
     }));
     it('Should return that the song "Middle Child" by "J. Cole" was already in the playlist', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
@@ -176,7 +176,7 @@ describe('Testing the "adding to playlist" functionality', () => {
         yield createPlaylist.create(playlist);
         yield createPlaylist.addToPlaylist({ song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" });
         let response = yield createPlaylist.addToPlaylist({ song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" });
-        assert_1.default.strict.deepEqual(response, { response: 'Middle Child is already in the playlist' });
+        assert_1.default.strict.deepEqual(response, { response: 'Middle Child is already in the playlist', status: false });
     }));
 });
-//# sourceMappingURL=playlist.test.js.map
+//# sourceMappingURL=CreatePlaylist.test.js.map

@@ -41,14 +41,14 @@ describe('Testing the UserData functionality', () => {
         }
         await createAccount.create(user);
         assert.strict.deepEqual(await userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com'),
-            { response: 'You logged in successfully!' }
+            { response: 'You logged in successfully!', status: true }
         );
     });
     it("Should return with an error that John's data could not be found, as the account wasn't made", async () => {
         const createAccount = new CreateAccount;
         const userData = new UserData;
         let user: Iaccounts = {
-            firstName: 'Micheal',
+            firstName: 'Michael',
             lastName: 'Dollman',
             username: 'michaeldollman123',
             password: '12345',
@@ -61,6 +61,25 @@ describe('Testing the UserData functionality', () => {
             }
         }
         await createAccount.create(user);
-        assert.strict.deepEqual(await userData.loginData('johnhope123', '12345', 'michaeldollman@gmail.com'), { response: 'Username johnhope123 not found' });
+        assert.strict.deepEqual(await userData.loginData('johnhope123', '12345', 'michaeldollman@gmail.com'), { response: 'Username johnhope123 not found', status: false });
+    });
+    it("Should return with an error that the entered password is  incorrect", async () => {
+        const createAccount = new CreateAccount;
+        const userData = new UserData;
+        let user: Iaccounts = {
+            firstName: 'Michael',
+            lastName: 'Dollman',
+            username: 'michaeldollman123',
+            password: '12345',
+            email: 'michaeldollman@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        await createAccount.create(user);
+        assert.strict.deepEqual(await userData.loginData('michaeldollman123', '1245', 'michaeldollman@gmail.com'), { response: 'Password incorrect', status: false });
     });
 });

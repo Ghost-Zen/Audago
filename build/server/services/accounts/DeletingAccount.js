@@ -18,12 +18,14 @@ class DeleteAccount {
     delete(username) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Accounts_1.default.deleteOne({ username: username });
+            return { response: `User ${username} deleted successfully`, status: true };
         });
     }
     //deleting all users
     deleteAll() {
         return __awaiter(this, void 0, void 0, function* () {
             yield Accounts_1.default.deleteMany({});
+            return { response: `All users deleted!`, status: true };
         });
     }
 }

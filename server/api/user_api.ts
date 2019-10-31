@@ -79,7 +79,7 @@ export default class UserApi {
             song_count: 0
         }
         // await createPlaylist.create(playlist);
-        await createPlaylist.addToPlaylist('Middle Child', 'J. Cole', '2019 Rap');
+        await createPlaylist.addToPlaylist({song:'Middle Child', artist:'J. Cole', playlist_name:'2019 Rap'});
     }
 
 

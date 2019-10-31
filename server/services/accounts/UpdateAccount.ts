@@ -4,6 +4,7 @@ import Account, { Iaccounts } from '../models/Accounts';
 
 export default class UpdateAccount {
     async update(username: string, account: Iaccounts) {    //parameters will all be loaded in together so original info stays while new info updates
-        await Account.updateOne({username}, account);       //use the username as a primary key
+        await Account.updateOne({ username }, account);       //use the username as a primary key
+        return { response: `Account updated successfully!`, status: true };
     }
 }
