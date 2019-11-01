@@ -1,12 +1,21 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 import { LOGIN_CHECK } from '../typedefs';
-import { Mutation } from 'react-apollo'
+import { Mutation } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 export default class Login extends React.Component {
   state = {
     username: '',
-    password: ''
+    password: '',
+    status: false,
+    message: ''
+  }
+
+  renderRedirect = () => {
+    if (this.state.status) {
+      return <Redirect to='/' />
+    }
   }
 
   handleChange = (event) => {
@@ -16,7 +25,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    let {username, password} = this.state
+    let { username, password } = this.state
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -27,17 +36,17 @@ export default class Login extends React.Component {
           <Form size='large'>
             <Segment stacked>
               <Form.Input fluid icon='user' name='username' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
-              <Form.Input
-                fluid
-                icon='lock'
-                name='password'
-                iconPosition='left'
-                placeholder='Password'
-                type='password'
-                onChange={this.handleChange}
-              />
-
-              <Mutation mutation={LOGIN_CHECK} variables={{ username, password }}>
+              <Form.Input fluid icon='lock' name='password' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />
+              {this.renderRedirect()}
+              <Mutation mutation={LOGIN_CHECK} variables={{ username, password }}
+                update={(cache, { data }) => {
+                  this.setState({
+                    status: data.loginCheck.status,
+                    message: data.loginCheck.response
+                  });
+                }
+                }
+              >
                 {loginCheck => (
                   <Button type="submit" color='teal' fluid size='large' onClick={loginCheck}>
                     Login
