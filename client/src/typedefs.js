@@ -35,23 +35,7 @@ export const DELETE_USER = gql`
     }
 `;
 
-export const UPDATE_USER = gql`
-input TimeStamp {
-  created: String
-  lastSeen: String
-}
-
-input Account {
-  firstName: String
-  lastName: String
-  username: String
-  password: String
-  email: String
-  image: String
-  active: Boolean
-  timestamp: TimeStamp
-}
-
+export const UPDATE_USER = gql`  
     mutation($username:String, $account:Account){
       updateUser(username:$username, account: $account){
         response,
