@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { SEARCH_SONG } from '../typedefs';
 import { Mutation } from 'react-apollo'
+import Webplayer from './Webplayer';
 export default class Search extends React.Component {
   state = {
     search: "",
@@ -17,11 +18,10 @@ export default class Search extends React.Component {
 
   render() {
     let { search } = this.state
-    if(this.state.gql_res === "7"){
-      // this.setState({loading:false})
+    if(this.state.gql_res !== ""){
       return(
-        <div>Test...</div>
-      )
+        <Webplayer data={this.state.gql_res} />
+        )
     }
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -33,9 +33,8 @@ export default class Search extends React.Component {
             <Segment stacked>
               <Form.Input fluid icon='music' iconPosition='left' placeholder='Search Song' onChange={this.handleChange} />
 
-              <Mutation mutation={SEARCH_SONG} variables={{ search }}  
+              <Mutation mutation={SEARCH_SONG} variables={{ search }}
               update={(cache, { data }) => {
-                console.log(cache)
                 data = JSON.parse(data.searchSong.response)
               this.setState({ gql_res: data,
                               loading:true
