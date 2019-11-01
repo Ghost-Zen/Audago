@@ -18,25 +18,30 @@ class UserData {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
             let data = { username: '', password: '', email: '' };
-            yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 }) // searching for user's data only want the username, password and email
-                .then(res => {
-                if (res) {
-                    data.username = res.username;
-                    data.password = res.password;
-                    data.email = res.email;
-                    found = true;
-                }
-            });
-            if (found) {
-                if (password === data.password) {
-                    return { response: `You logged in successfully!`, status: true };
+            if (username.trim()) {
+                yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 }) // searching for user's data only want the username, password and email
+                    .then(res => {
+                    if (res) {
+                        data.username = res.username;
+                        data.password = res.password;
+                        data.email = res.email;
+                        found = true;
+                    }
+                });
+                if (found) {
+                    if (password === data.password) {
+                        return { response: `You logged in successfully!`, status: true };
+                    }
+                    else {
+                        return { response: `Password incorrect`, status: false };
+                    }
                 }
                 else {
-                    return { response: `Password incorrect`, status: false };
+                    return { response: `Username ${username} not found`, status: false }; //if the user's data isn't found then return an error
                 }
             }
             else {
-                return { response: `Username ${username} not found`, status: false }; //if the user's data isn't found then return an error
+                return { response: `Please enter a username`, status: false };
             }
         });
     }
