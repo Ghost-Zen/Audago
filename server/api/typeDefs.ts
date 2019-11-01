@@ -38,6 +38,12 @@ type Mutation {
    createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean):Query
    searchSong(search:String):Query
    loginCheck(username:String,password:String):Query
+   deleteUser(username:String):Query
+   deleteAll:Query
+   updateUser(username:String,account:Account!):Query
+   newPlaylist(playlist:Playlist ):Query
+   newTrack(track:PlaylistTrack):Query
+   deleteTrack(track:PlaylistTrack):Query
   }
 `);
 export default schema

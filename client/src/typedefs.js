@@ -19,7 +19,26 @@ export const SEARCH_SONG = gql`
 export const LOGIN_CHECK = gql`
     mutation($username:String, $password:String) {
       loginCheck (username:$username, password:$password){
-        response
+        response,
+        status
+      }
+    }
+`;
+
+export const DELETE_USER = gql`
+    mutation($username:String){
+      deleteUser (username:$username){
+        response,
+        status
+      }
+    }
+`;
+
+export const UPDATE_USER = gql`  
+    mutation($username:String, $account:Account){
+      updateUser(username:$username, account: $account){
+        response,
+        status
       }
     }
 `;
