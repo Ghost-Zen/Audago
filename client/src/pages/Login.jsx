@@ -18,6 +18,14 @@ export default class Login extends React.Component {
     }
   }
 
+  renderError = () => {
+    if (!this.state.status && this.state.message) {
+      return (<Message negative>
+        <Message.Header>{this.state.message}</Message.Header>
+      </Message>)
+    }
+  }
+
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
@@ -38,6 +46,7 @@ export default class Login extends React.Component {
               <Form.Input fluid icon='user' name='username' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
               <Form.Input fluid icon='lock' name='password' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />
               {this.renderRedirect()}
+              {this.renderError()}
               <Mutation mutation={LOGIN_CHECK} variables={{ username, password }}
                 update={(cache, { data }) => {
                   this.setState({
