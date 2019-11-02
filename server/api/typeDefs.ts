@@ -1,20 +1,20 @@
 import { buildSchema } from 'graphql';
 const schema = buildSchema(`
-
-type Query {
-  response: String
-  search:String
+input TimeStamp {
+  created: String
+  lastSeen: String
 }
-
-type Search {
-  artist: String
-  track: String
-  song: String
-  album: String
-  artwork: String
+input Account {
+  firstName: String
+  lastName: String
+  username: String
+  password: String
+  email: String
+  image: String
+  active: Boolean
+  timestamp: TimeStamp
 }
-
-  input Playlist {
+input Playlist {
   name: String
   creator: String
   follower_count: Int
@@ -22,18 +22,20 @@ type Search {
   songs: [Track]
   users: [String]
 }
-
 input Track {
   song: String
   artist: String
 }
-
 input PlaylistTrack {
   song: String
-  album: String
-  artwork:String
+  artist: String
+  playlist_name: String
 }
-
+type Query {
+  response: String
+  status: Boolean
+  search:[String]
+}
 type Mutation {
    createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean):Query
    searchSong(search:String):Query
