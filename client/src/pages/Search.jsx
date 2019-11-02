@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Image, Message, Segment,Container } from 'semantic-ui-react'
 import { SEARCH_SONG } from '../typedefs';
 import { Mutation } from 'react-apollo'
 import Webplayer from './Webplayer';
@@ -24,6 +24,7 @@ export default class Search extends React.Component {
         )
     }
     return (
+      <Container>
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' color='teal' textAlign='center'>
@@ -51,6 +52,7 @@ export default class Search extends React.Component {
           </Form>
         </Grid.Column>
       </Grid>
+      </Container>
     )
   }
 
