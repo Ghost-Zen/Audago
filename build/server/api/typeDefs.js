@@ -16,6 +16,17 @@ type Search {
   artwork: String
 }
 
+input Account {
+  firstName: String
+  lastName: String
+  username: String
+  password: String
+  email: String
+  image: String
+  active: Boolean
+  timestamp: TimeStamp
+}
+
   input Playlist {
   name: String
   creator: String
