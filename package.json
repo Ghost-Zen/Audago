@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node build/server.js",
-    "test": "ts-mocha test/*.ts"
+    "test": "ts-mocha test/*.ts",
+    "auto":"nodemon --watch . ./build/server.js"
   },
   "author": "",
   "license": "ISC",
