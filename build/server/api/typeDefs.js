@@ -28,18 +28,24 @@ input Track {
   song: String
   artist: String
 }
+type PlaylistInfo {
+  name: String,
+  followers: Int,
+  song_count: Int
+}
 input PlaylistTrack {
   song: String
   artist: String
   playlist_name: String
 }
 type Query {
-  response: String
+  response: String,
+  list: [PlaylistInfo]
   status: Boolean
   search:[String]
 }
 type Mutation {
-   createAccount(firstName:String,lastName:String,username:String,email:String,password:String,image:String,active:Boolean):Query
+   createAccount(account:Account):Query
    searchSong(search:String):Query
    loginCheck(username:String,password:String):Query
    deleteUser(username:String):Query
@@ -48,7 +54,20 @@ type Mutation {
    newPlaylist(playlist:Playlist ):Query
    newTrack(track:PlaylistTrack):Query
    deleteTrack(track:PlaylistTrack):Query
+   followPlaylist(username: String, playlistName: String):Query
+   unfollowPlaylist(username: String, playlistName: String):Query
+   playlistsForUser(username: String):Query
   }
 `);
 exports.default = schema;
+// {
+// 	"playlist":  {
+//   "name": "2019 Rap",
+//   "creator": "dyllanhope123",
+//   "follower_count": 1,
+//   "song_count": 0,
+//   "songs": [],
+//   "users": []
+//   }
+// }
 //# sourceMappingURL=typeDefs.js.map

@@ -55,7 +55,7 @@ export default class FollowPlaylist {
                                 playlistFound = true;
                                 let index = await res.users.indexOf(userID);
                                 await res.users.splice(index, 1);
-                                await Playlist.updateOne({name:playlistName}, {users: res.users});
+                                await Playlist.updateOne({name:playlistName}, {users: res.users, follower_count: res.users.length});
                             }
                         })
                 };

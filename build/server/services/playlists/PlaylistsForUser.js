@@ -45,7 +45,7 @@ class PlaylistsForUser {
                     return { response: `No playlists found, go follow/create some!`, status: true };
                 }
                 else {
-                    return { response: playlists, status: true };
+                    return { list: playlists, status: true };
                 }
             }
             else {

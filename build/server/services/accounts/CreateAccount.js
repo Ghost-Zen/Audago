@@ -23,10 +23,11 @@ class CreateAccount {
             account.timestamp = { created: "", lastSeen: "" };
             account.timestamp.created = created;
             account.timestamp.lastSeen = created;
+            console.log(account);
             let user = new Accounts_1.default(account);
-            yield Accounts_1.default.find({ username: user.username }) //search for username (unique field) in DB
+            yield Accounts_1.default.findOne({ username: user.username }) //search for username (unique field) in DB
                 .then(res => {
-                if (res.length > 0) { //checking if their was a response for the user (if that account doesn't exists)
+                if (res) { //checking if their was a response for the user (if that account doesn't exists)
                     exists = true;
                 }
             });

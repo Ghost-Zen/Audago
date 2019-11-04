@@ -76,7 +76,7 @@ class FollowPlaylist {
                             playlistFound = true;
                             let index = yield res.users.indexOf(userID);
                             yield res.users.splice(index, 1);
-                            yield Playlists_1.default.updateOne({ name: playlistName }, { users: res.users });
+                            yield Playlists_1.default.updateOne({ name: playlistName }, { users: res.users, follower_count: res.users.length });
                         }
                     }));
                 }
