@@ -81,6 +81,49 @@ describe('Testing the following and unfollowing of playlists functionality', () 
             let response = yield followPlaylist.follow('dyllanhope123', '2019 Rap');
             assert_1.default.strict.deepEqual(response, { response: 'dyllanhope123 is now following 2019 Rap', status: true });
         }));
+        it('Should return that Dyllan is following the playlist "2019 rap"', () => __awaiter(void 0, void 0, void 0, function* () {
+            const createAccount = new CreateAccount_1.default;
+            const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
+            const followPlaylist = new FollowPlaylist_1.default;
+            let user = {
+                firstName: 'Daniel',
+                lastName: 'Minter',
+                username: 'danielminter123',
+                password: '12345',
+                email: 'daniel@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield createAccount.create(user);
+            user = {
+                firstName: 'Dyllan',
+                lastName: 'Hope',
+                username: 'dyllanhope123',
+                password: '12345',
+                email: 'dyllanhope@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield createAccount.create(user);
+            let playlist = {
+                name: '2019 Rap',
+                follower_count: 1,
+                creator: 'danielminter123',
+                song_count: 0
+            };
+            yield createPlaylist.create(playlist);
+            yield followPlaylist.follow('dyllanhope123', '2019 Rap');
+            let response = yield followPlaylist.follow('dyllanhope123', '2019 Rap');
+            assert_1.default.strict.deepEqual(response, { response: 'dyllanhope123 is already following 2019 Rap', status: false });
+        }));
         it('Should return that the username dyllanhope13 cannot be found', () => __awaiter(void 0, void 0, void 0, function* () {
             const createAccount = new CreateAccount_1.default;
             const createPlaylist = new CreatePlaylist_1.CreatePlaylist;

@@ -19,6 +19,7 @@ class FollowPlaylist {
         return __awaiter(this, void 0, void 0, function* () {
             let userFound = false;
             let playlistFound = false;
+            let exists = false;
             let userID;
             yield Accounts_1.default.findOne({ username })
                 .then((res) => __awaiter(this, void 0, void 0, function* () {
@@ -28,26 +29,34 @@ class FollowPlaylist {
                 else {
                     userFound = true;
                     userID = res._id;
+                    yield Playlists_1.default.findOne({ name: playlistName })
+                        .then((res) => __awaiter(this, void 0, void 0, function* () {
+                        if (res === null) {
+                            playlistFound = false;
+                        }
+                        else {
+                            playlistFound = true;
+                            if (!res.users.includes(userID)) {
+                                let userList = res.users;
+                                userList.push(userID);
+                                yield Playlists_1.default.updateOne({ name: playlistName }, { users: userList, follower_count: userList.length });
+                            }
+                            else {
+                                exists = true;
+                            }
+                        }
+                    }));
                 }
                 ;
-                yield Playlists_1.default.findOne({ name: playlistName })
-                    .then((res) => __awaiter(this, void 0, void 0, function* () {
-                    if (res === null) {
-                        playlistFound = false;
-                    }
-                    else {
-                        playlistFound = true;
-                        let userList = res.users;
-                        userList.push(userID);
-                        yield Playlists_1.default.updateOne({ name: playlistName }, { users: userList, follower_count: userList.length });
-                    }
-                }));
             }));
             if (!userFound) {
                 return { response: `Username ${username} not found`, status: false };
             }
             else if (!playlistFound) {
                 return { response: `Playlist ${playlistName} not found`, status: false };
+            }
+            else if (exists) {
+                return { response: `${username} is already following ${playlistName}`, status: false };
             }
             else {
                 return { response: `${username} is now following ${playlistName}`, status: true };

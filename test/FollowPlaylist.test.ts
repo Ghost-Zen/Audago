@@ -70,6 +70,49 @@ describe('Testing the following and unfollowing of playlists functionality', () 
             let response = await followPlaylist.follow('dyllanhope123', '2019 Rap');
             assert.strict.deepEqual(response, { response: 'dyllanhope123 is now following 2019 Rap', status: true });
         })
+        it('Should return that Dyllan is following the playlist "2019 rap"', async () => {
+            const createAccount = new CreateAccount;
+            const createPlaylist = new CreatePlaylist;
+            const followPlaylist = new FollowPlaylist;
+            let user: Iaccounts = {
+                firstName: 'Daniel',
+                lastName: 'Minter',
+                username: 'danielminter123',
+                password: '12345',
+                email: 'daniel@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            }
+            await createAccount.create(user);
+            user = {
+                firstName: 'Dyllan',
+                lastName: 'Hope',
+                username: 'dyllanhope123',
+                password: '12345',
+                email: 'dyllanhope@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            }
+            await createAccount.create(user);
+            let playlist: Iplaylist = {
+                name: '2019 Rap',
+                follower_count: 1,
+                creator: 'danielminter123',
+                song_count: 0
+            }
+            await createPlaylist.create(playlist);
+            await followPlaylist.follow('dyllanhope123', '2019 Rap');
+            let response = await followPlaylist.follow('dyllanhope123', '2019 Rap');
+            assert.strict.deepEqual(response, { response: 'dyllanhope123 is already following 2019 Rap', status: false });
+        })
         it('Should return that the username dyllanhope13 cannot be found', async () => {
             const createAccount = new CreateAccount;
             const createPlaylist = new CreatePlaylist;

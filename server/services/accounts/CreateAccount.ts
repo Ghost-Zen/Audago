@@ -10,7 +10,6 @@ export default class CreateAccount {
         account.timestamp = {created:"",lastSeen:""}
         account.timestamp.created = created;
         account.timestamp.lastSeen = created;
-        console.log(account)
         let user = new Accounts(account)
         await Accounts.findOne({ username: user.username })    //search for username (unique field) in DB
             .then(res => {    

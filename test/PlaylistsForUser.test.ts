@@ -82,7 +82,7 @@ describe('Testing the users playlists service functionality', () => {
         await createPlaylist.create(playlist);
         let response = await playlistsForUser.playlistsFor('dyllanhope123');
         assert.strict.deepEqual(response, {
-            response:
+            list:
                 [{ name: '2019 Rap', followers: 1, song_count: 0 }, { name: '2019 House', followers: 1, song_count: 0 }], status: true
         });
     });
