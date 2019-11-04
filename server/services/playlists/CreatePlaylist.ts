@@ -40,7 +40,7 @@ export class CreatePlaylist {
                     }
                     if (!exists) {
                         song_list.push({ track: track.track, artist: track.artist });
-                        await Playlist.updateOne({ name: track.playlist_name }, { songs: song_list });
+                        await Playlist.updateOne({ name: track.playlist_name }, { songs: song_list, song_count:song_list.length });
                     }
                 }
             });

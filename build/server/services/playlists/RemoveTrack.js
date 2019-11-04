@@ -29,7 +29,7 @@ class RemoveTrack {
                         newList.push(item);
                     }
                 }
-                yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: newList });
+                yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: newList, song_count: newList.length });
             }));
             if (!found) {
                 return { response: `The song ${track.track} was not found in the playlist ${track.playlist_name}`, status: false };

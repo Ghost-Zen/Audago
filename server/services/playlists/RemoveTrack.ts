@@ -14,7 +14,7 @@ export default class RemoveTrack {
                         newList.push(item);
                     }
                 }
-                await Playlist.updateOne({ name: track.playlist_name }, { songs: newList });
+                await Playlist.updateOne({ name: track.playlist_name }, { songs: newList, song_count: newList.length });
             });
         if(!found){
             return {response: `The song ${track.track} was not found in the playlist ${track.playlist_name}`, status: false};

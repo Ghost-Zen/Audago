@@ -56,7 +56,7 @@ class CreatePlaylist {
                     }
                     if (!exists) {
                         song_list.push({ track: track.track, artist: track.artist });
-                        yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: song_list });
+                        yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: song_list, song_count: song_list.length });
                     }
                 }
             }));
