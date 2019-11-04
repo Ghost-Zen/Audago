@@ -50,12 +50,12 @@ class CreatePlaylist {
                 else {
                     let song_list = res.songs;
                     for (const song of song_list) {
-                        if (song.song === track.song && song.artist === track.artist) {
+                        if (song.track === track.track && song.artist === track.artist) {
                             exists = true;
                         }
                     }
                     if (!exists) {
-                        song_list.push({ song: track.song, artist: track.artist });
+                        song_list.push({ track: track.track, artist: track.artist });
                         yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: song_list });
                     }
                 }
@@ -64,7 +64,7 @@ class CreatePlaylist {
                 return { response: `${track.playlist_name} not found`, status: false };
             }
             else if (exists) {
-                return { response: `${track.song} is already in the playlist`, status: false };
+                return { response: `${track.track} is already in the playlist`, status: false };
             }
             else {
                 return { response: `track added successfully`, status: true };

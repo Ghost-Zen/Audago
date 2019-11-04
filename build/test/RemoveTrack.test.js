@@ -62,10 +62,10 @@ describe('Testing the "remove track" functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         };
-        let track = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
+        let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         yield createPlaylist.create(playlist);
         yield createPlaylist.addToPlaylist(track);
-        track = { song: "Midnight", artist: "Logic", playlist_name: "2019 Rap" };
+        track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         let response = yield removeTrack.remove(track);
         assert_1.default.strict.deepEqual(response, { response: 'The song Midnight was not found in the playlist 2019 Rap', status: false });
     }));
@@ -93,12 +93,12 @@ describe('Testing the "remove track" functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         };
-        let track = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
+        let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         yield createPlaylist.create(playlist);
         yield createPlaylist.addToPlaylist(track);
-        track = { song: "Midnight", artist: "Logic", playlist_name: "2019 Rap" };
+        track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         yield createPlaylist.addToPlaylist(track);
-        track = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
+        track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         let response = yield removeTrack.remove(track);
         assert_1.default.strict.deepEqual(response, { response: 'The song Middle Child was successfully removed from the playlist 2019 Rap', status: true });
     }));

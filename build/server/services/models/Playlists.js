@@ -13,7 +13,7 @@ const Playlist = new mongoose_1.Schema({
     "creator": { "type": String, "required": true, "unique": false },
     "follower_count": { "type": Number, "required": true },
     "song_count": { "type": Number, "required": true },
-    "songs": { "type": [{ "song": String, "artist": String }], "required": false },
+    "songs": { "type": [{ "track": String, "artist": String, "song": String, "album": String, "artwork": String }], "required": false },
     "users": [{ "type": mongoose_1.Schema.Types.ObjectId, ref: 'Accounts' }]
 });
 exports.default = mongoose_1.default.model('Playlist', Playlist);
@@ -23,7 +23,7 @@ exports.default = mongoose_1.default.model('Playlist', Playlist);
 //     follower_count: 20034,
 //     creator: 'Dyllan',
 //     song_count: 1,
-//     songs: ['Blessings'],
+//     songs: [{track:'Blessings', artist:'Big sean', song:'urltosong.com', album:'none',artwork:'urltoartwork'}],
 //     users: ["507f1f77bcf86cd799439011"]
 // }
 //# sourceMappingURL=Playlists.js.map

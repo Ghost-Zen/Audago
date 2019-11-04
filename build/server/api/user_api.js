@@ -89,7 +89,7 @@ class UserApi {
                 song_count: 0
             };
             // await createPlaylist.create(playlist);
-            yield createPlaylist.addToPlaylist({ song: 'Middle Child', artist: 'J. Cole', playlist_name: '2019 Rap' });
+            // await createPlaylist.addToPlaylist({track:'Middle Child', artist:'J. Cole', playlist_name:'2019 Rap'});
         });
     }
 }

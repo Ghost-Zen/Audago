@@ -22,7 +22,7 @@ class RemoveTrack {
                 let newList = [];
                 let song_list = res.songs;
                 for (const item of song_list) {
-                    if (item.song === track.song && item.artist === track.artist) {
+                    if (item.track === track.track && item.artist === track.artist) {
                         found = true;
                     }
                     else {
@@ -32,10 +32,10 @@ class RemoveTrack {
                 yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: newList });
             }));
             if (!found) {
-                return { response: `The song ${track.song} was not found in the playlist ${track.playlist_name}`, status: false };
+                return { response: `The song ${track.track} was not found in the playlist ${track.playlist_name}`, status: false };
             }
             else {
-                return { response: `The song ${track.song} was successfully removed from the playlist ${track.playlist_name}`, status: true };
+                return { response: `The song ${track.track} was successfully removed from the playlist ${track.playlist_name}`, status: true };
             }
         });
     }
