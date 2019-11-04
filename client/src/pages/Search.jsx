@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment,Container } from 'semantic-ui-react'
 import { SEARCH_SONG } from '../typedefs';
+import { Redirect } from 'react-router-dom';
 import { Mutation } from 'react-apollo'
 import Webplayer from './Webplayer';
 export default class Search extends React.Component {
@@ -19,13 +20,15 @@ export default class Search extends React.Component {
   render() {
     let { search } = this.state
     if(this.state.gql_res !== ""){
+      console.log(this.state.gql_res)
       return(
-        <Webplayer data={this.state.gql_res} />
+        <Redirect to={{pathname: '/webplayer',
+                  state: { data: this.state.gql_res }}} />
         )
     }
     return (
       <Container>
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid textAlign='center' style={{ height: '80vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' color='teal' textAlign='center'>
             Search from over 30 million songs
