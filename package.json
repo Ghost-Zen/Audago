@@ -8,7 +8,10 @@
     "test": "ts-mocha test/*.ts",
     "client": "cd client && npm start",
     "server": "nodemon --watch . ./build/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "gita":"git add .",
+    "gitc": "git commit -m 'quick add'",
+    "gitp":"git push origin master_zen"
   },
   "author": "",
   "license": "ISC",
