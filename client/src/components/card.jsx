@@ -11,12 +11,9 @@ export default class cards extends Component {
   handleShow = () => this.setState({ active: true })
   handleHide = () => this.setState({ active: false })
 
-  playTrack = (track) => {
-    // this.stopActiveTrack()
-    console.log('test')
+  intialPlayer = (track) => {
     this.setState({activeTrack:track})
-    let audio = new Audio(this.props.song);
-    audio.play();
+    this.props.playTrack(track)
   }
 
   render() {
@@ -28,7 +25,7 @@ export default class cards extends Component {
           {track}
         </Header>
 
-        <Button primary icon="play" onClick={() => this.playTrack(index)}></Button>
+        <Button primary icon="play" onClick={() => this.intialPlayer(index)}></Button>
         {/* <Button>View</Button> */}
       </div>
     )
