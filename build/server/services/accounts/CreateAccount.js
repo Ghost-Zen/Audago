@@ -26,10 +26,11 @@ class CreateAccount {
             let user = new Accounts_1.default(account);
             yield Accounts_1.default.findOne({ username: user.username }) //search for username (unique field) in DB
                 .then(res => {
-                if (res) { //checking if their was a response for the user (if that account doesn't exists)
+                if (res) { //checking if there was a response for the user (if that account doesn't exists)
                     exists = true;
                 }
             });
+            // Returning separate from code as returns don't work in a promise
             if (!exists) {
                 yield user.save();
                 return { response: `Account created`, status: true }; //if account created successfully return this message 
