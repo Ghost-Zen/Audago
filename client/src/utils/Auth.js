@@ -23,8 +23,8 @@ const Auth = {
         return this.token
     },
     getAuth() {
-        // return this.isAuthenticated;
-        return true;
+    // return true; //uncomment this for dev, to bypass authentication
+        return this.isAuthenticated;
     },
     getUserName() {
         return this.isUsername

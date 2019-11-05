@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './styling/index.css';
 import App from './App.jsx';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './utils/serviceWorker';
 import config from './config'
 import { ApolloProvider } from '@apollo/react-hooks';
 

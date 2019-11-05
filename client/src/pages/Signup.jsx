@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
-import { ADD_USER } from '../typedefs';
+import { ADD_USER } from '../api/typedefs';
 import { Mutation } from 'react-apollo';
 
 

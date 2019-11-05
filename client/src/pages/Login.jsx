@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
-import { LOGIN_CHECK } from '../typedefs';
+import { LOGIN_CHECK } from '../api/typedefs';
 import { Mutation } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ export default class Login extends React.Component {
   render() {
     let { username, password } = this.state
     return (
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid textAlign='center' style={{ height: '80vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' color='teal' textAlign='center'>
             {/* <Image src='/logo.png' /> */}

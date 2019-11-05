@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
-import Auth from '../Auth'
+import Auth from '../utils/Auth'
 
 export default class Navbar extends Component {
   state = { activeItem: 'home' }
