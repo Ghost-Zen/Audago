@@ -23,4 +23,19 @@ const AccountSchema = new mongoose_1.Schema({
     "playlists": { "type": [String], "required": false, "unique": false }
 });
 exports.default = mongoose_1.default.model('Accounts', AccountSchema);
-//# sourceMappingURL=accounts.js.map
+// sample data for this schema
+// {
+//     firstName: 'John',
+//     lastName: 'Doe',
+//     username: 'johndoe123',
+//     password; '12345',
+//     email: 'johndoe@gmail.com',
+//     image: '',
+//     active: false,
+//     timestamp: {
+//         created: 'date',
+//         lastSeen: 'date'
+//     },
+//     playlists: ['house','chill','rap']
+// }
+//# sourceMappingURL=Accounts.js.map

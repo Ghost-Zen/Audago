@@ -34,7 +34,6 @@ exports.default = mongoose_1.default.model('Accounts', AccountSchema);
 //     timestamp: {
 //         created: 'date',
 //         lastSeen: 'date'
-//     },
-//     playlists: ['trance','chill','rap']
+//     }
 // }
 //# sourceMappingURL=Accounts.js.map

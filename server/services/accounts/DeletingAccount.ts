@@ -1,27 +1,15 @@
-import mongoose from 'mongoose';
-import Account, { Iaccounts } from '../models/Accounts';
+import Account from '../models/Accounts';
 
 export default class DeleteAccount {
+    //deleting specific users
     async delete(username: string) {
         await Account.deleteOne({ username: username });
-        console.log(`${username} was deleted!`);
+        return { response: `User ${username} deleted successfully`, status: true }
+    }
+    //deleting all users
+    async deleteAll() {
+        await Account.deleteMany({});
+        return { response: `All users deleted!`, status: true };
     }
 }
 
-
-    //   const account: Iaccounts = new Accounts({
-    //     firstName: 'Dyllan',
-    //     lastName: 'Hope',
-    //     username: 'dyllanhope123',
-    //     password: '12345',
-    //     email: 'dyllanjhope@gmail.com',
-    //     image: '',
-    //     active: true,
-    //     timestamp: {
-    //         created: 'date',
-    //         lastSeen: 'date'
-    //     },
-    //     playlists: ['trance','chill','rap']
-    // });
-    //   await account.save();
-    //   console.log("done!");

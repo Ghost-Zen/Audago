@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-export interface Iaccounts {
+export interface Iaccounts{
     firstName: string;
     lastName: string;
     username: string;
@@ -9,10 +9,19 @@ export interface Iaccounts {
     image: string;
     active: boolean;
     timestamp: {
-        created: string;
+        created: any;
         lastSeen: string;
     };
 }
+
+export interface UpdateData {
+    firstName: string,
+    lastName: string
+    password: string,
+    email: string
+}
+
+interface UserModel extends Iaccounts, Document {}
 
 const AccountSchema: Schema = new Schema({
     "firstName": { "type": String, "required": true, "unique": false },
@@ -28,7 +37,7 @@ const AccountSchema: Schema = new Schema({
     }
 });
 
-export default mongoose.model('Accounts', AccountSchema);
+export default mongoose.model<UserModel>('Accounts', AccountSchema);
 
 // sample data for this schema
 // {
@@ -42,6 +51,5 @@ export default mongoose.model('Accounts', AccountSchema);
 //     timestamp: {
 //         created: 'date',
 //         lastSeen: 'date'
-//     },
-//     playlists: ['trance','chill','rap']
+//     }
 // }
