@@ -61,7 +61,7 @@ describe('Testing the UserData functionality', () => {
             }
         }
         await createAccount.create(user);
-        assert.strict.deepEqual(await userData.loginData('johnhope123', '12345', 'michaeldollman@gmail.com'), { response: 'Username johnhope123 not found', status: false });
+        assert.strict.deepEqual(await userData.loginData('johnhope123', '12345', 'johnhope@gmail.com'), { response: 'Username johnhope123 not found', status: false });
     });
     it("Should return with an error that the entered password is  incorrect", async () => {
         const createAccount = new CreateAccount;

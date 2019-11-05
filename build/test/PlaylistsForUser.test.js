@@ -93,6 +93,7 @@ describe('Testing the users playlists service functionality', () => {
         yield createPlaylist.create(playlist);
         let response = yield playlistsForUser.playlistsFor('dyllanhope123');
         assert_1.default.strict.deepEqual(response, {
+            response: 'Playlist(s) found',
             list: [{ name: '2019 Rap', followers: 1, song_count: 0 }, { name: '2019 House', followers: 1, song_count: 0 }], status: true
         });
     }));
@@ -164,7 +165,7 @@ describe('Testing the users playlists service functionality', () => {
         };
         yield createPlaylist.create(playlist);
         let response = yield playlistsForUser.playlistsFor('michaeldollman123');
-        assert_1.default.strict.deepEqual(response, { response: 'No playlists found, go follow/create some!', status: true });
+        assert_1.default.strict.deepEqual(response, { response: 'No playlists found, go follow or create some!', status: true });
     }));
 });
 //# sourceMappingURL=PlaylistsForUser.test.js.map

@@ -71,7 +71,7 @@ describe('Testing the UserData functionality', () => {
             }
         };
         yield createAccount.create(user);
-        assert_1.default.strict.deepEqual(yield userData.loginData('johnhope123', '12345', 'michaeldollman@gmail.com'), { response: 'Username johnhope123 not found', status: false });
+        assert_1.default.strict.deepEqual(yield userData.loginData('johnhope123', '12345', 'johnhope@gmail.com'), { response: 'Username johnhope123 not found', status: false });
     }));
     it("Should return with an error that the entered password is  incorrect", () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
