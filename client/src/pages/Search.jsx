@@ -1,9 +1,8 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment,Container } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment,Container } from 'semantic-ui-react'
 import { SEARCH_SONG } from '../typedefs';
 import { Redirect } from 'react-router-dom';
 import { Mutation } from 'react-apollo'
-import Webplayer from './Webplayer';
 export default class Search extends React.Component {
   state = {
     search: "",

@@ -9,7 +9,7 @@ const DATA = gql`
 `;
 
   function Test() {
-  const { loading, error, data } = useQuery(DATA);
+  const { data } = useQuery(DATA);
     console.log(data)
  return(
      <div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
-import { Redirect } from 'react-router-dom';
 import Auth from '../Auth'
 
 export default class Navbar extends Component {

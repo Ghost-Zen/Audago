@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Dimmer, Header, Image } from 'semantic-ui-react'
+import { Button, Dimmer, Image } from 'semantic-ui-react'
 
 export default class cards extends Component {
   constructor(props){
@@ -17,13 +17,13 @@ export default class cards extends Component {
   }
 
   render() {
-    let {image,track,index} = this.props
+    let {image,index} = this.props
     const { active } = this.state
     const content = (
       <div>
-        <Header as='h4' inverted>
+        {/* <Header as='h4' inverted>
           {track}
-        </Header>
+        </Header> */}
 
         <Button primary icon="play" onClick={() => this.intialPlayer(index)}></Button>
         {/* <Button>View</Button> */}
@@ -32,7 +32,6 @@ export default class cards extends Component {
 
     return (
       <Dimmer.Dimmable
-        style = {{margin:3}}
         as={Image}
         dimmed={active}
         dimmer={{ active, content }}
