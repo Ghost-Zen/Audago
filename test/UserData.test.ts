@@ -23,63 +23,116 @@ describe('Testing the UserData functionality', () => {
     after(() => {
         mongoose.connection.close();
     });
-    it("Should return with that Michael has logged in successfully", async () => {
-        const createAccount = new CreateAccount;
-        const userData = new UserData;
-        let user: Iaccounts = {
-            firstName: 'Micheal',
-            lastName: 'Dollman',
-            username: 'michaeldollman123',
-            password: '12345',
-            email: 'michaeldollman@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
+    describe('Login service testing', () => {
+        it("Should return with that Michael has logged in successfully and returns a token with true status", async () => {
+            const createAccount = new CreateAccount;
+            const userData = new UserData;
+            let user: Iaccounts = {
+                firstName: 'Micheal',
+                lastName: 'Dollman',
+                username: 'michaeldollman123',
+                password: '12345',
+                email: 'michaeldollman@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
             }
-        }
-        await createAccount.create(user);
-        assert.strict.deepEqual(await userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com'),
-            { response: 'You logged in successfully!', status: true }
-        );
+            await createAccount.create(user);
+            let response = await userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com')
+            assert.strict.deepEqual(response.status, true);
+        });
+        it("Should return with an error that John's data could not be found, as the account wasn't made", async () => {
+            const createAccount = new CreateAccount;
+            const userData = new UserData;
+            let user: Iaccounts = {
+                firstName: 'Michael',
+                lastName: 'Dollman',
+                username: 'michaeldollman123',
+                password: '12345',
+                email: 'michaeldollman@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            }
+            await createAccount.create(user);
+            assert.strict.deepEqual(await userData.loginData('johnhope123', '12345', 'johnhope@gmail.com'), { response: 'Username johnhope123 not found', status: false });
+        });
+        it("Should return with an error that the entered password is  incorrect", async () => {
+            const createAccount = new CreateAccount;
+            const userData = new UserData;
+            let user: Iaccounts = {
+                firstName: 'Michael',
+                lastName: 'Dollman',
+                username: 'michaeldollman123',
+                password: '12345',
+                email: 'michaeldollman@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            }
+            await createAccount.create(user);
+            assert.strict.deepEqual(await userData.loginData('michaeldollman123', '1245', 'michaeldollman@gmail.com'), { response: 'Password incorrect', status: false });
+        });
     });
-    it("Should return with an error that John's data could not be found, as the account wasn't made", async () => {
-        const createAccount = new CreateAccount;
-        const userData = new UserData;
-        let user: Iaccounts = {
-            firstName: 'Michael',
-            lastName: 'Dollman',
-            username: 'michaeldollman123',
-            password: '12345',
-            email: 'michaeldollman@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
+    describe('User data return testing', () => {
+        it("Should return all dyllanhope123's data from DB", async () => {
+
+            const createAccount = new CreateAccount;
+            const userData = new UserData;
+            let user: Iaccounts = {
+                firstName: 'Dyllan',
+                lastName: 'Hope',
+                username: 'dyllanhope123',
+                password: '12345',
+                email: 'dyllan@gmail.com',
+                image: 'image@picture.url',
+                active: true,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
             }
-        }
-        await createAccount.create(user);
-        assert.strict.deepEqual(await userData.loginData('johnhope123', '12345', 'michaeldollman@gmail.com'), { response: 'Username johnhope123 not found', status: false });
-    });
-    it("Should return with an error that the entered password is  incorrect", async () => {
-        const createAccount = new CreateAccount;
-        const userData = new UserData;
-        let user: Iaccounts = {
-            firstName: 'Michael',
-            lastName: 'Dollman',
-            username: 'michaeldollman123',
-            password: '12345',
-            email: 'michaeldollman@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
+            await createAccount.create(user);
+            let response = await userData.userData('dyllanhope123');
+            assert.strict.deepEqual(response, {
+                response: 'User found',
+                user: { firstName: 'Dyllan', lastName: 'Hope', email: 'dyllan@gmail.com', image: 'image@picture.url' },
+                status: true
+            });
+        });
+        it("Should return that johnhope123 wasn't found in the DB", async () => {
+
+            const createAccount = new CreateAccount;
+            const userData = new UserData;
+            let user: Iaccounts = {
+                firstName: 'Dyllan',
+                lastName: 'Hope',
+                username: 'dyllanhope123',
+                password: '12345',
+                email: 'dyllan@gmail.com',
+                image: 'image@picture.url',
+                active: true,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
             }
-        }
-        await createAccount.create(user);
-        assert.strict.deepEqual(await userData.loginData('michaeldollman123', '1245', 'michaeldollman@gmail.com'), { response: 'Password incorrect', status: false });
+            await createAccount.create(user);
+            let response = await userData.userData('johnhope123');
+            assert.strict.deepEqual(response, {
+                response: 'Username johnhope123 not found',
+                user: { firstName: '', lastName: '', email: '', image: '' },
+                status: false
+            });
+        });
     });
 });

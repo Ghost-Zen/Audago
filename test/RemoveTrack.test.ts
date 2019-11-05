@@ -50,10 +50,10 @@ describe('Testing the "remove track" functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         }
-        let track: TrackInfo = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
+        let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         await createPlaylist.create(playlist);
         await createPlaylist.addToPlaylist(track);
-        track = { song: "Midnight", artist: "Logic", playlist_name: "2019 Rap" };
+        track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         let response = await removeTrack.remove(track);
         assert.strict.deepEqual(response, { response: 'The song Midnight was not found in the playlist 2019 Rap', status: false });
     })
@@ -81,12 +81,12 @@ describe('Testing the "remove track" functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         }
-        let track: TrackInfo = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
+        let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         await createPlaylist.create(playlist);
         await createPlaylist.addToPlaylist(track);
-        track = { song: "Midnight", artist: "Logic", playlist_name: "2019 Rap" };
+        track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         await createPlaylist.addToPlaylist(track);
-        track = { song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" };
+        track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         let response = await removeTrack.remove(track);
         assert.strict.deepEqual(response, { response: 'The song Middle Child was successfully removed from the playlist 2019 Rap', status: true });
     })

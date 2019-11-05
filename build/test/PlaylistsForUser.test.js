@@ -14,12 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const assert_1 = __importDefault(require("assert"));
 const Accounts_1 = __importDefault(require("../server/services/models/Accounts"));
+const Playlists_1 = __importDefault(require("../server/services/models/Playlists"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const CreateAccount_1 = __importDefault(require("../server/services/accounts/CreateAccount"));
 const CreatePlaylist_1 = require("../server/services/playlists/CreatePlaylist");
-const Playlists_1 = __importDefault(require("../server/services/models/Playlists"));
+const PlaylistsForUser_1 = __importDefault(require("../server/services/playlists/PlaylistsForUser"));
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
-describe('Testing the "adding to playlist" functionality', () => {
+describe('Testing the users playlists service functionality', () => {
     before(function (done) {
         mongoose_1.default.Promise = global.Promise;
         mongoose_1.default.set('useCreateIndex', true);
@@ -31,15 +32,16 @@ describe('Testing the "adding to playlist" functionality', () => {
         });
     });
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield Playlists_1.default.deleteMany({});
         yield Accounts_1.default.deleteMany({});
+        yield Playlists_1.default.deleteMany({});
     }));
     after(() => {
         mongoose_1.default.connection.close();
     });
-    it('Should return that the playlist "2019 House" has been successfully created', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return that dyllanhope123 follows the playlists 2019 Rap and 2019 House', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
         const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
+        const playlistsForUser = new PlaylistsForUser_1.default;
         let user = {
             firstName: 'Dyllan',
             lastName: 'Hope',
@@ -54,24 +56,12 @@ describe('Testing the "adding to playlist" functionality', () => {
             }
         };
         yield createAccount.create(user);
-        let playlist = {
-            name: '2019 House',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        };
-        let response = yield createPlaylist.create(playlist);
-        assert_1.default.strict.deepEqual(response, { response: 'Playlist created!', status: true });
-    }));
-    it('Should return that the playlist "2019 House" already exists', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
-        const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
+        user = {
+            firstName: 'Daniel',
+            lastName: 'Minter',
+            username: 'danielminter123',
             password: '12345',
-            email: 'dyllanhope@gmail.com',
+            email: 'daniel@gmail.com',
             image: '',
             active: false,
             timestamp: {
@@ -81,24 +71,36 @@ describe('Testing the "adding to playlist" functionality', () => {
         };
         yield createAccount.create(user);
         let playlist = {
-            name: '2019 House',
-            follower_count: 0,
+            name: '2019 Rap',
+            follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         };
         yield createPlaylist.create(playlist);
         playlist = {
             name: '2019 House',
-            follower_count: 0,
+            follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         };
-        let response = yield createPlaylist.create(playlist);
-        assert_1.default.strict.deepEqual(response, { response: 'Playlist 2019 House already exists', status: false });
+        yield createPlaylist.create(playlist);
+        playlist = {
+            name: '2019 Pop',
+            follower_count: 1,
+            creator: 'danielminter123',
+            song_count: 0
+        };
+        yield createPlaylist.create(playlist);
+        let response = yield playlistsForUser.playlistsFor('dyllanhope123');
+        assert_1.default.strict.deepEqual(response, {
+            response: 'Playlist(s) found',
+            list: [{ name: '2019 Rap', followers: 1, song_count: 0 }, { name: '2019 House', followers: 1, song_count: 0 }], status: true
+        });
     }));
-    it('Should return that the playlist "2019 House" was not found', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return that michaeldollman123 has no playlists', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
         const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
+        const playlistsForUser = new PlaylistsForUser_1.default;
         let user = {
             firstName: 'Dyllan',
             lastName: 'Hope',
@@ -113,25 +115,26 @@ describe('Testing the "adding to playlist" functionality', () => {
             }
         };
         yield createAccount.create(user);
-        let playlist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        };
-        yield createPlaylist.create(playlist);
-        let response = yield createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 House", song: '', album: 'music', artwork: '' });
-        assert_1.default.strict.deepEqual(response, { response: '2019 House not found', status: false });
-    }));
-    it('Should return that the song "Middle Child" by "J. Cole" was added to the playlist "2019 rap" successfully', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
-        const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
+        user = {
+            firstName: 'Daniel',
+            lastName: 'Minter',
+            username: 'danielminter123',
             password: '12345',
-            email: 'dyllanhope@gmail.com',
+            email: 'daniel@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        };
+        yield createAccount.create(user);
+        user = {
+            firstName: 'michael',
+            lastName: 'dollman',
+            username: 'michaeldollman123',
+            password: '12345',
+            email: 'michael@gmail.com',
             image: '',
             active: false,
             timestamp: {
@@ -142,41 +145,27 @@ describe('Testing the "adding to playlist" functionality', () => {
         yield createAccount.create(user);
         let playlist = {
             name: '2019 Rap',
-            follower_count: 0,
+            follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         };
         yield createPlaylist.create(playlist);
-        let response = yield createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
-        assert_1.default.strict.deepEqual(response, { response: 'track added successfully', status: true });
-    }));
-    it('Should return that the song "Middle Child" by "J. Cole" was already in the playlist', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
-        const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: '12345',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
-        };
-        yield createAccount.create(user);
-        let playlist = {
-            name: '2019 Rap',
-            follower_count: 0,
+        playlist = {
+            name: '2019 House',
+            follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         };
         yield createPlaylist.create(playlist);
-        yield createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
-        let response = yield createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
-        assert_1.default.strict.deepEqual(response, { response: 'Middle Child is already in the playlist', status: false });
+        playlist = {
+            name: '2019 Pop',
+            follower_count: 1,
+            creator: 'danielminter123',
+            song_count: 0
+        };
+        yield createPlaylist.create(playlist);
+        let response = yield playlistsForUser.playlistsFor('michaeldollman123');
+        assert_1.default.strict.deepEqual(response, { response: 'No playlists found, go follow or create some!', status: true });
     }));
 });
-//# sourceMappingURL=CreatePlaylist.test.js.map
+//# sourceMappingURL=PlaylistsForUser.test.js.map

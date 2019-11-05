@@ -17,25 +17,26 @@ class RemoveTrack {
     remove(track) {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
-            yield Playlists_1.default.findOne({ name: track.playlist_name })
+            yield Playlists_1.default.findOne({ name: track.playlist_name }) //find playlist the track is in
                 .then((res) => __awaiter(this, void 0, void 0, function* () {
                 let newList = [];
                 let song_list = res.songs;
                 for (const item of song_list) {
-                    if (item.song === track.song && item.artist === track.artist) {
+                    if (item.track === track.track && item.artist === track.artist) {
                         found = true;
                     }
                     else {
-                        newList.push(item);
+                        newList.push(item); //if the track is found leave it out of the new track list
                     }
                 }
-                yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: newList });
+                yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: newList, song_count: newList.length }); //update document with new songlist and song count
             }));
+            //Returning is seperate from rest of code as you can't return in a promise
             if (!found) {
-                return { response: `The song ${track.song} was not found in the playlist ${track.playlist_name}`, status: false };
+                return { response: `The song ${track.track} was not found in the playlist ${track.playlist_name}`, status: false };
             }
             else {
-                return { response: `The song ${track.song} was successfully removed from the playlist ${track.playlist_name}`, status: true };
+                return { response: `The song ${track.track} was successfully removed from the playlist ${track.playlist_name}`, status: true };
             }
         });
     }

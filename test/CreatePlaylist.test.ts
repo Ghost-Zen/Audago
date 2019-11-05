@@ -108,7 +108,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         }
         await createPlaylist.create(playlist);
-        let response = await createPlaylist.addToPlaylist({ song: "Middle Child", artist: "J. Cole", playlist_name: "2019 House" });
+        let response = await createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 House", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: '2019 House not found', status: false });
     })
     it('Should return that the song "Middle Child" by "J. Cole" was added to the playlist "2019 rap" successfully', async () => {
@@ -135,7 +135,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         }
         await createPlaylist.create(playlist);
-        let response = await createPlaylist.addToPlaylist({ song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" });
+        let response = await createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: 'track added successfully', status: true });
     })
     it('Should return that the song "Middle Child" by "J. Cole" was already in the playlist', async () => {
@@ -162,8 +162,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         }
         await createPlaylist.create(playlist);
-        await createPlaylist.addToPlaylist({ song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" });
-        let response = await createPlaylist.addToPlaylist({ song: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap" });
+        await createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        let response = await createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: 'Middle Child is already in the playlist', status: false });
     })
 });

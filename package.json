@@ -1,5 +1,5 @@
 {
-  "name": "group-project",
+  "name": "audago",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,20 +9,22 @@
     "client": "cd client && npm start",
     "server": "nodemon --watch . ./build/server.js",
     "watch": "tsc -w",
-    "mongo":"sudo service mongod start",
+    "mongo": "sudo service mongod start",
     "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run watch\" \"npm run mongo\"",
-    "gita":"git add .",
+    "gita": "git add .",
     "gitc": "git commit -m 'quick add'",
-    "gitm":"git push origin master_zen",
-    "gito":"git push origin master_zen"   
+    "gitm": "git push origin master_zen",
+    "gito": "git push origin oracle_zen"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^14.5.8",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.6"
   },
