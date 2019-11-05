@@ -1,5 +1,6 @@
 import Accounts, { Iaccounts } from '../models/Accounts';
-
+import bcrypt from 'bcrypt';
+const saltRounds = 10;
 export default class CreateAccount {
 
     async create(account: Iaccounts) {
@@ -10,6 +11,10 @@ export default class CreateAccount {
         account.timestamp = {created:"",lastSeen:""}
         account.timestamp.created = created;
         account.timestamp.lastSeen = created;
+        let test : any;
+        await bcrypt.hash(account.password, saltRounds).then(function(hash) {
+            account.password = hash
+        });
         let user = new Accounts(account)
         await Accounts.findOne({ username: user.username })     //search for username (unique field) in DB
             .then(res => {    

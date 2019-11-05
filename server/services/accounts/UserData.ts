@@ -1,4 +1,5 @@
 import Account from '../models/Accounts';
+import bcrypt from 'bcrypt';
 
 export default class UserData {
     async loginData(username: string, password: string, email: string) {
@@ -24,9 +25,10 @@ export default class UserData {
                             });
                     }
                 })
+                const match = await bcrypt.compare(password, data.password);
             // Returning separate from code as returns don't work in a promise
             if (found) {
-                if (password === data.password) {
+                if (match) {
                     return { response: `You logged in successfully!`, status: true };
                 } else {
                     return { response: `Password incorrect`, status: false };

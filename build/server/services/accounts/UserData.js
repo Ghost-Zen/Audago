@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 class UserData {
     loginData(username, password, email) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -39,9 +40,10 @@ class UserData {
                         });
                     }
                 }));
+                const match = yield bcrypt_1.default.compare(password, data.password);
                 // Returning separate from code as returns don't work in a promise
                 if (found) {
-                    if (password === data.password) {
+                    if (match) {
                         return { response: `You logged in successfully!`, status: true };
                     }
                     else {

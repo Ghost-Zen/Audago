@@ -13,6 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const saltRounds = 10;
 class CreateAccount {
     create(account) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -23,6 +25,10 @@ class CreateAccount {
             account.timestamp = { created: "", lastSeen: "" };
             account.timestamp.created = created;
             account.timestamp.lastSeen = created;
+            let test;
+            yield bcrypt_1.default.hash(account.password, saltRounds).then(function (hash) {
+                account.password = hash;
+            });
             let user = new Accounts_1.default(account);
             yield Accounts_1.default.findOne({ username: user.username }) //search for username (unique field) in DB
                 .then(res => {
