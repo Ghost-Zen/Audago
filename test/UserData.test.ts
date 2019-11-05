@@ -23,7 +23,7 @@ describe('Testing the UserData functionality', () => {
     after(() => {
         mongoose.connection.close();
     });
-    it("Should return with that Michael has logged in successfully", async () => {
+    it("Should return with that Michael has logged in successfully and returns a token with true status", async () => {
         const createAccount = new CreateAccount;
         const userData = new UserData;
         let user: Iaccounts = {
@@ -40,9 +40,8 @@ describe('Testing the UserData functionality', () => {
             }
         }
         await createAccount.create(user);
-        assert.strict.deepEqual(await userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com'),
-            { response: 'You logged in successfully!', status: true }
-        );
+        let response = await userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com')
+        assert.strict.deepEqual(response.status, true);
     });
     it("Should return with an error that John's data could not be found, as the account wasn't made", async () => {
         const createAccount = new CreateAccount;

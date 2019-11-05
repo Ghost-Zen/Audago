@@ -1,5 +1,7 @@
 import Account from '../models/Accounts';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { Config } from './config';
 
 export default class UserData {
     async loginData(username: string, password: string, email: string) {
@@ -25,11 +27,14 @@ export default class UserData {
                             });
                     }
                 })
-                const match = await bcrypt.compare(password, data.password);
+            const match = await bcrypt.compare(password, data.password);
             // Returning separate from code as returns don't work in a promise
             if (found) {
                 if (match) {
-                    return { response: `You logged in successfully!`, status: true };
+                    let token = jwt.sign({ data }, Config.SECRET, {
+                        expiresIn: 86400 // expires in 24 hours
+                    });
+                    return { response: token, status: true };
                 } else {
                     return { response: `Password incorrect`, status: false };
                 }

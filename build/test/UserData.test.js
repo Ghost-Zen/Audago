@@ -35,7 +35,7 @@ describe('Testing the UserData functionality', () => {
     after(() => {
         mongoose_1.default.connection.close();
     });
-    it("Should return with that Michael has logged in successfully", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("Should return with that Michael has logged in successfully and returns a token with true status", () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
         const userData = new UserData_1.default;
         let user = {
@@ -52,7 +52,8 @@ describe('Testing the UserData functionality', () => {
             }
         };
         yield createAccount.create(user);
-        assert_1.default.strict.deepEqual(yield userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com'), { response: 'You logged in successfully!', status: true });
+        let response = yield userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com');
+        assert_1.default.strict.deepEqual(response.status, true);
     }));
     it("Should return with an error that John's data could not be found, as the account wasn't made", () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;

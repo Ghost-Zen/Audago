@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const config_1 = require("./config");
 class UserData {
     loginData(username, password, email) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -44,7 +46,10 @@ class UserData {
                 // Returning separate from code as returns don't work in a promise
                 if (found) {
                     if (match) {
-                        return { response: `You logged in successfully!`, status: true };
+                        let token = jsonwebtoken_1.default.sign({ data }, config_1.Config.SECRET, {
+                            expiresIn: 86400 // expires in 24 hours
+                        });
+                        return { response: token, status: true };
                     }
                     else {
                         return { response: `Password incorrect`, status: false };
