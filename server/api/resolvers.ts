@@ -7,7 +7,7 @@ import PlaylistsForUser from '../services/playlists/PlaylistsForUser';
 import FollowPlaylist from '../services/playlists/FollowPlaylist';
 import { CreatePlaylist } from '../services/playlists/CreatePlaylist';
 import RemoveTrack from '../services/playlists/RemoveTrack';
-const userData = new UserData;
+const dataRetrieval = new UserData;
 const createAccount = new CreateAccount;
 const searchSong = new SearchSong;
 const deleteAccount = new DeleteAccount;
@@ -28,7 +28,10 @@ const Query = {
         return { response: result }
     },
     loginCheck: async (input) => {
-        return await userData.loginData(input.username, input.password, input.email);
+        return await dataRetrieval.loginData(input.username, input.password, input.email);
+    },
+    userData: async (input) => {
+        return await dataRetrieval.userData(input.username)
     },
     deleteUser: async (input) => {
         return await deleteAccount.delete(input.username);
@@ -47,6 +50,9 @@ const Query = {
     },
     updateUser: async (input) => {
         return await updateAccount.update(input.username, input.account);
+    },
+    updatePassword: async (input) => {
+        return await updateAccount.updatePassword(input.username, input.currentPass, input.newPass);
     },
     followPlaylist: async (input) => {
         return await followPlaylist.follow(input.username, input.playlistName);

@@ -11,7 +11,6 @@ export default class CreateAccount {
         account.timestamp = {created:"",lastSeen:""}
         account.timestamp.created = created;
         account.timestamp.lastSeen = created;
-        let test : any;
         await bcrypt.hash(account.password, saltRounds).then(function(hash) {
             account.password = hash
         });

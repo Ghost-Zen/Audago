@@ -31,12 +31,24 @@ type PlaylistInfo {
   followers: Int,
   song_count: Int
 }
+type UserData {
+  firstName:String,
+  lastName:String
+  email: String,
+  image: String
+}
+input UpdateData {
+  firstName:String,
+  lastName:String
+  email: String
+}
 input PlaylistTrack {
   song: String
   artist: String
   playlist_name: String
 }
 type Query {
+  user: UserData
   response: String,
   list: [PlaylistInfo]
   status: Boolean
@@ -46,9 +58,11 @@ type Mutation {
    createAccount(account:Account):Query
    searchSong(search:String):Query
    loginCheck(username:String,password:String):Query
+   userData(username:String):Query
    deleteUser(username:String):Query
    deleteAll:Query
-   updateUser(username:String,account:Account!):Query
+   updateUser(username:String,updateData:UpdateData):Query
+   updatePassword(username:String,currentPass:String,newPass:String):Query
    newPlaylist(playlist:Playlist ):Query
    newTrack(track:PlaylistTrack):Query
    deleteTrack(track:PlaylistTrack):Query

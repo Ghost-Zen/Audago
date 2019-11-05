@@ -25,7 +25,6 @@ class CreateAccount {
             account.timestamp = { created: "", lastSeen: "" };
             account.timestamp.created = created;
             account.timestamp.lastSeen = created;
-            let test;
             yield bcrypt_1.default.hash(account.password, saltRounds).then(function (hash) {
                 account.password = hash;
             });

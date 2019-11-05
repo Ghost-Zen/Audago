@@ -17,6 +17,28 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("./config");
 class UserData {
+    userData(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let found = false;
+            let data = { firstName: '', lastName: '', email: '', image: '' };
+            yield Accounts_1.default.findOne({ username })
+                .then(res => {
+                if (res) { //check if account is in document
+                    data.firstName = res.firstName;
+                    data.lastName = res.lastName;
+                    data.email = res.email;
+                    data.image = res.image;
+                    found = true;
+                }
+            });
+            if (found) {
+                return { response: 'User found', user: data, status: true };
+            }
+            else {
+                return { response: `Username ${username} not found`, user: data, status: false };
+            }
+        });
+    }
     loginData(username, password, email) {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;

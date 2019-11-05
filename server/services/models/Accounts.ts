@@ -13,6 +13,14 @@ export interface Iaccounts{
         lastSeen: string;
     };
 }
+
+export interface UpdateData {
+    firstName: string,
+    lastName: string
+    password: string,
+    email: string
+}
+
 interface UserModel extends Iaccounts, Document {}
 
 const AccountSchema: Schema = new Schema({

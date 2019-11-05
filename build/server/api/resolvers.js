@@ -21,7 +21,7 @@ const PlaylistsForUser_1 = __importDefault(require("../services/playlists/Playli
 const FollowPlaylist_1 = __importDefault(require("../services/playlists/FollowPlaylist"));
 const CreatePlaylist_1 = require("../services/playlists/CreatePlaylist");
 const RemoveTrack_1 = __importDefault(require("../services/playlists/RemoveTrack"));
-const userData = new UserData_1.default;
+const dataRetrieval = new UserData_1.default;
 const createAccount = new CreateAccount_1.default;
 const searchSong = new songsearch_1.default;
 const deleteAccount = new DeletingAccount_1.default;
@@ -41,7 +41,10 @@ const Query = {
         return { response: result };
     }),
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield userData.loginData(input.username, input.password, input.email);
+        return yield dataRetrieval.loginData(input.username, input.password, input.email);
+    }),
+    userData: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield dataRetrieval.userData(input.username);
     }),
     deleteUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield deleteAccount.delete(input.username);
@@ -60,6 +63,9 @@ const Query = {
     }),
     updateUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield updateAccount.update(input.username, input.account);
+    }),
+    updatePassword: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield updateAccount.updatePassword(input.username, input.currentPass, input.newPass);
     }),
     followPlaylist: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield followPlaylist.follow(input.username, input.playlistName);

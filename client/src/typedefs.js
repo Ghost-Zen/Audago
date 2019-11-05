@@ -25,6 +25,16 @@ export const LOGIN_CHECK = gql`
     }
 `;
 
+export const USER_DATA = gql`
+    mutation($username:String){
+      userData(username:$username){
+        response,
+        user,
+        status
+      }
+    }
+`;
+
 export const DELETE_USER = gql`
     mutation($username:String){
       deleteUser (username:$username){
@@ -35,8 +45,17 @@ export const DELETE_USER = gql`
 `;
 
 export const UPDATE_USER = gql`  
-    mutation($username:String, $account:Account){
-      updateUser(username:$username, account: $account){
+    mutation($username:String, $updateData:UpdateData){
+      updateUser(username:$username, updateData: $updateData){
+        response,
+        status
+      }
+    }
+`;
+
+export const UPDATE_PASSWORD = gql`  
+    mutation($username:String, $currentPass:String, $newPass: String){
+      updatePassword(username:$username, currentPass:$currentPass, newPass:$newPass){
         response,
         status
       }

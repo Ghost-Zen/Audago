@@ -35,42 +35,6 @@ describe('Testing the update account functionality', () => {
     after(() => {
         mongoose_1.default.connection.close();
     });
-    it("Should return that Michael's password has been changed/updated", () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
-        const updateAccount = new UpdateAccount_1.default;
-        let user = {
-            firstName: 'Micheal',
-            lastName: 'Dollman',
-            username: 'michaeldollman123',
-            password: '12345',
-            email: 'michaeldollman@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
-        };
-        yield createAccount.create(user);
-        let updatedUser = {
-            firstName: 'Micheal',
-            lastName: 'Dollman',
-            username: 'michaeldollman123',
-            password: 'passme',
-            email: 'michaeldollman@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
-        };
-        yield updateAccount.update('michaeldollman123', updatedUser);
-        Accounts_1.default.find({}, { '_id': 0, 'password': 1 })
-            .then((accounts) => {
-            assert_1.default.strict.equal(accounts[0].password, 'passme');
-        });
-    }));
     it("Should return that Dyllan's email has been updated", () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
         const updateAccount = new UpdateAccount_1.default;
@@ -91,15 +55,8 @@ describe('Testing the update account functionality', () => {
         let updatedUser = {
             firstName: 'Dyllan',
             lastName: 'Hope',
-            username: 'dyllanhope123',
             password: '12345',
             email: 'dyllan@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
         };
         yield updateAccount.update('dyllanhope123', updatedUser);
         Accounts_1.default.find({}, { '_id': 0, 'email': 1 })
@@ -107,81 +64,129 @@ describe('Testing the update account functionality', () => {
             assert_1.default.strict.equal(accounts[0].email, 'dyllan@gmail.com');
         });
     }));
-    it("Should return that Daniel's status, timestamp and image has been updated", () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
-        const updateAccount = new UpdateAccount_1.default;
-        let user = {
-            firstName: 'Daniel',
-            lastName: 'Minter',
-            username: 'danielminter123',
-            password: '12345',
-            email: 'danielminter@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
-        };
-        yield createAccount.create(user);
-        let updatedUser = {
-            firstName: 'Daniel',
-            lastName: 'Miner',
-            username: 'danielminter123',
-            password: '12345',
-            email: 'danielminter@gmail.com',
-            image: 'https://incrediblejagur.github.io/media/me.jpg',
-            active: true,
-            timestamp: {
-                created: 'yesterday',
-                lastSeen: 'today'
-            }
-        };
-        yield updateAccount.update('danielminter123', updatedUser);
-        Accounts_1.default.find({}, { '_id': 0, 'active': 1, 'timestamp': 1, 'image': 1 })
-            .then((accounts) => {
-            assert_1.default.strict.equal(accounts[0].active, true);
-            assert_1.default.strict.deepEqual(accounts[0].timestamp.created, 'yesterday');
-            assert_1.default.strict.deepEqual(accounts[0].timestamp.lastSeen, 'today');
-            assert_1.default.strict.deepEqual(accounts[0].image, 'https://incrediblejagur.github.io/media/me.jpg');
-        });
-    }));
-    it("Should return that Chris's first and last name has been updated", () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
-        const updateAccount = new UpdateAccount_1.default;
-        let user = {
-            firstName: 'Chris',
-            lastName: 'Green',
-            username: 'chrisgreen123',
-            password: '12345',
-            email: 'chrisgreen@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
-        };
-        yield createAccount.create(user);
-        let updatedUser = {
-            firstName: 'Christopher',
-            lastName: 'Greenings',
-            username: 'chrisgreen123',
-            password: '12345',
-            email: 'chrisgreen@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            }
-        };
-        yield updateAccount.update('chrisgreen123', updatedUser);
-        Accounts_1.default.find({}, { '_id': 0, 'firstName': 1, 'lastName': 1 })
-            .then((accounts) => {
-            assert_1.default.strict.equal(accounts[0].firstName, 'Christopher');
-            assert_1.default.strict.equal(accounts[0].lastName, 'Greenings');
-        });
-    }));
+    describe('User data changing testing', () => {
+        it("Should return that Chris's first and last name has been updated", () => __awaiter(void 0, void 0, void 0, function* () {
+            const createAccount = new CreateAccount_1.default;
+            const updateAccount = new UpdateAccount_1.default;
+            let user = {
+                firstName: 'Chris',
+                lastName: 'Green',
+                username: 'chrisgreen123',
+                password: '12345',
+                email: 'chrisgreen@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield createAccount.create(user);
+            let updatedUser = {
+                firstName: 'Christopher',
+                lastName: 'Greenings',
+                password: '12345',
+                email: 'chrisgreen@gmail.com',
+            };
+            yield updateAccount.update('chrisgreen123', updatedUser);
+            Accounts_1.default.findOne({}, { '_id': 0, 'firstName': 1, 'lastName': 1 })
+                .then((accounts) => {
+                assert_1.default.strict.equal(accounts.firstName, 'Christopher');
+                assert_1.default.strict.equal(accounts.lastName, 'Greenings');
+            });
+        }));
+        it("Should return that Chris's email has been changed successfully", () => __awaiter(void 0, void 0, void 0, function* () {
+            const createAccount = new CreateAccount_1.default;
+            const updateAccount = new UpdateAccount_1.default;
+            let user = {
+                firstName: 'Chris',
+                lastName: 'Green',
+                username: 'chrisgreen123',
+                password: '12345',
+                email: 'chrisgreen@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield createAccount.create(user);
+            let updatedUser = {
+                firstName: 'Chris',
+                lastName: 'Green',
+                password: '12345',
+                email: 'chris@gmail.com',
+            };
+            yield updateAccount.update('chrisgreen123', updatedUser);
+            Accounts_1.default.findOne({}, { '_id': 0, 'email': 1 })
+                .then((accounts) => {
+                assert_1.default.strict.equal(accounts.email, 'chris@gmail.com');
+            });
+        }));
+    });
+    describe('Password changing testing', () => {
+        it("Should return that John's password was successfully changed", () => __awaiter(void 0, void 0, void 0, function* () {
+            const createAccount = new CreateAccount_1.default;
+            const updateAccount = new UpdateAccount_1.default;
+            let user = {
+                firstName: 'John',
+                lastName: 'Hope',
+                username: 'johnhope123',
+                password: '12345',
+                email: 'johnhope@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield createAccount.create(user);
+            yield updateAccount.updatePassword('johnhope123', '12345', 'House123');
+            let response = yield updateAccount.updatePassword('johnhope123', 'House123', '12345');
+            assert_1.default.strict.deepEqual(response, { response: 'Password updated', status: true });
+        }));
+        it("Should return that dyllanhope123 was not found", () => __awaiter(void 0, void 0, void 0, function* () {
+            const createAccount = new CreateAccount_1.default;
+            const updateAccount = new UpdateAccount_1.default;
+            let user = {
+                firstName: 'John',
+                lastName: 'Hope',
+                username: 'johnhope123',
+                password: '12345',
+                email: 'johnhope@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield createAccount.create(user);
+            let response = yield updateAccount.updatePassword('dyllanhope123', '12345', 'House123');
+            assert_1.default.strict.deepEqual(response, { response: 'Username dyllanhope123 not found', status: false });
+        }));
+        it("Should return that the entered password was incorrect", () => __awaiter(void 0, void 0, void 0, function* () {
+            const createAccount = new CreateAccount_1.default;
+            const updateAccount = new UpdateAccount_1.default;
+            let user = {
+                firstName: 'John',
+                lastName: 'Hope',
+                username: 'johnhope123',
+                password: '12345',
+                email: 'johnhope@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield createAccount.create(user);
+            let response = yield updateAccount.updatePassword('johnhope123', 'car', 'House123');
+            assert_1.default.strict.deepEqual(response, { response: 'Password incorrect', status: false });
+        }));
+    });
 });
 //# sourceMappingURL=UpdateAccount.test.js.map

@@ -4,6 +4,26 @@ import jwt from 'jsonwebtoken';
 import { Config } from './config';
 
 export default class UserData {
+    async userData(username: string) {
+        let found: boolean = false;
+        let data = { firstName: '', lastName: '', email: '', image: '' };
+        await Account.findOne({ username })
+            .then(res => {
+                if (res) {        //check if account is in document
+                    data.firstName = res.firstName;
+                    data.lastName = res.lastName;
+                    data.email = res.email;
+                    data.image = res.image;
+                    found = true
+                }
+            });
+        if (found) {
+            return { response: 'User found', user: data, status: true };
+        } else {
+            return {response:`Username ${username} not found`, user: data, status: false}
+        }
+    }
+
     async loginData(username: string, password: string, email: string) {
         let found: boolean = false;
         let data: any = { username: '', password: '', email: '' };
