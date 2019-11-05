@@ -28,7 +28,7 @@ export default class PlaylistsForUser {
             if (playlists.length === 0) {
                 return {response: `No playlists found, go follow/create some!`, status: true};
             } else {
-                return { list: playlists, status: true };
+                return { response: `Playlist(s) found`, list: playlists, status: true };
             }
         } else {
             return { response: `Username ${username} not found`, status: false }

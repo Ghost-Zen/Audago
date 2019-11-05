@@ -42,3 +42,58 @@ export const UPDATE_USER = gql`
       }
     }
 `;
+
+export const NEW_PLAYLIST = gql`  
+    mutation($playlist:Playlist){
+      updateUser(playlist:$playlist){
+        response,
+        status
+      }
+    }
+`;
+
+export const NEW_TRACK = gql`  
+    mutation($track:PlaylistTrack){
+      updateUser(track:$track){
+        response,
+        status
+      }
+    }
+`;
+
+export const DELETE_TRACK = gql`  
+    mutation($track:PlaylistTrack){
+      updateUser(track:$track){
+        response,
+        status
+      }
+    }
+`;
+
+export const FOLLOW_PLAYLIST = gql`  
+    mutation($username:String, $playlistName: String){
+      updateUser(username:$username, playlistName:$playlistName){
+        response,
+        status
+      }
+    }
+`;
+
+export const UNFOLLOW_PLAYLIST = gql`  
+    mutation($username:String, $playlistName: String){
+      updateUser(username:$username, playlistName:$playlistName){
+        response,
+        status
+      }
+    }
+`;
+
+export const USERS_PLAYLIST = gql`  
+    mutation($username:String){
+      updateUser(username:$username){
+        response,
+        list,
+        status
+      }
+    }
+`;

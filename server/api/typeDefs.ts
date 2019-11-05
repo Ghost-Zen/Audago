@@ -58,15 +58,3 @@ type Mutation {
   }
 `);
 export default schema
-
-
-// {
-// 	"playlist":  {
-//   "name": "2019 Rap",
-//   "creator": "dyllanhope123",
-//   "follower_count": 1,
-//   "song_count": 0,
-//   "songs": [],
-//   "users": []
-//   }
-// }
