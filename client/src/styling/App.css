@@ -21,6 +21,10 @@
   color: #09d3ac;
 }
 
-.audioplayer{
+.audioPlayer{
   background-color: white;
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  min-width: 100% !important;
 }

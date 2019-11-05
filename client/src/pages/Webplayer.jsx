@@ -1,55 +1,64 @@
 import React from 'react';
 import  '../styling/App.css';
-import { Container,Button, Form, Grid, Header, Image, Item, Segment, Label } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
+import { Container,Card } from 'semantic-ui-react';
+import Cards from '../components/card';
 
-import { Mutation } from 'react-apollo'
 export default class Webplayer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-    song_data:props.data
-  }
+      activeTrack:''
+    }
 }
 
+  playTrack = (track) => {
+    let song_data = this.props.location.state.data
+    let x = document.querySelector("#player"); 
+    x.src = song_data[track].song
+    x.play();
+  }
+
+  stopActiveTrack = () => {
+
+  }
+
     renderData = () => {
-        let {song_data} = this.state
-        const paragraph = <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+        let song_data = this.props.location.state.data
         let songTiles = [];
         for(let z = 0; z < song_data.length;z++){
         songTiles.push(
-        <Item>
-          <Item.Image src={song_data[z].artwork} />
-    
-          <Item.Content>
-            <Item.Header as='a'>{song_data[z].track}</Item.Header>
-            <Item.Meta>
-              <span className='cinema'>{song_data[z].artist}</span>
-            </Item.Meta>
-            <Item.Description>
-                <audio controls className="audioplayer">
-                <source src={song_data[z].song} />
-                    </audio>
-            </Item.Description>
-            <Item.Extra>
-          <Label icon='music' content='Apple Itunes' />
-        </Item.Extra>           
-          </Item.Content>
-        </Item>
-        )
+          <Cards image={song_data[z].artwork}
+                 artist={song_data[z].artist}
+                 track={song_data[z].track}
+                 song={song_data[z].song}
+                 playTrack={this.playTrack}
+                 index={z}
+          />
+          )
         }
         return songTiles
     }
 
   render() {
+    if(this.props.location.state === undefined){
+      return <Redirect to="/" />
+    }else{
     return(
         <div>
               <Container style={{ margin: 20 }}>
-            <Item.Group divided>
+              <Card.Group itemsPerRow={6}>
             {this.renderData()}
-            </Item.Group>
+            </Card.Group>
             </Container>
+        <div className="audioPlayer">
+          <audio id="player" controls>
+            <source src=""/>
+          </audio>
+        </div>
         </div>
     )
   }
+}
 
 }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './styling/App.css';
 import Router from './Router.jsx';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { Container } from 'semantic-ui-react';
+import Navbar from './components/navbar';
 // import Auth from './Auth'
 
 
@@ -18,7 +19,10 @@ class App extends Component {
   render() {
       return (
       <div className="App">
+        <Container>
+        <Navbar />
         <Router />
+        </Container>
       </div>
     );
   }
