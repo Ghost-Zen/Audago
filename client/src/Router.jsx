@@ -6,6 +6,8 @@ import Search from './pages/Search';
 import Webplayer from './pages/Webplayer';
 import Auth from './utils/Auth';
 import { Redirect } from 'react-router-dom';
+import Profile from './pages/Profile';
+import Test from './components/graphqltest'
 
 const Router = (props) => (
 
@@ -15,10 +17,10 @@ const Router = (props) => (
       <Route exact path="/signup" component={Signup} />
       <Route exact path="/" component={Search} />
       <PrivateRoute exact path="/webplayer" component={Webplayer} />
+      <Route exact path="/profile" component={Profile} />
       {/* <PrivateRoute exact path="/edit-user" component={Edit_User} /> */}
     </Switch>
   </HashRouter>
-
 )
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
