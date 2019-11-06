@@ -26,6 +26,9 @@ const Query = {
     createAccount: async (input) => {
         return await createAccount.create(input.account)
     },
+    verifytoken: () => {
+        
+    },
     searchSong: async (input) => {
         let result = await searchSong.getFromItunesAPI(input)
         return { response: result }

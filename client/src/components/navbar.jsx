@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
-import Auth from '../Auth'
+import Auth from '../utils/Auth'
 
 export default class Navbar extends Component {
   state = { activeItem: 'home' }
@@ -13,7 +13,7 @@ export default class Navbar extends Component {
         const { activeItem } = this.state
         if(Auth.getAuth() === true){
            return <Menu.Item
-            name='Welcome ____'
+            name={`Welcome ${Auth.getUserName()}`}
             active={activeItem === 'greet'}
             onClick={this.handleItemClick}
           />

@@ -1,6 +1,8 @@
 import graphqlHTTP from 'express-graphql';
-import Query from '../api/resolvers';
-import schema from '../api/typeDefs';
+import Resolvers from '../api/resolvers';
+import typeDefs from '../api/typeDefs';
+import Auth from '../api/auth';
+const authuser = new Auth()
 export default class AppRoutes {
     private app: any;
     constructor(app: any) {
@@ -9,9 +11,11 @@ export default class AppRoutes {
 
 
     router() {
+        this.app.post('/verify', authuser.verifyToken)
+
         this.app.use('/graphql', graphqlHTTP({
-            schema: schema,
-            rootValue: Query,
+            schema: typeDefs,
+            rootValue: Resolvers,
             graphiql: true,
         }));
         //add extra routes below here

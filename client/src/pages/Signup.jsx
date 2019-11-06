@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
-import { ADD_USER } from '../typedefs';
+import { ADD_USER } from '../api/typedefs';
 import { Mutation } from 'react-apollo';
 
 
@@ -31,7 +31,15 @@ export default class Signup extends React.Component {
 
   render() {
     let { firstName, lastName, username, email, password, image, active } = this.state
-
+    let account = {
+      firstName,
+      lastName,
+      username,
+      email,
+      password,
+      image,
+      active
+    }
     if (this.state.gql_res.createAccount.response === "Account created") {
       return <Redirect to="/" />
     }
@@ -50,7 +58,7 @@ export default class Signup extends React.Component {
               <Form.Input name='email' fluid icon='mail' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
               <Form.Input name='password' fluid icon='lock' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />
               <Form.Input name='confirm' fluid icon='lock' iconPosition='left' placeholder='Confirm Password' type='password' onChange={this.handleChange} />
-              <Mutation mutation={ADD_USER} variables={{ firstName, lastName, username, email, password, image, active }}
+              <Mutation mutation={ADD_USER} variables={{ account }}
                 update={(cache, { data }) => {
                   this.setState({ gql_res: data })
                 }

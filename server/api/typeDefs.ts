@@ -1,9 +1,6 @@
 import { buildSchema } from 'graphql';
 const schema = buildSchema(`
-input TimeStamp {
-  created: String
-  lastSeen: String
-}
+
 input Account {
   firstName: String
   lastName: String
@@ -12,7 +9,6 @@ input Account {
   email: String
   image: String
   active: Boolean
-  timestamp: TimeStamp
 }
 input Playlist {
   name: String
