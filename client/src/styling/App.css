@@ -23,8 +23,22 @@
 
 .audioPlayer{
   background-color: white;
-  position:fixed;
+  position:sticky;
   left:0px;
   bottom:0px;
   min-width: 100% !important;
 }
+
+#player{
+  width:100%;
+}
+
+.cardContainer{
+  margin-top:25px;
+}
+
+.cardDiv{
+  margin:3px;
+  width:150px;
+}
+

@@ -28,13 +28,16 @@ export default class Webplayer extends React.Component {
     let songTiles = [];
     for (let z = 0; z < song_data.length; z++) {
       songTiles.push(
-        <Cards image={song_data[z].artwork}
-          artist={song_data[z].artist}
-          track={song_data[z].track}
-          song={song_data[z].song}
-          playTrack={this.playTrack}
-          index={z}
-        />
+        <div className="cardDiv">
+          <Cards image={song_data[z].artwork}
+            artist={song_data[z].artist}
+            track={song_data[z].track}
+            song={song_data[z].song}
+            playTrack={this.playTrack}
+            index={z}
+          /><br />
+          <strong>{song_data[z].track}</strong>
+        </div>
       )
     }
     return songTiles
@@ -45,9 +48,9 @@ export default class Webplayer extends React.Component {
       return <Redirect to="/" />
     } else {
       return (
-        <div>
-          <Container style={{ margin: 20 }}>
-            <Card.Group itemsPerRow={6}>
+        <div className="cardContainer">
+          <Container style={{ margin: 15 }}>
+            <Card.Group centered itemsPerRow={6}>
               {this.renderData()}
             </Card.Group>
           </Container>
