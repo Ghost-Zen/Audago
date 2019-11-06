@@ -1,20 +1,16 @@
 import axios from 'axios';
-import { useMutation } from '@apollo/react-hooks';
-import { VERIFY_USER } from '../api/typedefs';
 
 const Auth = {
     isAuthenticated: false,
     isUsername: "",
     token: "",
     async check() {
-        const [verifytoken, { data }] = useMutation(VERIFY_USER);
         let jwt = {
             token: "",
         }
         jwt.token = localStorage.getItem('sudo')
         if (jwt !== "") {
-            verifytoken({ variables: { jwt } });
-            console.log(data)
+
         }
     },
     getToken() {
