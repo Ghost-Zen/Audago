@@ -18,7 +18,7 @@ class App extends Component {
   render() {
     if(this.state.loading){
       return(
-        <Router />
+        <Login />
         )
     }else{
       return (
