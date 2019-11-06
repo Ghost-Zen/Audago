@@ -45,7 +45,8 @@ input PlaylistTrack {
 }
 type Query {
   user: UserData
-  response: String,
+  username: String
+  response: String
   list: [PlaylistInfo]
   status: Boolean
   search:[String]
