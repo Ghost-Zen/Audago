@@ -7,7 +7,6 @@ import Webplayer from './pages/Webplayer';
 import Auth from './utils/Auth';
 import { Redirect } from 'react-router-dom';
 import Profile from './pages/Profile';
-import Test from './components/graphqltest'
 
 const Router = (props) => (
 
