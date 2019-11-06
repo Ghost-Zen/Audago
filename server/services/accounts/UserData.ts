@@ -24,7 +24,7 @@ export default class UserData {
         }
     }
 
-    async loginData(username: string, password: string, email: string) {
+    async loginData(username: string, password: string) {
         let found: boolean = false;
         let data: any = { username: '', password: '', email: '' };
         if (username.trim()) {
@@ -36,7 +36,7 @@ export default class UserData {
                         data.email = res.email;
                         found = true;
                     } else {        //if no document is found for username, check if an email was entered
-                        await Account.findOne({ email: email }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 })
+                        await Account.findOne({ email: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 })
                             .then(res => {
                                 if (res) {      //if a document is found for email, load data for check
                                     data.username = res.username;
@@ -54,7 +54,7 @@ export default class UserData {
                     let token = jwt.sign({ data }, Config.SECRET, {
                         expiresIn: 86400 // expires in 24 hours
                     });
-                    return { response: token, status: true };
+                    return { response: token, username:data.username, status: true };
                 } else {
                     return { response: `Password incorrect`, status: false };
                 }

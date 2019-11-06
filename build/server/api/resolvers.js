@@ -41,7 +41,7 @@ const Query = {
         return { response: result };
     }),
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield dataRetrieval.loginData(input.username, input.password, input.email);
+        return yield dataRetrieval.loginData(input.username, input.password);
     }),
     userData: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield dataRetrieval.userData(input.username);

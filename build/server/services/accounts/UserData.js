@@ -39,7 +39,7 @@ class UserData {
             }
         });
     }
-    loginData(username, password, email) {
+    loginData(username, password) {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
             let data = { username: '', password: '', email: '' };
@@ -53,7 +53,7 @@ class UserData {
                         found = true;
                     }
                     else { //if no document is found for username, check if an email was entered
-                        yield Accounts_1.default.findOne({ email: email }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 })
+                        yield Accounts_1.default.findOne({ email: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1 })
                             .then(res => {
                             if (res) { //if a document is found for email, load data for check
                                 data.username = res.username;
@@ -71,7 +71,7 @@ class UserData {
                         let token = jsonwebtoken_1.default.sign({ data }, config_1.Config.SECRET, {
                             expiresIn: 86400 // expires in 24 hours
                         });
-                        return { response: token, status: true };
+                        return { response: token, username: data.username, status: true };
                     }
                     else {
                         return { response: `Password incorrect`, status: false };

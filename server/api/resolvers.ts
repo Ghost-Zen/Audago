@@ -28,7 +28,7 @@ const Query = {
         return { response: result }
     },
     loginCheck: async (input) => {
-        return await dataRetrieval.loginData(input.username, input.password, input.email);
+        return await dataRetrieval.loginData(input.username, input.password);
     },
     userData: async (input) => {
         return await dataRetrieval.userData(input.username)

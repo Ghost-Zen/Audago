@@ -1,33 +1,69 @@
 import React from 'react';
-import { Image, Tab, Placeholder, Grid, Header, Divider } from 'semantic-ui-react';
+import { Image, Menu, Grid, Header, Divider } from 'semantic-ui-react';
 
 
 export default class Profile extends React.Component {
+    state = {
+        activeItem: 'Playlists'
+    };
+
+    handleItemClick = (e, { name }) => {
+        this.setState({ activeItem: name });
+    }
+
+    renderItem = () => {
+        if (this.state.activeItem === 'Playlists') {
+            return (
+                <Header as='h4'>
+                    Playlists
+                </Header>
+            )
+        } else if (this.state.activeItem === 'Settings') {
+            return (
+                <Header as='h4'>
+                    Settings
+                </Header>
+            )
+        }
+    };
+
     render() {
-        const panes = [
-            {
-                menuItem: 'Playlists',
-                render: () => <Tab.Pane attached={false}>List of Playlists</Tab.Pane>,
-            },
-            {
-                menuItem: 'Settings',
-                render: () => <Tab.Pane attached={false}>Account details/ able to change account details</Tab.Pane>,
-            }
-        ]
         return (
             <Grid>
-                <Grid.Row style={{ marginTop: 15 }}>
+                <Grid.Row style={{ paddingBottom: 0 }}>
                     <Grid.Column width={16}>
-                        <Header as='h2'color='teal' floated='left'>
-                            <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' /> Username
+                        <Divider />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row style={{ marginTop: 15 }}>
+                    <Grid.Column width={3}>
+                        <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
+                    </Grid.Column>
+                    <Grid.Column width={13}>
+                        <Header as='h2' color='teal' floated='left'>
+                            Username
                         </Header>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column width={16}>
-                        <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+                        <Menu pointing secondary>
+                            <Menu.Item
+                                name='Playlists'
+                                active={this.state.activeItem === 'Playlists'}
+                                onClick={this.handleItemClick}
+                            >
+                            </Menu.Item>
+                            <Menu.Item
+                                name='Settings'
+                                active={this.state.activeItem === 'Settings'}
+                                onClick={this.handleItemClick}
+                            >
+                            </Menu.Item>
+                        </Menu>
                     </Grid.Column>
                 </Grid.Row>
+                {this.renderItem()}
             </Grid>
         )
     }
