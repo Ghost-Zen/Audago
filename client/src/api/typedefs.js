@@ -7,7 +7,6 @@ export const ADD_USER = gql`
         status
 }
     }
-  }
 `;
 
 export const SEARCH_SONG = gql`
