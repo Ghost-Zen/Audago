@@ -53,6 +53,7 @@ export default class Login extends React.Component {
                     status: data.loginCheck.status,
                     message: data.loginCheck.response
                   });
+                  console.log(data.loginCheck.message)
                 }
                 }
               >

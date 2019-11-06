@@ -2,10 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_1 = require("graphql");
 const schema = graphql_1.buildSchema(`
-input TimeStamp {
-  created: String
-  lastSeen: String
-}
+
 input Account {
   firstName: String
   lastName: String
@@ -14,7 +11,6 @@ input Account {
   email: String
   image: String
   active: Boolean
-  timestamp: TimeStamp
 }
 input Playlist {
   name: String
