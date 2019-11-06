@@ -31,6 +31,7 @@ type PlaylistInfo {
   followers: Int,
   song_count: Int
 }
+
 type UserData {
   firstName:String,
   lastName:String
@@ -47,19 +48,30 @@ input PlaylistTrack {
   artist: String
   playlist_name: String
 }
-type Query {
+type PlaylistResponse {
+  playlists: [PlaylistInfo]
+  response: String
+  status: Boolean
+}
+type Response {
+  response: String
+  username:String
+  status: Boolean
   user: UserData
+}
+type Query {
+  test(item:String): String
   username: String
   response: String
-  list: [PlaylistInfo]
+  playlistsForUser(username: String): PlaylistResponse
+  searchSong(search:String):String
+  loginCheck(username:String,password:String): Response
+  userData(username:String):Response
   status: Boolean
   search:[String]
 }
 type Mutation {
    createAccount(account:Account):Query
-   searchSong(search:String):Query
-   loginCheck(username:String,password:String):Query
-   userData(username:String):Query
    deleteUser(username:String):Query
    deleteAll:Query
    updateUser(username:String,updateData:UpdateData):Query
@@ -69,7 +81,6 @@ type Mutation {
    deleteTrack(track:PlaylistTrack):Query
    followPlaylist(username: String, playlistName: String):Query
    unfollowPlaylist(username: String, playlistName: String):Query
-   playlistsForUser(username: String):Query
   }
 `);
 export default schema

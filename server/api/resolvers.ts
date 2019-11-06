@@ -19,7 +19,10 @@ const followPlaylist = new FollowPlaylist;
 
 const Query = {
     hello: () => 'Hello World',
-    test: () => 'Test Success, GraphQL server is up & running !!',
+    test: (input) => {
+        console.log(input);
+        return 'done';
+    },
     createAccount: async (input) => {
         return await createAccount.create(input.account)
     },

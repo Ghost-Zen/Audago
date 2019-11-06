@@ -32,7 +32,10 @@ const playlistsForUser = new PlaylistsForUser_1.default;
 const followPlaylist = new FollowPlaylist_1.default;
 const Query = {
     hello: () => 'Hello World',
-    test: () => 'Test Success, GraphQL server is up & running !!',
+    test: (input) => {
+        console.log(input);
+        return 'done';
+    },
     createAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield createAccount.create(input.account);
     }),

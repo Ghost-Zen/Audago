@@ -9,31 +9,34 @@ export const ADD_USER = gql`
 `;
 
 export const SEARCH_SONG = gql`
-  mutation($search:String) {
-   searchSong (search:$search){
-    response
-    }
+  query($search:String) {
+   searchSong (search:$search)
   }
 `;
 
 export const LOGIN_CHECK = gql`
-    mutation($username:String, $password:String) {
-      loginCheck (username:$username, password:$password){
-        response,
-        username,
-        status
-      }
+  query($username:String, $password:String) {
+    loginCheck (username:$username, password:$password) {
+      response
+      username
+      status
     }
+  }
 `;
 
 export const USER_DATA = gql`
-    mutation($username:String){
-      userData(username:$username){
-        response,
-        user,
-        status
-      }
-    }
+query($username:String){
+  userData(username:$username){
+    response,
+    user {
+      firstName
+      lastName
+      email
+      image
+    },
+    status
+  }
+}
 `;
 
 export const DELETE_USER = gql`
@@ -109,11 +112,15 @@ export const UNFOLLOW_PLAYLIST = gql`
 `;
 
 export const USERS_PLAYLIST = gql`  
-    mutation($username:String){
-      updateUser(username:$username){
-        response,
-        list,
-        status
+  query($username:String) {
+    playlistsForUser(username:$username) {
+      playlists {
+        name
+        followers
+        song_count
       }
+      response
+      status
     }
+  }
 `;
