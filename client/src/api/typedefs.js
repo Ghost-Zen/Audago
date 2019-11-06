@@ -117,3 +117,12 @@ export const USERS_PLAYLIST = gql`
       }
     }
 `;
+
+export const VERIFY_USER = gql`
+    mutation($jwt:String){
+      verifytoken(jwt:$jwt){
+        response
+      }
+    }
+
+`;

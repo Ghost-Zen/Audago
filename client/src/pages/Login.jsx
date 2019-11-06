@@ -12,6 +12,13 @@ export default class Login extends React.Component {
     message: ''
   }
 
+  setClientToken = (token) => {
+    localStorage.setItem('sudo', token)
+    return (
+      <Redirect to='/' />
+    )
+  }
+
   renderRedirect = () => {
     if (this.state.status) {
       return <Redirect to='/' />
@@ -53,7 +60,7 @@ export default class Login extends React.Component {
                     status: data.loginCheck.status,
                     message: data.loginCheck.response
                   });
-                  console.log(data.loginCheck.message)
+                  this.setClientToken(data.loginCheck.response)
                 }
                 }
               >

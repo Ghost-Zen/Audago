@@ -1,21 +1,20 @@
 import axios from 'axios';
+import { useMutation } from '@apollo/react-hooks';
+import { VERIFY_USER } from '../api/typedefs';
 
 const Auth = {
     isAuthenticated: false,
     isUsername: "",
     token: "",
     async check() {
+        const [verifytoken, { data }] = useMutation(VERIFY_USER);
         let jwt = {
             token: "",
         }
         jwt.token = localStorage.getItem('sudo')
         if (jwt !== "") {
-            await axios.post(`/verify`, jwt)
-                .then(res => {
-                    this.isAuthenticated = res.data.response
-                    this.isUsername = res.data.client_id
-                    this.token = jwt.token
-                })
+            verifytoken({ variables: { jwt } });
+            console.log(data)
         }
     },
     getToken() {
@@ -36,3 +35,10 @@ const Auth = {
 };
 
 export default Auth;
+
+// await axios.post(`/verify`, jwt)
+// .then(res => {
+//     this.isAuthenticated = res.data.response
+//     this.isUsername = res.data.client_id
+//     this.token = jwt.token
+// })
