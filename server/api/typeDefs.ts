@@ -64,16 +64,16 @@ type Query {
   username: String
   response: String
   playlistsForUser(username: String): PlaylistResponse
-  searchSong(search:String):String
-  loginCheck(username:String,password:String): Response
   userData(username:String):Response
   status: Boolean
   search:[String]
 }
 type Mutation {
    createAccount(account:Account):Query
+  searchSong(search:String):Query
    deleteUser(username:String):Query
    deleteAll:Query
+  loginCheck(username:String,password:String): Query
    updateUser(username:String,updateData:UpdateData):Query
    updatePassword(username:String,currentPass:String,newPass:String):Query
    newPlaylist(playlist:Playlist ):Query

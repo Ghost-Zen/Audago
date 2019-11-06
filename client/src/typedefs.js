@@ -9,19 +9,21 @@ export const ADD_USER = gql`
 `;
 
 export const SEARCH_SONG = gql`
-  query($search:String) {
-   searchSong (search:$search)
+  mutation($search:String) {
+   searchSong (search:$search){
+     response
+   }
   }
 `;
 
 export const LOGIN_CHECK = gql`
-  query($username:String, $password:String) {
-    loginCheck (username:$username, password:$password) {
-      response
-      username
-      status
+    mutation($username:String, $password:String) {
+      loginCheck (username:$username, password:$password){
+        response,
+        username,
+        status
+      }
     }
-  }
 `;
 
 export const USER_DATA = gql`
