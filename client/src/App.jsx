@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './styling/App.css';
 import Router from './Router.jsx';
 import { Container } from 'semantic-ui-react';
-import Navbar from './components/navbar';
 import Auth from './utils/Auth'
 
 
@@ -19,13 +18,12 @@ class App extends Component {
   render() {
     if(this.state.loading){
       return(
-        <div>Loading</div>
-      )
+        <Router />
+        )
     }else{
       return (
       <div className="App">
         <Container>
-        <Navbar />
         <Router />
         </Container>
       </div>

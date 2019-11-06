@@ -7,10 +7,12 @@ import Webplayer from './pages/Webplayer';
 import Auth from './utils/Auth';
 import { Redirect } from 'react-router-dom';
 import Profile from './pages/Profile';
+import Navbar from './components/navbar';
 
 const Router = (props) => (
 
   <HashRouter>
+    <Navbar />
     <Switch>
     <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={Signup} />
