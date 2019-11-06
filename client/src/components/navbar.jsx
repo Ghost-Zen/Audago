@@ -13,7 +13,7 @@ export default class Navbar extends Component {
         const { activeItem } = this.state
         if(Auth.getAuth() === true){
            return <Menu.Item
-            name='Welcome ____'
+            name={`Welcome ${Auth.getUserName()}`}
             active={activeItem === 'greet'}
             onClick={this.handleItemClick}
           />
