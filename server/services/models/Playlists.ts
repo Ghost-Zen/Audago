@@ -5,7 +5,7 @@ export interface Iplaylist {
     creator: string,
     follower_count: number,
     song_count: number,
-    songs?: Array<{ track: string, artist: string }>
+    songs?: Array<TrackInfo>
     users?: Array<any>
 }
 export interface TrackInfo {

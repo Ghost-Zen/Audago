@@ -41,6 +41,7 @@ export default class Webplayer extends React.Component {
       )
     }
     return songTiles
+    {/* <Button>View</Button> */}
   }
 
   render() {
