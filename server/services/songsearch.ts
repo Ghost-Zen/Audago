@@ -24,6 +24,7 @@ export default class SearchSong {
               allSongsBySearch.push(search)
           }
         });
-          return JSON.stringify(allSongsBySearch)
+        console.log(allSongsBySearch)
+          return allSongsBySearch
       }
 }

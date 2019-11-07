@@ -82,7 +82,7 @@ type basicResponse {
 }
 type Query {
   test(item:String): basicResponse
-  onChangeSearch(search:String): basicResponse
+  onChangeSearch(search:String): [Songs]
   username: String
   response: String
   playlistsForUser(username: String): PlaylistResponse

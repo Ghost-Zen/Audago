@@ -20,7 +20,12 @@ export const SEARCH_SONG = gql`
 export const ONCHANGE_SEARCH = gql`
   query($search:String) {
   onChangeSearch(search:$search){
-    result
+
+      track
+      artist
+      song
+      album
+      artwork
   }
 }
 `;

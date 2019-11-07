@@ -46,9 +46,7 @@ const Query = {
         return { response: result };
     }),
     onChangeSearch: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(input);
-        let result = yield searchSong.getFromItunesAPI(input);
-        return { result };
+        return yield searchSong.getFromItunesAPI(input);
     }),
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield dataRetrieval.loginData(input.username, input.password);

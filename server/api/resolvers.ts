@@ -34,9 +34,7 @@ const Query = {
         return { response: result }
     },
     onChangeSearch: async (input) => {
-        console.log(input)
-        let result = await searchSong.getFromItunesAPI(input)
-        return { result }
+        return await searchSong.getFromItunesAPI(input)
     },
     loginCheck: async (input) => {
         return await dataRetrieval.loginData(input.username, input.password);
