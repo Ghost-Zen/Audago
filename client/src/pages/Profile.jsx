@@ -1,5 +1,5 @@
 import React from 'react';
-import { Message, Card, Image, Menu, Grid, Header, Divider, Container } from 'semantic-ui-react';
+import {Icon, Button, Message, Card, Image, Menu, Grid, Header, Divider, Container } from 'semantic-ui-react';
 import { USERS_PLAYLIST } from '../api/typedefs';
 import { Query } from 'react-apollo';
 import SongList from '../components/songlist';
@@ -10,12 +10,18 @@ export default class Profile extends React.Component {
     state = {
         activeItem: 'Playlists',
         showSongs: false,
-        playlistChoice: '',
-        data: {}
+        playlistChoice: ''
     };
 
     handleItemClick = (e, { name }) => {
         this.setState({ activeItem: name });
+    }
+
+    reset = () => {
+        this.setState({
+            showSongs: false,
+            playlistChoice: ''
+        });
     }
 
     playlistDisplay = () => (
@@ -28,11 +34,22 @@ export default class Profile extends React.Component {
                 let index = 0;
                 if (this.state.showSongs) {
                     return (
-                        <Container>
-                            <Grid.Row width={16}>
-                                <SongList />
-                            </Grid.Row>
-                        </Container>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Button onClick={this.reset} floated='left' icon>
+                                    <Icon name='angle left' />
+                                </Button>
+                                <Header floated='left' as='h2'>
+                                    {this.state.playlistChoice}
+                                </Header>
+                                <br />
+                                <br />
+                                <SongList
+                                    data={data.playlistsForUser.playlists}
+                                    choice={this.state.playlistChoice}
+                                />
+                            </Grid.Column>
+                        </Grid.Row>
                     )
                 } else if (data.playlistsForUser.playlists) {
                     for (const playlist of data.playlistsForUser.playlists) {
@@ -50,7 +67,14 @@ export default class Profile extends React.Component {
                         )
                         index++;
                     }
-                    response = playlistCards;
+                    response = (
+                        <Container>
+                            <Grid.Row width={16}>
+                                <Card.Group itemsPerRow={3}>
+                                    {playlistCards}
+                                </Card.Group>
+                            </Grid.Row>
+                        </Container>);
                 } else {
                     response = (
                         <Message
@@ -75,13 +99,7 @@ export default class Profile extends React.Component {
     renderItem = () => {
         if (this.state.activeItem === 'Playlists') {
             return (
-                <Container>
-                    <Grid.Row width={16}>
-                        <Card.Group itemsPerRow={3}>
-                            {this.playlistDisplay()}
-                        </Card.Group>
-                    </Grid.Row>
-                </Container>
+                this.playlistDisplay()
             )
         } else if (this.state.activeItem === 'Settings') {
             return (
@@ -129,7 +147,9 @@ export default class Profile extends React.Component {
                         </Menu>
                     </Grid.Column>
                 </Grid.Row>
-                {this.renderItem()}
+                <Grid columns={0} divided container>
+                    {this.renderItem()}
+                </Grid>
             </Grid>
         )
     }

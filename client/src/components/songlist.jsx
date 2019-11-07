@@ -8,29 +8,36 @@ export default class songlist extends Component {
     }
   }
 
-  render() {
+  buildList = () => {
+    let playlists = this.props.data;
+    let listItems = [];
+    let index = 0;
+    for (const playlist of playlists) {
+      if (playlist.name === this.props.choice) {
+        let songs = playlist.songs;
+        for (const song of songs) {
+          listItems.push(
+            <List.Item key={index}>
+              <Image floated='left' style={{height:100, width:100}} src={song.artwork} />
+              <List.Header>
+                {song.track}
+              </List.Header>
+              <List.Description>{song.artist}</List.Description>
+              <List.Description>{song.album}</List.Description>
+            </List.Item>
+          )
+          index++;
+        }
+      }
+    }
+    return listItems;
+  }
 
+  render() {
     return (
-          <List divided relaxed>
-            <List.Item>
-              <Image floated='left' avatar src='https://react.semantic-ui.com/images/avatar/small/daniel.jpg' />
-              <List.Content>
-                Daniel Louise
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <Image avatar src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
-              <List.Content>
-                Stevie Feliciano
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <Image avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-              <List.Content>
-                Elliot Fu
-              </List.Content>
-            </List.Item>
-          </List>
+      <List divided relaxed>
+        {this.buildList()}
+      </List>
     )
   }
 }
