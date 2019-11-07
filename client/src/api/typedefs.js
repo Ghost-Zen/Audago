@@ -79,7 +79,7 @@ export const UPDATE_PASSWORD = gql`
 
 export const NEW_PLAYLIST = gql`  
     mutation($playlist:Playlist){
-      updateUser(playlist:$playlist){
+      newPlaylist(playlist:$playlist){
         response,
         status
       }
@@ -88,7 +88,7 @@ export const NEW_PLAYLIST = gql`
 
 export const NEW_TRACK = gql`  
     mutation($track:PlaylistTrack){
-      updateUser(track:$track){
+      newTrack(track:$track){
         response,
         status
       }
@@ -96,8 +96,8 @@ export const NEW_TRACK = gql`
 `;
 
 export const DELETE_TRACK = gql`  
-    mutation($track:PlaylistTrack){
-      updateUser(track:$track){
+    mutation($track:TrackInfo){
+      deleteTrack(track:$track){
         response,
         status
       }
@@ -106,7 +106,7 @@ export const DELETE_TRACK = gql`
 
 export const FOLLOW_PLAYLIST = gql`  
     mutation($username:String, $playlistName: String){
-      updateUser(username:$username, playlistName:$playlistName){
+      followPlaylist(username:$username, playlistName:$playlistName){
         response,
         status
       }
@@ -115,7 +115,7 @@ export const FOLLOW_PLAYLIST = gql`
 
 export const UNFOLLOW_PLAYLIST = gql`  
     mutation($username:String, $playlistName: String){
-      updateUser(username:$username, playlistName:$playlistName){
+      unfollowPlaylist(username:$username, playlistName:$playlistName){
         response,
         status
       }
@@ -129,6 +129,13 @@ export const USERS_PLAYLIST = gql`
         name
         followers
         song_count
+        songs {
+          track
+          artist
+          song
+          album
+          artwork
+        }
       }
       response
       status

@@ -32,7 +32,7 @@ class PlaylistsForUser {
                     .then((res) => __awaiter(this, void 0, void 0, function* () {
                     for (const playlist of res) {
                         if (playlist.users.includes(userID)) { //loop through all playlists for users ID
-                            let playlistData = { name: playlist.name, followers: playlist.follower_count, song_count: playlist.song_count };
+                            let playlistData = { name: playlist.name, followers: playlist.follower_count, song_count: playlist.song_count, songs: playlist.songs };
                             playlists.push(playlistData); //if a users ID is found then add it to a list
                         }
                     }

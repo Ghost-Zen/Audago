@@ -39,6 +39,7 @@ export default class Search extends React.Component {
               <Mutation mutation={SEARCH_SONG} variables={{ search }}
               update={(cache, { data }) => {
                 data = JSON.parse(data.searchSong.response)
+                console.log(data)
               this.setState({ gql_res: data,
                               loading:true
               })

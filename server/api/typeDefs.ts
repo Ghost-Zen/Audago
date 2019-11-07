@@ -22,10 +22,26 @@ input Track {
   song: String
   artist: String
 }
+
+input TrackInfo {
+  track: String
+  artist: String
+  playlist: String
+}
+
 type PlaylistInfo {
   name: String,
   followers: Int,
-  song_count: Int
+  song_count: Int,
+  songs: [Songs]
+}
+
+type Songs {
+  track: String,
+  artist: String,
+  song: String,
+  album: String,
+  artwork: String
 }
 
 type UserData {
@@ -40,8 +56,11 @@ input UpdateData {
   email: String
 }
 input PlaylistTrack {
-  song: String
-  artist: String
+  track: String,
+  artist: String,
+  song: String,
+  album: String,
+  artwork: String,
   playlist_name: String
 }
 type PlaylistResponse {
@@ -79,7 +98,7 @@ type Mutation {
    updatePassword(username:String,currentPass:String,newPass:String):Query
    newPlaylist(playlist:Playlist ):Query
    newTrack(track:PlaylistTrack):Query
-   deleteTrack(track:PlaylistTrack):Query
+   deleteTrack(track:TrackInfo):Query
    followPlaylist(username: String, playlistName: String):Query
    unfollowPlaylist(username: String, playlistName: String):Query
   }

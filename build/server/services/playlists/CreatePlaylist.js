@@ -56,7 +56,7 @@ class CreatePlaylist {
                         }
                     }
                     if (!exists) {
-                        song_list.push({ track: track.track, artist: track.artist }); //if the track doesn't already exist then add to list and update DB
+                        song_list.push(track); //if the track doesn't already exist then add to list and update DB
                         yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: song_list, song_count: song_list.length });
                     }
                 }
