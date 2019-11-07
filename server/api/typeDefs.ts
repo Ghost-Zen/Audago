@@ -55,8 +55,13 @@ type Response {
   status: Boolean
   user: UserData
 }
+
+type basicResponse {
+  result:String
+}
 type Query {
-  test(item:String): String
+  test(item:String): basicResponse
+  onChangeSearch(search:String): basicResponse
   username: String
   response: String
   playlistsForUser(username: String): PlaylistResponse

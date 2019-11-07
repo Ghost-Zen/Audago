@@ -17,6 +17,14 @@ export const SEARCH_SONG = gql`
   }
 `;
 
+export const ONCHANGE_SEARCH = gql`
+  query($search:String) {
+  onChangeSearch(search:$search){
+    result
+  }
+}
+`;
+
 export const LOGIN_CHECK = gql`
     mutation($username:String, $password:String) {
       loginCheck (username:$username, password:$password){
