@@ -9,20 +9,30 @@ class Auth {
     constructor() {
         this.verifyToken = (req, res, next) => {
             let token = req.body.token;
-            if (typeof token !== 'undefined') {
-                let { data } = jsonwebtoken_1.default.verify(token, config_1.Config.SECRET);
-                res.json({
-                    status: "Token Verified",
-                    response: true,
-                    client_id: data.username,
-                    token: data.token
-                });
+            try {
+                if (typeof token !== 'undefined') {
+                    let { data } = jsonwebtoken_1.default.verify(token, config_1.Config.SECRET);
+                    res.json({
+                        status: "Token Verified",
+                        response: true,
+                        client_id: data.username,
+                        token: data.token
+                    });
+                }
+                else {
+                    res.json({
+                        status: 'Token error',
+                        response: false,
+                        client_id: "Problem with token",
+                        token: "Please login again"
+                    });
+                }
             }
-            else {
+            catch (_a) {
                 res.json({
-                    status: 'Token error',
+                    status: 'No Token',
                     response: false,
-                    client_id: "Problem with token",
+                    client_id: "No Token stored",
                     token: "Please login again"
                 });
             }

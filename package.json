@@ -10,7 +10,7 @@
     "server": "nodemon --watch . ./build/server.js",
     "watch": "tsc -w",
     "mongo": "sudo service mongod start",
-    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run watch\" \"npm run mongo\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run watch\"",
     "gita": "git add .",
     "gitc": "git commit -m 'quick add'",
     "gitm": "git push origin master_zen",
