@@ -3,26 +3,18 @@ import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { LOGIN_CHECK } from '../api/typedefs';
 import { Mutation } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
+import Auth from '../utils/Auth';
 
 export default class Login extends React.Component {
   state = {
     username: '',
     password: '',
-    status: false,
-    message: ''
+    status: Auth.getAuth(),
+    message: '',
   }
 
   setClientToken = (token) => {
     localStorage.setItem('sudo', token)
-    return (
-      <Redirect to='/' />
-    )
-  }
-
-  renderRedirect = () => {
-    if (this.state.status) {
-      return <Redirect to='/' />
-    }
   }
 
   renderError = () => {
@@ -40,7 +32,11 @@ export default class Login extends React.Component {
   }
 
   render() {
-    let { username, password } = this.state
+    let { username, password,status } = this.state
+    if(status){
+      Auth.userLogin(status)
+      return  <Redirect to='/' />
+    }
     return (
       <Grid textAlign='center' style={{ height: '80vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -52,7 +48,6 @@ export default class Login extends React.Component {
             <Segment stacked>
               <Form.Input fluid icon='user' name='username' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
               <Form.Input fluid icon='lock' name='password' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />
-              {this.renderRedirect()}
               {this.renderError()}
               <Mutation mutation={LOGIN_CHECK} variables={{ username, password }}
                 update={(cache, { data }) => {

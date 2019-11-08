@@ -34,7 +34,7 @@ const Query = {
     hello: () => 'Hello World',
     test: (input) => {
         console.log(input);
-        return 'done';
+        return input;
     },
     createAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield createAccount.create(input.account);
@@ -44,6 +44,9 @@ const Query = {
     searchSong: (input) => __awaiter(void 0, void 0, void 0, function* () {
         let result = yield searchSong.getFromItunesAPI(input);
         return { response: result };
+    }),
+    onChangeSearch: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield searchSong.getFromItunesAPI(input);
     }),
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield dataRetrieval.loginData(input.username, input.password);

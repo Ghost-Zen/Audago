@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
 import Auth from '../utils/Auth'
+import OnChangeSearch from './onChangeSearch';
 
 export default class Navbar extends Component {
   state = { activeItem: 'home' }
@@ -57,7 +58,8 @@ export default class Navbar extends Component {
         />
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Input icon='search' placeholder='Search...' />
+            <OnChangeSearch />
+            {/* <Input icon='search' placeholder='Search...' /> */}
           </Menu.Item>
           {this.userStatus()}
         </Menu.Menu>

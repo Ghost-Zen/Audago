@@ -21,7 +21,7 @@ const Query = {
     hello: () => 'Hello World',
     test: (input) => {
         console.log(input);
-        return 'done';
+        return input;
     },
     createAccount: async (input) => {
         return await createAccount.create(input.account)
@@ -32,6 +32,9 @@ const Query = {
     searchSong: async (input) => {
         let result = await searchSong.getFromItunesAPI(input)
         return { response: result }
+    },
+    onChangeSearch: async (input) => {
+        return await searchSong.getFromItunesAPI(input)
     },
     loginCheck: async (input) => {
         return await dataRetrieval.loginData(input.username, input.password);
