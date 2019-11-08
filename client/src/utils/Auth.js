@@ -18,6 +18,9 @@ const Auth = {
             })
         }
     },
+    userLogin(status){
+        this.isAuthenticated = status
+    },
     getToken() {
         return this.token
     },
