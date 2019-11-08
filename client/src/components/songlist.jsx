@@ -18,7 +18,7 @@ export default class songlist extends Component {
         for (const song of songs) {
           listItems.push(
             <List.Item key={index}>
-              <Image floated='left' style={{height:100, width:100}} src={song.artwork} />
+              <Image floated='left' style={{ height: 100, width: 100 }} src={song.artwork} />
               <List.Header>
                 {song.track}
               </List.Header>
@@ -35,9 +35,16 @@ export default class songlist extends Component {
 
   render() {
     return (
-      <List divided relaxed>
-        {this.buildList()}
-      </List>
+      <div>
+        <List divided relaxed>
+          {this.buildList()}
+        </List>
+        <div className="audioPlayer">
+          <audio id="player" controls>
+            <source src="" />
+          </audio>
+        </div>
+      </div>
     )
   }
 }

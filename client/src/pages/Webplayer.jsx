@@ -3,7 +3,6 @@ import '../styling/App.css';
 import { Redirect } from 'react-router-dom';
 import { Container, Card } from 'semantic-ui-react';
 import Cards from '../components/card';
-
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);

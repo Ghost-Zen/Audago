@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon, Button, Message, Card, Image, Menu, Grid, Header, Divider, Container } from 'semantic-ui-react';
+import { Icon, Button, Message, Card, Image, Menu, Grid, Header, Divider, Container } from 'semantic-ui-react';
 import { USERS_PLAYLIST } from '../api/typedefs';
 import { Query } from 'react-apollo';
 import SongList from '../components/songlist';
@@ -42,6 +42,7 @@ export default class Profile extends React.Component {
                                 <Header floated='left' as='h2'>
                                     {this.state.playlistChoice}
                                 </Header>
+                                <br />
                                 <br />
                                 <br />
                                 <SongList
