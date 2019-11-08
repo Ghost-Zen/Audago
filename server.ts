@@ -12,7 +12,7 @@ app.use(express.static('./client/build'));
 
 // import Accounts, { Iaccounts } from './server/services/models/Accounts';
 
-const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/audago_db';
+const url = process.env.MONGODB_URI || 'mongodb://heroku_4gfkhww0:sp8n4tfopvferquvd7kj2n9heo@ds023373.mlab.com:23373/heroku_4gfkhww0';
 
 mongoose.set('useCreateIndex', true)
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true }); // establishing the connection
