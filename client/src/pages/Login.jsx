@@ -9,15 +9,12 @@ export default class Login extends React.Component {
   state = {
     username: '',
     password: '',
-    status: false,
+    status: Auth.getAuth(),
     message: '',
   }
 
   setClientToken = (token) => {
     localStorage.setItem('sudo', token)
-    return (
-      <Redirect to='/' />
-    )
   }
 
   renderError = () => {
