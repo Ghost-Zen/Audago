@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, List, Image, Icon } from 'semantic-ui-react'
+import { Header, Button, List, Image, Icon } from 'semantic-ui-react'
 
 export default class songlist extends Component {
   constructor(props) {
@@ -75,6 +75,13 @@ export default class songlist extends Component {
   render() {
     return (
       <div>
+
+        <Header floated='left' as='h2'>
+          {this.props.choice}
+        </Header>
+        <br/>
+        <br/>
+        <br/>
         <List divided relaxed>
           {this.buildList()}
         </List>

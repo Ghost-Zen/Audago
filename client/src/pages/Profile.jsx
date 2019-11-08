@@ -39,12 +39,6 @@ export default class Profile extends React.Component {
                                 <Button onClick={this.reset} floated='left' icon>
                                     <Icon name='angle left' />
                                 </Button>
-                                <Header floated='left' as='h2'>
-                                    {this.state.playlistChoice}
-                                </Header>
-                                <br />
-                                <br />
-                                <br />
                                 <SongList
                                     data={data.playlistsForUser.playlists}
                                     choice={this.state.playlistChoice}
