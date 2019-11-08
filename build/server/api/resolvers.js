@@ -38,11 +38,8 @@ const Query = {
     createAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield createAccount.create(input.account);
     }),
-    verifytoken: () => {
-    },
     searchSong: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        let result = yield searchSong.getFromItunesAPI(input);
-        return { response: result };
+        return yield searchSong.getFromItunesAPI(input);
     }),
     onChangeSearch: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield searchSong.getFromItunesAPI(input);

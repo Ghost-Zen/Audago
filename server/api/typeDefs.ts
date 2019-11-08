@@ -90,7 +90,7 @@ type Query {
 }
 type Mutation {
    createAccount(account:Account):Query
-  searchSong(search:String):Query
+  searchSong(search:String):[Songs]
    deleteUser(username:String):Query
    deleteAll:Query
   loginCheck(username:String,password:String): Query

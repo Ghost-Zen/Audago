@@ -25,15 +25,11 @@ const Query = {
     createAccount: async (input) => {
         return await createAccount.create(input.account)
     },
-    verifytoken: () => {
-        
-    },
     searchSong: async (input) => {
-        let result = await searchSong.getFromItunesAPI(input)
-        return { response: result }
+        return await searchSong.getFromItunesAPI(input);
     },
     onChangeSearch: async (input) => {
-        return await searchSong.getFromItunesAPI(input)
+        return await searchSong.getFromItunesAPI(input);
     },
     loginCheck: async (input) => {
         return await dataRetrieval.loginData(input.username, input.password);

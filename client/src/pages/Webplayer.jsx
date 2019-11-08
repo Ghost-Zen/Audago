@@ -18,17 +18,19 @@ export default class Webplayer extends React.Component {
     x.play();
   }
 
-  stopActiveTrack = () => {
+  // stopActiveTrack = () => {
 
-  }
+  // }
 
   renderData = () => {
-    let song_data = this.props.location.state.data
+    let song_data = this.props.location.state.data.searchSong
+    console.log(song_data)
     let songTiles = [];
     for (let z = 0; z < song_data.length; z++) {
       songTiles.push(
-        <div className="cardDiv">
-          <Cards image={song_data[z].artwork}
+        <div key={z} className="cardDiv">
+          <Cards 
+            image={song_data[z].artwork}
             artist={song_data[z].artist}
             track={song_data[z].track}
             song={song_data[z].song}
@@ -40,7 +42,6 @@ export default class Webplayer extends React.Component {
       )
     }
     return songTiles
-    {/* <Button>View</Button> */}
   }
 
   render() {

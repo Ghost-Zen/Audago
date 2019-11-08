@@ -12,7 +12,11 @@ export const ADD_USER = gql`
 export const SEARCH_SONG = gql`
   mutation($search:String) {
    searchSong (search:$search){
-     response
+    track
+    artist
+    song
+    album
+    artwork
    }
   }
 `;
