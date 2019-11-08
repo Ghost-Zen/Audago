@@ -5,64 +5,55 @@ import { Query } from 'react-apollo';
 import { ONCHANGE_SEARCH } from '../api/typedefs';
 import { Search, Grid, Header, Segment, Label } from 'semantic-ui-react'
 
+const initialState = { isLoading: false, results: [], value: '', num: 1 }
 
-let source = _.times(1, () => (
-    {
-        artist:"test"
-    }
-))
-
-const resultRenderer = ({ artist }) => <Label content={artist} />
-
-resultRenderer.propTypes = {
-    artist: PropTypes.string,
-    description: PropTypes.string,
-}
-
-// const initialState = { isLoading: false, results: [], value: '' }
+const source = _.times(5, () => ({
+  title: "title",
+  description: "descript",
+  image: "image",
+  price: "price"
+}))
 
 export default class OnChangeSearch extends React.Component {
-    state = {
+  state = initialState
+
+  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+
+  handleSearchChange = (e, { value }) => {
+    this.setState({ isLoading: true, value, num:1 })
+
+    // setTimeout(() => {
+    //   if (this.state.value.length < 1) return this.setState(initialState)
+
+      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+      const isMatch = (result) => re.test(result.title)
+
+      this.setState({
         isLoading: false,
-        results: [],
-        data: "",
-        num: 1,
-        value: ""
+        // results: _.filter(source, isMatch),
+                //   results: ([{title:"J. Cole",description:"G.O.M.D"}]),
+                // results: this.state.data,
+        //         // results: _.filter(this.state.data, isMatch),
+      })
+    // }, 300)
+  }
+
+  handleResData = (data) => {
+    console.log(data)
+    if (data.onChangeSearch.length > 0) {
+        let a = data.onChangeSearch[0]
+        // console.log(a.artist)
+        this.setState({
+            num: 0,
+            results: [{
+                title:a.artist,
+                description:a.track,
+                image:a.artwork
+            }]
+        })
     }
-    // state = initialState
-
-    handleResultSelect = (e, { result }) => this.setState({ value: result.title })
-
-
-    
-
-    handleSearchChange = (e, { value }) => {
-        this.setState({ isLoading: true, value, num:1 })
-        setTimeout(() => {
-            // if (this.state.value.length < 1) return this.setState(initialState)
-
-            const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-            const isMatch = (result) => {
-                re.test(result.artist)
-            }
-            this.setState({
-                isLoading: false,
-                results: _.filter(source, isMatch),
-            })
-        }, 300)
-    
-    }
-
-    handleResData = (data) => {
-        if (data.onChangeSearch.length > 0) {
-            let a = [data.onChangeSearch]
-            this.setState({
-                num: 0,
-                data: a
-            })
-        }
-    }
-
+}
+  
     render() {
         let { isLoading, value, results, num } = this.state
         let search = value
@@ -83,7 +74,6 @@ export default class OnChangeSearch extends React.Component {
                                     })}
                                     results={results}
                                     value={value}
-                                    resultRenderer={resultRenderer}
                                     {...this.props}
                                 />
                             </Grid.Column>
