@@ -1,10 +1,46 @@
 import React, { Component } from 'react'
-import { List, Image } from 'semantic-ui-react'
+import { Button, List, Image, Icon } from 'semantic-ui-react'
 
 export default class songlist extends Component {
   constructor(props) {
     super(props)
     this.state = {
+    }
+  }
+
+  playTrack = (track) => {
+    let songList = [];
+    let startTrack;
+    for (const playlist of this.props.data) {
+      if (playlist.name === this.props.choice) {
+        for (const song of playlist.songs) {
+          songList.push(song.song);
+        }
+      }
+    }
+    startTrack = songList.indexOf(track);
+    this.playSong(songList, startTrack);
+  }
+
+  async playSong(songList, startTrack) {
+    let index = startTrack;
+    let x = document.querySelector("#player");
+    x.src = songList[index];
+    index++;
+    var playPromise = x.play();
+
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+        x.addEventListener('ended', async () => {
+          if (index !== songList.length) {
+            await this.playSong(songList, index);
+          } else {
+            await this.playSong(songList, 0);
+          }
+        });
+      })
+        .catch(error => {
+        });
     }
   }
 
@@ -24,6 +60,9 @@ export default class songlist extends Component {
               </List.Header>
               <List.Description>{song.artist}</List.Description>
               <List.Description>{song.album}</List.Description>
+              <Button onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
+                <Icon name='play' />
+              </Button>
             </List.Item>
           )
           index++;

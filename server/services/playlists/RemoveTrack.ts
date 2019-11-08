@@ -3,7 +3,6 @@ import Playlist, { TrackInfo } from '../models/Playlists';
 export default class RemoveTrack {
     async remove(track: any) {
         let found = false;
-        console.log(track)
         await Playlist.findOne({ name: track.playlist })       //find playlist the track is in
             .then(async (res) => {
                 let newList = [];

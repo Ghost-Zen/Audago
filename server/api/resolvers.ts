@@ -20,7 +20,6 @@ const followPlaylist = new FollowPlaylist;
 const Query = {
     hello: () => 'Hello World',
     test: (input) => {
-        console.log(input);
         return input;
     },
     createAccount: async (input) => {

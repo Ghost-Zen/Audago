@@ -148,7 +148,7 @@ export default class Profile extends React.Component {
                         </Menu>
                     </Grid.Column>
                 </Grid.Row>
-                <Grid columns={0} divided container>
+                <Grid columns={1} divided container>
                     {this.renderItem()}
                 </Grid>
             </Grid>

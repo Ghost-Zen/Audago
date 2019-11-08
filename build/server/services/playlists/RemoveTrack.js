@@ -17,7 +17,6 @@ class RemoveTrack {
     remove(track) {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
-            console.log(track);
             yield Playlists_1.default.findOne({ name: track.playlist }) //find playlist the track is in
                 .then((res) => __awaiter(this, void 0, void 0, function* () {
                 let newList = [];
