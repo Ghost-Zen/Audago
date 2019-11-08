@@ -94,7 +94,7 @@ describe('Testing the users playlists service functionality', () => {
         let response = yield playlistsForUser.playlistsFor('dyllanhope123');
         assert_1.default.strict.deepEqual(response, {
             response: 'Playlists found',
-            playlists: [{ name: '2019 Rap', followers: 1, song_count: 0 }, { name: '2019 House', followers: 1, song_count: 0 }], status: true
+            playlists: [{ name: '2019 Rap', followers: 1, song_count: 0, songs: [] }, { name: '2019 House', followers: 1, song_count: 0, songs: [] }], status: true
         });
     }));
     it('Should return that michaeldollman123 has no playlists', () => __awaiter(void 0, void 0, void 0, function* () {

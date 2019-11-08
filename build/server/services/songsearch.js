@@ -37,7 +37,6 @@ class SearchSong {
                     allSongsBySearch.push(search);
                 }
             });
-            console.log(allSongsBySearch);
             return allSongsBySearch;
         });
     }

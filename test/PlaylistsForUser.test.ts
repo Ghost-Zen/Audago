@@ -84,7 +84,7 @@ describe('Testing the users playlists service functionality', () => {
         assert.strict.deepEqual(response, {
             response: 'Playlists found',
             playlists:
-                [{ name: '2019 Rap', followers: 1, song_count: 0 }, { name: '2019 House', followers: 1, song_count: 0 }], status: true
+                [{ name: '2019 Rap', followers: 1, song_count: 0, songs:[] }, { name: '2019 House', followers: 1, song_count: 0, songs:[] }], status: true
         });
     });
     it('Should return that michaeldollman123 has no playlists', async () => {
