@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Menu } from 'semantic-ui-react'
+import { Input, Menu, Image } from 'semantic-ui-react'
 import Auth from '../utils/Auth'
 import OnChangeSearch from './onChangeSearch';
 
@@ -27,6 +27,12 @@ export default class Navbar extends Component {
         }
     }
 
+    logo = () => {
+      return(
+        <Image src="/audago.png" size='small' style={{margin:2}}></Image>
+      )
+    }
+
   render() {
     const { activeItem } = this.state
 
@@ -36,8 +42,7 @@ export default class Navbar extends Component {
       >
           <Menu.Header
           style={{margin:5, color:'teal'}}
-          as="h2"
-          children="Audago"
+          content={this.logo()}
           />
 
         <Menu.Item
