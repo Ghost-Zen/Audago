@@ -66,10 +66,10 @@ const Query = {
         return yield removeTrack.remove(input.username, input.track);
     }),
     updateUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield updateAccount.update(input.username, input.account);
+        return yield updateAccount.update(input.username, input.updateData);
     }),
     updatePassword: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield updateAccount.updatePassword(input.username, input.currentPass, input.newPass);
+        return yield updateAccount.updatePassword(input.username, input.currentPass, input.newPass, input.testPass);
     }),
     followPlaylist: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield followPlaylist.follow(input.username, input.playlistName);

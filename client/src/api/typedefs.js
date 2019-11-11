@@ -78,8 +78,8 @@ export const UPDATE_USER = gql`
 `;
 
 export const UPDATE_PASSWORD = gql`  
-    mutation($username:String, $currentPass:String, $newPass: String){
-      updatePassword(username:$username, currentPass:$currentPass, newPass:$newPass){
+    mutation($username:String, $currentPass:String, $newPass: String, $testPass:String){
+      updatePassword(username:$username, currentPass:$currentPass, newPass:$newPass, testPass:$testPass){
         response,
         status
       }

@@ -53,10 +53,10 @@ const Query = {
         return await removeTrack.remove(input.username, input.track);
     },
     updateUser: async (input) => {
-        return await updateAccount.update(input.username, input.account);
+        return await updateAccount.update(input.username, input.updateData);
     },
     updatePassword: async (input) => {
-        return await updateAccount.updatePassword(input.username, input.currentPass, input.newPass);
+        return await updateAccount.updatePassword(input.username, input.currentPass, input.newPass, input.testPass);
     },
     followPlaylist: async (input) => {
         return await followPlaylist.follow(input.username, input.playlistName);

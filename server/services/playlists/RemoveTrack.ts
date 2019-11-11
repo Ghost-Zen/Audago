@@ -1,4 +1,4 @@
-import Playlist, { TrackInfo } from '../models/Playlists';
+import Playlist from '../models/Playlists';
 
 export default class RemoveTrack {
     async remove(username: string, track: any) {
