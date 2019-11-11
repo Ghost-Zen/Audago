@@ -124,5 +124,23 @@ describe('Testing the create account functionality', () => {
         status = yield createAccount.create(user);
         assert_1.default.strict.deepEqual(status, { response: `Username dyllanhope123 already exists`, status: false });
     }));
+    it('Should return an error message that all the fields need to be filled out', () => __awaiter(void 0, void 0, void 0, function* () {
+        const createAccount = new CreateAccount_1.default;
+        let user = {
+            firstName: '',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        };
+        let status = yield createAccount.create(user);
+        assert_1.default.strict.deepEqual(status, { response: 'Please fill out all the fields', status: false });
+    }));
 });
 //# sourceMappingURL=CreateAccount.test.js.map

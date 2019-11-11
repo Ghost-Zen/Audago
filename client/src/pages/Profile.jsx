@@ -84,6 +84,10 @@ export default class Profile extends React.Component {
         </Query>
     );
 
+    settingsDisplay = () =>{
+        
+    }
+
     displaySongs = (value) => {
         this.setState({
             showSongs: true,
