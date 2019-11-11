@@ -108,7 +108,7 @@ export default class settings extends Component {
     handleModalError = () => {
         if (this.state.modalError) {
             return (
-                <Message style={{margin:0}} negative>
+                <Message style={{ margin: 0 }} negative>
                     <Message.Header>{this.state.response}</Message.Header>
                 </Message>
             )
@@ -151,9 +151,9 @@ export default class settings extends Component {
                             <Input name='currentPass' type='password' onChange={this.handleChange}></Input>
                         </Header>
                     </Modal.Content>
-                    <Divider style={{margin:0}}/>
+                    <Divider style={{ margin: 0 }} />
                     <Modal.Content>
-                        <Header as='h4'> New Password
+                        <Header as='h4'> New Password <br/>
                         <Input name='newPass' type='password' onChange={this.handleChange}></Input>
                         </Header>
                         <Header as='h4'> Confirm Password
