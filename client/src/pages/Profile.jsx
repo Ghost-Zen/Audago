@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon, Button, Message, Card, Image, Menu, Grid, Header, Divider, Container } from 'semantic-ui-react';
-import { USERS_PLAYLIST } from '../api/typedefs';
+import { USERS_PLAYLIST } from '../api/queries';
 import { Query } from 'react-apollo';
 import SongList from '../components/songlist';
 import Settings from '../components/editSettings'

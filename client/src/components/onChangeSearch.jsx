@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import { Query } from 'react-apollo';
-import { ONCHANGE_SEARCH } from '../api/typedefs';
+import { ONCHANGE_SEARCH } from '../api/queries';
 import { Search, Grid } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 

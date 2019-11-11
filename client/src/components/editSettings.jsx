@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Header, Grid, Input, Button, Message, Icon, Modal, Divider } from 'semantic-ui-react'
-import { USER_DATA, UPDATE_USER, UPDATE_PASSWORD } from '../api/typedefs';
+import { USER_DATA, UPDATE_USER, UPDATE_PASSWORD } from '../api/queries';
 import { Query, Mutation } from 'react-apollo';
 import Auth from '../utils/Auth';
 

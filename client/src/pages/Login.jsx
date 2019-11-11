@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
-import { LOGIN_CHECK } from '../api/typedefs';
+import { LOGIN_CHECK } from '../api/queries';
 import { Mutation } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 import Auth from '../utils/Auth';

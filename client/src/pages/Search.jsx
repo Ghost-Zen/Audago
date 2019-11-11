@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Segment,Container } from 'semantic-ui-react'
-import { SEARCH_SONG } from '../api/typedefs';
+import { SEARCH_SONG } from '../api/queries';
 import { Redirect } from 'react-router-dom';
 import { Mutation } from 'react-apollo'
 import Navbar from '../components/navbar';

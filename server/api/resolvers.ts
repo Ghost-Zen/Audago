@@ -17,7 +17,7 @@ const removeTrack = new RemoveTrack;
 const playlistsForUser = new PlaylistsForUser;
 const followPlaylist = new FollowPlaylist;
 
-const Query = {
+export default {
     hello: () => 'Hello World',
     test: (input) => {
         return input;
@@ -68,4 +68,3 @@ const Query = {
         return await playlistsForUser.playlistsFor(input.username);
     }
 }
-export default Query
