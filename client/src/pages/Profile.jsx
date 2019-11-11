@@ -111,42 +111,44 @@ export default class Profile extends React.Component {
         return (
             <div>
                 <Navbar />
-            <Grid>
-                <Grid.Row style={{ paddingBottom: 0 }}>
-                    <Grid.Column width={16}>
-                        <Divider />
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row color='teal' style={{ marginTop: 15 }}>
-                    <Grid.Column width={3}>
-                        <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
-                    </Grid.Column>
-                    <Grid.Column width={13}>
-                        <Header as='h2' inverted floated='left'>
-                            {username}
-                        </Header>
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                    <Grid.Column width={16}>
-                        <Menu pointing secondary>
-                            <Menu.Item
-                                name='Playlists'
-                                active={this.state.activeItem === 'Playlists'}
-                                onClick={this.handleItemClick}
-                            >
-                            </Menu.Item>
-                            <Menu.Item
-                                name='Settings'
-                                active={this.state.activeItem === 'Settings'}
-                                onClick={this.handleItemClick}
-                            >
-                            </Menu.Item>
-                        </Menu>
-                    </Grid.Column>
-                </Grid.Row>
-                {this.renderItem()}
-            </Grid>
+                <Container>
+                    <Grid>
+                        <Grid.Row style={{ paddingBottom: 0 }}>
+                            <Grid.Column width={16}>
+                                <Divider />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row color='teal' style={{ marginTop: 15 }}>
+                            <Grid.Column width={3}>
+                                <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
+                            </Grid.Column>
+                            <Grid.Column width={13}>
+                                <Header as='h2' inverted floated='left'>
+                                    {username}
+                                </Header>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width={16}>
+                                <Menu pointing secondary>
+                                    <Menu.Item
+                                        name='Playlists'
+                                        active={this.state.activeItem === 'Playlists'}
+                                        onClick={this.handleItemClick}
+                                    >
+                                    </Menu.Item>
+                                    <Menu.Item
+                                        name='Settings'
+                                        active={this.state.activeItem === 'Settings'}
+                                        onClick={this.handleItemClick}
+                                    >
+                                    </Menu.Item>
+                                </Menu>
+                            </Grid.Column>
+                        </Grid.Row>
+                        {this.renderItem()}
+                    </Grid>
+                </Container>
             </div>
         )
     }
