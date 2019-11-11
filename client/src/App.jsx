@@ -23,9 +23,7 @@ class App extends Component {
     }else{
       return (
       <div className="App">
-        <Container>
         <Router />
-        </Container>
       </div>
     );
   }

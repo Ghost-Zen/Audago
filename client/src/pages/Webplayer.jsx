@@ -23,6 +23,7 @@ export default class Webplayer extends React.Component {
   // }
 
   renderData = () => {
+    console.log(this.props)
     let song_data = this.props.location.state.data.searchSong
     let songTiles = [];
     for (let z = 0; z < song_data.length; z++) {
@@ -48,17 +49,19 @@ export default class Webplayer extends React.Component {
       return <Redirect to="/" />
     } else {
       return (
+        <div>
         <div className="cardContainer">
           <Container style={{ margin: 15 }}>
             <Card.Group centered itemsPerRow={6}>
               {this.renderData()}
             </Card.Group>
           </Container>
+        </div>
           <div className="audioPlayer">
-            <audio id="player" controls>
-              <source src="" />
-            </audio>
-          </div>
+          <audio id="player" controls>
+            <source src="" />
+          </audio>
+        </div>
         </div>
       )
     }

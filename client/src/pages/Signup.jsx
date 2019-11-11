@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
 import { ADD_USER } from '../api/typedefs';
 import { Mutation } from 'react-apollo';
+import Navbar from '../components/navbar';
 
 
 export default class Signup extends React.Component {
@@ -49,7 +50,9 @@ export default class Signup extends React.Component {
       return <Redirect to="/" />
     }
     return (
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <div style={{ height: '100vh' }}>
+        <Navbar />
+      <Grid style={{ margin: 50 + 'px' }} textAlign='center' verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' color='teal' textAlign='center'>
             Create an account
@@ -80,6 +83,7 @@ export default class Signup extends React.Component {
           </Form>
         </Grid.Column>
       </Grid>
+      </div>
     )
   }
 

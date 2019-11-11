@@ -2,49 +2,48 @@ import React, { Component } from 'react'
 import { Input, Menu, Image } from 'semantic-ui-react'
 import Auth from '../utils/Auth'
 import OnChangeSearch from './onChangeSearch';
+import NavBarDropDown from './dropdown';
 
 export default class Navbar extends Component {
   state = { activeItem: 'home' }
 
   handleItemClick = (e, { name }) => {
-      this.setState({ activeItem: name })
-    }
+    this.setState({ activeItem: name })
+  }
 
-    userStatus = () => {
-        const { activeItem } = this.state
-        if(Auth.getAuth() === true){
-           return <Menu.Item
-            name={`Welcome ${Auth.getUserName()}`}
-            active={activeItem === 'greet'}
-            onClick={this.handleItemClick}
-          />
-        }else{
-           return <Menu.Item
-            name='login'
-            active={activeItem === 'login'}
-            onClick={this.handleItemClick}
-          />
-        }
-    }
-
-    logo = () => {
-      return(
-        <Image src="/audago.png" size='small' style={{margin:2}}></Image>
+  userStatus = () => {
+    const { activeItem } = this.state
+    if (Auth.getAuth() === true) {
+      return (
+        <Menu.Item>
+          <NavBarDropDown />
+        </Menu.Item>
       )
+    } else {
+      return <Menu.Item
+        name='not logged in'
+        active={activeItem === 'login'}
+        onClick={this.handleItemClick}
+        href='/#login'
+      />
     }
+  }
+
+  logo = () => {
+    return (
+      <Image src="/audago.png" size='small'></Image>
+    )
+  }
 
   render() {
     const { activeItem } = this.state
 
     return (
-      <Menu secondary
-      style={{ margin: 5 }} 
-      >
-          <Menu.Header
-          style={{margin:5, color:'teal'}}
+      <Menu inverted  secondary className="navbar">
+        <Menu.Header
+          style={{ margin: 10, color: 'teal' }}
           content={this.logo()}
-          />
-
+        />
         <Menu.Item
           name='home'
           active={activeItem === 'home'}
@@ -52,8 +51,8 @@ export default class Navbar extends Component {
           onClick={this.handleItemClick}
         />
         <Menu.Item
-          name='playlist'
-          active={activeItem === 'playlist'}
+          name='explore'
+          active={activeItem === 'explore'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
@@ -64,7 +63,6 @@ export default class Navbar extends Component {
         <Menu.Menu position='right'>
           <Menu.Item>
             <OnChangeSearch />
-            {/* <Input icon='search' placeholder='Search...' /> */}
           </Menu.Item>
           {this.userStatus()}
         </Menu.Menu>
