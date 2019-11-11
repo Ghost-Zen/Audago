@@ -120,7 +120,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         };
         yield createPlaylist.create(playlist);
-        let response = yield createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 House", song: '', album: 'music', artwork: '' });
+        let response = yield createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 House", song: '', album: 'music', artwork: '' });
         assert_1.default.strict.deepEqual(response, { response: '2019 House not found', status: false });
     }));
     it('Should return that the song "Middle Child" by "J. Cole" was added to the playlist "2019 rap" successfully', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -147,7 +147,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         };
         yield createPlaylist.create(playlist);
-        let response = yield createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        let response = yield createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert_1.default.strict.deepEqual(response, { response: 'track added successfully', status: true });
     }));
     it('Should return that the song "Middle Child" by "J. Cole" was already in the playlist', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -174,9 +174,51 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         };
         yield createPlaylist.create(playlist);
-        yield createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
-        let response = yield createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        yield createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        let response = yield createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert_1.default.strict.deepEqual(response, { response: 'Middle Child is already in the playlist', status: false });
+    }));
+    it('Should return that Chris cannot add to a playlist he does not own', () => __awaiter(void 0, void 0, void 0, function* () {
+        const createAccount = new CreateAccount_1.default;
+        const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
+        let user = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        };
+        yield createAccount.create(user);
+        user = {
+            firstName: 'Chris',
+            lastName: 'Green',
+            username: 'chris123',
+            password: '12345',
+            email: 'chrisgreen@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        };
+        yield createAccount.create(user);
+        let playlist = {
+            name: '2019 Rap',
+            follower_count: 0,
+            creator: 'dyllanhope123',
+            song_count: 0
+        };
+        yield createPlaylist.create(playlist);
+        yield createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        let response = yield createPlaylist.addToPlaylist("chris123", { track: "We'll be fine", artist: "Drake", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        assert_1.default.strict.deepEqual(response, { response: 'You cannot add to a playlist you do not own', status: false });
     }));
 });
 //# sourceMappingURL=CreatePlaylist.test.js.map

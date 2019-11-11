@@ -17,7 +17,6 @@ export interface Iaccounts{
 export interface UpdateData {
     firstName: string,
     lastName: string
-    password: string,
     email: string
 }
 

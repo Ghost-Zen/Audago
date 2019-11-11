@@ -108,7 +108,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         }
         await createPlaylist.create(playlist);
-        let response = await createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 House", song: '', album: 'music', artwork: '' });
+        let response = await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 House", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: '2019 House not found', status: false });
     })
     it('Should return that the song "Middle Child" by "J. Cole" was added to the playlist "2019 rap" successfully', async () => {
@@ -135,7 +135,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         }
         await createPlaylist.create(playlist);
-        let response = await createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        let response = await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: 'track added successfully', status: true });
     })
     it('Should return that the song "Middle Child" by "J. Cole" was already in the playlist', async () => {
@@ -162,8 +162,50 @@ describe('Testing the "adding to playlist" functionality', () => {
             song_count: 0
         }
         await createPlaylist.create(playlist);
-        await createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
-        let response = await createPlaylist.addToPlaylist({ track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        let response = await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: 'Middle Child is already in the playlist', status: false });
+    })
+    it('Should return that Chris cannot add to a playlist he does not own', async () => {
+        const createAccount = new CreateAccount;
+        const createPlaylist = new CreatePlaylist;
+        let user: Iaccounts = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        await createAccount.create(user);
+        user = {
+            firstName: 'Chris',
+            lastName: 'Green',
+            username: 'chris123',
+            password: '12345',
+            email: 'chrisgreen@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        await createAccount.create(user);
+        let playlist: Iplaylist = {
+            name: '2019 Rap',
+            follower_count: 0,
+            creator: 'dyllanhope123',
+            song_count: 0
+        }
+        await createPlaylist.create(playlist);
+        await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        let response = await createPlaylist.addToPlaylist("chris123", { track: "We'll be fine", artist: "Drake", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
+        assert.strict.deepEqual(response, { response: 'You cannot add to a playlist you do not own', status: false });
     })
 });

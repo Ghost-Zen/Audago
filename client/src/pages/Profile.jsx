@@ -3,6 +3,7 @@ import { Icon, Button, Message, Card, Image, Menu, Grid, Header, Divider, Contai
 import { USERS_PLAYLIST } from '../api/typedefs';
 import { Query } from 'react-apollo';
 import SongList from '../components/songlist';
+import Settings from '../components/editSettings'
 import Auth from '../utils/Auth'
 
 
@@ -10,7 +11,8 @@ export default class Profile extends React.Component {
     state = {
         activeItem: 'Playlists',
         showSongs: false,
-        playlistChoice: ''
+        playlistChoice: '',
+        editSettings: false
     };
 
     handleItemClick = (e, { name }) => {
@@ -84,10 +86,6 @@ export default class Profile extends React.Component {
         </Query>
     );
 
-    settingsDisplay = () =>{
-        
-    }
-
     displaySongs = (value) => {
         this.setState({
             showSongs: true,
@@ -102,9 +100,7 @@ export default class Profile extends React.Component {
             )
         } else if (this.state.activeItem === 'Settings') {
             return (
-                <Header as='h4'>
-                    Settings
-                </Header>
+                <Settings />
             )
         }
     };
@@ -146,9 +142,7 @@ export default class Profile extends React.Component {
                         </Menu>
                     </Grid.Column>
                 </Grid.Row>
-                <Grid columns={1} divided container>
-                    {this.renderItem()}
-                </Grid>
+                {this.renderItem()}
             </Grid>
         )
     }

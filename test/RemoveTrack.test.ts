@@ -32,7 +32,7 @@ describe('Testing the "remove track" functionality', () => {
         const removeTrack = new RemoveTrack;
         let user: Iaccounts = {
             firstName: 'Dyllan',
-            lastName: 'Hope', 
+            lastName: 'Hope',
             username: 'dyllanhope123',
             password: '12345',
             email: 'dyllanhope@gmail.com',
@@ -52,9 +52,9 @@ describe('Testing the "remove track" functionality', () => {
         }
         let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         await createPlaylist.create(playlist);
-        await createPlaylist.addToPlaylist(track);
+        await createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        let response = await removeTrack.remove(track);
+        let response = await removeTrack.remove("dyllanhope123", track);
         assert.strict.deepEqual(response, { response: 'The song Midnight was not found in the playlist 2019 Rap', status: false });
     })
     it('Should return "The song Middle Child was successfully removed from the playlist 2019 Rap"', async () => {
@@ -83,11 +83,45 @@ describe('Testing the "remove track" functionality', () => {
         }
         let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         await createPlaylist.create(playlist);
-        await createPlaylist.addToPlaylist(track);
+        await createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        await createPlaylist.addToPlaylist(track);
+        await createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        let response = await removeTrack.remove(track);
+        let response = await removeTrack.remove("dyllanhope123", track);
         assert.strict.deepEqual(response, { response: 'The song Middle Child was successfully removed from the playlist 2019 Rap', status: true });
+    })
+    it('Should return that chris cannot remove a track from a playlist he does not own', async () => {
+        const createAccount = new CreateAccount;
+        const createPlaylist = new CreatePlaylist;
+        const removeTrack = new RemoveTrack;
+        let user: Iaccounts = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        await createAccount.create(user);
+        let playlist: Iplaylist = {
+            name: '2019 Rap',
+            follower_count: 0,
+            creator: 'dyllanhope123',
+            song_count: 0
+        }
+        let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
+        await createPlaylist.create(playlist);
+        await createPlaylist.addToPlaylist("dyllanhope123", track);
+        track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
+        let response = await removeTrack.remove("chris123", track);
+        assert.strict.deepEqual(response, {
+            response: "You cannot remove a track from a playlist you don't own",
+            status: false
+        });
     })
 });

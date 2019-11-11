@@ -93,7 +93,7 @@ describe('Testing the users playlists service functionality', () => {
         yield createPlaylist.create(playlist);
         let response = yield playlistsForUser.playlistsFor('dyllanhope123');
         assert_1.default.deepEqual(response, {
-            playlists: [{ name: '2019 Rap', followers: 1, song_count: 0, songs: [] }, { name: '2019 House', followers: 1, song_count: 0, songs: [] }],
+            playlists: [{ name: '2019 Rap', creator: "dyllanhope123", followers: 1, song_count: 0, songs: [] }, { name: '2019 House', creator: "dyllanhope123", followers: 1, song_count: 0, songs: [] }],
             response: 'Playlists found',
             status: true
         });
