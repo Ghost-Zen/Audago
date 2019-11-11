@@ -18,30 +18,35 @@ const saltRounds = 10;
 class CreateAccount {
     create(account) {
         return __awaiter(this, void 0, void 0, function* () {
-            let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            let date = new Date();
-            let created = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-            let exists = false;
-            account.timestamp = { created: "", lastSeen: "" };
-            account.timestamp.created = created;
-            account.timestamp.lastSeen = created;
-            yield bcrypt_1.default.hash(account.password, saltRounds).then(function (hash) {
-                account.password = hash;
-            });
-            let user = new Accounts_1.default(account);
-            yield Accounts_1.default.findOne({ username: user.username }) //search for username (unique field) in DB
-                .then(res => {
-                if (res) { //checking if there was a response for the user (if that account doesn't exists)
-                    exists = true;
+            if (account.firstName && account.lastName && account.password && account.email && account.username) {
+                let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                let date = new Date();
+                let created = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+                let exists = false;
+                account.timestamp = { created: "", lastSeen: "" };
+                account.timestamp.created = created;
+                account.timestamp.lastSeen = created;
+                yield bcrypt_1.default.hash(account.password, saltRounds).then(function (hash) {
+                    account.password = hash;
+                });
+                let user = new Accounts_1.default(account);
+                yield Accounts_1.default.findOne({ username: user.username }) //search for username (unique field) in DB
+                    .then(res => {
+                    if (res) { //checking if there was a response for the user (if that account doesn't exists)
+                        exists = true;
+                    }
+                });
+                // Returning separate from code as returns don't work in a promise
+                if (!exists) {
+                    yield user.save();
+                    return { response: `Account created`, status: true }; //if account created successfully return this message 
                 }
-            });
-            // Returning separate from code as returns don't work in a promise
-            if (!exists) {
-                yield user.save();
-                return { response: `Account created`, status: true }; //if account created successfully return this message 
+                else {
+                    return { response: `Username ${account.username} already exists`, status: false }; //return whether the account exists or not
+                }
             }
             else {
-                return { response: `Username ${account.username} already exists`, status: false }; //return whether the account exists or not
+                return { response: 'Please fill out all the fields', status: false };
             }
         });
     }

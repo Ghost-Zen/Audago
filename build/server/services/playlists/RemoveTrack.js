@@ -17,7 +17,7 @@ class RemoveTrack {
     remove(track) {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
-            yield Playlists_1.default.findOne({ name: track.playlist }) //find playlist the track is in
+            yield Playlists_1.default.findOne({ name: track.playlist_name }) //find playlist the track is in
                 .then((res) => __awaiter(this, void 0, void 0, function* () {
                 let newList = [];
                 let song_list = res.songs;
@@ -29,14 +29,14 @@ class RemoveTrack {
                         newList.push(item); //if the track is found leave it out of the new track list
                     }
                 }
-                yield Playlists_1.default.updateOne({ name: track.playlist }, { songs: newList, song_count: newList.length }); //update document with new songlist and song count
+                yield Playlists_1.default.updateOne({ name: track.playlist_name }, { songs: newList, song_count: newList.length }); //update document with new songlist and song count
             }));
             //Returning is seperate from rest of code as you can't return in a promise
             if (!found) {
-                return { response: `The song ${track.track} was not found in the playlist ${track.playlist}`, status: false };
+                return { response: `The song ${track.track} was not found in the playlist ${track.playlist_name}`, status: false };
             }
             else {
-                return { response: `The song ${track.track} was successfully removed from the playlist ${track.playlist}`, status: true };
+                return { response: `The song ${track.track} was successfully removed from the playlist ${track.playlist_name}`, status: true };
             }
         });
     }

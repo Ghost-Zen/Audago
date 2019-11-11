@@ -115,4 +115,22 @@ describe('Testing the create account functionality', () => {
         status = await createAccount.create(user);
         assert.strict.deepEqual(status, { response: `Username dyllanhope123 already exists`, status: false });
     });
+    it('Should return an error message that all the fields need to be filled out', async () => {
+        const createAccount = new CreateAccount;
+        let user: Iaccounts = {
+            firstName: '',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        let status = await createAccount.create(user);
+        assert.strict.deepEqual(status, { response: 'Please fill out all the fields', status: false });
+    });
 });

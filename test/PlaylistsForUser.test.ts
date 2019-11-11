@@ -6,6 +6,7 @@ import FollowPlaylist from '../server/services/playlists/FollowPlaylist';
 import CreateAccount from '../server/services/accounts/CreateAccount';
 import { CreatePlaylist } from '../server/services/playlists/CreatePlaylist';
 import PlaylistsForUser from '../server/services/playlists/PlaylistsForUser';
+import { stringify } from 'querystring';
 
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
 
@@ -81,10 +82,11 @@ describe('Testing the users playlists service functionality', () => {
         }
         await createPlaylist.create(playlist);
         let response = await playlistsForUser.playlistsFor('dyllanhope123');
-        assert.strict.deepEqual(response, {
-            response: 'Playlists found',
+        assert.deepEqual(response, {
             playlists:
-                [{ name: '2019 Rap', followers: 1, song_count: 0, songs:[] }, { name: '2019 House', followers: 1, song_count: 0, songs:[] }], status: true
+                [{ name: '2019 Rap', followers: 1, song_count: 0, songs: [] }, { name: '2019 House', followers: 1, song_count: 0, songs: [] }],
+            response: 'Playlists found',
+            status: true
         });
     });
     it('Should return that michaeldollman123 has no playlists', async () => {
