@@ -3,6 +3,7 @@ import '../styling/App.css';
 import { Redirect } from 'react-router-dom';
 import { Container, Card } from 'semantic-ui-react';
 import Cards from '../components/card';
+import Navbar from '../components/navbar';
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,6 @@ export default class Webplayer extends React.Component {
   // }
 
   renderData = () => {
-    console.log(this.props)
     let song_data = this.props.location.state.data.searchSong
     let songTiles = [];
     for (let z = 0; z < song_data.length; z++) {
@@ -50,6 +50,7 @@ export default class Webplayer extends React.Component {
     } else {
       return (
         <div>
+          <Navbar />
         <div className="cardContainer">
           <Container style={{ margin: 15 }}>
             <Card.Group centered itemsPerRow={6}>

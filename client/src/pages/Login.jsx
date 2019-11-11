@@ -4,6 +4,7 @@ import { LOGIN_CHECK } from '../api/typedefs';
 import { Mutation } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 import Auth from '../utils/Auth';
+import Navbar from '../components/navbar';
 
 export default class Login extends React.Component {
   state = {
@@ -38,6 +39,8 @@ export default class Login extends React.Component {
       return  <Redirect to='/' />
     }
     return (
+      <div>
+      <Navbar />
       <Grid textAlign='center' style={{ height: '80vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' color='teal' textAlign='center'>
@@ -72,6 +75,7 @@ export default class Login extends React.Component {
           </Message>
         </Grid.Column>
       </Grid>
+      </div>
     )
   }
 

@@ -3,6 +3,7 @@ import { Button, Form, Grid, Header, Segment,Container } from 'semantic-ui-react
 import { SEARCH_SONG } from '../api/typedefs';
 import { Redirect } from 'react-router-dom';
 import { Mutation } from 'react-apollo'
+import Navbar from '../components/navbar';
 export default class Search extends React.Component {
   state = {
     search: "",
@@ -27,6 +28,7 @@ export default class Search extends React.Component {
     }
     return (
       <Container>
+        <Navbar />
       <Grid textAlign='center' style={{ height: '80vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' color='teal' textAlign='center'>

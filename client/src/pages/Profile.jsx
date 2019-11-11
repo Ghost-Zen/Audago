@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import SongList from '../components/songlist';
 import Settings from '../components/editSettings'
 import Auth from '../utils/Auth'
+import Navbar from '../components/navbar';
 
 
 export default class Profile extends React.Component {
@@ -108,6 +109,8 @@ export default class Profile extends React.Component {
     render() {
         let username = Auth.getUserName();
         return (
+            <div>
+                <Navbar />
             <Grid>
                 <Grid.Row style={{ paddingBottom: 0 }}>
                     <Grid.Column width={16}>
@@ -144,6 +147,7 @@ export default class Profile extends React.Component {
                 </Grid.Row>
                 {this.renderItem()}
             </Grid>
+            </div>
         )
     }
 
