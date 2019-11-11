@@ -60,10 +60,10 @@ const Query = {
         return yield createPlaylist.create(input.playlist);
     }),
     newTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield createPlaylist.addToPlaylist(input.track);
+        return yield createPlaylist.addToPlaylist(input.username, input.track);
     }),
     deleteTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield removeTrack.remove(input.track);
+        return yield removeTrack.remove(input.username, input.track);
     }),
     updateUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield updateAccount.update(input.username, input.account);

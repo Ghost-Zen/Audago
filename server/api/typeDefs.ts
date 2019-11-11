@@ -97,8 +97,8 @@ type Mutation {
    updateUser(username:String,updateData:UpdateData):Query
    updatePassword(username:String,currentPass:String,newPass:String):Query
    newPlaylist(playlist:Playlist ):Query
-   newTrack(track:PlaylistTrack):Query
-   deleteTrack(track:TrackInfo):Query
+   newTrack(username:String,track:PlaylistTrack):Query
+   deleteTrack(username:String,track:TrackInfo):Query
    followPlaylist(username: String, playlistName: String):Query
    unfollowPlaylist(username: String, playlistName: String):Query
   }

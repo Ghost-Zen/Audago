@@ -64,9 +64,9 @@ describe('Testing the "remove track" functionality', () => {
         };
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         yield createPlaylist.create(playlist);
-        yield createPlaylist.addToPlaylist(track);
+        yield createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        let response = yield removeTrack.remove(track);
+        let response = yield removeTrack.remove("dyllanhope123", track);
         assert_1.default.strict.deepEqual(response, { response: 'The song Midnight was not found in the playlist 2019 Rap', status: false });
     }));
     it('Should return "The song Middle Child was successfully removed from the playlist 2019 Rap"', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -95,12 +95,46 @@ describe('Testing the "remove track" functionality', () => {
         };
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         yield createPlaylist.create(playlist);
-        yield createPlaylist.addToPlaylist(track);
+        yield createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        yield createPlaylist.addToPlaylist(track);
+        yield createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        let response = yield removeTrack.remove(track);
+        let response = yield removeTrack.remove("dyllanhope123", track);
         assert_1.default.strict.deepEqual(response, { response: 'The song Middle Child was successfully removed from the playlist 2019 Rap', status: true });
+    }));
+    it('Should return that chris cannot remove a track from a playlist he does not own', () => __awaiter(void 0, void 0, void 0, function* () {
+        const createAccount = new CreateAccount_1.default;
+        const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
+        const removeTrack = new RemoveTrack_1.default;
+        let user = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        };
+        yield createAccount.create(user);
+        let playlist = {
+            name: '2019 Rap',
+            follower_count: 0,
+            creator: 'dyllanhope123',
+            song_count: 0
+        };
+        let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
+        yield createPlaylist.create(playlist);
+        yield createPlaylist.addToPlaylist("dyllanhope123", track);
+        track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
+        let response = yield removeTrack.remove("chris123", track);
+        assert_1.default.strict.deepEqual(response, {
+            response: "You cannot remove a track from a playlist you don't own",
+            status: false
+        });
     }));
 });
 //# sourceMappingURL=RemoveTrack.test.js.map

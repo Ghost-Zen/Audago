@@ -96,8 +96,8 @@ export const NEW_PLAYLIST = gql`
 `;
 
 export const NEW_TRACK = gql`  
-    mutation($track:PlaylistTrack){
-      newTrack(track:$track){
+    mutation($username:String, $track:PlaylistTrack){
+      newTrack(username:$username, track:$track){
         response,
         status
       }
@@ -105,8 +105,8 @@ export const NEW_TRACK = gql`
 `;
 
 export const DELETE_TRACK = gql`  
-    mutation($track:TrackInfo){
-      deleteTrack(track:$track){
+    mutation($username:String,$track:TrackInfo){
+      deleteTrack(username:$username,track:$track){
         response,
         status
       }
