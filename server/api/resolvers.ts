@@ -44,13 +44,13 @@ export default {
         return await deleteAccount.deleteAll();
     },
     newPlaylist: async (input) => {
-        return await createPlaylist.create(input.playlist);
+        return await createPlaylist.create(input.name, input.creator);
     },
     newTrack: async (input) => {
         return await createPlaylist.addToPlaylist(input.username, input.track);
     },
     deleteTrack: async (input) => {
-        return await removeTrack.remove(input.username, input.track);
+        return await removeTrack.remove(input.username, input.trackInfo);
     },
     updateUser: async (input) => {
         return await updateAccount.update(input.username, input.updateData);

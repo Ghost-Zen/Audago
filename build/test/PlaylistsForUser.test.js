@@ -76,21 +76,21 @@ describe('Testing the users playlists service functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         };
-        yield createPlaylist.create(playlist);
+        yield createPlaylist.create('2019 Rap', 'dyllanhope123');
         playlist = {
             name: '2019 House',
             follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         };
-        yield createPlaylist.create(playlist);
+        yield createPlaylist.create('2019 House', 'dyllanhope123');
         playlist = {
             name: '2019 Pop',
             follower_count: 1,
             creator: 'danielminter123',
             song_count: 0
         };
-        yield createPlaylist.create(playlist);
+        yield createPlaylist.create('2019 Pop', 'danielminter123');
         let response = yield playlistsForUser.playlistsFor('dyllanhope123');
         assert_1.default.deepEqual(response, {
             playlists: [{ name: '2019 Rap', creator: "dyllanhope123", followers: 1, song_count: 0, songs: [] }, { name: '2019 House', creator: "dyllanhope123", followers: 1, song_count: 0, songs: [] }],
@@ -150,21 +150,21 @@ describe('Testing the users playlists service functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         };
-        yield createPlaylist.create(playlist);
+        yield createPlaylist.create('2019 Rap', 'dyllanhope123');
         playlist = {
             name: '2019 House',
             follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         };
-        yield createPlaylist.create(playlist);
+        yield createPlaylist.create('2019 House', 'dyllanhope123');
         playlist = {
             name: '2019 Pop',
             follower_count: 1,
             creator: 'danielminter123',
             song_count: 0
         };
-        yield createPlaylist.create(playlist);
+        yield createPlaylist.create('2019 Pop', 'danielminter123');
         let response = yield playlistsForUser.playlistsFor('michaeldollman123');
         assert_1.default.strict.deepEqual(response, { response: 'No playlists found, go follow or create some!', status: true });
     }));

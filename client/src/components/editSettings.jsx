@@ -29,7 +29,7 @@ export default class settings extends Component {
     };
 
     renderUserSettings = () => (
-        <Query query={USER_DATA} variables={{ username: Auth.getUserName() }}>
+        <Query query={USER_DATA} variables={{ username: Auth.getUserName() }} pollInterval={500}>
             {({ loading, error, data }) => {
                 if (loading) return 'Loading...';
                 if (error) return `Error! ${error.message}`;
@@ -167,7 +167,6 @@ export default class settings extends Component {
                         </Button>
                         <Mutation mutation={UPDATE_PASSWORD} variables={{ username, currentPass, newPass, testPass }}
                             update={(cache, { data }) => {
-                                console.log(data);
                                 let info = data.updatePassword;
                                 this.handleCheck(info);
                             }

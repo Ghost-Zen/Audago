@@ -30,7 +30,7 @@ const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
 const removeTrack = new RemoveTrack_1.default;
 const playlistsForUser = new PlaylistsForUser_1.default;
 const followPlaylist = new FollowPlaylist_1.default;
-const Query = {
+exports.default = {
     hello: () => 'Hello World',
     test: (input) => {
         return input;
@@ -57,13 +57,13 @@ const Query = {
         return yield deleteAccount.deleteAll();
     }),
     newPlaylist: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield createPlaylist.create(input.playlist);
+        return yield createPlaylist.create(input.name, input.creator);
     }),
     newTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield createPlaylist.addToPlaylist(input.username, input.track);
     }),
     deleteTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield removeTrack.remove(input.username, input.track);
+        return yield removeTrack.remove(input.username, input.trackInfo);
     }),
     updateUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield updateAccount.update(input.username, input.updateData);
@@ -81,5 +81,4 @@ const Query = {
         return yield playlistsForUser.playlistsFor(input.username);
     })
 };
-exports.default = Query;
 //# sourceMappingURL=resolvers.js.map
