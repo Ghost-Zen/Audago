@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimmer, Loader, Image, Segment, Container } from 'semantic-ui-react'
+import { Dimmer, Loader, Container } from 'semantic-ui-react'
 
 const Loading = () => (
   <div>

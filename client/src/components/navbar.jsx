@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Menu, Image } from 'semantic-ui-react'
+import { Menu, Image } from 'semantic-ui-react'
 import Auth from '../utils/Auth'
 import OnChangeSearch from './onChangeSearch';
 import NavBarDropDown from './dropdown';

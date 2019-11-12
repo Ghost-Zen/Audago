@@ -18,13 +18,18 @@ export default class OnChangeSearch extends React.Component {
     state = initialState
 
     handleResultSelect = (e, { result }) => {
-        let {songData} = this.state
-        let selectedSongData = {searchSong:[songData[result.id]]}
-        this.setState({ value: result.title, redirect: true, selectedSongData })
+        let { songData, allSongs } = this.state
+        if (result.id === '@') {
+            let selectedSongData = { searchSong: allSongs }
+            this.setState({ value: result.title, redirect: true, selectedSongData })
+        } else {
+            let selectedSongData = { searchSong: [songData[result.id]] }
+            this.setState({ value: result.title, redirect: true, selectedSongData })
+        }
     }
 
     handleSearchChange = (e, { value }) => {
-        this.setState({ isLoading: true, value, preventLoop: 1, results:[] })
+        this.setState({ isLoading: true, value, preventLoop: 1, results: [] })
         this.setState({
             isLoading: false,
         })
@@ -36,11 +41,21 @@ export default class OnChangeSearch extends React.Component {
             let rawData = [];
             for (let z = 0; z < 4; z++) {
                 let apiRes = data.onChangeSearch[z]
-                let onSearchData = {
-                    id: z,
-                    title: apiRes.artist,
-                    description: apiRes.track,
-                    image: apiRes.artwork
+                let onSearchData;
+                if (z < 1) {
+                    onSearchData = {
+                        id: '@',
+                        title: apiRes.artist,
+                        description: 'Search All',
+                        image: ''
+                    }
+                } else {
+                    onSearchData = {
+                        id: z,
+                        title: apiRes.artist,
+                        description: apiRes.track,
+                        image: apiRes.artwork
+                    }
                 }
                 rawData.push(apiRes)
                 top4Res.push(onSearchData)
@@ -48,7 +63,8 @@ export default class OnChangeSearch extends React.Component {
             this.setState({
                 preventLoop: 0,
                 results: top4Res,
-                songData: rawData
+                songData: rawData,
+                allSongs: data.onChangeSearch
             })
         }
     }

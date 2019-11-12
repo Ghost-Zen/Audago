@@ -2,7 +2,6 @@ import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Search from './pages/Search';
 import HomePage from './pages/Homepage';
 import Webplayer from './pages/Webplayer';
 import Auth from './utils/Auth';

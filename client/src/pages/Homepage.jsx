@@ -15,7 +15,7 @@ export default class HomePage extends React.Component {
         return (
             <div className="bg">
                 <Navbar />
-                <Header as='h1' icon textAlign='center' inverted color='white' style={{ fontSize: 40, marginTop: '4em' }}>
+                <Header as='h1' icon textAlign='center' inverted style={{ fontSize: 40, marginTop: '4em' }}>
                     <Header.Content>
                         Lose yourself in
                   50 million songs.
