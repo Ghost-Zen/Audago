@@ -26,7 +26,6 @@ export default class Webplayer extends React.Component {
 
   renderData = () => {
     let song_data = this.props.location.state.data.searchSong
-    console.log(song_data)
     let songTiles = [];
     for (let z = 0; z < song_data.length; z++) {
       songTiles.push(

@@ -66,21 +66,21 @@ describe('Testing the users playlists service functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         playlist = {
             name: '2019 House',
             follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 House', 'dyllanhope123');
         playlist = {
             name: '2019 Pop',
             follower_count: 1,
             creator: 'danielminter123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Pop', 'danielminter123');
         let response = await playlistsForUser.playlistsFor('dyllanhope123');
         assert.deepEqual(response, {
             playlists:
@@ -141,21 +141,21 @@ describe('Testing the users playlists service functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         playlist = {
             name: '2019 House',
             follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 House', 'dyllanhope123');
         playlist = {
             name: '2019 Pop',
             follower_count: 1,
             creator: 'danielminter123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Pop', 'danielminter123');
         let response = await playlistsForUser.playlistsFor('michaeldollman123');
         assert.strict.deepEqual(response, { response: 'No playlists found, go follow or create some!', status: true });
     });

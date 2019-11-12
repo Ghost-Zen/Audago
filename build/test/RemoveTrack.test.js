@@ -56,14 +56,8 @@ describe('Testing the "remove track" functionality', () => {
             }
         };
         yield createAccount.create(user);
-        let playlist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        };
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        yield createPlaylist.create(playlist);
+        yield createPlaylist.create('2019 Rap', 'dyllanhope123');
         yield createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         let response = yield removeTrack.remove("dyllanhope123", track);
@@ -87,14 +81,8 @@ describe('Testing the "remove track" functionality', () => {
             }
         };
         yield createAccount.create(user);
-        let playlist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        };
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        yield createPlaylist.create(playlist);
+        yield createPlaylist.create('2019 Rap', 'dyllanhope123');
         yield createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         yield createPlaylist.addToPlaylist("dyllanhope123", track);
@@ -120,14 +108,8 @@ describe('Testing the "remove track" functionality', () => {
             }
         };
         yield createAccount.create(user);
-        let playlist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        };
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        yield createPlaylist.create(playlist);
+        yield createPlaylist.create('2019 Rap', 'dyllanhope123');
         yield createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         let response = yield removeTrack.remove("chris123", track);

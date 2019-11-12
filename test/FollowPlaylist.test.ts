@@ -60,13 +60,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 }
             }
             await createAccount.create(user);
-            let playlist: Iplaylist = {
-                name: '2019 Rap',
-                follower_count: 1,
-                creator: 'danielminter123',
-                song_count: 0
-            }
-            await createPlaylist.create(playlist);
+            await createPlaylist.create('2019 Rap', 'danielminter123');
             let response = await followPlaylist.follow('dyllanhope123', '2019 Rap');
             assert.strict.deepEqual(response, { response: 'dyllanhope123 is now following 2019 Rap', status: true });
         })
@@ -102,13 +96,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 }
             }
             await createAccount.create(user);
-            let playlist: Iplaylist = {
-                name: '2019 Rap',
-                follower_count: 1,
-                creator: 'danielminter123',
-                song_count: 0
-            }
-            await createPlaylist.create(playlist);
+            await createPlaylist.create('2019 Rap', 'danielminter123');
             await followPlaylist.follow('dyllanhope123', '2019 Rap');
             let response = await followPlaylist.follow('dyllanhope123', '2019 Rap');
             assert.strict.deepEqual(response, { response: 'dyllanhope123 is already following 2019 Rap', status: false });
@@ -145,13 +133,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 }
             }
             await createAccount.create(user);
-            let playlist: Iplaylist = {
-                name: '2019 Rap',
-                follower_count: 1,
-                creator: 'danielminter123',
-                song_count: 0
-            }
-            await createPlaylist.create(playlist);
+            await createPlaylist.create('2019 Rap', 'danielminter123');
             let response = await followPlaylist.follow('dyllanhope13', '2019 Rap');
             assert.strict.deepEqual(response, { response: 'Username dyllanhope13 not found', status: false });
         })
@@ -187,13 +169,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 }
             }
             await createAccount.create(user);
-            let playlist: Iplaylist = {
-                name: '2019 Rap',
-                follower_count: 1,
-                creator: 'danielminter123',
-                song_count: 0
-            }
-            await createPlaylist.create(playlist);
+            await createPlaylist.create('2019 Rap', 'danielminter123');
             let response = await followPlaylist.follow('dyllanhope123', '2019 House');
             assert.strict.deepEqual(response, { response: 'Playlist 2019 House not found', status: false });
         })
@@ -231,13 +207,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 }
             }
             await createAccount.create(user);
-            let playlist: Iplaylist = {
-                name: '2019 Rap',
-                follower_count: 1,
-                creator: 'danielminter123',
-                song_count: 0
-            }
-            await createPlaylist.create(playlist);
+            await createPlaylist.create('2019 Rap', 'danielminter123');
             await followPlaylist.follow('dyllanhope123', '2019 Rap');
             let response = await followPlaylist.unfollow('danielminter123', '2019 Rap');
             assert.strict.deepEqual(response, { response: 'danielminter123 has unfollowed 2019 Rap', status: true });
@@ -274,13 +244,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 }
             }
             await createAccount.create(user);
-            let playlist: Iplaylist = {
-                name: '2019 Rap',
-                follower_count: 1,
-                creator: 'danielminter123',
-                song_count: 0
-            }
-            await createPlaylist.create(playlist);
+            await createPlaylist.create('2019 Rap', 'danielminter123');
             await followPlaylist.follow('dyllanhope123', '2019 Rap');
             let response = await followPlaylist.unfollow('danielminter13', '2019 Rap');
             assert.strict.deepEqual(response, { response: 'Username danielminter13 not found', status: false });
@@ -323,7 +287,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 creator: 'danielminter123',
                 song_count: 0
             }
-            await createPlaylist.create(playlist);
+            await createPlaylist.create('2019 Rap', 'danielminter123');
             await followPlaylist.follow('dyllanhope123', '2019 Rap');
             let response = await followPlaylist.unfollow('danielminter123', '2019 House');
             assert.strict.deepEqual(response, { response: 'Playlist 2019 House not found', status: false });

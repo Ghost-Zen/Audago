@@ -42,13 +42,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             }
         }
         await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 House',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
-        let response = await createPlaylist.create(playlist);
+        let response = await createPlaylist.create('2019 House', 'dyllanhope123');
         assert.strict.deepEqual(response, { response: 'Playlist created!', status: true });
     })
     it('Should return that the playlist "2019 House" already exists', async () => {
@@ -68,20 +62,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             }
         }
         await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 House',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
-        await createPlaylist.create(playlist)
-        playlist = {
-            name: '2019 House',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
-        let response = await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 House', 'dyllanhope123')
+        let response = await createPlaylist.create('2019 House', 'dyllanhope123');
         assert.strict.deepEqual(response, { response: 'Playlist 2019 House already exists', status: false });
     })
     it('Should return that the playlist "2019 House" was not found', async () => {
@@ -101,13 +83,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             }
         }
         await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         let response = await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 House", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: '2019 House not found', status: false });
     })
@@ -128,13 +104,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             }
         }
         await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         let response = await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: 'track added successfully', status: true });
     })
@@ -155,13 +125,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             }
         }
         await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         let response = await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: 'Middle Child is already in the playlist', status: false });
@@ -197,13 +161,7 @@ describe('Testing the "adding to playlist" functionality', () => {
             }
         }
         await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         let response = await createPlaylist.addToPlaylist("chris123", { track: "We'll be fine", artist: "Drake", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: 'You cannot add to a playlist you do not own', status: false });

@@ -15,8 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Playlists_1 = __importDefault(require("../models/Playlists"));
 const Accounts_1 = __importDefault(require("../models/Accounts"));
 class CreatePlaylist {
-    create(playlist) {
+    create(name, creator) {
         return __awaiter(this, void 0, void 0, function* () {
+            let playlist = {
+                name,
+                creator,
+                follower_count: 1,
+                song_count: 0,
+            };
             let exists = false;
             let newPlaylist = new Playlists_1.default(playlist);
             yield Playlists_1.default.findOne({ name: playlist.name })

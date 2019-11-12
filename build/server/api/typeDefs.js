@@ -12,14 +12,7 @@ input Account {
   image: String
   active: Boolean
 }
-input Playlist {
-  name: String
-  creator: String
-  follower_count: Int
-  song_count: Int
-  songs: [Track]
-  users: [String]
-}
+
 input Track {
   song: String
   artist: String
@@ -96,13 +89,13 @@ type Query {
 
 type Mutation {
    createAccount(account:Account):Query
-  searchSong(search:String):[Songs]
+   searchSong(search:String):[Songs]
    deleteUser(username:String):Query
    deleteAll:Query
-  loginCheck(username:String,password:String): Query
+   loginCheck(username:String,password:String): Query
    updateUser(username:String,updateData:UpdateData):Query
    updatePassword(username:String,currentPass:String,newPass:String,testPass:String):Query
-   newPlaylist(playlist:Playlist ):Query
+   newPlaylist(name:String, creator:String ):Query
    newTrack(username:String,track:PlaylistTrack):Query
    followPlaylist(username: String, playlistName: String):Query
    unfollowPlaylist(username: String, playlistName: String):Query

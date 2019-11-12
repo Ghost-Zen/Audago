@@ -3,7 +3,13 @@ import Account from '../models/Accounts';
 
 export class CreatePlaylist {
 
-    async create(playlist: Iplaylist) {
+    async create(name: string, creator: string) {
+        let playlist: Iplaylist = {
+            name,
+            creator,
+            follower_count: 1,
+            song_count: 0,
+        }
         let exists: boolean = false;
         let newPlaylist = new Playlist(playlist);
         await Playlist.findOne({ name: playlist.name })
@@ -53,7 +59,7 @@ export class CreatePlaylist {
         if (!found) {
             return { response: `${track.playlist_name} not found`, status: false };
         } else if (!owner) {
-            return {response: `You cannot add to a playlist you do not own`, status: false};
+            return { response: `You cannot add to a playlist you do not own`, status: false };
         } else if (exists) {
             return { response: `${track.track} is already in the playlist`, status: false };
         } else {

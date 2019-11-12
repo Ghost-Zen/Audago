@@ -44,7 +44,7 @@ export default {
         return await deleteAccount.deleteAll();
     },
     newPlaylist: async (input) => {
-        return await createPlaylist.create(input.playlist);
+        return await createPlaylist.create(input.name, input.creator);
     },
     newTrack: async (input) => {
         return await createPlaylist.addToPlaylist(input.username, input.track);

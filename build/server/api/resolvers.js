@@ -57,7 +57,7 @@ exports.default = {
         return yield deleteAccount.deleteAll();
     }),
     newPlaylist: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield createPlaylist.create(input.playlist);
+        return yield createPlaylist.create(input.name, input.creator);
     }),
     newTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield createPlaylist.addToPlaylist(input.username, input.track);

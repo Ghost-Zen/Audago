@@ -44,14 +44,8 @@ describe('Testing the "remove track" functionality', () => {
             }
         }
         await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
         let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         await createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         let response = await removeTrack.remove("dyllanhope123", track);
@@ -75,14 +69,8 @@ describe('Testing the "remove track" functionality', () => {
             }
         }
         await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
         let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         await createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         await createPlaylist.addToPlaylist("dyllanhope123", track);
@@ -108,14 +96,8 @@ describe('Testing the "remove track" functionality', () => {
             }
         }
         await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 Rap',
-            follower_count: 0,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
         let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         await createPlaylist.addToPlaylist("dyllanhope123", track);
         track = { track: "Midnight", artist: "Logic", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         let response = await removeTrack.remove("chris123", track);

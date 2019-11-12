@@ -87,8 +87,8 @@ export const UPDATE_PASSWORD = gql`
 `;
 
 export const NEW_PLAYLIST = gql`  
-    mutation($playlist:Playlist){
-      newPlaylist(playlist:$playlist){
+    mutation($name:String, $creator:String){
+      newPlaylist(name:$name, creator:$creator){
         response,
         status
       }

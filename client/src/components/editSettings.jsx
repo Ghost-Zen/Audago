@@ -167,7 +167,6 @@ export default class settings extends Component {
                         </Button>
                         <Mutation mutation={UPDATE_PASSWORD} variables={{ username, currentPass, newPass, testPass }}
                             update={(cache, { data }) => {
-                                console.log(data);
                                 let info = data.updatePassword;
                                 this.handleCheck(info);
                             }

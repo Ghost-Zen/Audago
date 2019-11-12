@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Button, List, Image, Icon, Message } from 'semantic-ui-react'
+import { Header, Button, List, Image, Icon } from 'semantic-ui-react'
 import { DELETE_TRACK } from '../api/queries';
 import Auth from '../utils/Auth';
 import { Query } from 'react-apollo';
