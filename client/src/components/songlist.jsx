@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
-import { Header, Button, List, Image, Icon } from 'semantic-ui-react'
+import { Header, Button, List, Image, Icon, Message } from 'semantic-ui-react'
+import { DELETE_TRACK } from '../api/queries';
+import Auth from '../utils/Auth';
+import { Query } from 'react-apollo';
 
 export default class songlist extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      username: Auth.getUserName(),
+      delete: false,
+      trackInfo: {}
     }
   }
 
@@ -44,6 +50,63 @@ export default class songlist extends Component {
     }
   }
 
+  deleteTrack = (event) => {
+    let trackInfo = { track: event.target.id, artist: '', playlist_name: this.props.choice }
+
+    for (const playlist of this.props.data) {
+      if (playlist.name === this.props.choice) {
+        for (const song of playlist.songs) {
+          if (song.track === trackInfo.track) {
+            trackInfo.artist = song.artist
+          }
+        }
+      }
+    }
+    this.setState({
+      delete: true,
+      trackInfo
+    });
+  }
+
+  renderDelete = () => {
+    if (this.state.delete) {
+      return (
+        <Query query={DELETE_TRACK} variables={{ username: this.state.username, trackInfo: this.state.trackInfo }}>
+          {({ loading, error, data }) => {
+            if (loading) return 'Loading...';
+            if (error) return `Error! ${error.message}`;
+            console.log(data)
+            return (
+              <div>
+                {this.buildList()}
+              </div>
+            )
+          }}
+        </Query>
+      )
+    }
+  }
+
+  renderDeleteState = () => {
+    if (this.state.delete) {
+      this.setState({
+        delete: false
+      });
+    }
+  }
+
+  renderRemove = (song, creator) => {
+    if (this.state.username === creator) {
+      return (
+        <List.Content floated='right'>
+          {this.renderDelete()}
+          <Icon id={song.track} ref={song.artist} onClick={this.deleteTrack} link name='remove' />
+          {this.renderDeleteState()}
+        </List.Content>
+      )
+    }
+  }
+
   buildList = () => {
     let playlists = this.props.data;
     let listItems = [];
@@ -60,9 +123,12 @@ export default class songlist extends Component {
               </List.Header>
               <List.Description>{song.artist}</List.Description>
               <List.Description>{song.album}</List.Description>
-              <Button onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
-                <Icon name='play' />
-              </Button>
+              {this.renderRemove(song, playlist.creator)}
+              <List.Content>
+                <Button onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
+                  <Icon name='play' />
+                </Button>
+              </List.Content>
             </List.Item>
           )
           index++;
@@ -79,9 +145,9 @@ export default class songlist extends Component {
         <Header floated='left' as='h2'>
           {this.props.choice}
         </Header>
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
         <List divided relaxed>
           {this.buildList()}
         </List>

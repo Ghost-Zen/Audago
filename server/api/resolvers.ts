@@ -50,7 +50,7 @@ export default {
         return await createPlaylist.addToPlaylist(input.username, input.track);
     },
     deleteTrack: async (input) => {
-        return await removeTrack.remove(input.username, input.track);
+        return await removeTrack.remove(input.username, input.trackInfo);
     },
     updateUser: async (input) => {
         return await updateAccount.update(input.username, input.updateData);

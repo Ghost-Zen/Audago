@@ -63,7 +63,7 @@ exports.default = {
         return yield createPlaylist.addToPlaylist(input.username, input.track);
     }),
     deleteTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield removeTrack.remove(input.username, input.track);
+        return yield removeTrack.remove(input.username, input.trackInfo);
     }),
     updateUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield updateAccount.update(input.username, input.updateData);

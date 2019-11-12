@@ -28,11 +28,12 @@ input Track {
 input TrackInfo {
   track: String
   artist: String
-  playlist: String
+  playlist_name: String
 }
-
+ 
 type PlaylistInfo {
   name: String,
+  creator:String,
   followers: Int,
   song_count: Int,
   songs: [Songs]
@@ -87,6 +88,7 @@ type Query {
   username: String
   response: String
   playlistsForUser(username: String): PlaylistResponse
+  deleteTrack(username:String,trackInfo:TrackInfo):Response
   userData(username:String):Response
   status: Boolean
   search:[String]
@@ -102,7 +104,6 @@ type Mutation {
    updatePassword(username:String,currentPass:String,newPass:String,testPass:String):Query
    newPlaylist(playlist:Playlist ):Query
    newTrack(username:String,track:PlaylistTrack):Query
-   deleteTrack(username:String,track:TrackInfo):Query
    followPlaylist(username: String, playlistName: String):Query
    unfollowPlaylist(username: String, playlistName: String):Query
   }

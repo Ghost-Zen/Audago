@@ -28,7 +28,7 @@ export default class Profile extends React.Component {
     }
 
     playlistDisplay = () => (
-        <Query query={USERS_PLAYLIST} variables={{ username: Auth.getUserName() }}>
+        <Query query={USERS_PLAYLIST} variables={{ username: Auth.getUserName() }} pollInterval={500}>
             {({ loading, error, data }) => {
                 if (loading) return 'Loading...';
                 if (error) return `Error! ${error.message}`;

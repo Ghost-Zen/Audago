@@ -105,8 +105,8 @@ export const NEW_TRACK = gql`
 `;
 
 export const DELETE_TRACK = gql`  
-    mutation($username:String,$track:TrackInfo){
-      deleteTrack(username:$username,track:$track){
+    query($username:String,$trackInfo:TrackInfo){
+      deleteTrack(username:$username,trackInfo:$trackInfo){
         response,
         status
       }
@@ -136,6 +136,7 @@ export const USERS_PLAYLIST = gql`
     playlistsForUser(username:$username) {
       playlists {
         name
+        creator
         followers
         song_count
         songs {
