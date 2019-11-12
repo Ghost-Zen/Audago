@@ -50,11 +50,11 @@ export default class Signup extends React.Component {
       return <Redirect to="/" />
     }
     return (
-      <div style={{ height: '100vh' }}>
+      <div className="bg" style={{ height: '100vh' }}>
         <Navbar />
       <Grid style={{ margin: 50 + 'px' }} textAlign='center' verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' color='teal' textAlign='center'>
+          <Header as='h2' inverted textAlign='center'>
             Create an account
       </Header>
           <Form size='large'>

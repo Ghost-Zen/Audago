@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './styling/App.css';
 import Router from './Router.jsx';
-import { Container } from 'semantic-ui-react';
 import Auth from './utils/Auth';
 import Loading from './components/loader';
 

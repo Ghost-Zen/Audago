@@ -1,7 +1,6 @@
 import React from 'react';
 import { Dropdown, Image } from 'semantic-ui-react';
 import Auth from '../utils/Auth';
-import { Redirect } from 'react-router-dom';
 const trigger = (
   <span>
     <Image avatar src={'https://randomuser.me/api/portraits/lego/1.jpg'} /> {Auth.getUserName()}

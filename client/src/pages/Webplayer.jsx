@@ -50,7 +50,7 @@ export default class Webplayer extends React.Component {
       return <Redirect to="/" />
     } else {
       return (
-        <div>
+        <div className='webplayer'>
           <Navbar />
         <div className="cardContainer">
           <Container style={{ margin: 15 }}>
