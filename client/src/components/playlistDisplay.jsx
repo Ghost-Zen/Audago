@@ -34,7 +34,7 @@ export default class PlaylistDisplay extends React.Component {
     }
 
     handleModalError = () => {
-        if (this.state.modalError) {
+        if (this.state.modalError && this.state.response) {
             return (
                 <Message style={{ margin: 0 }} negative>
                     <Message.Header>{this.state.response}</Message.Header>
@@ -44,7 +44,17 @@ export default class PlaylistDisplay extends React.Component {
     }
 
     handleCheck = (res) => {
-        console.log(res.newPlaylist.status)
+        if (res.newPlaylist.status) {
+            this.setState({
+                modalOpen: false,
+                modalError: false
+            })
+        } else {
+            this.setState({
+                modalError: true,
+                response: res.newPlaylist.response
+            })
+        }
     }
 
     displaySongs = (value) => {
