@@ -1,1 +1,13 @@
-import React from 'react'
+import React from 'react';
+
+export default class Player extends React.Component{
+    render(){
+        return(
+            <div className="audioPlayer">
+            <audio id="player" controls>
+              <source src="" />
+            </audio>
+          </div>
+        )
+    }
+}

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { Container, Card } from 'semantic-ui-react';
 import Cards from '../components/card';
 import Navbar from '../components/navbar';
+import Player from '../components/player';
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
@@ -58,11 +59,7 @@ export default class Webplayer extends React.Component {
             </Card.Group>
           </Container>
         </div>
-          <div className="audioPlayer">
-          <audio id="player" controls>
-            <source src="" />
-          </audio>
-        </div>
+         <Player />
         </div>
       )
     }
