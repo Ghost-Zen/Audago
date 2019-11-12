@@ -4,31 +4,35 @@ import Account from '../models/Accounts';
 export class CreatePlaylist {
 
     async create(name: string, creator: string) {
-        let playlist: Iplaylist = {
-            name,
-            creator,
-            follower_count: 1,
-            song_count: 0,
-        }
-        let exists: boolean = false;
-        let newPlaylist = new Playlist(playlist);
-        await Playlist.findOne({ name: playlist.name })
-            .then(async (res) => {
-                if (res) {     //check if playlist name is already in use
-                    exists = true;
-                } else {
-                    await Account.findOne({ username: playlist.creator })
-                        .then(async (res) => {
-                            await newPlaylist.users.push(res._id);      //if it's a new playlist assign playlist creator to playlist followers(users)
-                        });
-                }
-            });
-        // Returning separate from code as returns don't work in a promise        
-        if (!exists) {
-            await newPlaylist.save();
-            return { response: `Playlist created!`, status: true };
+        if (name.trim()) {
+            let playlist: Iplaylist = {
+                name,
+                creator,
+                follower_count: 1,
+                song_count: 0,
+            }
+            let exists: boolean = false;
+            let newPlaylist = new Playlist(playlist);
+            await Playlist.findOne({ name: playlist.name })
+                .then(async (res) => {
+                    if (res) {     //check if playlist name is already in use
+                        exists = true;
+                    } else {
+                        await Account.findOne({ username: playlist.creator })
+                            .then(async (res) => {
+                                await newPlaylist.users.push(res._id);      //if it's a new playlist assign playlist creator to playlist followers(users)
+                            });
+                    }
+                });
+            // Returning separate from code as returns don't work in a promise        
+            if (!exists) {
+                await newPlaylist.save();
+                return { response: `Playlist created!`, status: true };
+            } else {
+                return { response: `Playlist ${playlist.name} already exists`, status: false };
+            }
         } else {
-            return { response: `Playlist ${playlist.name} already exists`, status: false };
+            return {response: `Please eneter a name for the playlist`, status:false};
         }
     }
 

@@ -178,5 +178,25 @@ describe('Testing the "adding to playlist" functionality', () => {
         let response = yield createPlaylist.addToPlaylist("chris123", { track: "We'll be fine", artist: "Drake", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert_1.default.strict.deepEqual(response, { response: 'You cannot add to a playlist you do not own', status: false });
     }));
+    it('Should return that a name need to be entered to create a playlist', () => __awaiter(void 0, void 0, void 0, function* () {
+        const createAccount = new CreateAccount_1.default;
+        const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
+        let user = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        };
+        yield createAccount.create(user);
+        let response = yield createPlaylist.create('    ', 'dyllanhope123');
+        assert_1.default.strict.deepEqual(response, { response: 'Please eneter a name for the playlist', status: false });
+    }));
 });
 //# sourceMappingURL=CreatePlaylist.test.js.map

@@ -17,33 +17,38 @@ const Accounts_1 = __importDefault(require("../models/Accounts"));
 class CreatePlaylist {
     create(name, creator) {
         return __awaiter(this, void 0, void 0, function* () {
-            let playlist = {
-                name,
-                creator,
-                follower_count: 1,
-                song_count: 0,
-            };
-            let exists = false;
-            let newPlaylist = new Playlists_1.default(playlist);
-            yield Playlists_1.default.findOne({ name: playlist.name })
-                .then((res) => __awaiter(this, void 0, void 0, function* () {
-                if (res) { //check if playlist name is already in use
-                    exists = true;
+            if (name.trim()) {
+                let playlist = {
+                    name,
+                    creator,
+                    follower_count: 1,
+                    song_count: 0,
+                };
+                let exists = false;
+                let newPlaylist = new Playlists_1.default(playlist);
+                yield Playlists_1.default.findOne({ name: playlist.name })
+                    .then((res) => __awaiter(this, void 0, void 0, function* () {
+                    if (res) { //check if playlist name is already in use
+                        exists = true;
+                    }
+                    else {
+                        yield Accounts_1.default.findOne({ username: playlist.creator })
+                            .then((res) => __awaiter(this, void 0, void 0, function* () {
+                            yield newPlaylist.users.push(res._id); //if it's a new playlist assign playlist creator to playlist followers(users)
+                        }));
+                    }
+                }));
+                // Returning separate from code as returns don't work in a promise        
+                if (!exists) {
+                    yield newPlaylist.save();
+                    return { response: `Playlist created!`, status: true };
                 }
                 else {
-                    yield Accounts_1.default.findOne({ username: playlist.creator })
-                        .then((res) => __awaiter(this, void 0, void 0, function* () {
-                        yield newPlaylist.users.push(res._id); //if it's a new playlist assign playlist creator to playlist followers(users)
-                    }));
+                    return { response: `Playlist ${playlist.name} already exists`, status: false };
                 }
-            }));
-            // Returning separate from code as returns don't work in a promise        
-            if (!exists) {
-                yield newPlaylist.save();
-                return { response: `Playlist created!`, status: true };
             }
             else {
-                return { response: `Playlist ${playlist.name} already exists`, status: false };
+                return { response: `Please eneter a name for the playlist`, status: false };
             }
         });
     }

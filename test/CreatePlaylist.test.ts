@@ -166,4 +166,24 @@ describe('Testing the "adding to playlist" functionality', () => {
         let response = await createPlaylist.addToPlaylist("chris123", { track: "We'll be fine", artist: "Drake", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' });
         assert.strict.deepEqual(response, { response: 'You cannot add to a playlist you do not own', status: false });
     })
+    it('Should return that a name need to be entered to create a playlist', async () => {
+        const createAccount = new CreateAccount;
+        const createPlaylist = new CreatePlaylist;
+        let user: Iaccounts = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: '12345',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        await createAccount.create(user);
+        let response = await createPlaylist.create('    ', 'dyllanhope123');
+        assert.strict.deepEqual(response, { response: 'Please eneter a name for the playlist', status: false });
+    })
 });
