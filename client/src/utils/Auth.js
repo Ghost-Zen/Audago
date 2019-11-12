@@ -1,4 +1,6 @@
+import React from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 const Auth = {
     isAuthenticated: false,
@@ -33,7 +35,8 @@ const Auth = {
     },
    signOutUser(){
         localStorage.removeItem('sudo')
-        return false;
+        window.location.reload();
+        // return false;
     }
 
 };
