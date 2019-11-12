@@ -94,28 +94,29 @@ export default class PlaylistDisplay extends React.Component {
                                 </Grid.Column>
                             </Grid.Row>
                         )
-                    } else if (data.playlistsForUser.playlists) {
-                        for (const playlist of data.playlistsForUser.playlists) {
-                            let followerString = 'followers: ' + playlist.followers;
-                            let songString = 'songs: ' + playlist.song_count;
-                            playlistCards.push(
-                                <Card
-                                    color='teal'
-                                    header={playlist.name}
-                                    meta={followerString}
-                                    description={songString}
-                                    key={index}
-                                    onClick={() => { this.displaySongs(playlist.name) }}
-                                />
-                            )
-                            index++;
+                    } else {
+                        if (data.playlistsForUser.playlists) {
+                            for (const playlist of data.playlistsForUser.playlists) {
+                                let followerString = 'followers: ' + playlist.followers;
+                                let songString = 'songs: ' + playlist.song_count;
+                                playlistCards.push(
+                                    <Card
+                                        color='teal'
+                                        header={playlist.name}
+                                        meta={followerString}
+                                        description={songString}
+                                        key={index}
+                                        onClick={() => { this.displaySongs(playlist.name) }}
+                                    />
+                                )
+                                index++;
+                            }
                         }
                         response = (
                             <Container>
                                 <Grid.Row width={16}>
                                     <Card.Group itemsPerRow={3}>
                                         {playlistCards}
-
                                         <Modal
                                             trigger={
                                                 <Card onClick={this.handleOpen} color='teal' key='create'>
@@ -155,14 +156,6 @@ export default class PlaylistDisplay extends React.Component {
                                     </Card.Group>
                                 </Grid.Row>
                             </Container>);
-                    } else {
-                        response = (
-                            <Message
-                                icon='info circle'
-                                warning
-                                header='No playlists'
-                                content={data.playlistsForUser.response}
-                            />)
                     }
                     return response;
                 }}
