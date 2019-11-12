@@ -3,8 +3,8 @@ import '../styling/App.css';
 import { Redirect } from 'react-router-dom';
 import { Container, Card } from 'semantic-ui-react';
 import Cards from '../components/card';
-import Navbar from '../components/navbar';
 import AudioPlayer from '../components/player';
+import Sidebar from '../components/sidebar';
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
@@ -51,7 +51,7 @@ export default class Webplayer extends React.Component {
     } else {
       return (
         <div className='webplayer'>
-          <Navbar />
+          <Sidebar />
         <div className="cardContainer">
           <Container style={{ margin: 15 }}>
             <Card.Group centered itemsPerRow={6}>
