@@ -80,6 +80,7 @@ type Response {
 type basicResponse {
   result:String
 }
+
 type Query {
   test(item:String): basicResponse
   onChangeSearch(search:String): [Songs]
@@ -90,6 +91,7 @@ type Query {
   status: Boolean
   search:[String]
 }
+
 type Mutation {
    createAccount(account:Account):Query
   searchSong(search:String):[Songs]

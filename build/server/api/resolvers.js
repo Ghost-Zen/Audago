@@ -30,7 +30,7 @@ const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
 const removeTrack = new RemoveTrack_1.default;
 const playlistsForUser = new PlaylistsForUser_1.default;
 const followPlaylist = new FollowPlaylist_1.default;
-const Query = {
+exports.default = {
     hello: () => 'Hello World',
     test: (input) => {
         return input;
@@ -81,5 +81,4 @@ const Query = {
         return yield playlistsForUser.playlistsFor(input.username);
     })
 };
-exports.default = Query;
 //# sourceMappingURL=resolvers.js.map
