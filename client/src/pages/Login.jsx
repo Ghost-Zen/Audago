@@ -35,7 +35,7 @@ export default class Login extends React.Component {
   render() {
     let { username, password,status } = this.state
     if(status){
-      Auth.userLogin(status)
+      Auth.userLogin(status,username)
       return  <Redirect to='/' />
     }
     return (

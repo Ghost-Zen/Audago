@@ -18,8 +18,9 @@ const Auth = {
             })
         }
     },
-    userLogin(status){
+    userLogin(status, username){
         this.isAuthenticated = status
+        if(status) this.isUsername = username
     },
     getToken() {
         return this.token
