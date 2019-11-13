@@ -17,18 +17,22 @@ const removeTrack = new RemoveTrack;
 const playlistsForUser = new PlaylistsForUser;
 const followPlaylist = new FollowPlaylist;
 
-const Query = {
+export default {
     hello: () => 'Hello World',
-    test: () => 'Test Success, GraphQL server is up & running !!',
+    test: (input) => {
+        return input;
+    },
     createAccount: async (input) => {
         return await createAccount.create(input.account)
     },
     searchSong: async (input) => {
-        let result = await searchSong.getFromItunesAPI(input)
-        return { response: result }
+        return await searchSong.getFromItunesAPI(input);
+    },
+    onChangeSearch: async (input) => {
+        return await searchSong.getFromItunesAPI(input);
     },
     loginCheck: async (input) => {
-        return await dataRetrieval.loginData(input.username, input.password, input.email);
+        return await dataRetrieval.loginData(input.username, input.password);
     },
     userData: async (input) => {
         return await dataRetrieval.userData(input.username)
@@ -40,19 +44,20 @@ const Query = {
         return await deleteAccount.deleteAll();
     },
     newPlaylist: async (input) => {
-        return await createPlaylist.create(input.playlist);
+        return await createPlaylist.create(input.name, input.creator);
     },
     newTrack: async (input) => {
-        return await createPlaylist.addToPlaylist(input.track);
+        console.log(input)
+        return await createPlaylist.addToPlaylist(input.username, input.track);
     },
     deleteTrack: async (input) => {
-        return await removeTrack.remove(input.track);
+        return await removeTrack.remove(input.username, input.trackInfo);
     },
     updateUser: async (input) => {
-        return await updateAccount.update(input.username, input.account);
+        return await updateAccount.update(input.username, input.updateData);
     },
     updatePassword: async (input) => {
-        return await updateAccount.updatePassword(input.username, input.currentPass, input.newPass);
+        return await updateAccount.updatePassword(input.username, input.currentPass, input.newPass, input.testPass);
     },
     followPlaylist: async (input) => {
         return await followPlaylist.follow(input.username, input.playlistName);
@@ -64,4 +69,3 @@ const Query = {
         return await playlistsForUser.playlistsFor(input.username);
     }
 }
-export default Query

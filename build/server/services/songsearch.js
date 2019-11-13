@@ -37,7 +37,7 @@ class SearchSong {
                     allSongsBySearch.push(search);
                 }
             });
-            return JSON.stringify(allSongsBySearch);
+            return allSongsBySearch;
         });
     }
 }

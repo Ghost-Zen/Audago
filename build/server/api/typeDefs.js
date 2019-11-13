@@ -2,10 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_1 = require("graphql");
 const schema = graphql_1.buildSchema(`
-input TimeStamp {
-  created: String
-  lastSeen: String
-}
+
 input Account {
   firstName: String
   lastName: String
@@ -14,25 +11,35 @@ input Account {
   email: String
   image: String
   active: Boolean
-  timestamp: TimeStamp
 }
-input Playlist {
-  name: String
-  creator: String
-  follower_count: Int
-  song_count: Int
-  songs: [Track]
-  users: [String]
-}
+
 input Track {
   song: String
   artist: String
 }
+
+input TrackInfo {
+  track: String
+  artist: String
+  playlist_name: String
+}
+ 
 type PlaylistInfo {
   name: String,
+  creator:String,
   followers: Int,
-  song_count: Int
+  song_count: Int,
+  songs: [Songs]
 }
+
+type Songs {
+  track: String,
+  artist: String,
+  song: String,
+  album: String,
+  artwork: String
+}
+
 type UserData {
   firstName:String,
   lastName:String
@@ -45,32 +52,53 @@ input UpdateData {
   email: String
 }
 input PlaylistTrack {
-  song: String
-  artist: String
+  track: String,
+  artist: String,
+  song: String,
+  album: String,
+  artwork: String,
   playlist_name: String
 }
-type Query {
+type PlaylistResponse {
+  playlists: [PlaylistInfo]
+  response: String
+  status: Boolean
+}
+type Response {
+  response: String
+  username:String
+  status: Boolean
   user: UserData
-  response: String,
-  list: [PlaylistInfo]
+}
+
+type basicResponse {
+  result:String
+}
+
+type Query {
+  test(item:String): basicResponse
+  onChangeSearch(search:String): [Songs]
+  username: String
+  response: String
+  playlistsForUser(username: String): PlaylistResponse
+  deleteTrack(username:String,trackInfo:TrackInfo):Response
+  userData(username:String):Response
   status: Boolean
   search:[String]
 }
+
 type Mutation {
    createAccount(account:Account):Query
-   searchSong(search:String):Query
-   loginCheck(username:String,password:String):Query
-   userData(username:String):Query
+   searchSong(search:String):[Songs]
    deleteUser(username:String):Query
    deleteAll:Query
+   loginCheck(username:String,password:String): Query
    updateUser(username:String,updateData:UpdateData):Query
-   updatePassword(username:String,currentPass:String,newPass:String):Query
-   newPlaylist(playlist:Playlist ):Query
-   newTrack(track:PlaylistTrack):Query
-   deleteTrack(track:PlaylistTrack):Query
+   updatePassword(username:String,currentPass:String,newPass:String,testPass:String):Query
+   newPlaylist(name:String, creator:String ):Query
+   newTrack(username:String,track:PlaylistTrack):Query
    followPlaylist(username: String, playlistName: String):Query
    unfollowPlaylist(username: String, playlistName: String):Query
-   playlistsForUser(username: String):Query
   }
 `);
 exports.default = schema;

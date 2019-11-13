@@ -30,18 +30,22 @@ const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
 const removeTrack = new RemoveTrack_1.default;
 const playlistsForUser = new PlaylistsForUser_1.default;
 const followPlaylist = new FollowPlaylist_1.default;
-const Query = {
+exports.default = {
     hello: () => 'Hello World',
-    test: () => 'Test Success, GraphQL server is up & running !!',
+    test: (input) => {
+        return input;
+    },
     createAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield createAccount.create(input.account);
     }),
     searchSong: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        let result = yield searchSong.getFromItunesAPI(input);
-        return { response: result };
+        return yield searchSong.getFromItunesAPI(input);
+    }),
+    onChangeSearch: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield searchSong.getFromItunesAPI(input);
     }),
     loginCheck: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield dataRetrieval.loginData(input.username, input.password, input.email);
+        return yield dataRetrieval.loginData(input.username, input.password);
     }),
     userData: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield dataRetrieval.userData(input.username);
@@ -53,19 +57,20 @@ const Query = {
         return yield deleteAccount.deleteAll();
     }),
     newPlaylist: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield createPlaylist.create(input.playlist);
+        return yield createPlaylist.create(input.name, input.creator);
     }),
     newTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield createPlaylist.addToPlaylist(input.track);
+        console.log(input);
+        return yield createPlaylist.addToPlaylist(input.username, input.track);
     }),
     deleteTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield removeTrack.remove(input.track);
+        return yield removeTrack.remove(input.username, input.trackInfo);
     }),
     updateUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield updateAccount.update(input.username, input.account);
+        return yield updateAccount.update(input.username, input.updateData);
     }),
     updatePassword: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield updateAccount.updatePassword(input.username, input.currentPass, input.newPass);
+        return yield updateAccount.updatePassword(input.username, input.currentPass, input.newPass, input.testPass);
     }),
     followPlaylist: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield followPlaylist.follow(input.username, input.playlistName);
@@ -77,5 +82,4 @@ const Query = {
         return yield playlistsForUser.playlistsFor(input.username);
     })
 };
-exports.default = Query;
 //# sourceMappingURL=resolvers.js.map

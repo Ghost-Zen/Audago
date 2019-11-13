@@ -1,62 +1,68 @@
 import React, { Component } from 'react'
-import { Input, Menu } from 'semantic-ui-react'
-import Auth from '../Auth'
+import { Menu, Image } from 'semantic-ui-react'
+import Auth from '../utils/Auth'
+import OnChangeSearch from './onChangeSearch';
+import NavBarDropDown from './dropdown';
 
 export default class Navbar extends Component {
   state = { activeItem: 'home' }
 
   handleItemClick = (e, { name }) => {
-      this.setState({ activeItem: name })
-    }
+    this.setState({ activeItem: name })
+  }
 
-    userStatus = () => {
-        const { activeItem } = this.state
-        if(Auth.getAuth() === true){
-           return <Menu.Item
-            name='Welcome ____'
-            active={activeItem === 'greet'}
-            onClick={this.handleItemClick}
-          />
-        }else{
-           return <Menu.Item
-            name='login'
-            active={activeItem === 'login'}
-            onClick={this.handleItemClick}
-          />
-        }
+  userStatus = () => {
+    const { activeItem } = this.state
+    if (Auth.getAuth() === true) {
+      return (
+        <Menu.Item>
+          <NavBarDropDown />
+        </Menu.Item>
+      )
+    } else {
+      return <Menu.Item
+        name='not logged in'
+        active={activeItem === 'login'}
+        onClick={this.handleItemClick}
+        href='/#login'
+      />
     }
+  }
+
+  logo = () => {
+    return (
+      <Image src="/audago.png" size='small'></Image>
+    )
+  }
 
   render() {
     const { activeItem } = this.state
 
     return (
-      <Menu secondary
-      style={{ margin: 5 }} 
-      >
-          <Menu.Header
-          style={{margin:5, color:'teal'}}
-          as="h2"
-          children="Audago"
-          />
-
+      <Menu inverted  secondary className="navbar">
+        <Menu.Header
+          style={{ margin: 10, color: 'teal' }}
+          content={this.logo()}
+        />
         <Menu.Item
           name='home'
           active={activeItem === 'home'}
+          href="#"
           onClick={this.handleItemClick}
         />
         <Menu.Item
-          name='playlist'
-          active={activeItem === 'playlist'}
+          content={<s>Explore</s>}
+          active={activeItem === 'explore'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
-          name='about'
+          content={<s>About</s>}
           active={activeItem === 'about'}
           onClick={this.handleItemClick}
         />
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Input icon='search' placeholder='Search...' />
+            <OnChangeSearch />
           </Menu.Item>
           {this.userStatus()}
         </Menu.Menu>

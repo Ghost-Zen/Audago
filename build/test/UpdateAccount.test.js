@@ -55,7 +55,6 @@ describe('Testing the update account functionality', () => {
         let updatedUser = {
             firstName: 'Dyllan',
             lastName: 'Hope',
-            password: '12345',
             email: 'dyllan@gmail.com',
         };
         yield updateAccount.update('dyllanhope123', updatedUser);
@@ -85,7 +84,6 @@ describe('Testing the update account functionality', () => {
             let updatedUser = {
                 firstName: 'Christopher',
                 lastName: 'Greenings',
-                password: '12345',
                 email: 'chrisgreen@gmail.com',
             };
             yield updateAccount.update('chrisgreen123', updatedUser);
@@ -115,7 +113,6 @@ describe('Testing the update account functionality', () => {
             let updatedUser = {
                 firstName: 'Chris',
                 lastName: 'Green',
-                password: '12345',
                 email: 'chris@gmail.com',
             };
             yield updateAccount.update('chrisgreen123', updatedUser);
@@ -143,8 +140,8 @@ describe('Testing the update account functionality', () => {
                 }
             };
             yield createAccount.create(user);
-            yield updateAccount.updatePassword('johnhope123', '12345', 'House123');
-            let response = yield updateAccount.updatePassword('johnhope123', 'House123', '12345');
+            yield updateAccount.updatePassword('johnhope123', '12345', 'House123', 'House123');
+            let response = yield updateAccount.updatePassword('johnhope123', 'House123', '12345', '12345');
             assert_1.default.strict.deepEqual(response, { response: 'Password updated', status: true });
         }));
         it("Should return that dyllanhope123 was not found", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -164,7 +161,7 @@ describe('Testing the update account functionality', () => {
                 }
             };
             yield createAccount.create(user);
-            let response = yield updateAccount.updatePassword('dyllanhope123', '12345', 'House123');
+            let response = yield updateAccount.updatePassword('dyllanhope123', '12345', 'House123', 'House123');
             assert_1.default.strict.deepEqual(response, { response: 'Username dyllanhope123 not found', status: false });
         }));
         it("Should return that the entered password was incorrect", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -184,8 +181,31 @@ describe('Testing the update account functionality', () => {
                 }
             };
             yield createAccount.create(user);
-            let response = yield updateAccount.updatePassword('johnhope123', 'car', 'House123');
+            let response = yield updateAccount.updatePassword('johnhope123', 'car', 'House123', 'House123');
             assert_1.default.strict.deepEqual(response, { response: 'Password incorrect', status: false });
+        }));
+        it("Should return that the confirmation and new passwords do not match", () => __awaiter(void 0, void 0, void 0, function* () {
+            const createAccount = new CreateAccount_1.default;
+            const updateAccount = new UpdateAccount_1.default;
+            let user = {
+                firstName: 'John',
+                lastName: 'Hope',
+                username: 'johnhope123',
+                password: '12345',
+                email: 'johnhope@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield createAccount.create(user);
+            let response = yield updateAccount.updatePassword('johnhope123', 'car', 'House123', '12345');
+            assert_1.default.strict.deepEqual(response, {
+                response: 'Your New and Confirmation passwords do not match',
+                status: false
+            });
         }));
     });
 });

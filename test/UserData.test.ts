@@ -41,7 +41,7 @@ describe('Testing the UserData functionality', () => {
                 }
             }
             await createAccount.create(user);
-            let response = await userData.loginData('michaeldollman123', '12345', 'michaeldollman@gmail.com')
+            let response = await userData.loginData('michaeldollman123', '12345')
             assert.strict.deepEqual(response.status, true);
         });
         it("Should return with an error that John's data could not be found, as the account wasn't made", async () => {
@@ -61,7 +61,7 @@ describe('Testing the UserData functionality', () => {
                 }
             }
             await createAccount.create(user);
-            assert.strict.deepEqual(await userData.loginData('johnhope123', '12345', 'johnhope@gmail.com'), { response: 'Username johnhope123 not found', status: false });
+            assert.strict.deepEqual(await userData.loginData('johnhope123', '12345'), { response: 'Username johnhope123 not found', status: false });
         });
         it("Should return with an error that the entered password is  incorrect", async () => {
             const createAccount = new CreateAccount;
@@ -80,7 +80,7 @@ describe('Testing the UserData functionality', () => {
                 }
             }
             await createAccount.create(user);
-            assert.strict.deepEqual(await userData.loginData('michaeldollman123', '1245', 'michaeldollman@gmail.com'), { response: 'Password incorrect', status: false });
+            assert.strict.deepEqual(await userData.loginData('michaeldollman123', '1245'), { response: 'Password incorrect', status: false });
         });
     });
     describe('User data return testing', () => {

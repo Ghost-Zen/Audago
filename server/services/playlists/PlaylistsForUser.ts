@@ -18,7 +18,7 @@ export default class PlaylistsForUser {
                 .then(async (res) => {
                     for (const playlist of res) {
                         if (playlist.users.includes(userID)) {      //loop through all playlists for users ID
-                            let playlistData: any = { name: playlist.name, followers: playlist.follower_count, song_count: playlist.song_count };
+                            let playlistData: any = { name: playlist.name, creator: playlist.creator, followers: playlist.follower_count, song_count: playlist.song_count, songs: playlist.songs };
                             playlists.push(playlistData);       //if a users ID is found then add it to a list
                         }
                     };
@@ -28,7 +28,7 @@ export default class PlaylistsForUser {
             if (playlists.length === 0) {
                 return { response: `No playlists found, go follow or create some!`, status: true };
             } else {
-                return { response: `Playlist(s) found`, list: playlists, status: true };
+                return { playlists, response: `Playlists found`, status: true };
             }
         } else {
             return { response: `Username ${username} not found`, status: false }

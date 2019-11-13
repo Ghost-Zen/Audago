@@ -1,21 +1,21 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
-import { LOGIN_CHECK } from '../typedefs';
+import { LOGIN_CHECK } from '../api/queries';
 import { Mutation } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
+import Auth from '../utils/Auth';
+import Navbar from '../components/navbar';
 
 export default class Login extends React.Component {
   state = {
     username: '',
     password: '',
-    status: false,
-    message: ''
+    status: Auth.getAuth(),
+    message: '',
   }
 
-  renderRedirect = () => {
-    if (this.state.status) {
-      return <Redirect to='/' />
-    }
+  setClientToken = (token) => {
+    localStorage.setItem('sudo', token)
   }
 
   renderError = () => {
@@ -33,11 +33,17 @@ export default class Login extends React.Component {
   }
 
   render() {
-    let { username, password } = this.state
+    let { username, password,status } = this.state
+    if(status){
+      Auth.userLogin(status)
+      return  <Redirect to='/' />
+    }
     return (
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <div className="bg">
+      <Navbar />
+      <Grid textAlign='center' style={{ height: '80vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' color='teal' textAlign='center'>
+          <Header as='h2' inverted textAlign='center'>
             {/* <Image src='/logo.png' /> */}
             Log-in to your account
       </Header>
@@ -45,7 +51,6 @@ export default class Login extends React.Component {
             <Segment stacked>
               <Form.Input fluid icon='user' name='username' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
               <Form.Input fluid icon='lock' name='password' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />
-              {this.renderRedirect()}
               {this.renderError()}
               <Mutation mutation={LOGIN_CHECK} variables={{ username, password }}
                 update={(cache, { data }) => {
@@ -53,6 +58,7 @@ export default class Login extends React.Component {
                     status: data.loginCheck.status,
                     message: data.loginCheck.response
                   });
+                  this.setClientToken(data.loginCheck.response)
                 }
                 }
               >
@@ -69,6 +75,7 @@ export default class Login extends React.Component {
           </Message>
         </Grid.Column>
       </Grid>
+      </div>
     )
   }
 

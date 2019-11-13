@@ -6,6 +6,7 @@ import FollowPlaylist from '../server/services/playlists/FollowPlaylist';
 import CreateAccount from '../server/services/accounts/CreateAccount';
 import { CreatePlaylist } from '../server/services/playlists/CreatePlaylist';
 import PlaylistsForUser from '../server/services/playlists/PlaylistsForUser';
+import { stringify } from 'querystring';
 
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
 
@@ -65,26 +66,27 @@ describe('Testing the users playlists service functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         playlist = {
             name: '2019 House',
             follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 House', 'dyllanhope123');
         playlist = {
             name: '2019 Pop',
             follower_count: 1,
             creator: 'danielminter123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Pop', 'danielminter123');
         let response = await playlistsForUser.playlistsFor('dyllanhope123');
-        assert.strict.deepEqual(response, {
-            response: 'Playlist(s) found',
-            list:
-                [{ name: '2019 Rap', followers: 1, song_count: 0 }, { name: '2019 House', followers: 1, song_count: 0 }], status: true
+        assert.deepEqual(response, {
+            playlists:
+                [{ name: '2019 Rap', creator: "dyllanhope123", followers: 1, song_count: 0, songs: [] }, { name: '2019 House', creator: "dyllanhope123", followers: 1, song_count: 0, songs: [] }],
+            response: 'Playlists found',
+            status: true
         });
     });
     it('Should return that michaeldollman123 has no playlists', async () => {
@@ -139,21 +141,21 @@ describe('Testing the users playlists service functionality', () => {
             creator: 'dyllanhope123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Rap', 'dyllanhope123');
         playlist = {
             name: '2019 House',
             follower_count: 1,
             creator: 'dyllanhope123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 House', 'dyllanhope123');
         playlist = {
             name: '2019 Pop',
             follower_count: 1,
             creator: 'danielminter123',
             song_count: 0
         }
-        await createPlaylist.create(playlist);
+        await createPlaylist.create('2019 Pop', 'danielminter123');
         let response = await playlistsForUser.playlistsFor('michaeldollman123');
         assert.strict.deepEqual(response, { response: 'No playlists found, go follow or create some!', status: true });
     });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Dimmer, Image } from 'semantic-ui-react'
-
+import PlaylistPopup from '../components/PlaylistPopup'
 export default class cards extends Component {
   constructor(props){
     super(props)
@@ -16,17 +16,19 @@ export default class cards extends Component {
     this.props.playTrack(track)
   }
 
+  resetCard = () => {
+    this.setState({
+      active:false
+    })
+  }
+
   render() {
-    let {image,index} = this.props
+    let {image,index,song_meta} = this.props
     const { active } = this.state
     const content = (
       <div>
-        {/* <Header as='h4' inverted>
-          {track}
-        </Header> */}
-
         <Button primary icon="play" onClick={() => this.intialPlayer(index)}></Button>
-        {/* <Button>View</Button> */}
+        <PlaylistPopup song={song_meta} reset={this.resetCard}/>
       </div>
     )
 
