@@ -38,11 +38,17 @@ type Songs {
   artwork: String
 }
 
+type TimeStamp {
+  created: String,
+  lastSeen: String
+}
+
 type UserData {
   firstName:String,
   lastName:String
   email: String,
-  image: String
+  image: String,
+  timeStamp: TimeStamp
 }
 input UpdateData {
   firstName:String,

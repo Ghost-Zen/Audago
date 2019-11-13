@@ -53,6 +53,10 @@ query($username:String){
       lastName
       email
       image
+      timeStamp{
+        created
+        lastSeen
+      }
     },
     status
   }

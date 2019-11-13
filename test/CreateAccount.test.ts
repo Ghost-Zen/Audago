@@ -28,7 +28,7 @@ describe('Testing the create account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
@@ -50,7 +50,7 @@ describe('Testing the create account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
@@ -64,7 +64,7 @@ describe('Testing the create account functionality', () => {
             firstName: 'Daniel',
             lastName: 'Minter',
             username: 'danielminter123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'danielminter@gmail.com',
             image: '',
             active: false,
@@ -87,7 +87,7 @@ describe('Testing the create account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
@@ -103,7 +103,7 @@ describe('Testing the create account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
@@ -121,7 +121,7 @@ describe('Testing the create account functionality', () => {
             firstName: '',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
@@ -132,5 +132,23 @@ describe('Testing the create account functionality', () => {
         }
         let status = await createAccount.create(user);
         assert.strict.deepEqual(status, { response: 'Please fill out all the fields', status: false });
+    });
+    it('Should return that the entered pasword is too weak', async () => {
+        const createAccount = new CreateAccount;
+        let user: Iaccounts = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: 'Fwgr12#',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            }
+        }
+        let response = await createAccount.create(user);
+        assert.strict.deepEqual(response, { response: 'Your password is too weak', status: false });
     });
 });

@@ -6,7 +6,7 @@ import { Config } from './config';
 export default class UserData {
     async userData(username: string) {
         let found: boolean = false;
-        let data = { firstName: '', lastName: '', email: '', image: '' };
+        let data = { firstName: '', lastName: '', email: '', image: '', timeStamp: { created: '', lastSeen: '' } };
         await Account.findOne({ username })
             .then(res => {
                 if (res) {        //check if account is in document
@@ -14,13 +14,14 @@ export default class UserData {
                     data.lastName = res.lastName;
                     data.email = res.email;
                     data.image = res.image;
-                    found = true
+                    data.timeStamp = res.timestamp;
+                    found = true;
                 }
             });
         if (found) {
             return { response: 'User found', user: data, status: true };
         } else {
-            return {response:`Username ${username} not found`, user: data, status: false}
+            return { response: `Username ${username} not found`, user: data, status: false }
         }
     }
 
@@ -54,7 +55,7 @@ export default class UserData {
                     let token = jwt.sign({ data }, Config.SECRET, {
                         expiresIn: 86400 // expires in 24 hours
                     });
-                    return { response: token, username:data.username, status: true };
+                    return { response: token, username: data.username, status: true };
                 } else {
                     return { response: `Password incorrect`, status: false };
                 }

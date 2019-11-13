@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import { Dropdown, Image } from 'semantic-ui-react';
 import Auth from '../utils/Auth';
 const trigger = (
