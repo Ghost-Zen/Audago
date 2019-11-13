@@ -30,7 +30,7 @@ export default class Profile extends React.Component {
     render() {
         let username = Auth.getUserName();
         return (
-            <div style={{backgroundColor:'black'}}>
+            <div className="profile" style={{backgroundColor:'black'}}>
                 <Navbar />
                 <Container>
                     <Grid>
