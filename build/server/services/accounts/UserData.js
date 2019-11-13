@@ -20,7 +20,7 @@ class UserData {
     userData(username) {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
-            let data = { firstName: '', lastName: '', email: '', image: '' };
+            let data = { firstName: '', lastName: '', email: '', image: '', timeStamp: { created: '', lastSeen: '' } };
             yield Accounts_1.default.findOne({ username })
                 .then(res => {
                 if (res) { //check if account is in document
@@ -28,6 +28,7 @@ class UserData {
                     data.lastName = res.lastName;
                     data.email = res.email;
                     data.image = res.image;
+                    data.timeStamp = res.timestamp;
                     found = true;
                 }
             });

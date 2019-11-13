@@ -43,7 +43,7 @@ describe('Testing the UserData functionality', () => {
                 firstName: 'Micheal',
                 lastName: 'Dollman',
                 username: 'michaeldollman123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'michaeldollman@gmail.com',
                 image: '',
                 active: false,
@@ -53,7 +53,7 @@ describe('Testing the UserData functionality', () => {
                 }
             };
             yield createAccount.create(user);
-            let response = yield userData.loginData('michaeldollman123', '12345');
+            let response = yield userData.loginData('michaeldollman123', 'Fwgr123#');
             assert_1.default.strict.deepEqual(response.status, true);
         }));
         it("Should return with an error that John's data could not be found, as the account wasn't made", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -63,7 +63,7 @@ describe('Testing the UserData functionality', () => {
                 firstName: 'Michael',
                 lastName: 'Dollman',
                 username: 'michaeldollman123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'michaeldollman@gmail.com',
                 image: '',
                 active: false,
@@ -73,7 +73,7 @@ describe('Testing the UserData functionality', () => {
                 }
             };
             yield createAccount.create(user);
-            assert_1.default.strict.deepEqual(yield userData.loginData('johnhope123', '12345'), { response: 'Username johnhope123 not found', status: false });
+            assert_1.default.strict.deepEqual(yield userData.loginData('johnhope123', 'Fwgr123#'), { response: 'Username johnhope123 not found', status: false });
         }));
         it("Should return with an error that the entered password is  incorrect", () => __awaiter(void 0, void 0, void 0, function* () {
             const createAccount = new CreateAccount_1.default;
@@ -82,7 +82,7 @@ describe('Testing the UserData functionality', () => {
                 firstName: 'Michael',
                 lastName: 'Dollman',
                 username: 'michaeldollman123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'michaeldollman@gmail.com',
                 image: '',
                 active: false,
@@ -103,7 +103,7 @@ describe('Testing the UserData functionality', () => {
                 firstName: 'Dyllan',
                 lastName: 'Hope',
                 username: 'dyllanhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'dyllan@gmail.com',
                 image: 'image@picture.url',
                 active: true,
@@ -114,9 +114,11 @@ describe('Testing the UserData functionality', () => {
             };
             yield createAccount.create(user);
             let response = yield userData.userData('dyllanhope123');
-            assert_1.default.strict.deepEqual(response, {
+            assert_1.default.deepEqual(response, {
                 response: 'User found',
-                user: { firstName: 'Dyllan', lastName: 'Hope', email: 'dyllan@gmail.com', image: 'image@picture.url' },
+                user: {
+                    firstName: 'Dyllan', lastName: 'Hope', email: 'dyllan@gmail.com', image: 'image@picture.url', timeStamp: { $init: true, created: "13 November 2019", lastSeen: "13 November 2019" }
+                },
                 status: true
             });
         }));
@@ -127,7 +129,7 @@ describe('Testing the UserData functionality', () => {
                 firstName: 'Dyllan',
                 lastName: 'Hope',
                 username: 'dyllanhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'dyllan@gmail.com',
                 image: 'image@picture.url',
                 active: true,
@@ -140,7 +142,7 @@ describe('Testing the UserData functionality', () => {
             let response = yield userData.userData('johnhope123');
             assert_1.default.strict.deepEqual(response, {
                 response: 'Username johnhope123 not found',
-                user: { firstName: '', lastName: '', email: '', image: '' },
+                user: { firstName: '', lastName: '', email: '', image: '', timeStamp: { created: "", lastSeen: "" } },
                 status: false
             });
         }));
