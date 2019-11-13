@@ -23,8 +23,8 @@ export default class Profile extends React.Component {
                 if (loading) return 'Loading...';
                 if (error) return `Error! ${error.message}`;
                 return (
-                    <Header as='h2' inverted floated='left'>
-                        {Auth.getUserName()} <br />
+                    <Header as='h1' style={{marginTop: 0.8 + 'em'}} inverted floated='left'>
+                        Hello,  {Auth.getUserName()} <br />
                         <Label as='a' color='purple' image>
                             Joined
                     <Label.Detail>{data.userData.user.timeStamp.created}</Label.Detail>
@@ -58,8 +58,8 @@ export default class Profile extends React.Component {
                                 <Divider />
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row color='teal' style={{ marginTop: 15 }}>
-                            <Grid.Column width={3}>
+                        <Grid.Row color='teal' style={{ marginTop: 15, borderRadius:10 }}>
+                            <Grid.Column width={2}>
                                 <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
                             </Grid.Column>
                             <Grid.Column width={13}>
