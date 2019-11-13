@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Button, List, Image, Icon } from 'semantic-ui-react'
+import { Header, Button, List, Image, Icon, Popup } from 'semantic-ui-react'
 import { DELETE_TRACK } from '../api/queries';
 import Auth from '../utils/Auth';
 import { Query } from 'react-apollo';
@@ -100,7 +100,7 @@ export default class songlist extends Component {
       return (
         <List.Content floated='right'>
           {this.renderDelete()}
-          <Icon id={song.track} ref={song.artist} onClick={this.deleteTrack} link name='remove' />
+          <Popup basic content='Remove from playlist' trigger={<Icon id={song.track} ref={song.artist} onClick={this.deleteTrack} link name='remove' />} />
           {this.renderDeleteState()}
         </List.Content>
       )
