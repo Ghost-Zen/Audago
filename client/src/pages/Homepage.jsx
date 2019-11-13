@@ -10,7 +10,7 @@ export default class HomePage extends React.Component {
     render() {
         let { redirect } = this.state
         if (redirect) {
-            return <Redirect to='/login' />
+            return <Redirect to='/webplayer' />
         }
         return (
             <div className="bg">

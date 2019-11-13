@@ -54,6 +54,7 @@
 .cardContainer{
   min-height: 100vh !important;
   margin-top:25px !important;
+  background-color:rgba(0, 0, 0, 0.89);
 }
 
 .cardDiv{
@@ -67,7 +68,7 @@
 }
 
 html{
-  background-color:rgba(0, 0, 0, 0.89);
+  background-color:black;
 }
 
 .sidebar{

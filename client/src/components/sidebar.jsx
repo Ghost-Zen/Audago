@@ -1,6 +1,8 @@
 import React from 'react';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
+import { Link } from 'react-router-dom';
+import Auth from '../utils/Auth';
 
 export default class Sidebar extends React.Component {
 
@@ -15,7 +17,7 @@ export default class Sidebar extends React.Component {
                 <SideNav.Nav defaultSelected="home">
                     <NavItem eventKey="home">
                         <NavIcon>
-                            <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
+                            <Link to='/'><i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} /></Link>
                         </NavIcon>
                         <NavText>
                             Home
@@ -23,33 +25,37 @@ export default class Sidebar extends React.Component {
                     </NavItem>
                     <NavItem eventKey="playlist">
                         <NavIcon>
-                        <i className="fas fa-list" style={{ fontSize: '1.75em' }} />
+                            <Link to='/profile'><i className="fas fa-list" style={{ fontSize: '1.75em' }} /></Link>
                         </NavIcon>
                         <NavText>
                             Playlist
             </NavText>
                     </NavItem>
+
                     <NavItem eventKey="more">
                         <NavIcon>
-                        <i className="fa fas fa-cogs" style={{ fontSize: '1.75em' }}></i>
+                            <i className="fa fas fa-cogs" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
                         <NavText>
                             Settings
             </NavText>
-                        <NavItem eventKey="more/profile">
+                        <NavItem >
                             <NavText>
-                                Profile
-                </NavText>
+                                <Link to='/profile'>Profile</Link>
+                            </NavText>
                         </NavItem>
                         <NavItem eventKey="more/playlist">
                             <NavText>
-                                Playlist
-                </NavText>
+                                <s>Playlist</s>
+                            </NavText>
                         </NavItem>
                     </NavItem>
+
                     <NavItem eventKey="signout">
                         <NavIcon>
-                        <i className="fas fa-sign-out-alt" style={{ fontSize: '1.75em' }} />
+                            <Link onClick={() => Auth.signOutUser()}>
+                                <i className="fas fa-sign-out-alt" style={{ fontSize: '1.75em' }} />
+                            </Link>
                         </NavIcon>
                         <NavText>
                             Signout

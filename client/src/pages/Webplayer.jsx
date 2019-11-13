@@ -1,11 +1,11 @@
 import React from 'react';
 import '../styling/App.css';
-import { Redirect } from 'react-router-dom';
-import { Container, Card } from 'semantic-ui-react';
+import { Container, Card, Grid } from 'semantic-ui-react';
 import Cards from '../components/card';
 import AudioPlayer from '../components/player';
 import Sidebar from '../components/sidebar';
 import PlaylistPopup from '../components/PlaylistPopup';
+import OnChangeSearch from '../components/onChangeSearch';
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
@@ -54,8 +54,6 @@ export default class Webplayer extends React.Component {
         )
       }
       return songTiles
-    } else {
-      return [<div style={{color:'white'}}>No Data</div>]
     }
   }
 
@@ -64,6 +62,9 @@ export default class Webplayer extends React.Component {
         <div className='webplayer'>
           <Sidebar />
           <div className="cardContainer">
+            <Grid >
+            <Grid.Row centered><OnChangeSearch /></Grid.Row>
+            </Grid>
             <Container style={{ margin: 15 }}>
               <Card.Group centered itemsPerRow={6}>
                 {this.renderData()}

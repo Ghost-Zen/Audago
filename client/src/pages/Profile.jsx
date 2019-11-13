@@ -30,7 +30,7 @@ export default class Profile extends React.Component {
     render() {
         let username = Auth.getUserName();
         return (
-            <div style={{backgroundColor:'white'}}>
+            <div style={{backgroundColor:'black'}}>
                 <Navbar />
                 <Container>
                     <Grid>
@@ -51,7 +51,7 @@ export default class Profile extends React.Component {
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column width={16}>
-                                <Menu pointing secondary>
+                                <Menu pointing secondary inverted>
                                     <Menu.Item
                                         name='Playlists'
                                         active={this.state.activeItem === 'Playlists'}

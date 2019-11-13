@@ -38,7 +38,7 @@ export default class settings extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
-                                <Header floated='left' as='h4'>
+                                <Header inverted floated='left' as='h4'>
                                     Username: {this.state.username}
                                 </Header>
                             </Grid.Column>

@@ -3,6 +3,7 @@ import { Header, Button, List, Image, Icon, Popup } from 'semantic-ui-react'
 import { DELETE_TRACK } from '../api/queries';
 import Auth from '../utils/Auth';
 import { Query } from 'react-apollo';
+import AudioPlayer from './player';
 
 export default class songlist extends Component {
   constructor(props) {
@@ -100,7 +101,7 @@ export default class songlist extends Component {
       return (
         <List.Content floated='right'>
           {this.renderDelete()}
-          <Popup basic content='Remove from playlist' trigger={<Icon id={song.track} ref={song.artist} onClick={this.deleteTrack} link name='remove' />} />
+          <Popup basic content='Remove from playlist' trigger={<Icon inverted id={song.track} ref={song.artist} onClick={this.deleteTrack} link name='remove' />} />
           {this.renderDeleteState()}
         </List.Content>
       )
@@ -125,7 +126,7 @@ export default class songlist extends Component {
               <List.Description>{song.album}</List.Description>
               {this.renderRemove(song, playlist.creator)}
               <List.Content>
-                <Button onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
+                <Button onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon> 
                   <Icon name='play' />
                 </Button>
               </List.Content>
@@ -142,20 +143,16 @@ export default class songlist extends Component {
     return (
       <div>
 
-        <Header floated='left' as='h2'>
+        <Header floated='left' as='h2' inverted>
           {this.props.choice}
         </Header>
         <br />
         <br />
         <br />
-        <List divided relaxed>
+        <List divided relaxed inverted>
           {this.buildList()}
         </List>
-        <div className="audioPlayer">
-          <audio id="player" controls>
-            <source src="" />
-          </audio>
-        </div>
+      <AudioPlayer />
       </div>
     )
   }

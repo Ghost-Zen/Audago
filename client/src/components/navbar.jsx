@@ -51,12 +51,12 @@ export default class Navbar extends Component {
           onClick={this.handleItemClick}
         />
         <Menu.Item
-          name='explore'
+          content={<s>Explore</s>}
           active={activeItem === 'explore'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
-          name='about'
+          content={<s>About</s>}
           active={activeItem === 'about'}
           onClick={this.handleItemClick}
         />

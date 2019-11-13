@@ -37,23 +37,22 @@ export default class PlaylistPopup extends React.Component {
       artwork: song.artwork,
       playlist_name: playlist
     }
-    this.setState({song_proto})
+    this.setState({playlist,song_proto})
   }
 
   getPlaylist = (playlists) => {
     let allPlaylists = [];
     for (let z of playlists) {
-      allPlaylists.push(<button name={z.name} onClick={this.setPlaylist}>{z.name}</button>)
+      allPlaylists.push(<Button name={z.name} onClick={this.setPlaylist}>{z.name}</Button>)
     }
     return allPlaylists;
   }
 
   render() {
-    let { open } = this.props
-    let { song_proto } = this.state
+    let { open,song_proto,playlist } = this.state
     return (
       <Modal trigger={<Button onClick={this.openModal} icon="add"></Button>} basic size='small' open={open}>
-        <Header icon='archive' content='Archive Old Messages' />
+        <Header icon='music' content='Select Playlist' />
         <Modal.Content>
 
           <Query query={USERS_PLAYLIST} variables={{ username: Auth.getUserName() }}>
@@ -70,12 +69,17 @@ export default class PlaylistPopup extends React.Component {
 
         </Modal.Content>
         <Modal.Actions>
+          <div style={{margin:"5px"}}>
+          <b>Selected playlist: {playlist}</b>
+          </div>
           <Button basic color='red' inverted onClick={this.closeModal}>
-            <Icon name='remove' /> No
+            <Icon name='remove' /> Cancel
       </Button>
       <Mutation mutation={NEW_TRACK} variables={{ username:Auth.getUserName(),track:song_proto }}
-                update={(cache, { data }) => {
-                  console.log(`response:${data}`)
+                update={(cache, { loading,data }) => {
+                  if(!loading){
+                  this.closeModal()
+                  }
                 }
                 }
               >
