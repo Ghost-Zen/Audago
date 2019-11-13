@@ -78,7 +78,7 @@ describe('Testing the "adding to playlist" functionality', () => {
         let response = yield createPlaylist.create('2019 House', 'dyllanhope123');
         assert_1.default.strict.deepEqual(response, { response: 'Playlist 2019 House already exists', status: false });
     }));
-    it('Should return that the playlist "2019 House" was not found', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return an error message that says to select an existing playlist', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;
         const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
         let user = {
@@ -97,7 +97,7 @@ describe('Testing the "adding to playlist" functionality', () => {
         yield createAccount.create(user);
         yield createPlaylist.create('2019 Rap', 'dyllanhope123');
         let response = yield createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 House", song: '', album: 'music', artwork: '' });
-        assert_1.default.strict.deepEqual(response, { response: '2019 House not found', status: false });
+        assert_1.default.strict.deepEqual(response, { response: 'Please select an existing playlist', status: false });
     }));
     it('Should return that the song "Middle Child" by "J. Cole" was added to the playlist "2019 rap" successfully', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;

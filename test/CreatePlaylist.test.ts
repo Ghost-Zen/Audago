@@ -66,7 +66,7 @@ describe('Testing the "adding to playlist" functionality', () => {
         let response = await createPlaylist.create('2019 House', 'dyllanhope123');
         assert.strict.deepEqual(response, { response: 'Playlist 2019 House already exists', status: false });
     })
-    it('Should return that the playlist "2019 House" was not found', async () => {
+    it('Should return an error message that says to select an existing playlist', async () => {
         const createAccount = new CreateAccount;
         const createPlaylist = new CreatePlaylist;
         let user: Iaccounts = {
@@ -85,7 +85,7 @@ describe('Testing the "adding to playlist" functionality', () => {
         await createAccount.create(user);
         await createPlaylist.create('2019 Rap', 'dyllanhope123');
         let response = await createPlaylist.addToPlaylist("dyllanhope123", { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 House", song: '', album: 'music', artwork: '' });
-        assert.strict.deepEqual(response, { response: '2019 House not found', status: false });
+        assert.strict.deepEqual(response, { response: 'Please select an existing playlist', status: false });
     })
     it('Should return that the song "Middle Child" by "J. Cole" was added to the playlist "2019 rap" successfully', async () => {
         const createAccount = new CreateAccount;

@@ -61,7 +61,7 @@ export class CreatePlaylist {
             });
         // Returning separate from code as returns don't work in a promise        
         if (!found) {
-            return { response: `${track.playlist_name} not found`, status: false };
+            return { response: `Please select an existing playlist`, status: false };
         } else if (!owner) {
             return { response: `You cannot add to a playlist you do not own`, status: false };
         } else if (exists) {
