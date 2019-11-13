@@ -53,7 +53,7 @@
 
 .cardContainer{
   min-height: 100vh !important;
-  margin-top:25px;
+  margin-top:25px !important;
 }
 
 .cardDiv{
@@ -63,5 +63,19 @@
 }
 
 .webplayer{
-  background-color:rgba(0, 0, 0, 0.842);
+  background-color:rgba(0, 0, 0, 0.89);
+}
+
+html{
+  background-color:rgba(0, 0, 0, 0.89);
+}
+
+.sidebar{
+  position:fixed !important;
+  z-index:1 !important;
+  background-color: black !important;
+}
+
+.fa-home, .fa-sign-out-alt ,.fa-cogs, .fa-list{
+  color:white !important;
 }

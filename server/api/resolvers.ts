@@ -47,6 +47,7 @@ export default {
         return await createPlaylist.create(input.name, input.creator);
     },
     newTrack: async (input) => {
+        console.log(input)
         return await createPlaylist.addToPlaylist(input.username, input.track);
     },
     deleteTrack: async (input) => {

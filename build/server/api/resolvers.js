@@ -60,6 +60,7 @@ exports.default = {
         return yield createPlaylist.create(input.name, input.creator);
     }),
     newTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(input);
         return yield createPlaylist.addToPlaylist(input.username, input.track);
     }),
     deleteTrack: (input) => __awaiter(void 0, void 0, void 0, function* () {
