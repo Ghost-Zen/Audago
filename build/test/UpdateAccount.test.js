@@ -49,7 +49,8 @@ describe('Testing the update account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         let updatedUser = {
@@ -78,7 +79,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let updatedUser = {
@@ -107,7 +109,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let updatedUser = {
@@ -137,7 +140,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield updateAccount.updatePassword('johnhope123', 'Fwgr123#', 'Kill@manjar0', 'Kill@manjar0');
@@ -158,7 +162,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let response = yield updateAccount.updatePassword('dyllanhope123', 'Fwgr123#', 'T3ch9%!(', 'T3ch9%!(');
@@ -178,7 +183,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let response = yield updateAccount.updatePassword('johnhope123', 'car', 'T3ch9%!(', 'T3ch9%!(');
@@ -198,7 +204,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let response = yield updateAccount.updatePassword('johnhope123', 'car', 'House123', 'Fwgr123#');
@@ -221,7 +228,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let response = yield updateAccount.updatePassword('johnhope123', 'Fwgr123#', 'House123', 'House123');

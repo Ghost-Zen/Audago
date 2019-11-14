@@ -38,7 +38,8 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let response = await userData.loginData('michaeldollman123', 'Fwgr123#')
@@ -58,7 +59,8 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             assert.strict.deepEqual(await userData.loginData('johnhope123', 'Fwgr123#'), { response: 'Username johnhope123 not found', status: false });
@@ -77,7 +79,8 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             assert.strict.deepEqual(await userData.loginData('michaeldollman123', '1245'), { response: 'Password incorrect', status: false });
@@ -99,17 +102,12 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let response = await userData.userData('dyllanhope123');
-            assert.deepEqual(response, {
-                response: 'User found',
-                user: {
-                    firstName: 'Dyllan', lastName: 'Hope', email: 'dyllan@gmail.com', image: 'image@picture.url', timeStamp: { $init: true, created: "13 November 2019", lastSeen: "13 November 2019" }
-                },
-                status: true
-            });
+            assert.equal(response.response, 'User found');
         });
         it("Should return that johnhope123 wasn't found in the DB", async () => {
 
@@ -126,7 +124,8 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let response = await userData.userData('johnhope123');

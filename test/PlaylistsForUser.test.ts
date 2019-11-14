@@ -43,7 +43,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         user = {
@@ -57,7 +58,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         let playlist: Iplaylist = {
@@ -104,7 +106,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         user = {
@@ -118,7 +121,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         user = {
@@ -132,7 +136,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         let playlist: Iplaylist = {

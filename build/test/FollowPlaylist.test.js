@@ -54,7 +54,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
@@ -68,7 +69,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -90,7 +92,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
@@ -104,7 +107,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -127,7 +131,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
@@ -141,7 +146,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -163,7 +169,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
@@ -177,7 +184,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -201,7 +209,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
@@ -215,7 +224,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -238,7 +248,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
@@ -252,7 +263,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -275,7 +287,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
@@ -289,7 +302,8 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let playlist = {

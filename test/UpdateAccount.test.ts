@@ -37,7 +37,8 @@ describe('Testing the update account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         let updatedUser: any = {
@@ -67,7 +68,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let updatedUser: any = {
@@ -97,7 +99,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let updatedUser: any = {
@@ -128,7 +131,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             await updateAccount.updatePassword('johnhope123', 'Fwgr123#', 'Kill@manjar0', 'Kill@manjar0');
@@ -149,7 +153,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let response = await updateAccount.updatePassword('dyllanhope123', 'Fwgr123#', 'T3ch9%!(', 'T3ch9%!(');
@@ -169,7 +174,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let response = await updateAccount.updatePassword('johnhope123', 'car', 'T3ch9%!(', 'T3ch9%!(');
@@ -189,7 +195,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let response = await updateAccount.updatePassword('johnhope123', 'car', 'House123', 'Fwgr123#');
@@ -213,7 +220,8 @@ describe('Testing the update account functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let response = await updateAccount.updatePassword('johnhope123', 'Fwgr123#', 'House123', 'House123');

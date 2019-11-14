@@ -53,7 +53,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         user = {
@@ -67,7 +68,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         let playlist = {
@@ -113,7 +115,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         user = {
@@ -127,7 +130,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         user = {
@@ -141,7 +145,8 @@ describe('Testing the users playlists service functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         let playlist = {

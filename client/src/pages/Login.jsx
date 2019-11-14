@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Message, Segment, Popup, List } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { LOGIN_CHECK } from '../api/queries';
 import { Mutation } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
@@ -50,18 +50,7 @@ export default class Login extends React.Component {
             <Form size='large'>
               <Segment stacked>
                 <Form.Input fluid icon='user' name='username' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
-                <Popup trigger={<Form.Input fluid icon='lock' name='password' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />} wide>
-                  <Header as='h2'>
-                    A strong password requires:
-                    </Header>
-                  <List bulleted>
-                    <List.Item>More than 8 Characters</List.Item>
-                    <List.Item>Atleast 1 Uppercase letter</List.Item>
-                    <List.Item>Atleast 1 Lowercase letter</List.Item>
-                    <List.Item>Atleast 1 Special character (!@#$%^&*)</List.Item>
-                    <List.Item>Atleast 1 Number</List.Item>
-                  </List>
-                </Popup>
+                <Form.Input fluid icon='lock' name='password' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />
                 {this.renderError()}
                 <Mutation mutation={LOGIN_CHECK} variables={{ username, password }}
                   update={(cache, { data }) => {

@@ -49,7 +49,8 @@ describe('Testing the delete account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         user = {
@@ -63,7 +64,8 @@ describe('Testing the delete account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         yield deleteAccount.deleteAll();
@@ -86,7 +88,8 @@ describe('Testing the delete account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         user = {
@@ -100,7 +103,8 @@ describe('Testing the delete account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         yield deleteAccount.delete('dyllanhope123');

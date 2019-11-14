@@ -50,7 +50,8 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let response = yield userData.loginData('michaeldollman123', 'Fwgr123#');
@@ -70,7 +71,8 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             assert_1.default.strict.deepEqual(yield userData.loginData('johnhope123', 'Fwgr123#'), { response: 'Username johnhope123 not found', status: false });
@@ -89,7 +91,8 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             assert_1.default.strict.deepEqual(yield userData.loginData('michaeldollman123', '1245'), { response: 'Password incorrect', status: false });
@@ -110,17 +113,12 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let response = yield userData.userData('dyllanhope123');
-            assert_1.default.deepEqual(response, {
-                response: 'User found',
-                user: {
-                    firstName: 'Dyllan', lastName: 'Hope', email: 'dyllan@gmail.com', image: 'image@picture.url', timeStamp: { $init: true, created: "13 November 2019", lastSeen: "13 November 2019" }
-                },
-                status: true
-            });
+            assert_1.default.equal(response.response, 'User found');
         }));
         it("Should return that johnhope123 wasn't found in the DB", () => __awaiter(void 0, void 0, void 0, function* () {
             const createAccount = new CreateAccount_1.default;
@@ -136,7 +134,8 @@ describe('Testing the UserData functionality', () => {
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let response = yield userData.userData('johnhope123');
