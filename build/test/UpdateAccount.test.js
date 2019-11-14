@@ -161,7 +161,7 @@ describe('Testing the update account functionality', () => {
                 }
             };
             yield createAccount.create(user);
-            let response = yield updateAccount.updatePassword('dyllanhope123', 'Fwgr123#', 'House123', 'House123');
+            let response = yield updateAccount.updatePassword('dyllanhope123', 'Fwgr123#', 'T3ch9%!(', 'T3ch9%!(');
             assert_1.default.strict.deepEqual(response, { response: 'Username dyllanhope123 not found', status: false });
         }));
         it("Should return that the entered password was incorrect", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -181,7 +181,7 @@ describe('Testing the update account functionality', () => {
                 }
             };
             yield createAccount.create(user);
-            let response = yield updateAccount.updatePassword('johnhope123', 'car', 'House123', 'House123');
+            let response = yield updateAccount.updatePassword('johnhope123', 'car', 'T3ch9%!(', 'T3ch9%!(');
             assert_1.default.strict.deepEqual(response, { response: 'Password incorrect', status: false });
         }));
         it("Should return that the confirmation and new passwords do not match", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -206,6 +206,26 @@ describe('Testing the update account functionality', () => {
                 response: 'Your New and Confirmation passwords do not match',
                 status: false
             });
+        }));
+        it("Should return that the new password is too weak", () => __awaiter(void 0, void 0, void 0, function* () {
+            const createAccount = new CreateAccount_1.default;
+            const updateAccount = new UpdateAccount_1.default;
+            let user = {
+                firstName: 'John',
+                lastName: 'Hope',
+                username: 'johnhope123',
+                password: 'Fwgr123#',
+                email: 'johnhope@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                }
+            };
+            yield createAccount.create(user);
+            let response = yield updateAccount.updatePassword('johnhope123', 'Fwgr123#', 'House123', 'House123');
+            assert_1.default.strict.deepEqual(response, { response: 'The entered password is too weak', status: false });
         }));
     });
 });

@@ -31,24 +31,30 @@ class UpdateAccount {
     }
     updatePassword(username, currentPass, newPass, testPass) {
         return __awaiter(this, void 0, void 0, function* () {
+            let strongPassRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
             let password = '';
             let found = false;
             let matched = false;
             if (testPass === newPass) {
-                yield Accounts_1.default.findOne({ username })
-                    .then((res) => __awaiter(this, void 0, void 0, function* () {
-                    if (res) {
-                        found = true;
-                        const match = yield bcrypt_1.default.compare(currentPass, res.password);
-                        if (match) {
-                            matched = true;
-                            yield bcrypt_1.default.hash(newPass, 10).then(function (hash) {
-                                password = hash;
-                            });
-                            yield Accounts_1.default.updateOne({ username }, { password });
+                if (strongPassRegex.test(newPass)) {
+                    yield Accounts_1.default.findOne({ username })
+                        .then((res) => __awaiter(this, void 0, void 0, function* () {
+                        if (res) {
+                            found = true;
+                            const match = yield bcrypt_1.default.compare(currentPass, res.password);
+                            if (match) {
+                                matched = true;
+                                yield bcrypt_1.default.hash(newPass, 10).then(function (hash) {
+                                    password = hash;
+                                });
+                                yield Accounts_1.default.updateOne({ username }, { password });
+                            }
                         }
-                    }
-                }));
+                    }));
+                }
+                else {
+                    return { response: 'The entered password is too weak', status: false };
+                }
             }
             else {
                 return { response: 'Your New and Confirmation passwords do not match', status: false };
