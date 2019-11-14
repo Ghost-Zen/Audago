@@ -157,6 +157,28 @@ export const USERS_PLAYLIST = gql`
   }
 `;
 
+export const ALL_PLAYLISTS = gql`
+  query {
+    allPlaylists {
+      playlists {
+        name
+        creator
+        followers
+        song_count
+        songs {
+          track
+          artist
+          song
+          album
+          artwork
+        }
+      }
+      response
+      status
+    }
+  }
+`;
+
 export const VERIFY_USER = gql`
     mutation($jwt:String){
       verifytoken(jwt:$jwt){

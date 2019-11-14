@@ -6,6 +6,7 @@ import AudioPlayer from '../components/player';
 import SidebarA from '../components/sidebar';
 import PlaylistPopup from '../components/PlaylistPopup';
 import OnChangeSearch from '../components/onChangeSearch';
+import Playlists from '../components/webplayerPlaylists';
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
@@ -58,23 +59,21 @@ export default class Webplayer extends React.Component {
   }
 
   render() {
-      return (
-        <div className='webplayer'>
-          <SidebarA />
-          <div className="cardContainer">
-            <Grid >
+    return (
+      <div className='webplayer'>
+        <SidebarA />
+        <div className="cardContainer">
+          <Grid >
             <Grid.Row centered><OnChangeSearch /></Grid.Row>
-            </Grid>
-            <Container style={{ margin: 15 }}>
-              <Card.Group centered itemsPerRow={6}>
-                {this.renderData()}
-              </Card.Group>
-            </Container>
-          </div>
-          <AudioPlayer />
+          </Grid>
+          <Container style={{ margin: 15 }}>
+            <Playlists />
+          </Container>
         </div>
-      )
-    }
-  
+        <AudioPlayer />
+      </div>
+    )
+  }
+
 
 }
