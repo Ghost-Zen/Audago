@@ -10,6 +10,7 @@ export default class Sidebar extends React.Component {
         return (
             <SideNav className="sidebar"
                 onSelect={(selected) => {
+                    console.log(selected)
                     // Add your code here
                 }}
             >
@@ -25,7 +26,7 @@ export default class Sidebar extends React.Component {
                     </NavItem>
                     <NavItem eventKey="playlist">
                         <NavIcon>
-                            <Link to='/profile'><i className="fas fa-list" style={{ fontSize: '1.75em' }} /></Link>
+                            <i className="fas fa-list" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
                         <NavText>
                             Playlist

@@ -15,7 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
 const random_gen_1 = __importDefault(require("../utils/random_gen"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const EmailService_1 = __importDefault(require("../utils/EmailService"));
 const saltRounds = 10;
+const email_service = new EmailService_1.default;
 const random_key = new random_gen_1.default;
 class CreateAccount {
     create(account) {
@@ -43,7 +45,8 @@ class CreateAccount {
                 // Returning separate from code as returns don't work in a promise
                 if (!exists) {
                     yield user.save();
-                    return { response: `Account created`, status: true }; //if account created successfully return this message 
+                    yield email_service.verifyEmail();
+                    return { response: `Account created`, status: true }; //if account created successfully return this message
                 }
                 else {
                     return { response: `Username ${account.username} already exists`, status: false }; //return whether the account exists or not

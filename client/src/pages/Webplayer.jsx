@@ -4,14 +4,11 @@ import { Container, Card, Grid } from 'semantic-ui-react';
 import Cards from '../components/card';
 import AudioPlayer from '../components/player';
 import SidebarA from '../components/sidebar';
-import PlaylistPopup from '../components/PlaylistPopup';
 import OnChangeSearch from '../components/onChangeSearch';
+
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeTrack: ''
-    }
   }
 
   playTrack = (track) => {
@@ -21,17 +18,6 @@ export default class Webplayer extends React.Component {
     x.play();
   }
 
-  addToPlaylist = (track) => {
-    return <PlaylistPopup />
-    // let song_data = this.props.location.state.data.searchSong[track]
-    // song_data.playlist_name = 'test'
-    // console.log(song_data)
-  }
-
-
-  // stopActiveTrack = () => {
-
-  // }
 
   renderData = () => {
     if (this.props.location.state !== undefined) {

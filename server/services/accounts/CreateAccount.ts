@@ -1,7 +1,9 @@
 import Accounts, { Iaccounts } from '../models/Accounts';
 import Random_key from '../utils/random_gen';
 import bcrypt from 'bcrypt';
+import EmailService from '../utils/EmailService';
 const saltRounds = 10;
+const email_service = new EmailService;
 const random_key = new Random_key;
 export default class CreateAccount {
 
@@ -29,7 +31,8 @@ export default class CreateAccount {
             // Returning separate from code as returns don't work in a promise
             if (!exists) {
                 await user.save();
-                return { response: `Account created`, status: true };       //if account created successfully return this message 
+                await email_service.verifyEmail()
+                return { response: `Account created`, status: true };       //if account created successfully return this message
             } else {
                 return { response: `Username ${account.username} already exists`, status: false };  //return whether the account exists or not
             }
