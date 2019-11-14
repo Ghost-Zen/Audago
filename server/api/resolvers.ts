@@ -25,6 +25,9 @@ export default {
     createAccount: async (input) => {
         return await createAccount.create(input.account)
     },
+    verifyAccount: async (email,token) => {
+      return await dataRetrieval.verifyAccount(email,token)
+    },
     searchSong: async (input) => {
         return await searchSong.getFromItunesAPI(input);
     },

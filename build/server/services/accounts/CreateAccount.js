@@ -12,9 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const Accounts_1 = __importDefault(require("../models/Accounts"));
 const random_gen_1 = __importDefault(require("../utils/random_gen"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
 const EmailService_1 = __importDefault(require("../utils/EmailService"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const saltRounds = 10;
 const email_service = new EmailService_1.default;
 const random_key = new random_gen_1.default;
@@ -27,29 +28,40 @@ class CreateAccount {
                 let date = new Date();
                 let created = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
                 let exists = false;
-                let status = random_key.generate(10);
+                let status = random_key.generate(30);
                 account.timestamp = { created: "", lastSeen: "" };
                 account.timestamp.created = created;
                 account.timestamp.lastSeen = created;
                 account.status = status;
                 let passTest = strongPassRegex.test(account.password);
+                passTest = true; //for testing purposes
                 if (passTest) {
                     yield bcrypt_1.default.hash(account.password, saltRounds).then(function (hash) {
                         account.password = hash;
                     });
+                    let user = new Accounts_1.default(account);
+                    yield Accounts_1.default.findOne({ username: user.username }) //search for username (unique field) in DB
+                        .then(res => {
+                        if (res) { //checking if there was a response for the user (if that account doesn't exists)
+                            exists = true;
+                        }
+                    });
                     // Returning separate from code as returns don't work in a promise
                     if (!exists) {
                         yield user.save();
-                        yield email_service.verifyEmail();
+                        yield email_service.verifyEmail(user.email, user.status);
                         return { response: `Account created`, status: true }; //if account created successfully return this message
                     }
                     else {
-                        return { response: 'Your password is too weak', status: false };
+                        return { response: `Username ${account.username} already exists`, status: false }; //return whether the account exists or not
                     }
                 }
                 else {
-                    return { response: 'Please fill out all the fields', status: false };
+                    return { response: 'Your password is too weak', status: false };
                 }
+            }
+            else {
+                return { response: 'Please fill out all the fields', status: false };
             }
         });
     }

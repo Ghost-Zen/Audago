@@ -13,27 +13,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const config_1 = require("./accounts/config");
+const config_1 = require("../accounts/config");
 class EmailService {
-    verifyEmail() {
+    verifyEmail(email, key) {
         return __awaiter(this, void 0, void 0, function* () {
-            // let testAccount = await nodemailer.createTestAccount();
-            // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer_1.default.createTransport({
                 host: 'smtp.ethereal.email',
                 port: 587,
                 secure: false,
                 auth: {
-                    user: config_1.Config.EMAIL.username,
-                    pass: config_1.Config.EMAIL.password
+                    user: process.env.EMAIL_USER || config_1.Config.EMAILUSER,
+                    pass: process.env.EMAIL_PASS || config_1.Config.EMAILPASS
                 }
             });
+            let global_url = `http://audago-zen.herokuapp.com/verify_signup/${email}$${key}`;
+            let dev_url = `http://localhost:4000/verify_signup/${email}$${key}`;
             let info = yield transporter.sendMail({
                 from: '"Fred Foo 👻" <foo@example.com>',
-                to: 'danielminter13@gmail.com',
+                to: 'example@example.com',
                 subject: 'Subject ✔',
                 text: 'Text?',
-                html: '<b>Hello world?</b>'
+                html: `<a href=${global_url}>Verify Account</a>`
             });
             console.log('Message sent: %s', info.messageId);
             console.log('Preview URL: %s', nodemailer_1.default.getTestMessageUrl(info));

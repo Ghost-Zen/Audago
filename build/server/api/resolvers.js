@@ -38,6 +38,9 @@ exports.default = {
     createAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield createAccount.create(input.account);
     }),
+    verifyAccount: (email, token) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield dataRetrieval.verifyAccount(email, token);
+    }),
     searchSong: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield searchSong.getFromItunesAPI(input);
     }),
