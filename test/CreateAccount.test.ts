@@ -35,7 +35,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
 
@@ -57,7 +58,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         user = {
@@ -71,7 +73,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
 
@@ -94,7 +97,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         let status = await createAccount.create(user);
         assert.strict.deepEqual(status, { response: `Account created`, status: true });
@@ -110,7 +114,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         status = await createAccount.create(user);
         assert.strict.deepEqual(status, { response: `Username dyllanhope123 already exists`, status: false });
@@ -128,7 +133,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         let status = await createAccount.create(user);
         assert.strict.deepEqual(status, { response: 'Please fill out all the fields', status: false });
@@ -146,7 +152,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         let response = await createAccount.create(user);
         assert.strict.deepEqual(response, { response: 'Your password is too weak', status: false });

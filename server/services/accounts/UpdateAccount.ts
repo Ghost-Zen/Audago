@@ -15,24 +15,29 @@ export default class UpdateAccount {
         return { response: `Account updated successfully!`, status: true };
     }
     async updatePassword(username: string, currentPass: string, newPass: string, testPass: string) {
+        let strongPassRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
         let password: string = ''
         let found: boolean = false;
         let matched: boolean = false;
         if (testPass === newPass) {
-            await Account.findOne({ username })
-                .then(async (res) => {
-                    if (res) {
-                        found = true
-                        const match = await bcrypt.compare(currentPass, res.password);
-                        if (match) {
-                            matched = true;
-                            await bcrypt.hash(newPass, 10).then(function (hash) {
-                                password = hash
-                            });
-                            await Account.updateOne({ username }, { password });
+            if (strongPassRegex.test(newPass)) {
+                await Account.findOne({ username })
+                    .then(async (res) => {
+                        if (res) {
+                            found = true
+                            const match = await bcrypt.compare(currentPass, res.password);
+                            if (match) {
+                                matched = true;
+                                await bcrypt.hash(newPass, 10).then(function (hash) {
+                                    password = hash
+                                });
+                                await Account.updateOne({ username }, { password });
+                            }
                         }
-                    }
-                });
+                    });
+            } else {
+                return {response: 'The entered password is too weak', status: false}
+            }
         } else {
             return { response: 'Your New and Confirmation passwords do not match', status: false }
         }

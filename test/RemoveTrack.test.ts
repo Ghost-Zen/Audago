@@ -41,7 +41,8 @@ describe('Testing the "remove track" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
@@ -66,7 +67,8 @@ describe('Testing the "remove track" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
@@ -93,7 +95,8 @@ describe('Testing the "remove track" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         let track: TrackInfo = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };

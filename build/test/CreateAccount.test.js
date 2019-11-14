@@ -47,7 +47,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         Accounts_1.default.find({}, { '_id': 0, 'username': 1 })
@@ -68,7 +69,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         user = {
@@ -82,7 +84,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         Accounts_1.default.find({})
@@ -104,7 +107,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         let status = yield createAccount.create(user);
         assert_1.default.strict.deepEqual(status, { response: `Account created`, status: true });
@@ -119,7 +123,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         status = yield createAccount.create(user);
         assert_1.default.strict.deepEqual(status, { response: `Username dyllanhope123 already exists`, status: false });
@@ -137,7 +142,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         let status = yield createAccount.create(user);
         assert_1.default.strict.deepEqual(status, { response: 'Please fill out all the fields', status: false });
@@ -155,7 +161,8 @@ describe('Testing the create account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         let response = yield createAccount.create(user);
         assert_1.default.strict.deepEqual(response, { response: 'Your password is too weak', status: false });

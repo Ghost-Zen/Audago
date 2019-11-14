@@ -38,7 +38,8 @@ describe('Testing the delete account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         user = {
@@ -52,7 +53,8 @@ describe('Testing the delete account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         await deleteAccount.deleteAll();
@@ -76,7 +78,8 @@ describe('Testing the delete account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         user = {
@@ -90,7 +93,8 @@ describe('Testing the delete account functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         await deleteAccount.delete('dyllanhope123');

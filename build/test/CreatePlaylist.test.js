@@ -51,7 +51,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         let response = yield createPlaylist.create('2019 House', 'dyllanhope123');
@@ -71,7 +72,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         yield createPlaylist.create('2019 House', 'dyllanhope123');
@@ -92,7 +94,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         yield createPlaylist.create('2019 Rap', 'dyllanhope123');
@@ -113,7 +116,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         yield createPlaylist.create('2019 Rap', 'dyllanhope123');
@@ -134,7 +138,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         yield createPlaylist.create('2019 Rap', 'dyllanhope123');
@@ -156,7 +161,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         user = {
@@ -170,7 +176,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         yield createPlaylist.create('2019 Rap', 'dyllanhope123');
@@ -192,7 +199,8 @@ describe('Testing the "adding to playlist" functionality', () => {
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         let response = yield createPlaylist.create('    ', 'dyllanhope123');
