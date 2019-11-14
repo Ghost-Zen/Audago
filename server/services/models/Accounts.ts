@@ -12,6 +12,7 @@ export interface Iaccounts{
         created: any;
         lastSeen: string;
     };
+    status: string;
 }
 
 export interface UpdateData {
@@ -33,7 +34,8 @@ const AccountSchema: Schema = new Schema({
     "timestamp": {
         "created": { "type": String, "required": true, "unique": false },
         "lastSeen": { "type": String, "required": true, "unique": false },
-    }
+    },
+    "status": {"type": String, "require": true, "unique": false }
 });
 
 export default mongoose.model<UserModel>('Accounts', AccountSchema);

@@ -3,7 +3,7 @@ import '../styling/App.css';
 import { Container, Card, Grid } from 'semantic-ui-react';
 import Cards from '../components/card';
 import AudioPlayer from '../components/player';
-import Sidebar from '../components/sidebar';
+import SidebarA from '../components/sidebar';
 import PlaylistPopup from '../components/PlaylistPopup';
 import OnChangeSearch from '../components/onChangeSearch';
 export default class Webplayer extends React.Component {
@@ -60,7 +60,7 @@ export default class Webplayer extends React.Component {
   render() {
       return (
         <div className='webplayer'>
-          <Sidebar />
+          <SidebarA />
           <div className="cardContainer">
             <Grid >
             <Grid.Row centered><OnChangeSearch /></Grid.Row>
