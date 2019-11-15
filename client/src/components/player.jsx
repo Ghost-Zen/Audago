@@ -1,13 +1,25 @@
 import React from 'react';
+import AudioPlayer from "react-h5-audio-player";
 
-export default class AudioPlayer extends React.Component{
+export default class Player extends React.Component{
+  constructor(props){
+    super(props);
+  }
     render(){
+      let { source } = this.props
         return(
+            // <audio id="player" controls>
+            //   <source src="" />
+            // </audio>
+            // </div>
             <div className="audioPlayer">
-            <audio id="player" controls>
-              <source src="" />
-            </audio>
-          </div>
+  <AudioPlayer
+  autoPlay
+  src={source}
+  onPlay={e => console.log("onPlay")}
+  // other props here
+/>
+</div>
         )
     }
 }
