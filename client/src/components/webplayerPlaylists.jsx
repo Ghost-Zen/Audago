@@ -63,7 +63,6 @@ export default class WebplayerPlaylists extends React.Component {
                 if (loading) return 'Loading...';
                 if (error) return `Error! ${error.message}`;
                 let playlistData = data.allPlaylists.playlists;
-                console.log(playlistData)
                 let songTiles = [];
                 for (let z = 0; z < playlistData.length; z++) {
                     let playlist = playlistData[z];

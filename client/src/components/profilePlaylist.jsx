@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, Button, Message, Card, Grid, Container, Modal, Input, Header, Confirm } from 'semantic-ui-react';
 import { USERS_PLAYLIST, NEW_PLAYLIST, UNFOLLOW_PLAYLIST } from '../api/queries';
 import { Query, Mutation } from 'react-apollo';
-import SongList from '../components/songlist';
+import SongList from './songlist';
 import Auth from '../utils/Auth';
 import AudioPlayer from './player';
 
