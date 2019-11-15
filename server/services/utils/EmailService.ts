@@ -26,6 +26,7 @@ export default class EmailService{
   console.log('Message sent: %s', info.messageId);
 
   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  return nodemailer.getTestMessageUrl(info)
 }
 
 }
