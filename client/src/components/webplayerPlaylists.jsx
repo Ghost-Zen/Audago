@@ -77,7 +77,7 @@ export default class WebplayerPlaylists extends React.Component {
                                     playlist_meta={playlist}
                                     index={z}
                                 /><br />
-                                <strong onClick={() => this.viewSongs(playlistData, playlist.name)}>{playlist.name}</strong>
+                                <strong class='playlistSelect' onClick={() => this.viewSongs(playlistData, playlist.name)}>{playlist.name}</strong>
                             </div>
                         )
                     }

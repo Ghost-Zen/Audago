@@ -157,7 +157,6 @@ export default class songlist extends Component {
         </Header>
         <br />
         <br />
-        <br />
         <List divided relaxed inverted>
           {this.buildList()}
         </List>

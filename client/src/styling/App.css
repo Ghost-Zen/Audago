@@ -82,7 +82,7 @@
   color:white !important;
 }
 
-strong:hover {
+.playlistSelect:hover {
   color: grey;
   cursor: pointer;
 }
