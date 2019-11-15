@@ -150,6 +150,7 @@ export const USERS_PLAYLIST = gql`
           album
           artwork
         }
+        follower_list
       }
       response
       status
@@ -172,6 +173,7 @@ export const ALL_PLAYLISTS = gql`
           album
           artwork
         }
+        follower_list
       }
       response
       status

@@ -17,13 +17,4 @@ const Playlist = new mongoose_1.Schema({
     "users": [{ "type": mongoose_1.Schema.Types.ObjectId, ref: 'Accounts' }]
 });
 exports.default = mongoose_1.default.model('Playlist', Playlist);
-// sample data
-// {
-//     name: '2019 Rap',
-//     follower_count: 20034,
-//     creator: 'Dyllan',
-//     song_count: 1,
-//     songs: [{track:'Blessings', artist:'Big sean', song:'urltosong.com', album:'none',artwork:'urltoartwork'}],
-//     users: ["507f1f77bcf86cd799439011"]
-// }
 //# sourceMappingURL=Playlists.js.map

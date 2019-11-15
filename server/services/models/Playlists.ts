@@ -29,13 +29,3 @@ const Playlist: Schema = new Schema({
 });
 
 export default mongoose.model<PlaylistModel>('Playlist', Playlist);
-
-// sample data
-// {
-//     name: '2019 Rap',
-//     follower_count: 20034,
-//     creator: 'Dyllan',
-//     song_count: 1,
-//     songs: [{track:'Blessings', artist:'Big sean', song:'urltosong.com', album:'none',artwork:'urltoartwork'}],
-//     users: ["507f1f77bcf86cd799439011"]
-// }

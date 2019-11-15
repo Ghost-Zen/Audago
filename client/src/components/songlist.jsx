@@ -101,7 +101,7 @@ export default class songlist extends Component {
   }
 
   renderRemove = (song, creator) => {
-    if (this.state.username === creator) {
+    if (this.state.username === creator && !this.props.from) {
       return (
         <List.Content floated='right'>
           {this.renderDelete()}
@@ -144,7 +144,6 @@ export default class songlist extends Component {
   }
 
   render() {
-    let { username } = this.state;
     let choice = this.props.choice;
     return (
       <div>

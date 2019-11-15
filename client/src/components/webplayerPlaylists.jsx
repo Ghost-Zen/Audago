@@ -1,7 +1,7 @@
 import React from 'react';
-import { Header, Card } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import { ALL_PLAYLISTS } from '../api/queries';
-import Auth from '../utils/Auth';
+import '../styling/App.css';
 import { Query } from 'react-apollo';
 import PlaylistCards from './playlistCards';
 import SongList from '../components/songlist';
@@ -17,7 +17,6 @@ export default class WebplayerPlaylists extends React.Component {
     }
 
     playTrack = (songList, item) => {
-        console.log(songList, item)
         let index = item
         let x = document.querySelector("#player");
         x.src = songList[index];
@@ -59,7 +58,7 @@ export default class WebplayerPlaylists extends React.Component {
     }
 
     renderPlaylists = () => (
-        <Query query={ALL_PLAYLISTS}>
+        <Query query={ALL_PLAYLISTS} pollInterval={500}>
             {({ loading, error, data }) => {
                 if (loading) return 'Loading...';
                 if (error) return `Error! ${error.message}`;
@@ -77,7 +76,7 @@ export default class WebplayerPlaylists extends React.Component {
                                     playlist_meta={playlist}
                                     index={z}
                                 /><br />
-                                <strong class='playlistSelect' onClick={() => this.viewSongs(playlistData, playlist.name)}>{playlist.name}</strong>
+                                <strong className='playlistSelect' onClick={() => this.viewSongs(playlistData, playlist.name)}>{playlist.name}</strong>
                             </div>
                         )
                     }
