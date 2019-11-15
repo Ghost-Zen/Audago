@@ -20,7 +20,6 @@ const random_key = new random_gen_1.default;
 class CreateAccount {
     create(account) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(account);
             let strongPassRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
             if (account.firstName && account.lastName && account.password && account.email && account.username) {
                 let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

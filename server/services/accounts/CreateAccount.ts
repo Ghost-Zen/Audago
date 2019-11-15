@@ -6,7 +6,6 @@ const random_key = new Random_key;
 export default class CreateAccount {
 
     async create(account: Iaccounts) {
-        console.log(account)
         let strongPassRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
         if (account.firstName && account.lastName && account.password && account.email && account.username) {
             let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

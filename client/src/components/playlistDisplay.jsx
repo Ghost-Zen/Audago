@@ -89,10 +89,6 @@ export default class PlaylistDisplay extends React.Component {
                         return (
                             <Grid.Row>
                                 <Grid.Column>
-                                    <Button onClick={this.reset} floated='left' icon>
-                                        <Icon name='angle left' />
-                                    </Button>
-
                                     <Mutation mutation={UNFOLLOW_PLAYLIST} variables={{ username: this.state.username, playlistName: this.state.playlistChoice }}
                                         update={(cache, { data }) => {
                                             console.log(data)
