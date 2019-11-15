@@ -53,6 +53,7 @@ export default class WebplayerPlaylists extends React.Component {
                 choice={this.state.choice}
                 from='webplayer'
                 playTrack={this.playTrack}
+                reset={this.reset}
             />
         )
     }
@@ -76,7 +77,7 @@ export default class WebplayerPlaylists extends React.Component {
                                     playlist_meta={playlist}
                                     index={z}
                                 /><br />
-                                <strong onClick={() => this.viewSongs(playlistData, playlist.name)}>{playlist.name}</strong>
+                                <strong class='playlistSelect' onClick={() => this.viewSongs(playlistData, playlist.name)}>{playlist.name}</strong>
                             </div>
                         )
                     }
@@ -86,13 +87,33 @@ export default class WebplayerPlaylists extends React.Component {
         </Query>
     )
 
-    render() {
-        return (
-            <div>
+    reset = () => {
+        this.setState({
+            viewSongs: false,
+            choice: ''
+        });
+    }
+
+    renderData = () => {
+        if (this.state.viewSongs) {
+            return (
+                <div>
+                    {this.renderSongs()}
+                </div>
+            )
+        } else {
+            return (
                 <Card.Group centered itemsPerRow={6}>
                     {this.renderPlaylists()}
                 </Card.Group>
-                {this.renderSongs()}
+            )
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                {this.renderData()}
             </div>
         )
     }

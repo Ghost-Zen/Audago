@@ -51,7 +51,7 @@ export default class songlist extends Component {
           });
       }
     } else {
-      this.props.playTrack(songList,startTrack);
+      this.props.playTrack(songList, startTrack);
     }
   }
 
@@ -114,7 +114,6 @@ export default class songlist extends Component {
 
   buildList = () => {
     let playlists = this.props.data;
-    console.log(this.props.data)
     let listItems = [];
     let index = 0;
     for (const playlist of playlists) {
@@ -150,10 +149,12 @@ export default class songlist extends Component {
     return (
       <div>
 
+        <Button onClick={this.props.reset} floated='left' icon>
+          <Icon name='angle left' />
+        </Button>
         <Header floated='left' as='h2' inverted>
           {choice}
         </Header>
-        <br />
         <br />
         <br />
         <List divided relaxed inverted>
