@@ -114,26 +114,25 @@ export default class songlist extends Component {
 
   buildList = () => {
     let playlists = this.props.data;
+    let { active } = this.state
     let listItems = [];
     let index = 0;
     for (const playlist of playlists) {
       if (playlist.name === this.props.choice) {
         let songs = playlist.songs;
         for (const song of songs) {
+
           listItems.push(
             <List.Item key={index}>
-              <Image floated='left' style={{ height: 100, width: 100 }} src={song.artwork} />
+            <Button inverted floated='left' size='mini' onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
+              <Icon name='play'/>
+            </Button>
               <List.Header>
                 {song.track}
-              </List.Header>
-              <List.Description>{song.artist}</List.Description>
-              <List.Description>{song.album}</List.Description>
+                  </List.Header>
+              <List.Description>{song.artist} | {song.album}</List.Description>
               {this.renderRemove(song, playlist.creator)}
-              <List.Content>
-                <Button onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
-                  <Icon name='play' />
-                </Button>
-              </List.Content>
+
             </List.Item>
           )
           index++;
@@ -147,16 +146,11 @@ export default class songlist extends Component {
     let choice = this.props.choice;
     return (
       <div>
-
-        <Button onClick={this.props.reset} floated='left' icon>
-          <Icon name='angle left' />
-        </Button>
-        <Header floated='left' as='h2' inverted>
+        <Button onClick={this.props.reset} floated='left' size='small' icon='angle left' />
+        <Header centered as='h2' inverted>
           {choice}
         </Header>
-        <br />
-        <br />
-        <List divided relaxed inverted>
+        <List celled relaxed inverted>
           {this.buildList()}
         </List>
       </div>

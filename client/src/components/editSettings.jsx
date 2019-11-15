@@ -44,10 +44,10 @@ export default class settings extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <Grid.Column width={8}>
+                            <Grid.Column width={7}>
                                 <Input style={{ width: 200, float: 'left' }} label={{ tag: false, color: 'teal', content: 'First name' }} placeholder={info.firstName} name='firstName' onChange={this.handleChange} />
                             </Grid.Column>
-                            <Grid.Column width={8}>
+                            <Grid.Column width={9}>
                                 <Input style={{ width: 200, float: 'left' }} label={{ tag: false, color: 'teal', content: 'Last name' }} placeholder={info.lastName} name='lastName' onChange={this.handleChange} />
                             </Grid.Column>
                         </Grid.Row>
@@ -133,12 +133,11 @@ export default class settings extends Component {
                     }
                 >
                     {updateInfo => (
-                        <Button type="submit" color='teal' fluid size='large' onClick={updateInfo}>
+                        <Button type="submit" color='teal' onClick={updateInfo}>
                             Update
                     </Button>
                     )}
                 </Mutation>
-                <br />
                 <Modal
                     trigger={<Button onClick={this.handleOpen}>Change Password</Button>}
                     open={this.state.modalOpen}

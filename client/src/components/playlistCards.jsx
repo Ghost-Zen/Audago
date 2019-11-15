@@ -38,7 +38,7 @@ export default class cards extends Component {
       return (
         <Mutation mutation={UNFOLLOW_PLAYLIST} variables={{ username, playlistName: playlist }}>
           {unfollowPlaylist => (
-            <Button primary icon="heart" onClick={unfollowPlaylist}></Button>
+            <Button icon="heart" color='red' onClick={unfollowPlaylist}></Button>
           )}
         </Mutation>
       )
@@ -46,7 +46,7 @@ export default class cards extends Component {
       return (
         <Mutation mutation={FOLLOW_PLAYLIST} variables={{ username, playlistName: playlist }}>
           {followPlaylist => (
-            <Button primary icon="heart outline" onClick={followPlaylist}></Button>
+            <Button icon="heart outline" color='red' onClick={followPlaylist}></Button>
           )}
         </Mutation>
       )

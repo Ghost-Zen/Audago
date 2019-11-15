@@ -15,6 +15,10 @@ export default class Profile extends React.Component {
 
     handleItemClick = (e, { name }) => {
         this.setState({ activeItem: name });
+    };
+
+    setTab = (chosen_tab) => {
+      this.setState({activeItem: chosen_tab})
     }
 
     renderBannerInfo = () => (
@@ -51,18 +55,17 @@ export default class Profile extends React.Component {
         return (
             <div className="profile" style={{backgroundColor:'black'}}>
                 <Navbar />
-                <Container>
+                <Container style={{padding:10}}>
                     <Grid>
                         <Grid.Row style={{ paddingBottom: 0 }}>
                             <Grid.Column width={16}>
-                                <Divider />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row color='teal' style={{ marginTop: 15, borderRadius:10 }}>
                             <Grid.Column width={2}>
-                                <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
+                                <Image style={{width:112, height:112}} circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
                             </Grid.Column>
-                            <Grid.Column width={13}>
+                            <Grid.Column width={14}>
                                 {this.renderBannerInfo()}
                             </Grid.Column>
                         </Grid.Row>
