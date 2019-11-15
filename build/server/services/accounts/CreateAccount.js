@@ -50,7 +50,7 @@ class CreateAccount {
                     if (!exists) {
                         yield user.save();
                         let verifyLink = yield email_service.verifyEmail(user.email, user.status); // will remove once real email account is added
-                        return { response: `Account created, verify@${verifyLink}`, status: true }; //if account created successfully return this message
+                        return { response: `Account created, verify@ ${verifyLink}`, status: true }; //if account created successfully return this message
                     }
                     else {
                         return { response: `Username ${account.username} already exists`, status: false }; //return whether the account exists or not
