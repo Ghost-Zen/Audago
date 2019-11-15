@@ -71,7 +71,7 @@ export default class UserData {
             if (found) {
                 if (match) {
                   if(data.status === 'verified'){
-                    let token = jwt.sign({ data }, Config.SECRET, {
+                    let token = jwt.sign({ data }, process.env.JWT_SECRET, {
                         expiresIn: 86400 // expires in 24 hours
                     });
                     return { response: token, username: data.username, status: true };

@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const config_1 = require("./config");
 class UserData {
     verifyAccount(email, token) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -89,7 +88,7 @@ class UserData {
                 if (found) {
                     if (match) {
                         if (data.status === 'verified') {
-                            let token = jsonwebtoken_1.default.sign({ data }, config_1.Config.SECRET, {
+                            let token = jsonwebtoken_1.default.sign({ data }, process.env.JWT_SECRET, {
                                 expiresIn: 86400 // expires in 24 hours
                             });
                             return { response: token, username: data.username, status: true };

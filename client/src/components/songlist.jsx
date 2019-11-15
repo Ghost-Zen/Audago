@@ -3,7 +3,6 @@ import { Header, Button, List, Image, Icon, Popup } from 'semantic-ui-react'
 import { DELETE_TRACK } from '../api/queries';
 import Auth from '../utils/Auth';
 import { Query } from 'react-apollo';
-import AudioPlayer from './player';
 
 export default class songlist extends Component {
   constructor(props) {
@@ -11,7 +10,8 @@ export default class songlist extends Component {
     this.state = {
       username: Auth.getUserName(),
       delete: false,
-      trackInfo: {}
+      trackInfo: {},
+      open: false
     }
   }
 
@@ -30,24 +30,28 @@ export default class songlist extends Component {
   }
 
   async playSong(songList, startTrack) {
-    let index = startTrack;
-    let x = document.querySelector("#player");
-    x.src = songList[index];
-    index++;
-    var playPromise = x.play();
+    if (!this.props.from) {
+      let index = startTrack;
+      let x = document.querySelector("#player");
+      x.src = songList[index];
+      index++;
+      var playPromise = x.play();
 
-    if (playPromise !== undefined) {
-      playPromise.then(_ => {
-        x.addEventListener('ended', async () => {
-          if (index !== songList.length) {
-            await this.playSong(songList, index);
-          } else {
-            await this.playSong(songList, 0);
-          }
-        });
-      })
-        .catch(error => {
-        });
+      if (playPromise !== undefined) {
+        playPromise.then(_ => {
+          x.addEventListener('ended', async () => {
+            if (index !== songList.length) {
+              await this.playSong(songList, index);
+            } else {
+              await this.playSong(songList, 0);
+            }
+          });
+        })
+          .catch(error => {
+          });
+      }
+    } else {
+      this.props.playTrack(songList,startTrack);
     }
   }
 
@@ -110,6 +114,7 @@ export default class songlist extends Component {
 
   buildList = () => {
     let playlists = this.props.data;
+    console.log(this.props.data)
     let listItems = [];
     let index = 0;
     for (const playlist of playlists) {
@@ -126,7 +131,7 @@ export default class songlist extends Component {
               <List.Description>{song.album}</List.Description>
               {this.renderRemove(song, playlist.creator)}
               <List.Content>
-                <Button onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon> 
+                <Button onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
                   <Icon name='play' />
                 </Button>
               </List.Content>
@@ -140,11 +145,13 @@ export default class songlist extends Component {
   }
 
   render() {
+    let { username } = this.state;
+    let choice = this.props.choice;
     return (
       <div>
 
         <Header floated='left' as='h2' inverted>
-          {this.props.choice}
+          {choice}
         </Header>
         <br />
         <br />
@@ -152,7 +159,6 @@ export default class songlist extends Component {
         <List divided relaxed inverted>
           {this.buildList()}
         </List>
-      <AudioPlayer />
       </div>
     )
   }

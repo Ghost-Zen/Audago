@@ -20,6 +20,7 @@ const songsearch_1 = __importDefault(require("../services/songsearch"));
 const PlaylistsForUser_1 = __importDefault(require("../services/playlists/PlaylistsForUser"));
 const FollowPlaylist_1 = __importDefault(require("../services/playlists/FollowPlaylist"));
 const CreatePlaylist_1 = require("../services/playlists/CreatePlaylist");
+const AllPlaylists_1 = __importDefault(require("../services/playlists/AllPlaylists"));
 const RemoveTrack_1 = __importDefault(require("../services/playlists/RemoveTrack"));
 const dataRetrieval = new UserData_1.default;
 const createAccount = new CreateAccount_1.default;
@@ -30,6 +31,7 @@ const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
 const removeTrack = new RemoveTrack_1.default;
 const playlistsForUser = new PlaylistsForUser_1.default;
 const followPlaylist = new FollowPlaylist_1.default;
+const allPlaylists = new AllPlaylists_1.default;
 exports.default = {
     hello: () => 'Hello World',
     test: (input) => {
@@ -83,6 +85,9 @@ exports.default = {
     }),
     playlistsForUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield playlistsForUser.playlistsFor(input.username);
+    }),
+    allPlaylists: () => __awaiter(void 0, void 0, void 0, function* () {
+        return yield allPlaylists.all();
     })
 };
 //# sourceMappingURL=resolvers.js.map

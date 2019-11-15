@@ -13,17 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const config_1 = require("../accounts/config");
 class EmailService {
     verifyEmail(email, key) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(process.env.EMAIL_USER);
             let transporter = nodemailer_1.default.createTransport({
                 host: 'smtp.ethereal.email',
                 port: 587,
                 secure: false,
                 auth: {
-                    user: process.env.EMAIL_USER || config_1.Config.EMAILUSER,
-                    pass: process.env.EMAIL_PASS || config_1.Config.EMAILPASS
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS
                 }
             });
             let global_url = `http://audago-zen.herokuapp.com/verify_signup/${email}$${key}`;

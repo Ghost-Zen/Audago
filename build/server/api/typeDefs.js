@@ -87,6 +87,7 @@ type Query {
   username: String
   response: String
   playlistsForUser(username: String): PlaylistResponse
+  allPlaylists: PlaylistResponse
   deleteTrack(username:String,trackInfo:TrackInfo):Response
   userData(username:String):Response
   status: Boolean

@@ -16,12 +16,12 @@ const express_1 = __importDefault(require("express"));
 const routes_1 = __importDefault(require("./server/routes/routes"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
+require('dotenv').config();
 const app = express_1.default();
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
 app.use(express_1.default.static('./client/build'));
-// import Accounts, { Iaccounts } from './server/services/models/Accounts';
-const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/audago_db';
+const url = process.env.MONGODB_URI;
 mongoose_1.default.set('useCreateIndex', true);
 mongoose_1.default.connect(url, { useUnifiedTopology: true, useNewUrlParser: true }); // establishing the connection
 mongoose_1.default.connection
