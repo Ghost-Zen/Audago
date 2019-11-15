@@ -91,8 +91,7 @@ export default class PlaylistDisplay extends React.Component {
                                 <Grid.Column>
                                     <Mutation mutation={UNFOLLOW_PLAYLIST} variables={{ username: this.state.username, playlistName: this.state.playlistChoice }}
                                         update={(cache, { data }) => {
-                                            console.log(data)
-                                            { this.props.reset() }
+                                            { this.reset() }
                                         }
                                         }
                                     >
