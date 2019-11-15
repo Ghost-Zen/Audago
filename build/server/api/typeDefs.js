@@ -29,7 +29,8 @@ type PlaylistInfo {
   creator:String,
   followers: Int,
   song_count: Int,
-  songs: [Songs]
+  songs: [Songs],
+  follower_list: [String]
 }
 
 type Songs {

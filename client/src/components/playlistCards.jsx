@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import { Button, Dimmer, Image } from 'semantic-ui-react'
+import Auth from '../utils/Auth'
+import { FOLLOW_PLAYLIST, UNFOLLOW_PLAYLIST } from '../api/queries'
+import { Mutation } from 'react-apollo';
+
 export default class cards extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
+      username: Auth.getUserName(),
+      playlist: this.props.playlist_meta.name
     }
   }
 
@@ -11,22 +17,49 @@ export default class cards extends Component {
   handleHide = () => this.setState({ active: false })
 
   intialPlayer = (playlist) => {
-    this.setState({activePlaylist:playlist})
-    this.props.playTrack(this.props.songs, 0)
+    this.setState({ activePlaylist: playlist })
+    let songList = [];
+    for (const track of this.props.songs) {
+      songList.push(track.song);
+    }
+    this.props.playTrack(songList, 0)
   }
 
   resetCard = () => {
     this.setState({
-      active:false
+      active: false
     })
   }
 
+  renderFollowButton = () => {
+    let { username, playlist } = this.state;
+    let follower_list = this.props.playlist_meta.follower_list
+    if (follower_list.includes(Auth.getUserName())) {
+      return (
+        <Mutation mutation={UNFOLLOW_PLAYLIST} variables={{ username, playlistName: playlist }}>
+          {unfollowPlaylist => (
+            <Button primary icon="heart" onClick={unfollowPlaylist}></Button>
+          )}
+        </Mutation>
+      )
+    } else {
+      return (
+        <Mutation mutation={FOLLOW_PLAYLIST} variables={{ username, playlistName: playlist }}>
+          {followPlaylist => (
+            <Button primary icon="heart outline" onClick={followPlaylist}></Button>
+          )}
+        </Mutation>
+      )
+    }
+  }
+
   render() {
-    let {image,index} = this.props
+    let { image, index } = this.props
     const { active } = this.state
     const content = (
       <div>
         <Button primary icon="play" onClick={() => this.intialPlayer(index)}></Button>
+        {this.renderFollowButton()}
       </div>
     )
 

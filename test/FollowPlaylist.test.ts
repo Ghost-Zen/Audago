@@ -44,7 +44,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             user = {
@@ -59,7 +59,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             await createPlaylist.create('2019 Rap', 'danielminter123');
@@ -82,7 +82,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             user = {
@@ -97,7 +97,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             await createPlaylist.create('2019 Rap', 'danielminter123');
@@ -121,7 +121,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             user = {
@@ -136,7 +136,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             await createPlaylist.create('2019 Rap', 'danielminter123');
@@ -159,7 +159,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             user = {
@@ -174,7 +174,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             await createPlaylist.create('2019 Rap', 'danielminter123');
@@ -199,7 +199,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             user = {
@@ -214,7 +214,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             await createPlaylist.create('2019 Rap', 'danielminter123');
@@ -238,7 +238,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             user = {
@@ -253,7 +253,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             await createPlaylist.create('2019 Rap', 'danielminter123');
@@ -277,7 +277,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             user = {
@@ -292,7 +292,7 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                     created: 'date',
                     lastSeen: 'date'
                 },
-                status:''
+                status: ''
             }
             await createAccount.create(user);
             let playlist: Iplaylist = {

@@ -20,7 +20,16 @@ class AllPlaylists {
             yield Playlists_1.default.find({}) //pull all playlists
                 .then((res) => __awaiter(this, void 0, void 0, function* () {
                 for (const playlist of res) {
-                    playlists.push({ name: playlist.name, creator: playlist.creator, followers: playlist.follower_count, song_count: playlist.song_count, songs: playlist.songs });
+                    let followers = [];
+                    yield Playlists_1.default.
+                        findOne({ name: playlist.name }).
+                        populate('users').
+                        then(function (users) {
+                        for (const user of users.users) {
+                            followers.push(user.username);
+                        }
+                    });
+                    playlists.push({ name: playlist.name, creator: playlist.creator, followers: playlist.follower_count, song_count: playlist.song_count, songs: playlist.songs, follower_list: followers });
                 }
             }));
             return { playlists, response: `Playlists found`, status: true };
