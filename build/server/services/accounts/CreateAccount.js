@@ -49,7 +49,7 @@ class CreateAccount {
                     // Returning separate from code as returns don't work in a promise
                     if (!exists) {
                         yield user.save();
-                        let verifyLink = yield email_service.verifyEmail(user.email, user.status);
+                        let verifyLink = yield email_service.verifyEmail(user.email, user.status); // will remove once real email account is added
                         return { response: `Account created, verify@${verifyLink}`, status: true }; //if account created successfully return this message
                     }
                     else {
