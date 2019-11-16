@@ -16,7 +16,6 @@ const nodemailer_1 = __importDefault(require("nodemailer"));
 class EmailService {
     verifyEmail(email, key) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(process.env.EMAIL_USER);
             let transporter = nodemailer_1.default.createTransport({
                 host: 'smtp.ethereal.email',
                 port: 587,
@@ -35,7 +34,7 @@ class EmailService {
                 text: 'Text?',
                 html: `<a href=${dev_url}>Verify Account</a>`
             });
-            console.log('Message sent: %s', info.messageId);
+            // console.log('Message sent: %s', info.messageId);
             console.log('Preview URL: %s', nodemailer_1.default.getTestMessageUrl(info));
             return nodemailer_1.default.getTestMessageUrl(info);
         });

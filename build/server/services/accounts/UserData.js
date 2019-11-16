@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const EmailService_1 = __importDefault(require("../utils/EmailService"));
+const email_service = new EmailService_1.default;
 class UserData {
     verifyAccount(email, token) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -23,8 +25,6 @@ class UserData {
                 if (res) {
                     if (res.status === token) {
                         yield Accounts_1.default.updateOne({ email }, { status: 'verified' });
-                        let a = yield Accounts_1.default.findOne({ email });
-                        console.log(a);
                     }
                 }
                 else {
@@ -94,7 +94,8 @@ class UserData {
                             return { response: token, username: data.username, status: true };
                         }
                         else {
-                            return { response: `Account not verified, check your emails`, status: false };
+                            let emailUserAgain = email_service.verifyEmail(data.email, data.status); //email user everytime he forgets to verify and tries to login.
+                            return { response: `Account not verified, check your emails`, status: false }; //added email verification link just for dev purposes
                         }
                     }
                     else {
