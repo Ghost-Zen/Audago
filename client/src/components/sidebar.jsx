@@ -1,30 +1,27 @@
 import React from 'react';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import { Link } from 'react-router-dom';
 import Auth from '../utils/Auth';
 
 export default class Sidebar extends React.Component {
-  constructor(props){
-    super(props)
-  }
-  tabSwitch = (selected) => {
-    this.props.setTab(selected)
-  }
+
+    tabSwitch = (selected) => {
+        this.props.setTab(selected)
+    }
 
     render() {
         return (
             <SideNav className="sidebar"
                 onSelect={(selected) => {
-                  console.log(selected)
-                  this.tabSwitch(selected)
+                    if (selected === 'signout') return Auth.signOutUser()
+                    this.tabSwitch(selected)
                 }}
             >
                 <SideNav.Toggle />
                 <SideNav.Nav defaultSelected="home">
                     <NavItem eventKey="home">
                         <NavIcon>
-                          <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
+                            <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
                         <NavText>
                             Home
@@ -48,7 +45,7 @@ export default class Sidebar extends React.Component {
             </NavText>
                         <NavItem >
                             <NavText>
-                              Profile
+                                Profile
                             </NavText>
                         </NavItem>
                         <NavItem eventKey="manage_playlist">
@@ -60,16 +57,14 @@ export default class Sidebar extends React.Component {
 
                     <NavItem eventKey="signout">
                         <NavIcon>
-                            <Link onClick={() => Auth.signOutUser()}>
                                 <i className="fas fa-sign-out-alt" style={{ fontSize: '1.75em' }} />
-                            </Link>
                         </NavIcon>
-                        <NavText>
-                            Signout
+                            <NavText>
+                                Signout
             </NavText>
                     </NavItem>
                 </SideNav.Nav>
             </SideNav>
-        )
-    }
-}
+                )
+            }
+        }

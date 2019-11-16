@@ -33,7 +33,7 @@ class EmailService {
                 to: 'example@example.com',
                 subject: 'Subject ✔',
                 text: 'Text?',
-                html: `<a href=${global_url}>Verify Account</a>`
+                html: `<a href=${dev_url}>Verify Account</a>`
             });
             console.log('Message sent: %s', info.messageId);
             console.log('Preview URL: %s', nodemailer_1.default.getTestMessageUrl(info));

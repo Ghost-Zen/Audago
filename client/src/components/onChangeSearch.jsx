@@ -15,25 +15,23 @@ const initialState = {
 }
 
 export default class OnChangeSearch extends React.Component {
-  constructor(props){
-    super(props);
-  }
     state = initialState
 
     handleResultSelect = (e, { result }) => {
         let { songData, allSongs } = this.state
-        if (result.id === '@') {
+        if (result.key === '@') {
             let selectedSongData = { searchSong: allSongs }
             this.setState({ value: result.title, redirect: true, selectedSongData })
         } else {
-            let selectedSongData = { searchSong: [songData[result.id]] }
+            let selectedSongData = { searchSong: [songData[result.key]] }
             this.setState({ value: result.title, redirect: true, selectedSongData })
         }
     }
 
     handleSearchChange = (e, { value }) => {
         this.setState({ isLoading: false, value, preventLoop: 1, results: [] })
-        this.props.switchTab()
+        console.log(this.props)
+        this.props.switchtab('home')
     }
 
     handleResData = (data) => {
@@ -45,14 +43,14 @@ export default class OnChangeSearch extends React.Component {
                 let onSearchData;
                 if (z < 1) {
                     onSearchData = {
-                        id: '@',
+                        key: '@',
                         title: apiRes.artist,
                         description: 'Search All',
                         image: ''
                     }
                 } else {
                     onSearchData = {
-                        id: z,
+                        key: z,
                         title: apiRes.artist,
                         description: apiRes.track,
                         image: apiRes.artwork

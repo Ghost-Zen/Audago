@@ -2,9 +2,6 @@ import React from 'react';
 import AudioPlayer from "react-h5-audio-player";
 
 export default class Player extends React.Component{
-  constructor(props){
-    super(props);
-  }
     render(){
       let { source } = this.props
         return(

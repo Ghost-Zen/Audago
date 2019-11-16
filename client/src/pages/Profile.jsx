@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Menu, Grid, Header, Divider, Container, Label } from 'semantic-ui-react';
+import { Image, Menu, Grid, Header, Container, Label } from 'semantic-ui-react';
 import Settings from '../components/editSettings';
 import PlaylistDisplay from '../components/profilePlaylist';
 import { USER_DATA } from '../api/queries';

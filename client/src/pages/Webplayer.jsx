@@ -18,7 +18,7 @@ export default class Webplayer extends React.Component {
 
   playTrack = (track) => {
     let song_data = this.props.location.state.data.searchSong
-    let x = document.querySelector("#player");
+    // let x = document.querySelector("#player");
     this.setState({track: song_data[track].song})
     // x.src = song_data[track].song
     // x.play();
@@ -66,7 +66,7 @@ export default class Webplayer extends React.Component {
         <SidebarA setTab={this.setTab}/>
         <div className="cardContainer">
           <Grid >
-            <Grid.Row centered><OnChangeSearch switchTab={() => this.setTab('home')} /></Grid.Row>
+            <Grid.Row centered><OnChangeSearch switchtab={this.setTab} /></Grid.Row>
           </Grid>
           <Container style={{ margin: 15 }}>
           {this.renderTab(current_Tab)}
