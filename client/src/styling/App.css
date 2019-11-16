@@ -96,6 +96,10 @@ z-index: 1 !important;
       box-shadow: teal !important;
     }
 
+    .pause-icon{
+      box-shadow: teal 7px 0px 0px 0px inset !important;
+    }
+
     .time{
       color:white !important;
     }
