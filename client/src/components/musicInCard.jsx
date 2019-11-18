@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Dimmer, Image } from 'semantic-ui-react'
-import PlaylistPopup from '../components/PlaylistPopup'
+import PlaylistPopup from './playlistPopup'
 export default class cards extends Component {
   constructor(props){
     super(props)

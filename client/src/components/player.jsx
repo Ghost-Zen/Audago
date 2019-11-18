@@ -1,22 +1,42 @@
 import React from 'react';
-import AudioPlayer from "react-h5-audio-player";
+import ReactJkMusicPlayer from "react-jinke-music-player";
+import "react-jinke-music-player/assets/index.css";
 
 export default class Player extends React.Component{
+
+  test = (e,f,g) => {
+      console.log(e)
+        console.log(f)
+          console.log(g)
+  }
+
     render(){
       let { source } = this.props
-        return(
-            // <audio id="player" controls>
-            //   <source src="" />
-            // </audio>
-            // </div>
-            <div className="audioPlayer">
-  <AudioPlayer
-  autoPlay
-  src={source}
-  onPlay={e => console.log("onPlay")}
-  // other props here
-/>
-</div>
+      const options = {
+            audioLists: [
+                      {
+      name: source.track,
+      singer: source.artist,
+      cover: source.artwork,
+      musicSrc: () => {
+        return Promise.resolve(
+          source.song
         )
+      }
+    }]
+}
+if(source !== ''){
+        return(
+<ReactJkMusicPlayer {...options}
+autoPlay={true}
+glassBg={false}
+playIndex={0}
+mode='full'
+onAudioPlayTrackChange={this.test}
+/>
+        )
+    }else{
+      return <div></div>
     }
+  }
 }

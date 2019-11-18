@@ -32,7 +32,8 @@ export default class songlist extends Component {
   async playSong(songList, startTrack) {
     if (!this.props.from) {
       let index = startTrack;
-      let x = document.querySelector("#player");
+      let x = document.querySelector('.music-player-audio'); //new feature addon
+      // let x = document.querySelector("#player");  //keep until all new player features is fixed
       x.src = songList[index];
       index++;
       var playPromise = x.play();

@@ -1,11 +1,11 @@
 import React from 'react';
 import '../styling/App.css';
 import { Container, Card, Grid } from 'semantic-ui-react';
-import Cards from '../components/card';
+import Cards from '../components/musicInCard';
 import Player from '../components/player';
 import SidebarA from '../components/sidebar';
 import OnChangeSearch from '../components/onChangeSearch';
-import Playlists from '../components/webplayerPlaylists';
+import Playlists from '../components/playlistInCards';
 import { Redirect } from 'react-router-dom'
 export default class Webplayer extends React.Component {
   constructor(props) {
@@ -18,10 +18,22 @@ export default class Webplayer extends React.Component {
 
   playTrack = (track) => {
     let song_data = this.props.location.state.data.searchSong
-    // let x = document.querySelector("#player");
-    this.setState({track: song_data[track].song})
-    // x.src = song_data[track].song
-    // x.play();
+    let audioLists = []
+    audioLists.push({
+            name: song_data[track].track, singer: song_data[track].artist, cover: song_data[track].artwork,
+            musicSrc: () => {
+            return Promise.resolve(
+                song_data[track].song )
+              }
+                  })
+    this.setState({
+      track: song_data[track]
+    })
+    ////// till i figure out how to run player on click
+    // let player = document.querySelector('.music-player-audio');
+    // player.src = song_data[track].song;
+    // player.play();
+    ////////////
   }
 
   renderTab = (tab) => {

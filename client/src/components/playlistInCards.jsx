@@ -6,7 +6,7 @@ import { Query } from 'react-apollo';
 import PlaylistCards from './playlistCards';
 import SongList from '../components/songlist';
 
-export default class WebplayerPlaylists extends React.Component {
+export default class PlayListInCards extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +18,8 @@ export default class WebplayerPlaylists extends React.Component {
 
     playTrack = (songList, item) => {
         let index = item
-        let x = document.querySelector("#player");
+        let x = document.querySelector('.music-player-audio'); //new feature addon
+        // let x = document.querySelector("#player"); //keep until all new player features is fixed
         x.src = songList[index];
         index++;
         var playPromise = x.play();
