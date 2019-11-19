@@ -12,7 +12,7 @@ export default class Webplayer extends React.Component {
     super(props);
     this.state = {
       current_Tab:'',
-      track:''
+      track:[]
     }
   }
 
@@ -27,7 +27,18 @@ export default class Webplayer extends React.Component {
               }
                   })
     this.setState({
-      track: song_data[track]
+      track: { audioLists: [
+                        {
+        name: song_data[track].track,
+        singer: song_data[track].artist,
+        cover: song_data[track].artwork,
+        musicSrc: () => {
+          return Promise.resolve(
+            song_data[track].song
+          )
+        }
+      }]
+    }
     })
     ////// till i figure out how to run player on click
     // let player = document.querySelector('.music-player-audio');

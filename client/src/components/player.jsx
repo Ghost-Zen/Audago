@@ -4,41 +4,26 @@ import "../lib/react-jinke-music-player/assets/index.css";
 
 export default class Player extends React.Component{
   state={
-    lastSongAdded:0
+    lastSongAdded:''
   }
   playSong = (e,f,g) => {
-      let lastSongAdded = f.length - 1
+    console.log(e, f, g)
+      let lastSongAdded = f.length
         this.setState({lastSongAdded})
   }
 
     render(){
       let { source } = this.props
       let { lastSongAdded } = this.state
-      const options = {
-            audioLists: [
-                      {
-      name: source.track,
-      singer: source.artist,
-      cover: source.artwork,
-      musicSrc: () => {
-        return Promise.resolve(
-          source.song
-        )
-      }
-    }]
-}
-if(source !== ''){
+      const options = source
         return(
 <ReactJkMusicPlayer {...options}
-autoPlay={true}
 glassBg={false}
+autoPlay={true}
 playIndex={lastSongAdded}
 mode='full'
 onAudioListsChange={this.playSong}
 />
         )
-    }else{
-      return <div></div>
-    }
   }
 }
