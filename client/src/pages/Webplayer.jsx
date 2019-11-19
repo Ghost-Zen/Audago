@@ -3,14 +3,15 @@ import '../styling/App.css';
 import { Container, Card, Grid } from 'semantic-ui-react';
 import Cards from '../components/card';
 import AudioPlayer from '../components/player';
-import Sidebar from '../components/sidebar';
-import PlaylistPopup from '../components/PlaylistPopup';
+import SidebarA from '../components/sidebar';
 import OnChangeSearch from '../components/onChangeSearch';
+import Playlists from '../components/webplayerPlaylists';
+import { Redirect } from 'react-router-dom'
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTrack: ''
+      current_Tab:''
     }
   }
 
@@ -21,17 +22,16 @@ export default class Webplayer extends React.Component {
     x.play();
   }
 
-  addToPlaylist = (track) => {
-    return <PlaylistPopup />
-    // let song_data = this.props.location.state.data.searchSong[track]
-    // song_data.playlist_name = 'test'
-    // console.log(song_data)
+  renderTab = (tab) => {
+    if(tab === undefined) tab = 'home'
+    if(tab === 'home') return this.renderData()
+    if(tab === 'playlist') return <Playlists />
+    if(tab === 'manage_playlist') return <Redirect to='/profile'/>
   }
 
-
-  // stopActiveTrack = () => {
-
-  // }
+  setTab = (tab) => {
+      this.setState({current_Tab:tab})
+  }
 
   renderData = () => {
     if (this.props.location.state !== undefined) {
@@ -53,28 +53,27 @@ export default class Webplayer extends React.Component {
           </div>
         )
       }
-      return songTiles
+      return <Card.Group centered itemsPerRow={6}>{songTiles}</Card.Group>
     }
   }
 
   render() {
-      return (
-        <div className='webplayer'>
-          <Sidebar />
-          <div className="cardContainer">
-            <Grid >
-            <Grid.Row centered><OnChangeSearch /></Grid.Row>
-            </Grid>
-            <Container style={{ margin: 15 }}>
-              <Card.Group centered itemsPerRow={6}>
-                {this.renderData()}
-              </Card.Group>
-            </Container>
-          </div>
-          <AudioPlayer />
+    let { current_Tab } = this.state
+    return (
+      <div className='webplayer'>
+        <SidebarA setTab={this.setTab}/>
+        <div className="cardContainer">
+          <Grid >
+            <Grid.Row centered><OnChangeSearch switchTab={() => this.setTab('home')} /></Grid.Row>
+          </Grid>
+          <Container style={{ margin: 15 }}>
+          {this.renderTab(current_Tab)}
+          </Container>
         </div>
-      )
-    }
-  
+        <AudioPlayer />
+      </div>
+    )
+  }
+
 
 }

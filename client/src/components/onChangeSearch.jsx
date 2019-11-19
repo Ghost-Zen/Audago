@@ -15,6 +15,9 @@ const initialState = {
 }
 
 export default class OnChangeSearch extends React.Component {
+  constructor(props){
+    super(props);
+  }
     state = initialState
 
     handleResultSelect = (e, { result }) => {
@@ -29,10 +32,8 @@ export default class OnChangeSearch extends React.Component {
     }
 
     handleSearchChange = (e, { value }) => {
-        this.setState({ isLoading: true, value, preventLoop: 1, results: [] })
-        this.setState({
-            isLoading: false,
-        })
+        this.setState({ isLoading: false, value, preventLoop: 1, results: [] })
+        this.props.switchTab()
     }
 
     handleResData = (data) => {

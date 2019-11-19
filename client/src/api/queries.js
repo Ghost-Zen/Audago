@@ -53,6 +53,10 @@ query($username:String){
       lastName
       email
       image
+      timeStamp{
+        created
+        lastSeen
+      }
     },
     status
   }
@@ -146,6 +150,30 @@ export const USERS_PLAYLIST = gql`
           album
           artwork
         }
+        follower_list
+      }
+      response
+      status
+    }
+  }
+`;
+
+export const ALL_PLAYLISTS = gql`
+  query {
+    allPlaylists {
+      playlists {
+        name
+        creator
+        followers
+        song_count
+        songs {
+          track
+          artist
+          song
+          album
+          artwork
+        }
+        follower_list
       }
       response
       status

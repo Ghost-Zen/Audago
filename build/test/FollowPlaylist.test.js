@@ -47,28 +47,30 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 firstName: 'Daniel',
                 lastName: 'Minter',
                 username: 'danielminter123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'daniel@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
                 firstName: 'Dyllan',
                 lastName: 'Hope',
                 username: 'dyllanhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'dyllanhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -83,28 +85,30 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 firstName: 'Daniel',
                 lastName: 'Minter',
                 username: 'danielminter123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'daniel@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
                 firstName: 'Dyllan',
                 lastName: 'Hope',
                 username: 'dyllanhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'dyllanhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -120,28 +124,30 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 firstName: 'Daniel',
                 lastName: 'Minter',
                 username: 'danielminter123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'daniel@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
                 firstName: 'Dyllan',
                 lastName: 'Hope',
                 username: 'dyllanhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'dyllanhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -156,28 +162,30 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 firstName: 'Daniel',
                 lastName: 'Minter',
                 username: 'danielminter123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'daniel@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
                 firstName: 'Dyllan',
                 lastName: 'Hope',
                 username: 'dyllanhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'dyllanhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -194,28 +202,30 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 firstName: 'Daniel',
                 lastName: 'Minter',
                 username: 'danielminter123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'daniel@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
                 firstName: 'Dyllan',
                 lastName: 'Hope',
                 username: 'dyllanhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'dyllanhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -231,28 +241,30 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 firstName: 'Daniel',
                 lastName: 'Minter',
                 username: 'danielminter123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'daniel@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
                 firstName: 'Dyllan',
                 lastName: 'Hope',
                 username: 'dyllanhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'dyllanhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             yield createPlaylist.create('2019 Rap', 'danielminter123');
@@ -268,28 +280,30 @@ describe('Testing the following and unfollowing of playlists functionality', () 
                 firstName: 'Daniel',
                 lastName: 'Minter',
                 username: 'danielminter123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'daniel@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             user = {
                 firstName: 'Dyllan',
                 lastName: 'Hope',
                 username: 'dyllanhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'dyllanhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status: ''
             };
             yield createAccount.create(user);
             let playlist = {

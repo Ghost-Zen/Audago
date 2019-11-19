@@ -2,6 +2,7 @@ import express from 'express';
 import AppRoutes from './server/routes/routes';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+require('dotenv').config()
 const app = express();
 
 
@@ -10,9 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('./client/build'));
 
-// import Accounts, { Iaccounts } from './server/services/models/Accounts';
-
-const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/audago_db';
+const url = process.env.MONGODB_URI;
 
 mongoose.set('useCreateIndex', true)
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true }); // establishing the connection

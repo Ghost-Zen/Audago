@@ -31,28 +31,30 @@ describe('Testing the delete account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         user = {
             firstName: 'Daniel',
             lastName: 'Minter',
             username: 'danielminter123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'danielminter@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         await deleteAccount.deleteAll();
@@ -69,28 +71,30 @@ describe('Testing the delete account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         user = {
             firstName: 'Daniel',
             lastName: 'Minter',
             username: 'danielminter123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'danielminter@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         await deleteAccount.delete('dyllanhope123');

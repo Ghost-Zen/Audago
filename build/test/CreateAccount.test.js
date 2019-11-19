@@ -40,14 +40,15 @@ describe('Testing the create account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         Accounts_1.default.find({}, { '_id': 0, 'username': 1 })
@@ -61,28 +62,30 @@ describe('Testing the create account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         user = {
             firstName: 'Daniel',
             lastName: 'Minter',
             username: 'danielminter123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'danielminter@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         Accounts_1.default.find({})
@@ -97,14 +100,15 @@ describe('Testing the create account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         let status = yield createAccount.create(user);
         assert_1.default.strict.deepEqual(status, { response: `Account created`, status: true });
@@ -112,14 +116,15 @@ describe('Testing the create account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         status = yield createAccount.create(user);
         assert_1.default.strict.deepEqual(status, { response: `Username dyllanhope123 already exists`, status: false });
@@ -130,17 +135,37 @@ describe('Testing the create account functionality', () => {
             firstName: '',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         let status = yield createAccount.create(user);
         assert_1.default.strict.deepEqual(status, { response: 'Please fill out all the fields', status: false });
+    }));
+    it('Should return that the entered pasword is too weak', () => __awaiter(void 0, void 0, void 0, function* () {
+        const createAccount = new CreateAccount_1.default;
+        let user = {
+            firstName: 'Dyllan',
+            lastName: 'Hope',
+            username: 'dyllanhope123',
+            password: 'Fwgr12#',
+            email: 'dyllanhope@gmail.com',
+            image: '',
+            active: false,
+            timestamp: {
+                created: 'date',
+                lastSeen: 'date'
+            },
+            status: ''
+        };
+        let response = yield createAccount.create(user);
+        assert_1.default.strict.deepEqual(response, { response: 'Your password is too weak', status: false });
     }));
 });
 //# sourceMappingURL=CreateAccount.test.js.map

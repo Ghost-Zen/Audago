@@ -46,14 +46,15 @@ describe('Testing the "remove track" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
@@ -71,14 +72,15 @@ describe('Testing the "remove track" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
@@ -98,14 +100,15 @@ describe('Testing the "remove track" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         };
         yield createAccount.create(user);
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };

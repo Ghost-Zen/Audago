@@ -32,14 +32,15 @@ describe('Testing the "adding to playlist" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         let response = await createPlaylist.create('2019 House', 'dyllanhope123');
@@ -52,14 +53,15 @@ describe('Testing the "adding to playlist" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         await createPlaylist.create('2019 House', 'dyllanhope123')
@@ -73,14 +75,15 @@ describe('Testing the "adding to playlist" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         await createPlaylist.create('2019 Rap', 'dyllanhope123');
@@ -94,14 +97,15 @@ describe('Testing the "adding to playlist" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         await createPlaylist.create('2019 Rap', 'dyllanhope123');
@@ -115,14 +119,15 @@ describe('Testing the "adding to playlist" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         await createPlaylist.create('2019 Rap', 'dyllanhope123');
@@ -137,28 +142,30 @@ describe('Testing the "adding to playlist" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         user = {
             firstName: 'Chris',
             lastName: 'Green',
             username: 'chris123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'chrisgreen@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         await createPlaylist.create('2019 Rap', 'dyllanhope123');
@@ -173,14 +180,15 @@ describe('Testing the "adding to playlist" functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         let response = await createPlaylist.create('    ', 'dyllanhope123');

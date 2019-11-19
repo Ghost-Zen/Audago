@@ -1,7 +1,9 @@
 import React from 'react';
-import { Image, Menu, Grid, Header, Divider, Container } from 'semantic-ui-react';
+import { Image, Menu, Grid, Header, Divider, Container, Label } from 'semantic-ui-react';
 import Settings from '../components/editSettings';
-import PlaylistDisplay from '../components/playlistDisplay';
+import PlaylistDisplay from '../components/profilePlaylist';
+import { USER_DATA } from '../api/queries';
+import { Query } from 'react-apollo';
 import Auth from '../utils/Auth';
 import Navbar from '../components/navbar';
 
@@ -13,7 +15,29 @@ export default class Profile extends React.Component {
 
     handleItemClick = (e, { name }) => {
         this.setState({ activeItem: name });
+    };
+
+    setTab = (chosen_tab) => {
+      this.setState({activeItem: chosen_tab})
     }
+
+    renderBannerInfo = () => (
+        <Query query={USER_DATA} variables={{ username: Auth.getUserName() }}>
+            {({ loading, error, data }) => {
+                if (loading) return 'Loading...';
+                if (error) return `Error! ${error.message}`;
+                return (
+                    <Header as='h1' style={{marginTop: 0.8 + 'em'}} inverted floated='left'>
+                        Hello,  {Auth.getUserName()} <br />
+                        <Label as='a' color='purple' image>
+                            Joined
+                    <Label.Detail>{data.userData.user.timeStamp.created}</Label.Detail>
+                        </Label>
+                    </Header>
+                )
+            }}
+        </Query>
+    )
 
     renderItem = () => {
         if (this.state.activeItem === 'Playlists') {
@@ -28,25 +52,21 @@ export default class Profile extends React.Component {
     };
 
     render() {
-        let username = Auth.getUserName();
         return (
-            <div style={{backgroundColor:'black'}}>
+            <div className="profile" style={{backgroundColor:'black'}}>
                 <Navbar />
-                <Container>
+                <Container style={{padding:10}}>
                     <Grid>
                         <Grid.Row style={{ paddingBottom: 0 }}>
                             <Grid.Column width={16}>
-                                <Divider />
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row color='teal' style={{ marginTop: 15 }}>
-                            <Grid.Column width={3}>
-                                <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
+                        <Grid.Row color='teal' style={{ marginTop: 15, borderRadius:10 }}>
+                            <Grid.Column width={2}>
+                                <Image style={{width:112, height:112}} circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
                             </Grid.Column>
-                            <Grid.Column width={13}>
-                                <Header as='h2' inverted floated='left'>
-                                    {username}
-                                </Header>
+                            <Grid.Column width={14}>
+                                {this.renderBannerInfo()}
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>

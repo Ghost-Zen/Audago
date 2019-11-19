@@ -3,7 +3,6 @@ import { Header, Button, List, Image, Icon, Popup } from 'semantic-ui-react'
 import { DELETE_TRACK } from '../api/queries';
 import Auth from '../utils/Auth';
 import { Query } from 'react-apollo';
-import AudioPlayer from './player';
 
 export default class songlist extends Component {
   constructor(props) {
@@ -11,7 +10,8 @@ export default class songlist extends Component {
     this.state = {
       username: Auth.getUserName(),
       delete: false,
-      trackInfo: {}
+      trackInfo: {},
+      open: false
     }
   }
 
@@ -30,24 +30,28 @@ export default class songlist extends Component {
   }
 
   async playSong(songList, startTrack) {
-    let index = startTrack;
-    let x = document.querySelector("#player");
-    x.src = songList[index];
-    index++;
-    var playPromise = x.play();
+    if (!this.props.from) {
+      let index = startTrack;
+      let x = document.querySelector("#player");
+      x.src = songList[index];
+      index++;
+      var playPromise = x.play();
 
-    if (playPromise !== undefined) {
-      playPromise.then(_ => {
-        x.addEventListener('ended', async () => {
-          if (index !== songList.length) {
-            await this.playSong(songList, index);
-          } else {
-            await this.playSong(songList, 0);
-          }
-        });
-      })
-        .catch(error => {
-        });
+      if (playPromise !== undefined) {
+        playPromise.then(_ => {
+          x.addEventListener('ended', async () => {
+            if (index !== songList.length) {
+              await this.playSong(songList, index);
+            } else {
+              await this.playSong(songList, 0);
+            }
+          });
+        })
+          .catch(error => {
+          });
+      }
+    } else {
+      this.props.playTrack(songList, startTrack);
     }
   }
 
@@ -97,7 +101,7 @@ export default class songlist extends Component {
   }
 
   renderRemove = (song, creator) => {
-    if (this.state.username === creator) {
+    if (this.state.username === creator && !this.props.from) {
       return (
         <List.Content floated='right'>
           {this.renderDelete()}
@@ -110,26 +114,25 @@ export default class songlist extends Component {
 
   buildList = () => {
     let playlists = this.props.data;
+    let { active } = this.state
     let listItems = [];
     let index = 0;
     for (const playlist of playlists) {
       if (playlist.name === this.props.choice) {
         let songs = playlist.songs;
         for (const song of songs) {
+
           listItems.push(
             <List.Item key={index}>
-              <Image floated='left' style={{ height: 100, width: 100 }} src={song.artwork} />
+            <Button inverted floated='left' size='mini' onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
+              <Icon name='play'/>
+            </Button>
               <List.Header>
                 {song.track}
-              </List.Header>
-              <List.Description>{song.artist}</List.Description>
-              <List.Description>{song.album}</List.Description>
+                  </List.Header>
+              <List.Description>{song.artist} | {song.album}</List.Description>
               {this.renderRemove(song, playlist.creator)}
-              <List.Content>
-                <Button onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon> 
-                  <Icon name='play' />
-                </Button>
-              </List.Content>
+
             </List.Item>
           )
           index++;
@@ -140,19 +143,16 @@ export default class songlist extends Component {
   }
 
   render() {
+    let choice = this.props.choice;
     return (
       <div>
-
-        <Header floated='left' as='h2' inverted>
-          {this.props.choice}
+        <Button onClick={this.props.reset} floated='left' size='small' icon='angle left' />
+        <Header centered as='h2' inverted>
+          {choice}
         </Header>
-        <br />
-        <br />
-        <br />
-        <List divided relaxed inverted>
+        <List celled relaxed inverted>
           {this.buildList()}
         </List>
-      <AudioPlayer />
       </div>
     )
   }

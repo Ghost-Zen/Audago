@@ -1,9 +1,10 @@
 import React from 'react';
-import { Icon, Button, Message, Card, Grid, Container, Modal, Input, Header } from 'semantic-ui-react';
-import { USERS_PLAYLIST, NEW_PLAYLIST } from '../api/queries';
+import { Icon, Button, Message, Card, Grid, Container, Modal, Input, Header, Confirm } from 'semantic-ui-react';
+import { USERS_PLAYLIST, NEW_PLAYLIST, UNFOLLOW_PLAYLIST } from '../api/queries';
 import { Query, Mutation } from 'react-apollo';
-import SongList from '../components/songlist';
+import SongList from './songlist';
 import Auth from '../utils/Auth';
+import AudioPlayer from './player';
 
 export default class PlaylistDisplay extends React.Component {
     state = {
@@ -14,8 +15,12 @@ export default class PlaylistDisplay extends React.Component {
         editSettings: false,
         modalError: false,
         response: '',
-        playlistName: ''
+        playlistName: '',
+        open: false
     }
+
+    open = () => this.setState({ open: true })
+    close = () => this.setState({ open: false })
 
     handleChange = (event) => {
         this.setState({
@@ -84,13 +89,32 @@ export default class PlaylistDisplay extends React.Component {
                         return (
                             <Grid.Row>
                                 <Grid.Column>
-                                    <Button onClick={this.reset} floated='left' icon>
-                                        <Icon name='angle left' />
-                                    </Button>
+                                    <Mutation mutation={UNFOLLOW_PLAYLIST} variables={{ username: this.state.username, playlistName: this.state.playlistChoice }}
+                                        update={(cache, { data }) => {
+                                            { this.reset() }
+                                        }
+                                        }
+                                    >
+                                        {unfollow => (
+                                            <div>
+                                                <Button onClick={this.open} floated='right' basic inverted color='teal'>
+                                                    Unfollow
+                                                </Button>
+                                                <Confirm
+                                                    size='mini'
+                                                    open={this.state.open}
+                                                    onCancel={this.close}
+                                                    onConfirm={unfollow}
+                                                />
+                                            </div>
+                                        )}
+                                    </Mutation>
                                     <SongList
                                         data={data.playlistsForUser.playlists}
                                         choice={this.state.playlistChoice}
+                                        reset={this.reset}
                                     />
+                                    <AudioPlayer />
                                 </Grid.Column>
                             </Grid.Row>
                         )

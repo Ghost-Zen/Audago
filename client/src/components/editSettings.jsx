@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Grid, Input, Button, Message, Icon, Modal, Divider } from 'semantic-ui-react'
+import { Header, Grid, Input, Button, Message, Icon, Modal, Divider, Popup, List } from 'semantic-ui-react'
 import { USER_DATA, UPDATE_USER, UPDATE_PASSWORD } from '../api/queries';
 import { Query, Mutation } from 'react-apollo';
 import Auth from '../utils/Auth';
@@ -44,10 +44,10 @@ export default class settings extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <Grid.Column width={8}>
+                            <Grid.Column width={7}>
                                 <Input style={{ width: 200, float: 'left' }} label={{ tag: false, color: 'teal', content: 'First name' }} placeholder={info.firstName} name='firstName' onChange={this.handleChange} />
                             </Grid.Column>
-                            <Grid.Column width={8}>
+                            <Grid.Column width={9}>
                                 <Input style={{ width: 200, float: 'left' }} label={{ tag: false, color: 'teal', content: 'Last name' }} placeholder={info.lastName} name='lastName' onChange={this.handleChange} />
                             </Grid.Column>
                         </Grid.Row>
@@ -133,12 +133,11 @@ export default class settings extends Component {
                     }
                 >
                     {updateInfo => (
-                        <Button type="submit" color='teal' fluid size='large' onClick={updateInfo}>
+                        <Button type="submit" color='teal' onClick={updateInfo}>
                             Update
                     </Button>
                     )}
                 </Mutation>
-                <br />
                 <Modal
                     trigger={<Button onClick={this.handleOpen}>Change Password</Button>}
                     open={this.state.modalOpen}
@@ -153,8 +152,20 @@ export default class settings extends Component {
                     </Modal.Content>
                     <Divider style={{ margin: 0 }} />
                     <Modal.Content>
-                        <Header as='h4'> New Password <br/>
-                        <Input name='newPass' type='password' onChange={this.handleChange}></Input>
+                        <Header as='h4'> New Password <br />
+                            <Input name='newPass' type='password' onChange={this.handleChange}></Input>
+                            <Popup trigger={<Icon size='mini' style={{ float: 'right' }} circular name='info' />} wide>
+                                <Header as='h2'>
+                                    A strong password requires:
+                                </Header>
+                                <List bulleted>
+                                    <List.Item>More than 8 Characters</List.Item>
+                                    <List.Item>Atleast 1 Uppercase letter</List.Item>
+                                    <List.Item>Atleast 1 Lowercase letter</List.Item>
+                                    <List.Item>Atleast 1 Special character (!@#$%^&*)</List.Item>
+                                    <List.Item>Atleast 1 Number</List.Item>
+                                </List>
+                            </Popup>
                         </Header>
                         <Header as='h4'> Confirm Password
                         <Input style={{ marginTop: 3 }} name='testPass' type='password' onChange={this.handleChange}></Input>

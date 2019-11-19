@@ -27,7 +27,8 @@ type PlaylistInfo {
   creator:String,
   followers: Int,
   song_count: Int,
-  songs: [Songs]
+  songs: [Songs],
+  follower_list: [String]
 }
 
 type Songs {
@@ -38,11 +39,17 @@ type Songs {
   artwork: String
 }
 
+type TimeStamp {
+  created: String,
+  lastSeen: String
+}
+
 type UserData {
   firstName:String,
   lastName:String
   email: String,
-  image: String
+  image: String,
+  timeStamp: TimeStamp
 }
 input UpdateData {
   firstName:String,
@@ -79,6 +86,7 @@ type Query {
   username: String
   response: String
   playlistsForUser(username: String): PlaylistResponse
+  allPlaylists: PlaylistResponse
   deleteTrack(username:String,trackInfo:TrackInfo):Response
   userData(username:String):Response
   status: Boolean

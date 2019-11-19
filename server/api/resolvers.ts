@@ -6,6 +6,7 @@ import SearchSong from '../services/songsearch';
 import PlaylistsForUser from '../services/playlists/PlaylistsForUser';
 import FollowPlaylist from '../services/playlists/FollowPlaylist';
 import { CreatePlaylist } from '../services/playlists/CreatePlaylist';
+import AllPlaylists from '../services/playlists/AllPlaylists';
 import RemoveTrack from '../services/playlists/RemoveTrack';
 const dataRetrieval = new UserData;
 const createAccount = new CreateAccount;
@@ -16,6 +17,7 @@ const createPlaylist = new CreatePlaylist;
 const removeTrack = new RemoveTrack;
 const playlistsForUser = new PlaylistsForUser;
 const followPlaylist = new FollowPlaylist;
+const allPlaylists = new AllPlaylists;
 
 export default {
     hello: () => 'Hello World',
@@ -24,6 +26,9 @@ export default {
     },
     createAccount: async (input) => {
         return await createAccount.create(input.account)
+    },
+    verifyAccount: async (email,token) => {
+      return await dataRetrieval.verifyAccount(email,token)
     },
     searchSong: async (input) => {
         return await searchSong.getFromItunesAPI(input);
@@ -67,5 +72,8 @@ export default {
     },
     playlistsForUser: async (input) => {
         return await playlistsForUser.playlistsFor(input.username);
+    },
+    allPlaylists: async () => {
+        return await allPlaylists.all();
     }
 }

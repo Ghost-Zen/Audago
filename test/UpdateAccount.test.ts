@@ -30,14 +30,15 @@ describe('Testing the update account functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status:''
         }
         await createAccount.create(user);
         let updatedUser: any = {
@@ -60,14 +61,15 @@ describe('Testing the update account functionality', () => {
                 firstName: 'Chris',
                 lastName: 'Green',
                 username: 'chrisgreen123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'chrisgreen@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let updatedUser: any = {
@@ -90,14 +92,15 @@ describe('Testing the update account functionality', () => {
                 firstName: 'Chris',
                 lastName: 'Green',
                 username: 'chrisgreen123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'chrisgreen@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
             let updatedUser: any = {
@@ -121,18 +124,19 @@ describe('Testing the update account functionality', () => {
                 firstName: 'John',
                 lastName: 'Hope',
                 username: 'johnhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'johnhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
-            await updateAccount.updatePassword('johnhope123', '12345', 'House123', 'House123');
-            let response = await updateAccount.updatePassword('johnhope123', 'House123', '12345', '12345');
+            await updateAccount.updatePassword('johnhope123', 'Fwgr123#', 'Kill@manjar0', 'Kill@manjar0');
+            let response = await updateAccount.updatePassword('johnhope123', 'Kill@manjar0', 'T3ch9%!(', 'T3ch9%!(');
             assert.strict.deepEqual(response, { response: 'Password updated', status: true });
         });
         it("Should return that dyllanhope123 was not found", async () => {
@@ -142,17 +146,18 @@ describe('Testing the update account functionality', () => {
                 firstName: 'John',
                 lastName: 'Hope',
                 username: 'johnhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'johnhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
-            let response = await updateAccount.updatePassword('dyllanhope123', '12345', 'House123', 'House123');
+            let response = await updateAccount.updatePassword('dyllanhope123', 'Fwgr123#', 'T3ch9%!(', 'T3ch9%!(');
             assert.strict.deepEqual(response, { response: 'Username dyllanhope123 not found', status: false });
         });
         it("Should return that the entered password was incorrect", async () => {
@@ -162,17 +167,18 @@ describe('Testing the update account functionality', () => {
                 firstName: 'John',
                 lastName: 'Hope',
                 username: 'johnhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'johnhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
-            let response = await updateAccount.updatePassword('johnhope123', 'car', 'House123', 'House123');
+            let response = await updateAccount.updatePassword('johnhope123', 'car', 'T3ch9%!(', 'T3ch9%!(');
             assert.strict.deepEqual(response, { response: 'Password incorrect', status: false });
         });
         it("Should return that the confirmation and new passwords do not match", async () => {
@@ -182,22 +188,44 @@ describe('Testing the update account functionality', () => {
                 firstName: 'John',
                 lastName: 'Hope',
                 username: 'johnhope123',
-                password: '12345',
+                password: 'Fwgr123#',
                 email: 'johnhope@gmail.com',
                 image: '',
                 active: false,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
-                }
+                },
+                status:''
             }
             await createAccount.create(user);
-            let response = await updateAccount.updatePassword('johnhope123', 'car', 'House123', '12345');
+            let response = await updateAccount.updatePassword('johnhope123', 'car', 'House123', 'Fwgr123#');
             assert.strict.deepEqual(response, {
                 response: 'Your New and Confirmation passwords do not match',
                 status: false
             }
             );
+        });
+        it("Should return that the new password is too weak", async () => {
+            const createAccount = new CreateAccount;
+            const updateAccount = new UpdateAccount;
+            let user: Iaccounts = {
+                firstName: 'John',
+                lastName: 'Hope',
+                username: 'johnhope123',
+                password: 'Fwgr123#',
+                email: 'johnhope@gmail.com',
+                image: '',
+                active: false,
+                timestamp: {
+                    created: 'date',
+                    lastSeen: 'date'
+                },
+                status:''
+            }
+            await createAccount.create(user);
+            let response = await updateAccount.updatePassword('johnhope123', 'Fwgr123#', 'House123', 'House123');
+            assert.strict.deepEqual(response, { response: 'The entered password is too weak', status: false });
         });
     });
 });

@@ -1,3 +1,3 @@
 export enum Config {
-    SECRET = 'secret_sauce'
+    SECRET = 'secret_sauce',
 }

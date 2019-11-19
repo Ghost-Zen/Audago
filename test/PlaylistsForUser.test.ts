@@ -36,28 +36,30 @@ describe('Testing the users playlists service functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         }
         await createAccount.create(user);
         user = {
             firstName: 'Daniel',
             lastName: 'Minter',
             username: 'danielminter123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'daniel@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         }
         await createAccount.create(user);
         let playlist: Iplaylist = {
@@ -84,7 +86,7 @@ describe('Testing the users playlists service functionality', () => {
         let response = await playlistsForUser.playlistsFor('dyllanhope123');
         assert.deepEqual(response, {
             playlists:
-                [{ name: '2019 Rap', creator: "dyllanhope123", followers: 1, song_count: 0, songs: [] }, { name: '2019 House', creator: "dyllanhope123", followers: 1, song_count: 0, songs: [] }],
+                [{ name: '2019 Rap', creator: "dyllanhope123", follower_list: ['dyllanhope123'], followers: 1, song_count: 0, songs: [] }, { name: '2019 House', creator: "dyllanhope123", follower_list: ['dyllanhope123'], followers: 1, song_count: 0, songs: [] }],
             response: 'Playlists found',
             status: true
         });
@@ -97,42 +99,45 @@ describe('Testing the users playlists service functionality', () => {
             firstName: 'Dyllan',
             lastName: 'Hope',
             username: 'dyllanhope123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'dyllanhope@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         }
         await createAccount.create(user);
         user = {
             firstName: 'Daniel',
             lastName: 'Minter',
             username: 'danielminter123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'daniel@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         }
         await createAccount.create(user);
         user = {
             firstName: 'michael',
             lastName: 'dollman',
             username: 'michaeldollman123',
-            password: '12345',
+            password: 'Fwgr123#',
             email: 'michael@gmail.com',
             image: '',
             active: false,
             timestamp: {
                 created: 'date',
                 lastSeen: 'date'
-            }
+            },
+            status: ''
         }
         await createAccount.create(user);
         let playlist: Iplaylist = {
