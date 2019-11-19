@@ -1,6 +1,8 @@
 import Account from '../models/Accounts';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import EmailService from '../utils/EmailService';
+const email_service = new EmailService;
 import { Config } from './config';
 
 export default class UserData {
@@ -11,8 +13,6 @@ export default class UserData {
           if(res){
             if(res.status === token){
             await Account.updateOne({ email }, { status: 'verified'})
-            let a = await Account.findOne({ email })
-              console.log(a)
             }
           }else{
             return { response: `User by email ${email} not found`, status:'404'}
@@ -76,7 +76,8 @@ export default class UserData {
                     });
                     return { response: token, username: data.username, status: true };
                   }else{
-                    return { response: `Account not verified, check your emails`, status: false };
+                    let emailUserAgain = email_service.verifyEmail(data.email,data.status) //email user everytime he forgets to verify and tries to login.
+                    return { response: `Account not verified, check your emails`, status: false }; //added email verification link just for dev purposes
                   }
                 } else {
                     return { response: `Password incorrect`, status: false };

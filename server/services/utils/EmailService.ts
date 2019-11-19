@@ -3,7 +3,6 @@ import nodemailer from 'nodemailer';
 export default class EmailService{
 
   async verifyEmail(email,key){
-    console.log(process.env.EMAIL_USER)
   let transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
@@ -20,10 +19,10 @@ export default class EmailService{
        to: 'example@example.com',
        subject: 'Subject ✔',
        text: 'Text?',
-       html: `<a href=${global_url}>Verify Account</a>`
+       html: `<a href=${dev_url}>Verify Account</a>`
   });
 
-  console.log('Message sent: %s', info.messageId);
+  // console.log('Message sent: %s', info.messageId);
 
   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   return nodemailer.getTestMessageUrl(info)

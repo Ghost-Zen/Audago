@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Button, List, Image, Icon, Popup } from 'semantic-ui-react'
+import { Header, Button, List, Icon, Popup } from 'semantic-ui-react'
 import { DELETE_TRACK } from '../api/queries';
 import Auth from '../utils/Auth';
 import { Query } from 'react-apollo';
@@ -114,7 +114,6 @@ export default class songlist extends Component {
 
   buildList = () => {
     let playlists = this.props.data;
-    let { active } = this.state
     let listItems = [];
     let index = 0;
     for (const playlist of playlists) {
@@ -147,7 +146,7 @@ export default class songlist extends Component {
     return (
       <div>
         <Button onClick={this.props.reset} floated='left' size='small' icon='angle left' />
-        <Header centered as='h2' inverted>
+        <Header centered='true' as='h2' inverted>
           {choice}
         </Header>
         <List celled relaxed inverted>
