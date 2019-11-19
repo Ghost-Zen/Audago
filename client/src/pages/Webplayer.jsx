@@ -2,7 +2,7 @@ import React from 'react';
 import '../styling/App.css';
 import { Container, Card, Grid } from 'semantic-ui-react';
 import Cards from '../components/card';
-import AudioPlayer from '../components/player';
+import Player from '../components/player';
 import SidebarA from '../components/sidebar';
 import OnChangeSearch from '../components/onChangeSearch';
 import Playlists from '../components/webplayerPlaylists';
@@ -11,15 +11,17 @@ export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current_Tab:''
+      current_Tab:'',
+      track:''
     }
   }
 
   playTrack = (track) => {
     let song_data = this.props.location.state.data.searchSong
     let x = document.querySelector("#player");
-    x.src = song_data[track].song
-    x.play();
+    this.setState({track: song_data[track].song})
+    // x.src = song_data[track].song
+    // x.play();
   }
 
   renderTab = (tab) => {
@@ -58,7 +60,7 @@ export default class Webplayer extends React.Component {
   }
 
   render() {
-    let { current_Tab } = this.state
+    let { current_Tab, track } = this.state
     return (
       <div className='webplayer'>
         <SidebarA setTab={this.setTab}/>
@@ -70,7 +72,7 @@ export default class Webplayer extends React.Component {
           {this.renderTab(current_Tab)}
           </Container>
         </div>
-        <AudioPlayer />
+        <Player source={track}/>
       </div>
     )
   }

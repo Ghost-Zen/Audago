@@ -86,3 +86,26 @@
   color: grey;
   cursor: pointer;
 }
+
+.react-h5-audio-player {
+z-index: 1 !important;
+  }
+
+  .toggle-play-button {
+      background-color: teal !important;
+      box-shadow: teal !important;
+    }
+
+    .time{
+      color:white !important;
+    }
+
+  .flex {
+    background-color: black !important;
+    }
+    .progress-bar-wrapper {
+      flex: 10 0 auto;
+      -webkit-box-flex: 10 0 auto;
+      -moz-box-flex: 10 0 auto;
+      -ms-flex: 10 0 auto;
+    }
