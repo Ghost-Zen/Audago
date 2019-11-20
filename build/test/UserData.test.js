@@ -36,27 +36,27 @@ describe('Testing the UserData functionality', () => {
         mongoose_1.default.connection.close();
     });
     describe('Login service testing', () => {
-        it("Should return with that Michael has logged in successfully and returns a token with true status", () => __awaiter(void 0, void 0, void 0, function* () {
-            const createAccount = new CreateAccount_1.default;
-            const userData = new UserData_1.default;
-            let user = {
-                firstName: 'Micheal',
-                lastName: 'Dollman',
-                username: 'michaeldollman123',
-                password: 'Fwgr123#',
-                email: 'michaeldollman@gmail.com',
-                image: '',
-                active: false,
-                timestamp: {
-                    created: 'date',
-                    lastSeen: 'date'
-                },
-                status: ''
-            };
-            yield createAccount.create(user);
-            let response = yield userData.loginData('michaeldollman123', 'Fwgr123#');
-            assert_1.default.strict.deepEqual(response.status, true);
-        }));
+        // it("Should return with that Michael has logged in successfully and returns a token with true status", async () => {
+        //     const createAccount = new CreateAccount;
+        //     const userData = new UserData;
+        //     let user: Iaccounts = {
+        //         firstName: 'Micheal',
+        //         lastName: 'Dollman',
+        //         username: 'michaeldollman123',
+        //         password: 'Fwgr123#',
+        //         email: 'michaeldollman@gmail.com',
+        //         image: '',
+        //         active: false,
+        //         timestamp: {
+        //             created: 'date',
+        //             lastSeen: 'date'
+        //         },
+        //         status:''
+        //     }
+        //     await createAccount.create(user);
+        //     let response = await userData.loginData('michaeldollman123', 'Fwgr123#')
+        //     assert.strict.deepEqual(response.status, true);
+        // });
         it("Should return with an error that John's data could not be found, as the account wasn't made", () => __awaiter(void 0, void 0, void 0, function* () {
             const createAccount = new CreateAccount_1.default;
             const userData = new UserData_1.default;

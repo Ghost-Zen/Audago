@@ -70,15 +70,15 @@ export default class UserData {
             // Returning separate from code as returns don't work in a promise
             if (found) {
                 if (match) {
-                  if(data.status === 'verified'){
+                  // if(data.status === 'verified'){
                     let token = jwt.sign({ data }, process.env.JWT_SECRET, {
                         expiresIn: 86400 // expires in 24 hours
                     });
                     return { response: token, username: data.username, status: true };
-                  }else{
-                    let emailUserAgain = email_service.verifyEmail(data.email,data.status) //email user everytime he forgets to verify and tries to login.
-                    return { response: `Account not verified, check your emails`, status: false }; //added email verification link just for dev purposes
-                  }
+                  // }else{
+                  //   let emailUserAgain = email_service.verifyEmail(data.email,data.status) //email user everytime he forgets to verify and tries to login.
+                  //   return { response: `Account not verified, check your emails`, status: false }; //added email verification link just for dev purposes
+                  // }
                 } else {
                     return { response: `Password incorrect`, status: false };
                 }

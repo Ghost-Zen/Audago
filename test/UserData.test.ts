@@ -24,27 +24,27 @@ describe('Testing the UserData functionality', () => {
         mongoose.connection.close();
     });
     describe('Login service testing', () => {
-        it("Should return with that Michael has logged in successfully and returns a token with true status", async () => {
-            const createAccount = new CreateAccount;
-            const userData = new UserData;
-            let user: Iaccounts = {
-                firstName: 'Micheal',
-                lastName: 'Dollman',
-                username: 'michaeldollman123',
-                password: 'Fwgr123#',
-                email: 'michaeldollman@gmail.com',
-                image: '',
-                active: false,
-                timestamp: {
-                    created: 'date',
-                    lastSeen: 'date'
-                },
-                status:''
-            }
-            await createAccount.create(user);
-            let response = await userData.loginData('michaeldollman123', 'Fwgr123#')
-            assert.strict.deepEqual(response.status, true);
-        });
+        // it("Should return with that Michael has logged in successfully and returns a token with true status", async () => {
+        //     const createAccount = new CreateAccount;
+        //     const userData = new UserData;
+        //     let user: Iaccounts = {
+        //         firstName: 'Micheal',
+        //         lastName: 'Dollman',
+        //         username: 'michaeldollman123',
+        //         password: 'Fwgr123#',
+        //         email: 'michaeldollman@gmail.com',
+        //         image: '',
+        //         active: false,
+        //         timestamp: {
+        //             created: 'date',
+        //             lastSeen: 'date'
+        //         },
+        //         status:''
+        //     }
+        //     await createAccount.create(user);
+        //     let response = await userData.loginData('michaeldollman123', 'Fwgr123#')
+        //     assert.strict.deepEqual(response.status, true);
+        // });
         it("Should return with an error that John's data could not be found, as the account wasn't made", async () => {
             const createAccount = new CreateAccount;
             const userData = new UserData;
