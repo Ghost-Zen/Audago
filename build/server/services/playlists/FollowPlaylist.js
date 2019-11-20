@@ -74,7 +74,12 @@ class FollowPlaylist {
                             playlistFound = true;
                             let index = yield res.users.indexOf(userID); //if it exists then get index of user in the array in document
                             yield res.users.splice(index, 1); //remove user using index
-                            yield Playlists_1.default.updateOne({ name: playlistName }, { users: res.users, follower_count: res.users.length }); //update documents users and follower count
+                            if (res.users.length > 0) {
+                                yield Playlists_1.default.updateOne({ name: playlistName }, { users: res.users, follower_count: res.users.length }); //update documents users and follower count
+                            }
+                            else {
+                                yield Playlists_1.default.deleteOne({ name: playlistName });
+                            }
                         }
                     }));
                 }
