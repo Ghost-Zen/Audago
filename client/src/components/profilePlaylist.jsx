@@ -114,7 +114,7 @@ export default class PlaylistDisplay extends React.Component {
                                         choice={this.state.playlistChoice}
                                         reset={this.reset}
                                     />
-                                    <AudioPlayer />
+                                    {/* <AudioPlayer /> for time being */}
                                 </Grid.Column>
                             </Grid.Row>
                         )

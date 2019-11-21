@@ -30,9 +30,11 @@ class EmailService {
             let info = yield transporter.sendMail({
                 from: '"Audago 👻" <audagomusic@yandex.com>',
                 to: email,
-                subject: 'Subject ✔',
+                subject: 'Account verification ✔',
                 text: 'Text?',
-                html: `<a href=${dev_url}>Verify Account</a>`
+                html: `
+       <h3>Click link below to verify your account.</h3><br>
+       <a href=${dev_url}>Verify Account</a>`
             });
             // console.log('Message sent: %s', info.messageId);
             console.log('Preview URL: %s', nodemailer_1.default.getTestMessageUrl(info));
