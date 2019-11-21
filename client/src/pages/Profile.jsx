@@ -5,6 +5,7 @@ import PlaylistDisplay from '../components/profilePlaylist';
 import { USER_DATA } from '../api/queries';
 import { Query } from 'react-apollo';
 import Auth from '../utils/Auth';
+import Friends from '../components/friendlist';
 import Navbar from '../components/navbar';
 
 
@@ -48,6 +49,10 @@ export default class Profile extends React.Component {
             return (
                 <Settings />
             )
+        } else if(this.state.activeItem === 'Friends'){
+          return (
+            <Friends />
+          )
         }
     };
 
@@ -83,6 +88,7 @@ export default class Profile extends React.Component {
                                         active={this.state.activeItem === 'Friends'}
                                         onClick={this.handleItemClick}
                                     >
+                                    Friends
                                     </Menu.Item>
                                     <Menu.Item
                                         name='Settings'
