@@ -27,7 +27,7 @@ class AppRoutes {
             yield resolvers_1.default.verifyAccount(user_token[0], user_token[1]);
             res.redirect('/');
         }));
-        this.app.post('/verify', authuser.verifyToken);
+        this.app.post('/verify', authuser.check);
         this.app.use('/graphql', authuser.graphqlAuth, express_graphql_1.default({
             schema: typeDefs_1.default,
             rootValue: resolvers_1.default,
