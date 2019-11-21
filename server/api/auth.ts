@@ -3,7 +3,7 @@ import { Config } from '../services/accounts/config'
 
 export default class Auth {
 
-    verifyToken = (req, res, next) => {
+    check = (req, res, next) => {
         let token = req.body.token
         try {
             if (typeof token !== 'undefined') {
