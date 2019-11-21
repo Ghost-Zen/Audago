@@ -37,6 +37,17 @@ class Auth {
                 });
             }
         };
+        this.graphqlAuth = (req, res, next) => {
+            try {
+                let header = req.headers.authorization;
+                let token = header.split(':');
+                let { data } = jsonwebtoken_1.default.verify(token[1], config_1.Config.SECRET);
+                next();
+            }
+            catch (err) {
+                res.send('No, dont try.');
+            }
+        };
     }
 }
 exports.default = Auth;

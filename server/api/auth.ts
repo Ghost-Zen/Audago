@@ -33,5 +33,17 @@ export default class Auth {
         }
     }
 
+    graphqlAuth = (req,res,next) => {
+      try{
+        let header = req.headers.authorization
+        let token = header.split(':')
+        let { data } = jwt.verify(token[1], Config.SECRET)
+        next();
+      }
+      catch(err){
+        res.send('No, dont try.')
+      }
+    }
+
 
 }
