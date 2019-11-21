@@ -58,21 +58,21 @@ describe('Testing the DeletingFriends functionality', () => {
         let response = yield viewRequests.ViewFriends('johnhope123');
         assert_1.default.deepEqual(response, {
             response: 'Friends found',
-            activeFriends: ['ChrisCross', 'dyllanhope123', 'Sharkykzn'],
+            data: ['ChrisCross', 'dyllanhope123', 'Sharkykzn'],
             status: true
         });
         yield deleteFriends.delete('johnhope123', 'dyllanhope123');
         response = yield viewRequests.ViewFriends('johnhope123');
         assert_1.default.deepEqual(response, {
             response: 'Friends found',
-            activeFriends: ['ChrisCross', 'Sharkykzn'],
+            data: ['ChrisCross', 'Sharkykzn'],
             status: true
         });
     }));
-    it('Should return that the friendship between john and dyllan was deleted', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return that there is no friendship between john and dyllan', () => __awaiter(void 0, void 0, void 0, function* () {
         let deleteFriends = new DeleteFriends_1.default;
         let response = yield deleteFriends.delete('johnhope123', 'dyllanhope123');
-        assert_1.default.deepEqual(response, { response: 'There is no friendship bewtween johnhope123 and dyllanhope123', status: false });
+        assert_1.default.deepEqual(response, { response: 'There is no friendship between johnhope123 and dyllanhope123', status: false });
     }));
 });
 //# sourceMappingURL=DeleteFriend.test.js.map

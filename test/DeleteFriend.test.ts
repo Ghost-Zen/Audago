@@ -52,7 +52,7 @@ describe('Testing the DeletingFriends functionality', () => {
         let response = await viewRequests.ViewFriends('johnhope123');
         assert.deepEqual(response, {
             response: 'Friends found',
-            activeFriends: ['ChrisCross', 'dyllanhope123', 'Sharkykzn'],
+            data: ['ChrisCross', 'dyllanhope123', 'Sharkykzn'],
             status: true
         });
 
@@ -60,14 +60,14 @@ describe('Testing the DeletingFriends functionality', () => {
         response = await viewRequests.ViewFriends('johnhope123');
         assert.deepEqual(response, {
             response: 'Friends found',
-            activeFriends: ['ChrisCross', 'Sharkykzn'],
+            data: ['ChrisCross', 'Sharkykzn'],
             status: true
         });
     })
-    it('Should return that the friendship between john and dyllan was deleted', async () => {
+    it('Should return that there is no friendship between john and dyllan', async () => {
         let deleteFriends = new DeletingFriends;
 
         let response = await deleteFriends.delete('johnhope123', 'dyllanhope123');
-        assert.deepEqual(response, { response: 'There is no friendship bewtween johnhope123 and dyllanhope123', status: false });
+        assert.deepEqual(response, { response: 'There is no friendship between johnhope123 and dyllanhope123', status: false });
     })
 });
