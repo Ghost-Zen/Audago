@@ -1,7 +1,5 @@
 import assert from 'assert';
-import Account, { Iaccounts } from '../server/services/models/Accounts';
 import mongoose from 'mongoose';
-import CreateAccount from '../server/services/accounts/CreateAccount';
 import Friends from '../server/services/models/Friends';
 import SendFriendRequest from '../server/services/friends/SendFriendRequest';
 
