@@ -15,7 +15,7 @@ export default class AppRoutes {
         this.app.get('/verify_signup/:userToken', async (req,res) => {
           let user_token = req.params.userToken.split('$')
           await Resolvers.verifyAccount(user_token[0],user_token[1])
-          res.send('Verified Account')
+          res.redirect('/')
         })
 
         this.app.post('/verify', authuser.verifyToken)
