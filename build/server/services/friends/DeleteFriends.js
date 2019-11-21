@@ -16,11 +16,11 @@ const Friends_1 = __importDefault(require("../models/Friends"));
 class DeleteFriend {
     delete(username, friend) {
         return __awaiter(this, void 0, void 0, function* () {
-            let res = yield Friends_1.default.findOne({ requester: friend, receiver: username });
+            let res = yield Friends_1.default.findOne({ requester: friend, receiver: username, confirmed: true });
             if (!res) {
-                res = yield Friends_1.default.findOne({ requester: username, receiver: friend });
+                res = yield Friends_1.default.findOne({ requester: username, receiver: friend, confirmed: true });
                 if (!res) {
-                    return { response: `There is no friendship bewtween ${username} and ${friend}`, status: false };
+                    return { response: `There is no friendship between ${username} and ${friend}`, status: false };
                 }
                 else {
                     yield Friends_1.default.deleteOne({ requester: username, receiver: friend });

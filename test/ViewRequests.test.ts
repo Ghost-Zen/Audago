@@ -37,7 +37,7 @@ describe('Testing the ViewRequest functionality', () => {
         let response = await viewRequests.ViewRequests('johnhope123');
         assert.deepEqual(response, {
             response: 'Friends found',
-            requesters: ['dyllanhope123', 'Mikey', 'Sharkykzn'],
+            data: ['dyllanhope123', 'Mikey', 'Sharkykzn'],
             status: true
         })
     })
@@ -77,7 +77,7 @@ describe('Testing the ViewRequest functionality', () => {
 
         assert.deepEqual(response, {
             response: 'Friends found',
-            activeFriends: ['dyllanhope123', 'Sharkykzn'],
+            data: ['dyllanhope123', 'Sharkykzn'],
             status: true
         });
     })

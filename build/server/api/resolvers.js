@@ -22,7 +22,15 @@ const FollowPlaylist_1 = __importDefault(require("../services/playlists/FollowPl
 const CreatePlaylist_1 = require("../services/playlists/CreatePlaylist");
 const AllPlaylists_1 = __importDefault(require("../services/playlists/AllPlaylists"));
 const RemoveTrack_1 = __importDefault(require("../services/playlists/RemoveTrack"));
+const SendFriendRequest_1 = __importDefault(require("../services/friends/SendFriendRequest"));
+const RequestResponse_1 = __importDefault(require("../services/friends/RequestResponse"));
+const ViewRequests_1 = __importDefault(require("../services/friends/ViewRequests"));
+const DeleteFriends_1 = __importDefault(require("../services/friends/DeleteFriends"));
 const dataRetrieval = new UserData_1.default;
+const sendFriendRequest = new SendFriendRequest_1.default;
+const requestResponse = new RequestResponse_1.default;
+const viewFriendData = new ViewRequests_1.default;
+const deleteFriends = new DeleteFriends_1.default;
 const createAccount = new CreateAccount_1.default;
 const searchSong = new songsearch_1.default;
 const deleteAccount = new DeletingAccount_1.default;
@@ -88,6 +96,24 @@ exports.default = {
     }),
     allPlaylists: () => __awaiter(void 0, void 0, void 0, function* () {
         return yield allPlaylists.all();
+    }),
+    sendRequest: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield sendFriendRequest.FriendRequest(input.requester, input.receiver);
+    }),
+    acceptRequest: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield requestResponse.AcceptRequest(input.username, input.friend);
+    }),
+    denyRequest: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield requestResponse.DenyRequest(input.username, input.friend);
+    }),
+    viewFriendRequests: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield viewFriendData.ViewRequests(input.username);
+    }),
+    viewFriendsList: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield viewFriendData.ViewFriends(input.username);
+    }),
+    deleteFriend: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return deleteFriends.delete(input.username, input.friend);
     })
 };
 //# sourceMappingURL=resolvers.js.map

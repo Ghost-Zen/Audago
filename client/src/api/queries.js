@@ -189,3 +189,59 @@ export const VERIFY_USER = gql`
     }
 
 `;
+
+export const SEND_FRIEND_REQUEST = gql`
+  mutation ($requester:String, $receiver:String){
+    sendRequest(requester:$requester, receiver:$receiver){
+      response,
+      status
+    }
+  }
+`;
+
+export const DENY_FRIEND_REQUEST = gql`
+  mutation ($username:String, $friend:String){
+    denyRequest(username:$username, friend:$friend){
+      response,
+      status
+    }
+  }
+`;
+
+export const ACCEPT_FRIEND_REQUEST = gql`
+  mutation ($username:String, $friend:String){
+    acceptRequest(username:$username, friend:$friend){
+      response,
+      status
+    }
+  }
+`;
+
+export const VIEW_FRIEND_REQUESTS = gql`
+  query($username:String){
+    viewFriendRequests(username:$username){
+      response,
+      status,
+      data
+    }
+  }
+`;
+
+export const VIEW_FRIEND_LIST = gql`
+  query($username:String){
+    viewFriendsList(username:$username){
+      response,
+      status,
+      data
+    }
+  }
+`;
+
+export const DELETE_FRIEND = gql`
+  mutation($username:String, $friend:String){
+    deleteFriend(username:$username, friend:$friend){
+      response,
+      status
+    }
+  }
+`;

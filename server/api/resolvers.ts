@@ -8,7 +8,15 @@ import FollowPlaylist from '../services/playlists/FollowPlaylist';
 import { CreatePlaylist } from '../services/playlists/CreatePlaylist';
 import AllPlaylists from '../services/playlists/AllPlaylists';
 import RemoveTrack from '../services/playlists/RemoveTrack';
+import SendFriendRequest from '../services/friends/SendFriendRequest';
+import RequestResponse from '../services/friends/RequestResponse';
+import ViewRequests from '../services/friends/ViewRequests';
+import DeleteFriends from '../services/friends/DeleteFriends';
 const dataRetrieval = new UserData;
+const sendFriendRequest = new SendFriendRequest;
+const requestResponse = new RequestResponse;
+const viewFriendData = new ViewRequests;
+const deleteFriends = new DeleteFriends;
 const createAccount = new CreateAccount;
 const searchSong = new SearchSong;
 const deleteAccount = new DeleteAccount;
@@ -27,8 +35,8 @@ export default {
     createAccount: async (input) => {
         return await createAccount.create(input.account)
     },
-    verifyAccount: async (email,token) => {
-      return await dataRetrieval.verifyAccount(email,token)
+    verifyAccount: async (email, token) => {
+        return await dataRetrieval.verifyAccount(email, token)
     },
     searchSong: async (input) => {
         return await searchSong.getFromItunesAPI(input);
@@ -75,5 +83,23 @@ export default {
     },
     allPlaylists: async () => {
         return await allPlaylists.all();
+    },
+    sendRequest: async (input) => {
+        return await sendFriendRequest.FriendRequest(input.requester, input.receiver);
+    },
+    acceptRequest: async (input) => {
+        return await requestResponse.AcceptRequest(input.username, input.friend);
+    },
+    denyRequest: async (input) => {
+        return await requestResponse.DenyRequest(input.username, input.friend);
+    },
+    viewFriendRequests: async (input) => {
+        return await viewFriendData.ViewRequests(input.username);
+    },
+    viewFriendsList: async (input) => {
+        return await viewFriendData.ViewFriends(input.username);
+    },
+    deleteFriend: async (input) => {
+        return deleteFriends.delete(input.username, input.friend);
     }
 }

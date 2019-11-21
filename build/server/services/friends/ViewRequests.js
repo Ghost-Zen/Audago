@@ -18,12 +18,12 @@ class ViewRequests {
     ViewRequests(username) {
         return __awaiter(this, void 0, void 0, function* () {
             let requesters = [];
-            let res = yield Friends_1.default.find({ receiver: username });
+            let res = yield Friends_1.default.find({ receiver: username, confirmed: false });
             if (res.length > 0) {
                 for (const request of res) {
                     requesters.push(request.requester);
                 }
-                return { response: 'Friends found', requesters, status: true };
+                return { response: 'Friends found', data: requesters, status: true };
             }
             else {
                 return { response: 'No requests', status: false };
@@ -64,7 +64,7 @@ class ViewRequests {
                     activeFriends.push(friend);
                 }
             }
-            return { response: 'Friends found', activeFriends, status: true };
+            return { response: 'Friends found', data: activeFriends, status: true };
         });
     }
 }

@@ -76,6 +76,7 @@ type Response {
   username:String
   status: Boolean
   user: UserData
+  data: [String]
 }
 
 type basicResponse {
@@ -93,6 +94,8 @@ type Query {
   userData(username:String):Response
   status: Boolean
   search:[String]
+  viewFriendRequests(username: String):Response
+  viewFriendsList(username:String):Response
 }
 
 type Mutation {
@@ -107,6 +110,10 @@ type Mutation {
    newTrack(username:String,track:PlaylistTrack):Query
    followPlaylist(username: String, playlistName: String):Query
    unfollowPlaylist(username: String, playlistName: String):Query
+   sendRequest(requester:String, receiver:String):Query
+   acceptRequest(username:String, friend:String):Query
+   denyRequest(username:String, friend:String):Query
+   deleteFriend(username:String, friend:String):Query
   }
 `);
 exports.default = schema;
