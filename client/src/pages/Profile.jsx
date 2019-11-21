@@ -18,7 +18,7 @@ export default class Profile extends React.Component {
     };
 
     setTab = (chosen_tab) => {
-      this.setState({activeItem: chosen_tab})
+        this.setState({ activeItem: chosen_tab })
     }
 
     renderBannerInfo = () => (
@@ -27,7 +27,7 @@ export default class Profile extends React.Component {
                 if (loading) return 'Loading...';
                 if (error) return `Error! ${error.message}`;
                 return (
-                    <Header as='h1' style={{marginTop: 0.8 + 'em'}} inverted floated='left'>
+                    <Header as='h1' style={{ marginTop: 0.8 + 'em' }} inverted floated='left'>
                         Hello,  {Auth.getUserName()} <br />
                         <Label as='a' color='purple' image>
                             Joined
@@ -53,17 +53,17 @@ export default class Profile extends React.Component {
 
     render() {
         return (
-            <div className="profile" style={{backgroundColor:'black'}}>
+            <div className="profile" style={{ backgroundColor: 'black' }}>
                 <Navbar />
-                <Container style={{padding:10}}>
+                <Container style={{ padding: 10 }}>
                     <Grid>
                         <Grid.Row style={{ paddingBottom: 0 }}>
                             <Grid.Column width={16}>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row color='teal' style={{ marginTop: 15, borderRadius:10 }}>
+                        <Grid.Row color='teal' style={{ marginTop: 15, borderRadius: 10 }}>
                             <Grid.Column width={2}>
-                                <Image style={{width:112, height:112}} circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
+                                <Image style={{ width: 112, height: 112 }} circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
                             </Grid.Column>
                             <Grid.Column width={14}>
                                 {this.renderBannerInfo()}
@@ -75,6 +75,12 @@ export default class Profile extends React.Component {
                                     <Menu.Item
                                         name='Playlists'
                                         active={this.state.activeItem === 'Playlists'}
+                                        onClick={this.handleItemClick}
+                                    >
+                                    </Menu.Item>
+                                    <Menu.Item
+                                        name='Friends'
+                                        active={this.state.activeItem === 'Friends'}
                                         onClick={this.handleItemClick}
                                     >
                                     </Menu.Item>
