@@ -7,7 +7,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../services/accounts/config");
 class Auth {
     constructor() {
-        this.verifyToken = (req, res, next) => {
+        this.check = (req, res, next) => {
             let token = req.body.token;
             try {
                 if (typeof token !== 'undefined') {
