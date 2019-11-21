@@ -12,16 +12,16 @@ export default class EmailService{
           pass: process.env.EMAIL_PASS
       }
   });
-  let global_url = `http://audago-zen.herokuapp.com/verify_signup/${email}$${key}`
+  let global_url = `http://audago.herokuapp.com/verify_signup/${email}$${key}`
   let dev_url =  `http://localhost:4000/verify_signup/${email}$${key}`
   let info = await transporter.sendMail({
-    from: '"Audago 👻" <audagomusic@yandex.com>',
+    from: '"Audago 🎵" <audagomusic@yandex.com>',
        to: email,
        subject: 'Account verification ✔',
        text: 'Text?',
        html: `
-       <h3>Click link below to verify your account.</h3><br>
-       <a href=${dev_url}>Verify Account</a>`
+       <p>Click link below to verify your account.</p><br>
+       <a href=${global_url}>Verify Account</a>`
   });
 
   // console.log('Message sent: %s', info.messageId);

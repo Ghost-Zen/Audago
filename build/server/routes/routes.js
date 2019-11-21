@@ -25,7 +25,7 @@ class AppRoutes {
         this.app.get('/verify_signup/:userToken', (req, res) => __awaiter(this, void 0, void 0, function* () {
             let user_token = req.params.userToken.split('$');
             yield resolvers_1.default.verifyAccount(user_token[0], user_token[1]);
-            res.send('Verified Account');
+            res.redirect('/');
         }));
         this.app.post('/verify', authuser.verifyToken);
         this.app.use('/graphql', express_graphql_1.default({
