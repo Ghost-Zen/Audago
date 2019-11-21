@@ -72,7 +72,7 @@ export const DELETE_USER = gql`
     }
 `;
 
-export const UPDATE_USER = gql`  
+export const UPDATE_USER = gql`
     mutation($username:String, $updateData:UpdateData){
       updateUser(username:$username, updateData: $updateData){
         response,
@@ -81,7 +81,7 @@ export const UPDATE_USER = gql`
     }
 `;
 
-export const UPDATE_PASSWORD = gql`  
+export const UPDATE_PASSWORD = gql`
     mutation($username:String, $currentPass:String, $newPass: String, $testPass:String){
       updatePassword(username:$username, currentPass:$currentPass, newPass:$newPass, testPass:$testPass){
         response,
@@ -90,7 +90,7 @@ export const UPDATE_PASSWORD = gql`
     }
 `;
 
-export const NEW_PLAYLIST = gql`  
+export const NEW_PLAYLIST = gql`
     mutation($name:String, $creator:String){
       newPlaylist(name:$name, creator:$creator){
         response,
@@ -99,7 +99,7 @@ export const NEW_PLAYLIST = gql`
     }
 `;
 
-export const NEW_TRACK = gql`  
+export const NEW_TRACK = gql`
     mutation($username:String, $track:PlaylistTrack){
       newTrack(username:$username, track:$track){
         response,
@@ -108,7 +108,7 @@ export const NEW_TRACK = gql`
     }
 `;
 
-export const DELETE_TRACK = gql`  
+export const DELETE_TRACK = gql`
     query($username:String,$trackInfo:TrackInfo){
       deleteTrack(username:$username,trackInfo:$trackInfo){
         response,
@@ -117,7 +117,7 @@ export const DELETE_TRACK = gql`
     }
 `;
 
-export const FOLLOW_PLAYLIST = gql`  
+export const FOLLOW_PLAYLIST = gql`
     mutation($username:String, $playlistName: String){
       followPlaylist(username:$username, playlistName:$playlistName){
         response,
@@ -126,7 +126,7 @@ export const FOLLOW_PLAYLIST = gql`
     }
 `;
 
-export const UNFOLLOW_PLAYLIST = gql`  
+export const UNFOLLOW_PLAYLIST = gql`
     mutation($username:String, $playlistName: String){
       unfollowPlaylist(username:$username, playlistName:$playlistName){
         response,
@@ -135,7 +135,7 @@ export const UNFOLLOW_PLAYLIST = gql`
     }
 `;
 
-export const USERS_PLAYLIST = gql`  
+export const USERS_PLAYLIST = gql`
   query($username:String) {
     playlistsForUser(username:$username) {
       playlists {
@@ -222,7 +222,10 @@ export const VIEW_FRIEND_REQUESTS = gql`
     viewFriendRequests(username:$username){
       response,
       status,
-      data
+      data {
+        friend,
+        image
+      }
     }
   }
 `;
@@ -232,7 +235,10 @@ export const VIEW_FRIEND_LIST = gql`
     viewFriendsList(username:$username){
       response,
       status,
-      data
+      data {
+        friend,
+        image
+      }
     }
   }
 `;
