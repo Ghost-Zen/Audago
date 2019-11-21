@@ -16,7 +16,7 @@ const assert_1 = __importDefault(require("assert"));
 const Accounts_1 = __importDefault(require("../server/services/models/Accounts"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const DeletingAccount_1 = __importDefault(require("../server/services/accounts/DeletingAccount"));
-const CreateAccount_1 = __importDefault(require("../server/services/accounts/CreateAccount"));
+const accountsPremade_1 = __importDefault(require("./accountsPremade"));
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
 describe('Testing the delete account functionality', () => {
     before(function (done) {
@@ -31,43 +31,13 @@ describe('Testing the delete account functionality', () => {
     });
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
         yield Accounts_1.default.deleteMany({});
+        yield accountsPremade_1.default();
     }));
     after(() => {
         mongoose_1.default.connection.close();
     });
     it('Should return an empty array after using the "deleteAll" function', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
         const deleteAccount = new DeletingAccount_1.default;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: 'Fwgr123#',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        };
-        yield createAccount.create(user);
-        user = {
-            firstName: 'Daniel',
-            lastName: 'Minter',
-            username: 'danielminter123',
-            password: 'Fwgr123#',
-            email: 'danielminter@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        };
-        yield createAccount.create(user);
         yield deleteAccount.deleteAll();
         Accounts_1.default.find({})
             .then((accounts) => {
@@ -75,45 +45,10 @@ describe('Testing the delete account functionality', () => {
         });
     }));
     it('Should return an array with only "Daniel" as Dyllans account was deleted separately', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
         const deleteAccount = new DeletingAccount_1.default;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: 'Fwgr123#',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        };
-        yield createAccount.create(user);
-        user = {
-            firstName: 'Daniel',
-            lastName: 'Minter',
-            username: 'danielminter123',
-            password: 'Fwgr123#',
-            email: 'danielminter@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        };
-        yield createAccount.create(user);
         yield deleteAccount.delete('dyllanhope123');
-        Accounts_1.default.find({})
-            .then((accounts) => {
-            // sketchy test, but trust.. it works.. if it didn't delete then dyllanhope123 would be in index 0.
-            // the issue is 'accounts' is carrying more than whats in the database so assert.strict.deepEqual() doesn't work with the full array
-            assert_1.default.strict.deepEqual(accounts[0].username, 'danielminter123');
-        });
+        let res = yield Accounts_1.default.findOne({ username: 'dyllanhope123' });
+        assert_1.default.strict.deepEqual(res, null);
     }));
 });
 //# sourceMappingURL=DeleteAccount.test.js.map
