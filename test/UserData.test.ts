@@ -55,7 +55,7 @@ describe('Testing the UserData functionality', () => {
                 password: 'Fwgr123#',
                 email: 'michaeldollman@gmail.com',
                 image: '',
-                active: false,
+                active: true,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'
@@ -75,7 +75,7 @@ describe('Testing the UserData functionality', () => {
                 password: 'Fwgr123#',
                 email: 'michaeldollman@gmail.com',
                 image: '',
-                active: false,
+                active: true,
                 timestamp: {
                     created: 'date',
                     lastSeen: 'date'

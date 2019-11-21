@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Friends_1 = __importDefault(require("../models/Friends"));
+const Accounts_1 = __importDefault(require("../models/Accounts"));
 class ViewRequests {
     ViewRequests(username) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -33,6 +34,37 @@ class ViewRequests {
     ViewFriends(username) {
         return __awaiter(this, void 0, void 0, function* () {
             let friendList = [];
+            let res = yield Friends_1.default.find({ requester: username, confirmed: true });
+            if (res.length === 0) {
+                res = yield Friends_1.default.find({ receiver: username, confirmed: true });
+                if (res.length === 0) {
+                    return { response: 'No friends found', status: false };
+                }
+                else {
+                    for (const friend of res) {
+                        friendList.push(friend.requester);
+                    }
+                }
+            }
+            else {
+                for (const friend of res) {
+                    friendList.push(friend.receiver);
+                }
+                res = yield Friends_1.default.find({ receiver: username, confirmed: true });
+                if (res.length > 0) {
+                    for (const friend of res) {
+                        friendList.push(friend.requester);
+                    }
+                }
+            }
+            let activeFriends = [];
+            for (const friend of friendList) {
+                let result = yield Accounts_1.default.findOne({ username: friend, active: true });
+                if (result) {
+                    activeFriends.push(friend);
+                }
+            }
+            return { response: 'Friends found', activeFriends, status: true };
         });
     }
 }
