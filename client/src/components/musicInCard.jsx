@@ -13,8 +13,8 @@ export default class cards extends Component {
   handleHide = () => this.setState({ active: false })
 
   intialPlayer = (track) => {
-    this.setState({activeTrack:track})
-    this.props.playTrack(track)
+    // this.setState({activeTrack:track}) //remove once webplayer is completely done
+    this.props.playTrack([track])
   }
 
   resetCard = () => {
@@ -28,7 +28,7 @@ export default class cards extends Component {
     const { active } = this.state
     const content = (
       <div>
-        <Button primary icon="play" onClick={() => this.intialPlayer(index)}></Button>
+        <Button primary icon="play" onClick={() => this.intialPlayer(song_meta)}></Button>
         <PlaylistPopup song={song_meta} reset={this.resetCard}/>
       </div>
     )

@@ -20,7 +20,7 @@ export default class cards extends Component {
     this.setState({ activePlaylist: playlist })
     let songList = [];
     for (const track of this.props.songs) {
-      songList.push(track.song);
+      songList.push(track);
     }
     this.props.playTrack(songList, 0)
   }

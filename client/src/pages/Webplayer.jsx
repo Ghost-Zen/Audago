@@ -16,41 +16,14 @@ export default class Webplayer extends React.Component {
     }
   }
 
-  playTrack = (track) => {
-    let song_data = this.props.location.state.data.searchSong
-    let audioLists = []
-    audioLists.push({
-            name: song_data[track].track, singer: song_data[track].artist, cover: song_data[track].artwork,
-            musicSrc: () => {
-            return Promise.resolve(
-                song_data[track].song )
-              }
-                  })
-    this.setState({
-      track: { audioLists: [
-                        {
-        name: song_data[track].track,
-        singer: song_data[track].artist,
-        cover: song_data[track].artwork,
-        musicSrc: () => {
-          return Promise.resolve(
-            song_data[track].song
-          )
-        }
-      }]
-    }
-    })
-    ////// till i figure out how to run player on click
-    // let player = document.querySelector('.music-player-audio');
-    // player.src = song_data[track].song;
-    // player.play();
-    ////////////
+  playTrack = (music) => {
+    this.setState({track:music})
   }
 
   renderTab = (tab) => {
     if(tab === undefined) tab = 'home'
     if(tab === 'home') return this.renderData()
-    if(tab === 'playlist') return <Playlists />
+    if(tab === 'playlist') return <Playlists playTrack={this.playTrack}/>
     if(tab === 'manage_playlist') return <Redirect to='/profile'/>
   }
 

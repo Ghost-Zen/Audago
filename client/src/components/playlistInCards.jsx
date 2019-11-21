@@ -17,33 +17,7 @@ export default class PlayListInCards extends React.Component {
     }
 
     playTrack = (songList, item) => {
-        let index = item
-        let x = document.querySelector('.music-player-audio'); //new feature addon
-        // let x = document.querySelector("#player"); //keep until all new player features is fixed
-        x.src = songList[index];
-        index++;
-        var playPromise = x.play();
-
-        if (playPromise !== undefined) {
-            playPromise.then(_ => {
-                x.addEventListener('ended', async () => {
-                    if (index !== songList.length) {
-                        await this.playTrack(songList, index);
-                    } else {
-                        await this.playTrack(songList, 0);
-                    }
-                });
-            })
-                .catch(error => {
-                });
-        }
-    }
-    viewSongs = (data, choice) => {
-        this.setState({
-            viewSongs: true,
-            data,
-            choice
-        });
+      this.props.playTrack(songList)
     }
 
     renderSongs = () => {
@@ -77,7 +51,7 @@ export default class PlayListInCards extends React.Component {
                                     playlist_meta={playlist}
                                     index={z}
                                 /><br />
-                                <strong className='playlistSelect' onClick={() => this.viewSongs(playlistData, playlist.name)}>{playlist.name}</strong>
+                                <strong className='playlistSelect'>{playlist.name}</strong>
                             </div>
                         )
                     }

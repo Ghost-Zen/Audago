@@ -16,44 +16,11 @@ export default class songlist extends Component {
   }
 
   playTrack = (track) => {
-    let songList = [];
-    let startTrack;
-    for (const playlist of this.props.data) {
-      if (playlist.name === this.props.choice) {
-        for (const song of playlist.songs) {
-          songList.push(song.song);
-        }
-      }
-    }
-    startTrack = songList.indexOf(track);
-    this.playSong(songList, startTrack);
+    console.log(`fn playTrack---${track}`)
   }
 
   async playSong(songList, startTrack) {
-    if (!this.props.from) {
-      let index = startTrack;
-      let x = document.querySelector('.music-player-audio'); //new feature addon
-      // let x = document.querySelector("#player");  //keep until all new player features is fixed
-      x.src = songList[index];
-      index++;
-      var playPromise = x.play();
-
-      if (playPromise !== undefined) {
-        playPromise.then(_ => {
-          x.addEventListener('ended', async () => {
-            if (index !== songList.length) {
-              await this.playSong(songList, index);
-            } else {
-              await this.playSong(songList, 0);
-            }
-          });
-        })
-          .catch(error => {
-          });
-      }
-    } else {
-      this.props.playTrack(songList, startTrack);
-    }
+    console.log(`fn:playSong--${songList}`)
   }
 
   deleteTrack = (event) => {
