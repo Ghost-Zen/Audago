@@ -49,20 +49,17 @@ describe('Testing the DeletingFriends functionality', () => {
 
         await Account.updateOne({ username: 'Mikey' }, { active: false });
 
-        let response = await viewRequests.ViewFriends('johnhope123');
-        assert.deepEqual(response, {
-            response: 'Friends found',
-            data: ['ChrisCross', 'dyllanhope123', 'Sharkykzn'],
-            status: true
-        });
+        await viewRequests.ViewFriends('johnhope123');
 
         await deleteFriends.delete('johnhope123', 'dyllanhope123');
-        response = await viewRequests.ViewFriends('johnhope123');
-        assert.deepEqual(response, {
-            response: 'Friends found',
-            data: ['ChrisCross', 'Sharkykzn'],
-            status: true
-        });
+        let response = await viewRequests.ViewFriends('johnhope123');
+        assert.deepEqual(response,
+          { response: 'Friends found',
+  data:
+   [ { friend: 'ChrisCross', image: '' },
+     { friend: 'Sharkykzn', image: '' } ],
+  status: true }
+);
     })
     it('Should return that there is no friendship between john and dyllan', async () => {
         let deleteFriends = new DeletingFriends;

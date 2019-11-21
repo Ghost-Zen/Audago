@@ -23,6 +23,7 @@ describe('Testing the ViewRequest functionality', () => {
     beforeEach(async () => {
         await Friends.deleteMany({});
         await Account.deleteMany({});
+        await accountsPremade()
     });
     after(() => {
         mongoose.connection.close();
@@ -35,11 +36,13 @@ describe('Testing the ViewRequest functionality', () => {
         await friendRequest.FriendRequest('Sharkykzn', 'johnhope123');
         await friendRequest.FriendRequest('johnhope123', 'ChrisCross');
         let response = await viewRequests.ViewRequests('johnhope123');
-        assert.deepEqual(response, {
-            response: 'Friends found',
-            data: ['dyllanhope123', 'Mikey', 'Sharkykzn'],
-            status: true
-        })
+        assert.deepEqual(response,
+          { response: 'Friends found',
+  data:
+   [ { friend: 'dyllanhope123', image: '' },
+     { friend: 'Mikey', image: '' },
+     { friend: 'Sharkykzn', image: '' } ],
+  status: true })
     })
     it('Should return that Mikey has no requests', async () => {
         let friendRequest = new SendFriendRequest;
@@ -56,7 +59,6 @@ describe('Testing the ViewRequest functionality', () => {
         let friendRequest = new SendFriendRequest;
         let acceptRequest = new AcceptRequest;
         let viewRequests = new ViewRequests;
-        await accountsPremade();
 
         await friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
         await acceptRequest.AcceptRequest('johnhope123', 'dyllanhope123');
@@ -74,11 +76,10 @@ describe('Testing the ViewRequest functionality', () => {
         await Account.updateOne({ username: 'ChrisCross' }, { active: false });
 
         let response = await viewRequests.ViewFriends('johnhope123');
-
-        assert.deepEqual(response, {
-            response: 'Friends found',
-            data: ['dyllanhope123', 'Sharkykzn'],
-            status: true
-        });
+        assert.deepEqual(response,
+          { response: 'Friends found',
+            data:[ { friend: 'dyllanhope123', image: '' },
+                    { friend: 'Sharkykzn', image: '' } ],
+            status: true });
     })
 });
