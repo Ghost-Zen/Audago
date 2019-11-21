@@ -25,27 +25,12 @@ describe('Testing the UserData functionality', () => {
         mongoose.connection.close();
     });
     describe('Login service testing', () => {
-        // it("Should return with that Michael has logged in successfully and returns a token with true status", async () => {
-        //     const createAccount = new CreateAccount;
-        //     const userData = new UserData;
-        //     let user: Iaccounts = {
-        //         firstName: 'Micheal',
-        //         lastName: 'Dollman',
-        //         username: 'michaeldollman123',
-        //         password: 'Fwgr123#',
-        //         email: 'michaeldollman@gmail.com',
-        //         image: '',
-        //         active: false,
-        //         timestamp: {
-        //             created: 'date',
-        //             lastSeen: 'date'
-        //         },
-        //         status:''
-        //     }
-        //     await createAccount.create(user);
-        //     let response = await userData.loginData('michaeldollman123', 'Fwgr123#')
-        //     assert.strict.deepEqual(response.status, true);
-        // });
+        it("Should return with that Michael has logged in successfully and returns a token with true status", async () => {
+            const userData = new UserData;
+            await Account.updateOne({username:'Mikey'},{status:'verified'});
+            let response = await userData.loginData('Mikey', 'Fwgr123#')
+            assert.strict.deepEqual(response.status, true);
+        });
         it("Should return with an error that Vuyo's data could not be found, as the account wasn't made", async () => {
             const userData = new UserData;
             assert.strict.deepEqual(await userData.loginData('vuyo_ma2', 'Fwgr123#'), { response: 'Username vuyo_ma2 not found', status: false });
