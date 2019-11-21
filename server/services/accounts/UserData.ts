@@ -76,7 +76,7 @@ export default class UserData {
                     });
                     return { response: token, username: data.username, status: true };
                   }else{
-                    let emailUserAgain = email_service.verifyEmail(data.email,data.status) //email user everytime he forgets to verify and tries to login.
+                    let emailUserAgain = await email_service.verifyEmail(data.email,data.status) //email user everytime he forgets to verify and tries to login.
                     return { response: `Account not verified, check your emails`, status: false }; //added email verification link just for dev purposes
                   }
                 } else {
