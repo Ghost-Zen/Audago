@@ -21,7 +21,7 @@ input TrackInfo {
   artist: String
   playlist_name: String
 }
- 
+
 type PlaylistInfo {
   name: String,
   creator:String,
@@ -42,6 +42,11 @@ type Songs {
 type TimeStamp {
   created: String,
   lastSeen: String
+}
+
+type Friend {
+  friend: String,
+  image: String
 }
 
 type UserData {
@@ -74,7 +79,7 @@ type Response {
   username:String
   status: Boolean
   user: UserData
-  data: [String]
+  data: [Friend]
 }
 
 type basicResponse {
