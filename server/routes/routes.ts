@@ -18,14 +18,13 @@ export default class AppRoutes {
           res.redirect('/')
         })
 
-        this.app.post('/verify', authuser.verifyToken)
+        this.app.post('/verify', authuser.check)
 
-        this.app.use('/graphql', graphqlHTTP({
+        this.app.use('/graphql',authuser.graphqlAuth, graphqlHTTP({
             schema: typeDefs,
             rootValue: Resolvers,
             graphiql: true,
         }));
-        //add extra routes below here
     }
 
 }

@@ -3,7 +3,7 @@ import { Config } from '../services/accounts/config'
 
 export default class Auth {
 
-    verifyToken = (req, res, next) => {
+    check = (req, res, next) => {
         let token = req.body.token
         try {
             if (typeof token !== 'undefined') {
@@ -31,6 +31,18 @@ export default class Auth {
                 token: "Please login again"
         })
         }
+    }
+
+    graphqlAuth = (req,res,next) => {
+      try{
+        let header = req.headers.authorization
+        let token = header.split(':')
+        let { data } = jwt.verify(token[1], Config.SECRET)
+        next();
+      }
+      catch(err){
+        res.send('No, dont try.')
+      }
     }
 
 

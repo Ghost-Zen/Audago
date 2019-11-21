@@ -35,6 +35,7 @@ export default class OnChangeSearch extends React.Component {
     }
 
     handleResData = (data) => {
+      if(!data) return;
         if (data.onChangeSearch.length > 0) {
             let top4Res = [];
             let rawData = [];

@@ -11,7 +11,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 
 ReactDOM.render(
-  <ApolloProvider client={config.graphql}>
+  <ApolloProvider client={config}>
     <App />
   </ApolloProvider>
   , document.getElementById('root'));

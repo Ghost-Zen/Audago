@@ -28,12 +28,11 @@ class AppRoutes {
             res.redirect('/');
         }));
         this.app.post('/verify', authuser.verifyToken);
-        this.app.use('/graphql', express_graphql_1.default({
+        this.app.use('/graphql', authuser.graphqlAuth, express_graphql_1.default({
             schema: typeDefs_1.default,
             rootValue: resolvers_1.default,
             graphiql: true,
         }));
-        //add extra routes below here
     }
 }
 exports.default = AppRoutes;
