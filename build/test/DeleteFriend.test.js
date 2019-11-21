@@ -20,8 +20,9 @@ const SendFriendRequest_1 = __importDefault(require("../server/services/friends/
 const RequestResponse_1 = __importDefault(require("../server/services/friends/RequestResponse"));
 const ViewRequests_1 = __importDefault(require("../server/services/friends/ViewRequests"));
 const accountsPremade_1 = __importDefault(require("./accountsPremade"));
+const DeleteFriends_1 = __importDefault(require("../server/services/friends/DeleteFriends"));
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
-describe('Testing the ViewRequest functionality', () => {
+describe('Testing the DeletingFriends functionality', () => {
     before(function (done) {
         mongoose_1.default.Promise = global.Promise;
         mongoose_1.default.set('useCreateIndex', true);
@@ -35,39 +36,16 @@ describe('Testing the ViewRequest functionality', () => {
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
         yield Friends_1.default.deleteMany({});
         yield Accounts_1.default.deleteMany({});
+        yield accountsPremade_1.default();
     }));
     after(() => {
         mongoose_1.default.connection.close();
     });
-    it('Should return all the unconfirmed friend requests for johnhope123 (3 requests)', () => __awaiter(void 0, void 0, void 0, function* () {
-        let friendRequest = new SendFriendRequest_1.default;
-        let viewRequests = new ViewRequests_1.default;
-        yield friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
-        yield friendRequest.FriendRequest('Mikey', 'johnhope123');
-        yield friendRequest.FriendRequest('Sharkykzn', 'johnhope123');
-        yield friendRequest.FriendRequest('johnhope123', 'ChrisCross');
-        let response = yield viewRequests.ViewRequests('johnhope123');
-        assert_1.default.deepEqual(response, {
-            response: 'Friends found',
-            requesters: ['dyllanhope123', 'Mikey', 'Sharkykzn'],
-            status: true
-        });
-    }));
-    it('Should return that Mikey has no requests', () => __awaiter(void 0, void 0, void 0, function* () {
-        let friendRequest = new SendFriendRequest_1.default;
-        let viewRequests = new ViewRequests_1.default;
-        yield friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
-        yield friendRequest.FriendRequest('Mikey', 'johnhope123');
-        yield friendRequest.FriendRequest('Sharkykzn', 'johnhope123');
-        yield friendRequest.FriendRequest('johnhope123', 'ChrisCross');
-        let response = yield viewRequests.ViewRequests('Mikey');
-        assert_1.default.deepEqual(response, { response: 'No requests', status: false });
-    }));
-    it('Should return all the confirmed and active friends of John', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return that the friendship between john and dyllan was deleted', () => __awaiter(void 0, void 0, void 0, function* () {
         let friendRequest = new SendFriendRequest_1.default;
         let acceptRequest = new RequestResponse_1.default;
         let viewRequests = new ViewRequests_1.default;
-        yield accountsPremade_1.default();
+        let deleteFriends = new DeleteFriends_1.default;
         yield friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
         yield acceptRequest.AcceptRequest('johnhope123', 'dyllanhope123');
         yield friendRequest.FriendRequest('Mikey', 'johnhope123');
@@ -77,13 +55,24 @@ describe('Testing the ViewRequest functionality', () => {
         yield friendRequest.FriendRequest('johnhope123', 'ChrisCross');
         yield acceptRequest.AcceptRequest('ChrisCross', 'johnhope123');
         yield Accounts_1.default.updateOne({ username: 'Mikey' }, { active: false });
-        yield Accounts_1.default.updateOne({ username: 'ChrisCross' }, { active: false });
         let response = yield viewRequests.ViewFriends('johnhope123');
         assert_1.default.deepEqual(response, {
             response: 'Friends found',
-            activeFriends: ['dyllanhope123', 'Sharkykzn'],
+            activeFriends: ['ChrisCross', 'dyllanhope123', 'Sharkykzn'],
+            status: true
+        });
+        yield deleteFriends.delete('johnhope123', 'dyllanhope123');
+        response = yield viewRequests.ViewFriends('johnhope123');
+        assert_1.default.deepEqual(response, {
+            response: 'Friends found',
+            activeFriends: ['ChrisCross', 'Sharkykzn'],
             status: true
         });
     }));
+    it('Should return that the friendship between john and dyllan was deleted', () => __awaiter(void 0, void 0, void 0, function* () {
+        let deleteFriends = new DeleteFriends_1.default;
+        let response = yield deleteFriends.delete('johnhope123', 'dyllanhope123');
+        assert_1.default.deepEqual(response, { response: 'There is no friendship bewtween johnhope123 and dyllanhope123', status: false });
+    }));
 });
-//# sourceMappingURL=ViewRequests.test.js.map
+//# sourceMappingURL=DeleteFriend.test.js.map

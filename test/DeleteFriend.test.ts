@@ -6,10 +6,11 @@ import SendFriendRequest from '../server/services/friends/SendFriendRequest';
 import AcceptRequest from '../server/services/friends/RequestResponse';
 import ViewRequests from '../server/services/friends/ViewRequests';
 import accountsPremade from './accountsPremade';
+import DeletingFriends from '../server/services/friends/DeleteFriends';
 
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
 
-describe('Testing the ViewRequest functionality', () => {
+describe('Testing the DeletingFriends functionality', () => {
     before(function (done) {
         mongoose.Promise = global.Promise;
         mongoose.set('useCreateIndex', true)
@@ -23,40 +24,16 @@ describe('Testing the ViewRequest functionality', () => {
     beforeEach(async () => {
         await Friends.deleteMany({});
         await Account.deleteMany({});
+        await accountsPremade();
     });
     after(() => {
         mongoose.connection.close();
     });
-    it('Should return all the unconfirmed friend requests for johnhope123 (3 requests)', async () => {
-        let friendRequest = new SendFriendRequest;
-        let viewRequests = new ViewRequests;
-        await friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
-        await friendRequest.FriendRequest('Mikey', 'johnhope123');
-        await friendRequest.FriendRequest('Sharkykzn', 'johnhope123');
-        await friendRequest.FriendRequest('johnhope123', 'ChrisCross');
-        let response = await viewRequests.ViewRequests('johnhope123');
-        assert.deepEqual(response, {
-            response: 'Friends found',
-            requesters: ['dyllanhope123', 'Mikey', 'Sharkykzn'],
-            status: true
-        })
-    })
-    it('Should return that Mikey has no requests', async () => {
-        let friendRequest = new SendFriendRequest;
-        let viewRequests = new ViewRequests;
-        await friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
-        await friendRequest.FriendRequest('Mikey', 'johnhope123');
-        await friendRequest.FriendRequest('Sharkykzn', 'johnhope123');
-        await friendRequest.FriendRequest('johnhope123', 'ChrisCross');
-        let response = await viewRequests.ViewRequests('Mikey');
-        assert.deepEqual(response, { response: 'No requests', status: false })
-    })
-
-    it('Should return all the confirmed and active friends of John', async () => {
+    it('Should return that the friendship between john and dyllan was deleted', async () => {
         let friendRequest = new SendFriendRequest;
         let acceptRequest = new AcceptRequest;
         let viewRequests = new ViewRequests;
-        await accountsPremade();
+        let deleteFriends = new DeletingFriends;
 
         await friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
         await acceptRequest.AcceptRequest('johnhope123', 'dyllanhope123');
@@ -71,14 +48,26 @@ describe('Testing the ViewRequest functionality', () => {
         await acceptRequest.AcceptRequest('ChrisCross', 'johnhope123');
 
         await Account.updateOne({ username: 'Mikey' }, { active: false });
-        await Account.updateOne({ username: 'ChrisCross' }, { active: false });
 
         let response = await viewRequests.ViewFriends('johnhope123');
-
         assert.deepEqual(response, {
             response: 'Friends found',
-            activeFriends: ['dyllanhope123', 'Sharkykzn'],
+            activeFriends: ['ChrisCross', 'dyllanhope123', 'Sharkykzn'],
             status: true
         });
+
+        await deleteFriends.delete('johnhope123', 'dyllanhope123');
+        response = await viewRequests.ViewFriends('johnhope123');
+        assert.deepEqual(response, {
+            response: 'Friends found',
+            activeFriends: ['ChrisCross', 'Sharkykzn'],
+            status: true
+        });
+    })
+    it('Should return that the friendship between john and dyllan was deleted', async () => {
+        let deleteFriends = new DeletingFriends;
+
+        let response = await deleteFriends.delete('johnhope123', 'dyllanhope123');
+        assert.deepEqual(response, { response: 'There is no friendship bewtween johnhope123 and dyllanhope123', status: false });
     })
 });
