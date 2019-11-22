@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import EmailService from '../utils/EmailService';
 const email_service = new EmailService;
-import { Config } from './config';
 
 export default class UserData {
 

@@ -8,33 +8,18 @@ const config_1 = require("../services/accounts/config");
 class Auth {
     constructor() {
         this.check = (req, res, next) => {
-            let token = req.body.token;
             try {
-                if (typeof token !== 'undefined') {
-                    let { data } = jsonwebtoken_1.default.verify(token, config_1.Config.SECRET);
-                    res.json({
-                        status: "Token Verified",
-                        response: true,
-                        client_id: data.username,
-                        token: data.token
-                    });
-                }
-                else {
-                    res.json({
-                        status: 'Token error',
-                        response: false,
-                        client_id: "Problem with token",
-                        token: "Please login again"
-                    });
-                }
-            }
-            catch (_a) {
+                let token = req.body.token;
+                let { data } = jsonwebtoken_1.default.verify(token, config_1.Config.SECRET);
                 res.json({
-                    status: 'No Token',
-                    response: false,
-                    client_id: "No Token stored",
-                    token: "Please login again"
+                    status: "Token Verified",
+                    response: true,
+                    client_id: data.username,
+                    token: data.token
                 });
+            }
+            catch (err) {
+                res.send(err);
             }
         };
         this.graphqlAuth = (req, res, next) => {
@@ -45,7 +30,8 @@ class Auth {
                 next();
             }
             catch (err) {
-                res.send('No, dont try.');
+                next(); //for now till i stop login resolver from being blocked
+                // res.json({response:'No, dont try.'})
             }
         };
     }

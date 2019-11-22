@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const assert_1 = __importDefault(require("assert"));
 const Accounts_1 = __importDefault(require("../server/services/models/Accounts"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const CreateAccount_1 = __importDefault(require("../server/services/accounts/CreateAccount"));
 const CreatePlaylist_1 = require("../server/services/playlists/CreatePlaylist");
 const RemoveTrack_1 = __importDefault(require("../server/services/playlists/RemoveTrack"));
 const Playlists_1 = __importDefault(require("../server/services/models/Playlists"));
+const accountsPremade_1 = __importDefault(require("./accountsPremade"));
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
 describe('Testing the "remove track" functionality', () => {
     before(function (done) {
@@ -34,29 +34,14 @@ describe('Testing the "remove track" functionality', () => {
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
         yield Playlists_1.default.deleteMany({});
         yield Accounts_1.default.deleteMany({});
+        yield accountsPremade_1.default();
     }));
     after(() => {
         mongoose_1.default.connection.close();
     });
     it('Should return "The song Middle was not found in the playlist 2019 Rap"', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
         const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
         const removeTrack = new RemoveTrack_1.default;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: 'Fwgr123#',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        };
-        yield createAccount.create(user);
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         yield createPlaylist.create('2019 Rap', 'dyllanhope123');
         yield createPlaylist.addToPlaylist("dyllanhope123", track);
@@ -65,24 +50,8 @@ describe('Testing the "remove track" functionality', () => {
         assert_1.default.strict.deepEqual(response, { response: 'The song Midnight was not found in the playlist 2019 Rap', status: false });
     }));
     it('Should return "The song Middle Child was successfully removed from the playlist 2019 Rap"', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
         const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
         const removeTrack = new RemoveTrack_1.default;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: 'Fwgr123#',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        };
-        yield createAccount.create(user);
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         yield createPlaylist.create('2019 Rap', 'dyllanhope123');
         yield createPlaylist.addToPlaylist("dyllanhope123", track);
@@ -93,24 +62,8 @@ describe('Testing the "remove track" functionality', () => {
         assert_1.default.strict.deepEqual(response, { response: 'The song Middle Child was successfully removed from the playlist 2019 Rap', status: true });
     }));
     it('Should return that chris cannot remove a track from a playlist he does not own', () => __awaiter(void 0, void 0, void 0, function* () {
-        const createAccount = new CreateAccount_1.default;
         const createPlaylist = new CreatePlaylist_1.CreatePlaylist;
         const removeTrack = new RemoveTrack_1.default;
-        let user = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: 'Fwgr123#',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        };
-        yield createAccount.create(user);
         let track = { track: "Middle Child", artist: "J. Cole", playlist_name: "2019 Rap", song: '', album: 'music', artwork: '' };
         yield createPlaylist.create('2019 Rap', 'dyllanhope123');
         yield createPlaylist.addToPlaylist("dyllanhope123", track);

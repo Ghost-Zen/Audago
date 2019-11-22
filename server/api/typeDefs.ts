@@ -21,7 +21,7 @@ input TrackInfo {
   artist: String
   playlist_name: String
 }
- 
+
 type PlaylistInfo {
   name: String,
   creator:String,
@@ -42,6 +42,11 @@ type Songs {
 type TimeStamp {
   created: String,
   lastSeen: String
+}
+
+type Friend {
+  friend: String,
+  image: String
 }
 
 type UserData {
@@ -74,6 +79,7 @@ type Response {
   username:String
   status: Boolean
   user: UserData
+  data: [Friend]
 }
 
 type basicResponse {
@@ -91,6 +97,9 @@ type Query {
   userData(username:String):Response
   status: Boolean
   search:[String]
+  viewFriendRequests(username: String):Response
+  viewFriendsList(username:String):Response
+  accountSearch(username:String, search:String):Response
 }
 
 type Mutation {
@@ -105,6 +114,10 @@ type Mutation {
    newTrack(username:String,track:PlaylistTrack):Query
    followPlaylist(username: String, playlistName: String):Query
    unfollowPlaylist(username: String, playlistName: String):Query
+   sendRequest(requester:String, receiver:String):Query
+   acceptRequest(username:String, friend:String):Query
+   denyRequest(username:String, friend:String):Query
+   deleteFriend(username:String, friend:String):Query
   }
 `);
 export default schema

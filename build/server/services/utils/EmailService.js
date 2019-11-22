@@ -37,7 +37,7 @@ class EmailService {
        <a href=${global_url}>Verify Account</a>`
             });
             // console.log('Message sent: %s', info.messageId);
-            console.log('Preview URL: %s', nodemailer_1.default.getTestMessageUrl(info));
+            // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
             return nodemailer_1.default.getTestMessageUrl(info);
         });
     }

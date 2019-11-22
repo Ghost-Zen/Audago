@@ -8,7 +8,7 @@ export default class songlist extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: Auth.getUserName(),
+      username: this.props.username,
       delete: false,
       trackInfo: {},
       open: false
@@ -69,7 +69,7 @@ export default class songlist extends Component {
   }
 
   renderRemove = (song, creator) => {
-    if (this.state.username === creator && !this.props.from) {
+    if (this.state.username === creator && !this.props.from && this.state.username === Auth.getUserName()) {
       return (
         <List.Content floated='right'>
           {this.renderDelete()}

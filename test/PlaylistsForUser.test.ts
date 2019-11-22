@@ -1,12 +1,10 @@
 import assert from 'assert';
-import Account, { Iaccounts } from '../server/services/models/Accounts';
-import Playlist, { Iplaylist } from '../server/services/models/Playlists';
+import Account from '../server/services/models/Accounts';
+import Playlist from '../server/services/models/Playlists';
 import mongoose from 'mongoose';
-import FollowPlaylist from '../server/services/playlists/FollowPlaylist';
-import CreateAccount from '../server/services/accounts/CreateAccount';
 import { CreatePlaylist } from '../server/services/playlists/CreatePlaylist';
 import PlaylistsForUser from '../server/services/playlists/PlaylistsForUser';
-import { stringify } from 'querystring';
+import accountsPremade from './accountsPremade';
 
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
 
@@ -24,64 +22,16 @@ describe('Testing the users playlists service functionality', () => {
     beforeEach(async () => {
         await Account.deleteMany({});
         await Playlist.deleteMany({});
+        await accountsPremade();
     });
     after(() => {
         mongoose.connection.close();
     })
     it('Should return that dyllanhope123 follows the playlists 2019 Rap and 2019 House', async () => {
-        const createAccount = new CreateAccount;
         const createPlaylist = new CreatePlaylist;
         const playlistsForUser = new PlaylistsForUser;
-        let user: Iaccounts = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: 'Fwgr123#',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        }
-        await createAccount.create(user);
-        user = {
-            firstName: 'Daniel',
-            lastName: 'Minter',
-            username: 'danielminter123',
-            password: 'Fwgr123#',
-            email: 'daniel@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        }
-        await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 Rap',
-            follower_count: 1,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
         await createPlaylist.create('2019 Rap', 'dyllanhope123');
-        playlist = {
-            name: '2019 House',
-            follower_count: 1,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
         await createPlaylist.create('2019 House', 'dyllanhope123');
-        playlist = {
-            name: '2019 Pop',
-            follower_count: 1,
-            creator: 'danielminter123',
-            song_count: 0
-        }
         await createPlaylist.create('2019 Pop', 'danielminter123');
         let response = await playlistsForUser.playlistsFor('dyllanhope123');
         assert.deepEqual(response, {
@@ -92,76 +42,12 @@ describe('Testing the users playlists service functionality', () => {
         });
     });
     it('Should return that michaeldollman123 has no playlists', async () => {
-        const createAccount = new CreateAccount;
         const createPlaylist = new CreatePlaylist;
         const playlistsForUser = new PlaylistsForUser;
-        let user: Iaccounts = {
-            firstName: 'Dyllan',
-            lastName: 'Hope',
-            username: 'dyllanhope123',
-            password: 'Fwgr123#',
-            email: 'dyllanhope@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        }
-        await createAccount.create(user);
-        user = {
-            firstName: 'Daniel',
-            lastName: 'Minter',
-            username: 'danielminter123',
-            password: 'Fwgr123#',
-            email: 'daniel@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        }
-        await createAccount.create(user);
-        user = {
-            firstName: 'michael',
-            lastName: 'dollman',
-            username: 'michaeldollman123',
-            password: 'Fwgr123#',
-            email: 'michael@gmail.com',
-            image: '',
-            active: false,
-            timestamp: {
-                created: 'date',
-                lastSeen: 'date'
-            },
-            status: ''
-        }
-        await createAccount.create(user);
-        let playlist: Iplaylist = {
-            name: '2019 Rap',
-            follower_count: 1,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
         await createPlaylist.create('2019 Rap', 'dyllanhope123');
-        playlist = {
-            name: '2019 House',
-            follower_count: 1,
-            creator: 'dyllanhope123',
-            song_count: 0
-        }
         await createPlaylist.create('2019 House', 'dyllanhope123');
-        playlist = {
-            name: '2019 Pop',
-            follower_count: 1,
-            creator: 'danielminter123',
-            song_count: 0
-        }
         await createPlaylist.create('2019 Pop', 'danielminter123');
-        let response = await playlistsForUser.playlistsFor('michaeldollman123');
+        let response = await playlistsForUser.playlistsFor('Mikey');
         assert.strict.deepEqual(response, { response: 'No playlists found, go follow or create some!', status: true });
     });
 });

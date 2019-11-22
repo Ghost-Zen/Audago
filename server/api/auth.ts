@@ -4,9 +4,8 @@ import { Config } from '../services/accounts/config'
 export default class Auth {
 
     check = (req, res, next) => {
-        let token = req.body.token
         try {
-            if (typeof token !== 'undefined') {
+                let token = req.body.token
                 let { data } = jwt.verify(token, Config.SECRET)
                 res.json({
                     status: "Token Verified",
@@ -14,22 +13,9 @@ export default class Auth {
                     client_id: data.username,
                     token: data.token
                 })
-            } else {
-                res.json({
-                    status: 'Token error',
-                    response: false,
-                    client_id: "Problem with token",
-                    token: "Please login again"
-                })
-            }
         }
-        catch{
-            res.json({
-                status: 'No Token',
-                response: false,
-                client_id: "No Token stored",
-                token: "Please login again"
-        })
+        catch(err){
+            res.send(err)
         }
     }
 
@@ -41,7 +27,8 @@ export default class Auth {
         next();
       }
       catch(err){
-        res.send('No, dont try.')
+        next(); //for now till i stop login resolver from being blocked
+        // res.json({response:'No, dont try.'})
       }
     }
 
