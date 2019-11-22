@@ -1,13 +1,19 @@
 import React from 'react';
 import { Card, Menu, Label, Header, Grid, Container } from 'semantic-ui-react';
-import {  } from '../api/queries';
+import { VIEW_FRIEND_REQUESTS } from '../api/queries';
 import '../styling/App.css';
 import { Query, Mutation } from 'react-apollo';
 import FriendSearch from './friendSearch';
+import FriendRequest from './friendRequests';
+import FriendList from './friendList';
+import Auth from '../utils/Auth';
 
 export default class Friends extends React.Component {
-  state = {
-    activeItem: 'search'
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeItem: 'search'
+    }
   }
 
   handleItemClick = (e, { name }) => {
@@ -21,14 +27,38 @@ export default class Friends extends React.Component {
           )
       } else if (this.state.activeItem === 'friends') {
           return (
-            <Header as='h3' inverted>Friends</Header>
+            <FriendList show={this.props.show} />
           )
       } else if(this.state.activeItem === 'requests'){
         return (
-          <Header as='h3' inverted>Requests</Header>
+          <FriendRequest show={this.props.show}/>
         )
       }
   };
+
+  renderRequests =()=>(
+            <Query query={VIEW_FRIEND_REQUESTS} pollInterval={500} variables={{ username:Auth.getUserName() }}>
+              {({ loading, error, data }) => {
+                if (loading) return 'Loading...';
+                if (error) return `Error! ${error.message}`;
+                let requests = data.viewFriendRequests.data;
+                let count = 0;
+                if(requests){
+                  count = requests.length;
+                }
+                return(
+                  <Menu.Item
+                    name='requests'
+                    active={this.state.activeItem === 'requests'}
+                    onClick={this.handleItemClick}
+                  >
+                  Requests
+                  <Label color='teal'>{count}</Label>
+                  </Menu.Item>
+                )
+              }}
+            </Query>
+  )
 
 render(){
   return(
@@ -50,15 +80,8 @@ render(){
         >
           Friend List
         </Menu.Item>
+        {this.renderRequests()}
 
-        <Menu.Item
-          name='requests'
-          active={this.state.activeItem === 'requests'}
-          onClick={this.handleItemClick}
-        >
-        Requests
-          <Label color='teal'>0</Label>
-        </Menu.Item>
       </Menu>
       {this.renderItem()}
       </Grid.Column>

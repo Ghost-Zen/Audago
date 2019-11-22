@@ -7,12 +7,15 @@ import { FRIEND_SEARCH,SEND_FRIEND_REQUEST } from '../api/queries';
 import Auth from '../utils/Auth';
 import ProfileDisplay from './profileDisplay';
 
-export default class Friends extends React.Component {
-    state = {
-      search:'',
-      username:Auth.getUserName(),
-      displayProfile: false,
-      chosenUser: ''
+export default class FriendSearch extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        search:'',
+        username:Auth.getUserName(),
+        displayProfile: false,
+        chosenUser: ''
+      }
     }
 
     renderDisplay = () => {
@@ -46,7 +49,7 @@ export default class Friends extends React.Component {
     renderSearch = () => {
       let {username, search} = this.state;
       return(
-      <Query query={FRIEND_SEARCH} variables={{ username, search }}>
+      <Query query={FRIEND_SEARCH} pollInterval={500} variables={{ username, search }}>
         {({ loading, error, data, refetch }) => {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;
@@ -56,12 +59,12 @@ export default class Friends extends React.Component {
           if(accounts){
           for(const account of accounts){
             accountList.push(
-              <Card onClick={()=>this.props.show(account.friend)} inverted key={index}>
-                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+              <Card key={index}>
+                <Image className='friendImage' onClick={()=>this.props.show(account.friend)} src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
                   <Card.Content extra>
                     <Card.Description>{account.friend}</Card.Description>
                       <Mutation mutation={SEND_FRIEND_REQUEST} variables={{ requester: username, receiver:account.friend }}
-                        update={(cache, { data }) => {
+                        update={(cache, { refetch }) => {
                           refetch()
                         }
                         }
