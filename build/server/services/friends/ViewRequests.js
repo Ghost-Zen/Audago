@@ -21,7 +21,9 @@ class ViewRequests {
             let res = yield Friends_1.default.find({ receiver: username, confirmed: false });
             if (res.length > 0) {
                 for (const request of res) {
-                    requesters.push(request.requester);
+                    let image = yield Accounts_1.default.findOne({ username });
+                    let item = { friend: request.requester, image: image.image };
+                    requesters.push(item);
                 }
                 return { response: 'Friends found', data: requesters, status: true };
             }
@@ -61,7 +63,7 @@ class ViewRequests {
             for (const friend of friendList) {
                 let result = yield Accounts_1.default.findOne({ username: friend, active: true });
                 if (result) {
-                    activeFriends.push(friend);
+                    activeFriends.push({ friend, image: result.image });
                 }
             }
             return { response: 'Friends found', data: activeFriends, status: true };

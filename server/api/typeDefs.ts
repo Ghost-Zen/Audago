@@ -99,6 +99,7 @@ type Query {
   search:[String]
   viewFriendRequests(username: String):Response
   viewFriendsList(username:String):Response
+  accountSearch(username:String, search:String):Response
 }
 
 type Mutation {

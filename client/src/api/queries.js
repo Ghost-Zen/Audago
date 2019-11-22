@@ -251,3 +251,16 @@ export const DELETE_FRIEND = gql`
     }
   }
 `;
+
+export const FRIEND_SEARCH = gql`
+  query($username:String, $search:String){
+    accountSearch(username:$username, search:$search){
+      response,
+      data{
+        friend,
+        image
+      },
+      status
+    }
+  }
+`;

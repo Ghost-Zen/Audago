@@ -25,9 +25,11 @@ class FriendSearch {
                 for (const account of res) {
                     let found = false;
                     if (username !== account.username) {
-                        for (const user of activeFriends.data) {
-                            if (user.friend === account.username) {
-                                found = true;
+                        if (activeFriends.data) {
+                            for (const user of activeFriends.data) {
+                                if (user.friend === account.username) {
+                                    found = true;
+                                }
                             }
                         }
                         if (!found) {

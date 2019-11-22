@@ -12,6 +12,7 @@ import SendFriendRequest from '../services/friends/SendFriendRequest';
 import RequestResponse from '../services/friends/RequestResponse';
 import ViewRequests from '../services/friends/ViewRequests';
 import DeleteFriends from '../services/friends/DeleteFriends';
+import FriendSearch from '../services/friends/FriendSearch';
 const dataRetrieval = new UserData;
 const sendFriendRequest = new SendFriendRequest;
 const requestResponse = new RequestResponse;
@@ -26,6 +27,7 @@ const removeTrack = new RemoveTrack;
 const playlistsForUser = new PlaylistsForUser;
 const followPlaylist = new FollowPlaylist;
 const allPlaylists = new AllPlaylists;
+const friendSearch = new FriendSearch;
 
 export default {
     hello: () => 'Hello World',
@@ -100,6 +102,10 @@ export default {
         return await viewFriendData.ViewFriends(input.username);
     },
     deleteFriend: async (input) => {
-        return deleteFriends.delete(input.username, input.friend);
+        return await deleteFriends.delete(input.username, input.friend);
+    },
+    accountSearch: async (input) =>{
+      return await friendSearch.search(input.username, input.search);
     }
+
 }

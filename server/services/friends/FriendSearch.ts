@@ -1,20 +1,23 @@
 import Accounts from '../models/Accounts';
 import ViewRequests from './ViewRequests';
 const viewRequests = new ViewRequests;
+
 export default class FriendSearch {
     async search(username: string, search: string) {
         let activeFriends = await viewRequests.ViewFriends(username);
         let searchResult = [];
-        if (search.trim() === '') {
+         if (search.trim() === '') {
             let res = await Accounts.find({ active: true });
             for (const account of res) {
                 let found = false;
                 if (username !== account.username) {
+                  if(activeFriends.data){
                     for (const user of activeFriends.data) {
                         if (user.friend === account.username) {
                             found = true;
                         }
                     }
+                  }
                     if (!found) {
                         let item = { friend: account.username, image: account.image };
                         searchResult.push(item);

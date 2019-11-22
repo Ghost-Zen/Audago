@@ -3,6 +3,7 @@ import { Card, Menu, Label, Header, Grid, Container } from 'semantic-ui-react';
 import {  } from '../api/queries';
 import '../styling/App.css';
 import { Query, Mutation } from 'react-apollo';
+import FriendSearch from './friendSearch';
 
 export default class Friends extends React.Component {
   state = {
@@ -16,7 +17,7 @@ export default class Friends extends React.Component {
   renderItem = () => {
       if (this.state.activeItem === 'search') {
           return (
-            <Header as='h3' inverted>Search</Header>
+            <FriendSearch show={this.props.show}/>
           )
       } else if (this.state.activeItem === 'friends') {
           return (
@@ -32,8 +33,8 @@ export default class Friends extends React.Component {
 render(){
   return(
     <Grid.Row>
-    <Grid.Column width='4'>
-      <Menu pointing secondary vertical inverted>
+    <Grid.Column width={16}>
+      <Menu pointing inverted>
         <Menu.Item
           name='search'
           active={this.state.activeItem === 'search'}
@@ -55,12 +56,10 @@ render(){
           active={this.state.activeItem === 'requests'}
           onClick={this.handleItemClick}
         >
+        Requests
           <Label color='teal'>0</Label>
-          Requests
         </Menu.Item>
       </Menu>
-      </Grid.Column>
-      <Grid.Column width='12'>
       {this.renderItem()}
       </Grid.Column>
       </Grid.Row>

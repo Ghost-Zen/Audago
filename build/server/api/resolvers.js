@@ -26,6 +26,7 @@ const SendFriendRequest_1 = __importDefault(require("../services/friends/SendFri
 const RequestResponse_1 = __importDefault(require("../services/friends/RequestResponse"));
 const ViewRequests_1 = __importDefault(require("../services/friends/ViewRequests"));
 const DeleteFriends_1 = __importDefault(require("../services/friends/DeleteFriends"));
+const FriendSearch_1 = __importDefault(require("../services/friends/FriendSearch"));
 const dataRetrieval = new UserData_1.default;
 const sendFriendRequest = new SendFriendRequest_1.default;
 const requestResponse = new RequestResponse_1.default;
@@ -40,6 +41,7 @@ const removeTrack = new RemoveTrack_1.default;
 const playlistsForUser = new PlaylistsForUser_1.default;
 const followPlaylist = new FollowPlaylist_1.default;
 const allPlaylists = new AllPlaylists_1.default;
+const friendSearch = new FriendSearch_1.default;
 exports.default = {
     hello: () => 'Hello World',
     test: (input) => {
@@ -113,7 +115,10 @@ exports.default = {
         return yield viewFriendData.ViewFriends(input.username);
     }),
     deleteFriend: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return deleteFriends.delete(input.username, input.friend);
+        return yield deleteFriends.delete(input.username, input.friend);
+    }),
+    accountSearch: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield friendSearch.search(input.username, input.search);
     })
 };
 //# sourceMappingURL=resolvers.js.map
