@@ -35,6 +35,7 @@ describe('Testing the ViewRequest functionality', () => {
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
         yield Friends_1.default.deleteMany({});
         yield Accounts_1.default.deleteMany({});
+        yield accountsPremade_1.default();
     }));
     after(() => {
         mongoose_1.default.connection.close();
@@ -47,11 +48,11 @@ describe('Testing the ViewRequest functionality', () => {
         yield friendRequest.FriendRequest('Sharkykzn', 'johnhope123');
         yield friendRequest.FriendRequest('johnhope123', 'ChrisCross');
         let response = yield viewRequests.ViewRequests('johnhope123');
-        assert_1.default.deepEqual(response, {
-            response: 'Friends found',
-            data: ['dyllanhope123', 'Mikey', 'Sharkykzn'],
-            status: true
-        });
+        assert_1.default.deepEqual(response, { response: 'Friends found',
+            data: [{ friend: 'dyllanhope123', image: '' },
+                { friend: 'Mikey', image: '' },
+                { friend: 'Sharkykzn', image: '' }],
+            status: true });
     }));
     it('Should return that Mikey has no requests', () => __awaiter(void 0, void 0, void 0, function* () {
         let friendRequest = new SendFriendRequest_1.default;
@@ -67,7 +68,6 @@ describe('Testing the ViewRequest functionality', () => {
         let friendRequest = new SendFriendRequest_1.default;
         let acceptRequest = new RequestResponse_1.default;
         let viewRequests = new ViewRequests_1.default;
-        yield accountsPremade_1.default();
         yield friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
         yield acceptRequest.AcceptRequest('johnhope123', 'dyllanhope123');
         yield friendRequest.FriendRequest('Mikey', 'johnhope123');
@@ -79,11 +79,10 @@ describe('Testing the ViewRequest functionality', () => {
         yield Accounts_1.default.updateOne({ username: 'Mikey' }, { active: false });
         yield Accounts_1.default.updateOne({ username: 'ChrisCross' }, { active: false });
         let response = yield viewRequests.ViewFriends('johnhope123');
-        assert_1.default.deepEqual(response, {
-            response: 'Friends found',
-            data: ['dyllanhope123', 'Sharkykzn'],
-            status: true
-        });
+        assert_1.default.deepEqual(response, { response: 'Friends found',
+            data: [{ friend: 'dyllanhope123', image: '' },
+                { friend: 'Sharkykzn', image: '' }],
+            status: true });
     }));
 });
 //# sourceMappingURL=ViewRequests.test.js.map

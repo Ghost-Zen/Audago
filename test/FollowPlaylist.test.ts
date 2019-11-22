@@ -6,7 +6,6 @@ import FollowPlaylist from '../server/services/playlists/FollowPlaylist';
 import { CreatePlaylist } from '../server/services/playlists/CreatePlaylist';
 import accountsPremade from './accountsPremade';
 
-
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
 
 describe('Testing the following and unfollowing of playlists functionality', () => {

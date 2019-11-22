@@ -18,11 +18,10 @@ const Accounts_1 = __importDefault(require("../server/services/models/Accounts")
 const Friends_1 = __importDefault(require("../server/services/models/Friends"));
 const SendFriendRequest_1 = __importDefault(require("../server/services/friends/SendFriendRequest"));
 const RequestResponse_1 = __importDefault(require("../server/services/friends/RequestResponse"));
-const ViewRequests_1 = __importDefault(require("../server/services/friends/ViewRequests"));
 const accountsPremade_1 = __importDefault(require("./accountsPremade"));
-const DeleteFriends_1 = __importDefault(require("../server/services/friends/DeleteFriends"));
+const FriendSearch_1 = __importDefault(require("../server/services/friends/FriendSearch"));
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
-describe('Testing the DeletingFriends functionality', () => {
+describe('Testing the FriendSearch functionality', () => {
     before(function (done) {
         mongoose_1.default.Promise = global.Promise;
         mongoose_1.default.set('useCreateIndex', true);
@@ -41,32 +40,36 @@ describe('Testing the DeletingFriends functionality', () => {
     after(() => {
         mongoose_1.default.connection.close();
     });
-    it('Should return that the friendship between john and dyllan was deleted', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should return all the available friends that havent been added', () => __awaiter(void 0, void 0, void 0, function* () {
         let friendRequest = new SendFriendRequest_1.default;
         let acceptRequest = new RequestResponse_1.default;
-        let viewRequests = new ViewRequests_1.default;
-        let deleteFriends = new DeleteFriends_1.default;
+        let search = new FriendSearch_1.default;
         yield friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
         yield acceptRequest.AcceptRequest('johnhope123', 'dyllanhope123');
-        yield friendRequest.FriendRequest('Mikey', 'johnhope123');
-        yield acceptRequest.AcceptRequest('johnhope123', 'Mikey');
-        yield friendRequest.FriendRequest('Sharkykzn', 'johnhope123');
-        yield acceptRequest.AcceptRequest('johnhope123', 'Sharkykzn');
-        yield friendRequest.FriendRequest('johnhope123', 'ChrisCross');
-        yield acceptRequest.AcceptRequest('ChrisCross', 'johnhope123');
         yield Accounts_1.default.updateOne({ username: 'Mikey' }, { active: false });
-        yield viewRequests.ViewFriends('johnhope123');
-        yield deleteFriends.delete('johnhope123', 'dyllanhope123');
-        let response = yield viewRequests.ViewFriends('johnhope123');
-        assert_1.default.deepEqual(response, { response: 'Friends found',
-            data: [{ friend: 'ChrisCross', image: '' },
-                { friend: 'Sharkykzn', image: '' }],
-            status: true });
+        yield Accounts_1.default.updateOne({ username: 'ChrisCross' }, { active: false });
+        let response = yield search.search('johnhope123', '');
+        assert_1.default.deepEqual(response, {
+            response: 'Users found',
+            data: [{ friend: 'Sharkykzn', image: '' },
+                { friend: 'danielminter123', image: '' }],
+            status: true
+        });
     }));
-    it('Should return that there is no friendship between john and dyllan', () => __awaiter(void 0, void 0, void 0, function* () {
-        let deleteFriends = new DeleteFriends_1.default;
-        let response = yield deleteFriends.delete('johnhope123', 'dyllanhope123');
-        assert_1.default.deepEqual(response, { response: 'There is no friendship between johnhope123 and dyllanhope123', status: false });
+    it('Should return danielminter123', () => __awaiter(void 0, void 0, void 0, function* () {
+        let friendRequest = new SendFriendRequest_1.default;
+        let acceptRequest = new RequestResponse_1.default;
+        let search = new FriendSearch_1.default;
+        yield friendRequest.FriendRequest('dyllanhope123', 'johnhope123');
+        yield acceptRequest.AcceptRequest('johnhope123', 'dyllanhope123');
+        yield Accounts_1.default.updateOne({ username: 'Mikey' }, { active: false });
+        yield Accounts_1.default.updateOne({ username: 'ChrisCross' }, { active: false });
+        let response = yield search.search('johnhope123', 'danielminter123');
+        assert_1.default.deepEqual(response, {
+            response: 'Users found',
+            data: [{ friend: 'danielminter123', image: '' }],
+            status: true
+        });
     }));
 });
-//# sourceMappingURL=DeleteFriend.test.js.map
+//# sourceMappingURL=FriendSearch.test.js.map
