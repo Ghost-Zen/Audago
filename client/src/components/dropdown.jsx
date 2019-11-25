@@ -1,24 +1,34 @@
-  import React from 'react';
+import React from 'react';
 import { Dropdown, Image } from 'semantic-ui-react';
 import Auth from '../utils/Auth';
-const trigger = (
-  <span>
-    <Image avatar src={'https://randomuser.me/api/portraits/lego/1.jpg'} /> {Auth.getUserName()}
-  </span>
-)
 
-const options = [
-  { key: 'profile', text: 'Profile', icon: 'user', href:'/#profile' },
-  { key: 'sign-out', text: 'Sign Out', icon: 'sign out', onClick: () => Auth.signOutUser() }
-]
+export default class NavBarDropDown extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
 
-const NavBarDropDown = () => (
-  <Dropdown
-    trigger={trigger}
-    options={options}
-    pointing='top right'
-    icon={null}
-  />
-)
+  render() {
+  let options = [
+    { key: 'profile', text: 'Profile', icon: 'user', href: '/#profile' },
+    { key: 'sign-out', text: 'Sign Out', icon: 'sign out', onClick: () => this.props.test() }
+  ]
 
-export default NavBarDropDown
+  let trigger = (
+    <span>
+      <Image avatar src={'https://randomuser.me/api/portraits/lego/1.jpg'} /> {Auth.getUserName()}
+    </span>
+  )
+
+    return (
+      <Dropdown
+        trigger={trigger}
+        options={options}
+        pointing='top right'
+        icon={null}
+      />
+    )
+  }
+}
+
+

@@ -6,28 +6,29 @@ import { USER_DATA } from '../api/queries';
 import { Query } from 'react-apollo';
 import Auth from '../utils/Auth';
 import Friends from '../components/friends';
+import moment from 'moment';
 
 
 export default class ProfileDisplay extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeItem: 'Playlists',
-      loggedInUser: Auth.getUserName(),
-      username: this.props.username
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeItem: 'Playlists',
+            loggedInUser: Auth.getUserName(),
+            username: this.props.username
+        }
     }
-  }
-    changeProfileDisplay = (username) =>{
-      this.setState({
-        username,
-        activeItem: 'Playlists'
-      });
+    changeProfileDisplay = (username) => {
+        this.setState({
+            username,
+            activeItem: 'Playlists'
+        });
     }
 
     renderBack = () => {
-      this.setState({
-        username : Auth.getUserName()
-      });
+        this.setState({
+            username: Auth.getUserName()
+        });
     }
 
     handleItemClick = (e, { name }) => {
@@ -38,88 +39,101 @@ export default class ProfileDisplay extends React.Component {
         this.setState({ activeItem: chosen_tab })
     }
 
-    renderBackButton =()=>{
-      if (this.state.loggedInUser !== this.state.username){
-          return <Button onClick={this.renderBack} floated='left' size='small' icon='angle left' />
-      }
+    renderBackButton = () => {
+        if (this.state.loggedInUser !== this.state.username) {
+            return <Button onClick={this.renderBack} floated='left' size='small' icon='angle left' />
+        }
     }
 
     renderBannerInfo = () => {
-      let {username} = this.state;
-      return(
-        <Query query={USER_DATA} variables={{ username }}>
-            {({ loading, error, data }) => {
-                if (loading) return 'Loading...';
-                if (error) return `Error! ${error.message}`;
-                if(this.state.loggedInUser === username){
-                return (
-                    <Header as='h1' style={{ marginTop: 0.8 + 'em' }} inverted floated='left'>
-                        Hello,  {username} <br />
-                        <Label as='a' color='purple' image>
-                            Joined
+        let { username } = this.state;
+        return (
+            <Query query={USER_DATA} variables={{ username }}>
+                {({ loading, error, data }) => {
+                    if (loading) return 'Loading...';
+                    if (error) return `Error! ${error.message}`;
+                    if (this.state.loggedInUser === username) {
+                        return (
+                            <Header as='h1' style={{ marginTop: 0.8 + 'em' }} inverted floated='left'>
+                                Hello,  {username} <br />
+                                <Label as='a' color='purple' image>
+                                    Joined
                     <Label.Detail>{data.userData.user.timeStamp.created}</Label.Detail>
-                        </Label>
-                    </Header>
-                )
-              } else {
-              return (
-                  <Header as='h1' style={{ marginTop: 0.8 + 'em' }} inverted floated='left'>
-                      {username} <br />
-                      <Label as='a' color='purple' image>
-                          Joined
-                  <Label.Detail>{data.userData.user.timeStamp.created}</Label.Detail>
-                      </Label>
-                  </Header>
-              )
-              }
-            }}
-        </Query>
-      )
+                                </Label>
+                            </Header>
+                        )
+                    } else {
+                        let lastOnline = data.userData.user.timeStamp.lastSeen;
+                        return (
+                            <Header as='h1' style={{ marginTop: 0.8 + 'em' }} inverted floated='left'>
+                                {username} <br />
+                                <Label as='a' color='purple' image>
+                                    Joined
+                                    <Label.Detail>{data.userData.user.timeStamp.created}</Label.Detail>
+                                </Label>
+                                <Header.Subheader>
+                                    {this.renderLastOnline(lastOnline)}
+                                </Header.Subheader>
+                            </Header>
+                        )
+                    }
+                }}
+            </Query>
+        )
+    }
+
+    renderLastOnline = (lastSeen) => {
+        if (lastSeen === 'online') {
+            return 'Online'
+        } else {
+            let lastOnline = moment(lastSeen).fromNow()
+            return `Last online ${lastOnline}`;
+        }
     }
 
     renderItem = () => {
         if (this.state.activeItem === 'Playlists') {
             return (
-                <PlaylistDisplay username={this.state.username}/>
+                <PlaylistDisplay username={this.state.username} />
             )
         } else if (this.state.activeItem === 'Settings') {
             return (
-                <Settings username={this.state.username}/>
+                <Settings username={this.state.username} />
             )
-        } else if(this.state.activeItem === 'Friends'){
-          return (
-            <Friends show={this.changeProfileDisplay} username={this.state.username}/>
-          )
+        } else if (this.state.activeItem === 'Friends') {
+            return (
+                <Friends show={this.changeProfileDisplay} username={this.state.username} />
+            )
         }
     };
 
-    renderSettings =()=>{
-      if(this.state.loggedInUser === this.state.username){
-      return (
-      <Menu.Item
-          name='Settings'
-          active={this.state.activeItem === 'Settings'}
-          onClick={this.handleItemClick}
-      >
-      </Menu.Item>
-      )
-    }
+    renderSettings = () => {
+        if (this.state.loggedInUser === this.state.username) {
+            return (
+                <Menu.Item
+                    name='Settings'
+                    active={this.state.activeItem === 'Settings'}
+                    onClick={this.handleItemClick}
+                >
+                </Menu.Item>
+            )
+        }
     }
 
 
-        renderFriends =()=>{
-          if(this.state.loggedInUser === this.state.username){
-          return (
-          <Menu.Item
-              name='Friends'
-              active={this.state.activeItem === 'Friends'}
-              onClick={this.handleItemClick}
-          >
-          Friends
+    renderFriends = () => {
+        if (this.state.loggedInUser === this.state.username) {
+            return (
+                <Menu.Item
+                    name='Friends'
+                    active={this.state.activeItem === 'Friends'}
+                    onClick={this.handleItemClick}
+                >
+                    Friends
           </Menu.Item>
-          )
+            )
         }
-        }
+    }
 
     render() {
         return (

@@ -2,6 +2,7 @@ import CreateAccount from '../services/accounts/CreateAccount';
 import DeleteAccount from '../services/accounts/DeletingAccount';
 import UpdateAccount from '../services/accounts/UpdateAccount';
 import UserData from '../services/accounts/UserData';
+import SignOut from '../services/accounts/SignOut';
 import SearchSong from '../services/songsearch';
 import PlaylistsForUser from '../services/playlists/PlaylistsForUser';
 import FollowPlaylist from '../services/playlists/FollowPlaylist';
@@ -28,6 +29,7 @@ const playlistsForUser = new PlaylistsForUser;
 const followPlaylist = new FollowPlaylist;
 const allPlaylists = new AllPlaylists;
 const friendSearch = new FriendSearch;
+const logOut = new SignOut;
 
 export default {
     hello: () => 'Hello World',
@@ -104,8 +106,11 @@ export default {
     deleteFriend: async (input) => {
         return await deleteFriends.delete(input.username, input.friend);
     },
-    accountSearch: async (input) =>{
-      return await friendSearch.search(input.username, input.search);
+    accountSearch: async (input) => {
+        return await friendSearch.search(input.username, input.search);
+    },
+    signOut: async (input) => {
+        return await logOut.signOut(input.username, input.date);
     }
 
 }

@@ -19,7 +19,7 @@ renderFriends= () =>(
     {({ loading, error, data, refetch }) => {
       if (loading) return 'Loading...';
       if (error) return `Error! ${error.message}`;
-      let friends = data.viewFriendsList.data
+      let friends = data.viewFriendsList.data;
       let friendsList = [];
       if(friends){
         let index =0;

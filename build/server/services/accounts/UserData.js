@@ -59,25 +59,28 @@ class UserData {
     loginData(username, password) {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
+            let timestamp;
             let data = { username: '', password: '', email: '' };
             if (username.trim()) {
-                yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1, 'status': 1 }) // searching for user's data only want the username, password and email
+                yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1, 'status': 1, 'timestamp': 1 }) // searching for user's data only want the username, password and email
                     .then((res) => __awaiter(this, void 0, void 0, function* () {
                     if (res) { //if a document is found with the user name, load data for check
                         data.username = res.username;
                         data.password = res.password;
                         data.email = res.email;
                         data.status = res.status;
+                        timestamp = res.timestamp;
                         found = true;
                     }
                     else { //if no document is found for username, check if an email was entered
-                        yield Accounts_1.default.findOne({ email: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1, 'status': 1 })
+                        yield Accounts_1.default.findOne({ email: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1, 'status': 1, 'timestamp': 1 })
                             .then(res => {
                             if (res) { //if a document is found for email, load data for check
                                 data.username = res.username;
                                 data.password = res.password;
                                 data.email = res.email;
                                 data.status = res.status;
+                                timestamp = res.timestamp;
                                 found = true;
                             }
                         });
@@ -91,6 +94,8 @@ class UserData {
                         let token = jsonwebtoken_1.default.sign({ data }, process.env.JWT_SECRET, {
                             expiresIn: 86400 // expires in 24 hours
                         });
+                        timestamp.lastSeen = 'online';
+                        yield Accounts_1.default.updateOne({ username: data.username }, { timestamp });
                         return { response: token, username: data.username, status: true };
                         // }else{
                         //   let emailUserAgain = email_service.verifyEmail(data.email,data.status) //email user everytime he forgets to verify and tries to login.

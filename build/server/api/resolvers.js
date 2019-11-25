@@ -16,6 +16,7 @@ const CreateAccount_1 = __importDefault(require("../services/accounts/CreateAcco
 const DeletingAccount_1 = __importDefault(require("../services/accounts/DeletingAccount"));
 const UpdateAccount_1 = __importDefault(require("../services/accounts/UpdateAccount"));
 const UserData_1 = __importDefault(require("../services/accounts/UserData"));
+const SignOut_1 = __importDefault(require("../services/accounts/SignOut"));
 const songsearch_1 = __importDefault(require("../services/songsearch"));
 const PlaylistsForUser_1 = __importDefault(require("../services/playlists/PlaylistsForUser"));
 const FollowPlaylist_1 = __importDefault(require("../services/playlists/FollowPlaylist"));
@@ -42,6 +43,7 @@ const playlistsForUser = new PlaylistsForUser_1.default;
 const followPlaylist = new FollowPlaylist_1.default;
 const allPlaylists = new AllPlaylists_1.default;
 const friendSearch = new FriendSearch_1.default;
+const logOut = new SignOut_1.default;
 exports.default = {
     hello: () => 'Hello World',
     test: (input) => {
@@ -119,6 +121,9 @@ exports.default = {
     }),
     accountSearch: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield friendSearch.search(input.username, input.search);
+    }),
+    signOut: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield logOut.signOut(input.username, input.date);
     })
 };
 //# sourceMappingURL=resolvers.js.map

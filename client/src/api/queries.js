@@ -264,3 +264,11 @@ export const FRIEND_SEARCH = gql`
     }
   }
 `;
+
+export const SIGNOUT = gql`
+  query($username:String, $date:String){
+    signOut(username:$username, date:$date){
+      response
+    }
+  }
+`;
