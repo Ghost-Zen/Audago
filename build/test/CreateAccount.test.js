@@ -51,10 +51,8 @@ describe('Testing the create account functionality', () => {
             status: ''
         };
         yield createAccount.create(user);
-        Accounts_1.default.find({}, { '_id': 0, 'username': 1 })
-            .then((accounts) => {
-            assert_1.default.strict.equal(accounts[0].username, 'dyllanhope123');
-        });
+        let res = yield Accounts_1.default.findOne({ username: 'dyllanhope123' });
+        assert_1.default.equal(res.username, 'dyllanhope123');
     }));
     it('Should return that "Dyllan & Daniel" were added as new accounts', () => __awaiter(void 0, void 0, void 0, function* () {
         const createAccount = new CreateAccount_1.default;

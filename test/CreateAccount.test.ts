@@ -40,10 +40,8 @@ describe('Testing the create account functionality', () => {
         }
         await createAccount.create(user);
 
-        Account.find({}, { '_id': 0, 'username': 1 })
-            .then((accounts) => {
-                assert.strict.equal(accounts[0].username, 'dyllanhope123');
-            });
+        let res = await Account.findOne({username:'dyllanhope123'});
+        assert.equal(res.username, 'dyllanhope123');
     });
     it('Should return that "Dyllan & Daniel" were added as new accounts', async () => {
         const createAccount = new CreateAccount;
