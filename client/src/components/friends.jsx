@@ -12,7 +12,7 @@ export default class Friends extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: 'search'
+      activeItem: 'friends'
     }
   }
 
@@ -65,6 +65,15 @@ render(){
     <Grid.Row>
     <Grid.Column width={16}>
       <Menu pointing inverted>
+        
+        <Menu.Item
+          name='friends'
+          active={this.state.activeItem === 'friends'}
+          onClick={this.handleItemClick}
+        >
+          Friend List
+        </Menu.Item>
+
         <Menu.Item
           name='search'
           active={this.state.activeItem === 'search'}
@@ -73,13 +82,6 @@ render(){
           Search
         </Menu.Item>
 
-        <Menu.Item
-          name='friends'
-          active={this.state.activeItem === 'friends'}
-          onClick={this.handleItemClick}
-        >
-          Friend List
-        </Menu.Item>
         {this.renderRequests()}
 
       </Menu>

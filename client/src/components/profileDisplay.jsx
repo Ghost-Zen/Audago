@@ -27,7 +27,8 @@ export default class ProfileDisplay extends React.Component {
 
     renderBack = () => {
         this.setState({
-            username: Auth.getUserName()
+            username: Auth.getUserName(),
+            activeItem:'Friends'
         });
     }
 
