@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon, Button, Message, Card, Grid, Container, Modal, Input, Header, Confirm } from 'semantic-ui-react';
+import Playlists from '../components/profilePlaylistCards';
 import { USERS_PLAYLIST, NEW_PLAYLIST, UNFOLLOW_PLAYLIST } from '../api/queries';
 import { Query, Mutation } from 'react-apollo';
 import SongList from './songlist';
@@ -16,7 +17,8 @@ export default class PlaylistDisplay extends React.Component {
         modalError: false,
         response: '',
         playlistName: '',
-        open: false
+        open: false,
+        active: false
     }
 
     open = () => this.setState({ open: true })
@@ -77,77 +79,77 @@ export default class PlaylistDisplay extends React.Component {
     }
 
     renderNewPlaylistModal = (cards) => {
-      if(this.state.username === Auth.getUserName()){
-      return(
-      <Modal
-        trigger={
-            <Card onClick={this.handleOpen} color='teal' key='create'>
-                <Card.Content>
-                    <Button style={{ width: 50, height: 50 }} circular icon='add' />
-                </Card.Content>
-            </Card>}
-        open={this.state.modalOpen}
-        basic
-        onClose={this.handleClose}
-        size='mini'
-    >
-        <Header icon='music' content='Give your playlist a name' />
-        <Modal.Content>
-            <Input transparent inverted placeholder='Playlist name..' name='playlistName' type='text' onChange={this.handleChange}></Input>
-        </Modal.Content>
-        {this.handleModalError()}
-        <Modal.Actions>
-            <Button color='red' onClick={this.handleClose} inverted>
-                <Icon name='cancel' /> Cancel
+        if (this.state.username === Auth.getUserName()) {
+            return (
+                <Modal
+                    trigger={
+                        <Card onClick={this.handleOpen} color='teal' key='create'>
+                            <Card.Content>
+                                <Button style={{ width: 50, height: 50 }} circular icon='add' />
+                            </Card.Content>
+                        </Card>}
+                    open={this.state.modalOpen}
+                    basic
+                    onClose={this.handleClose}
+                    size='mini'
+                >
+                    <Header icon='music' content='Give your playlist a name' />
+                    <Modal.Content>
+                        <Input transparent inverted placeholder='Playlist name..' name='playlistName' type='text' onChange={this.handleChange}></Input>
+                    </Modal.Content>
+                    {this.handleModalError()}
+                    <Modal.Actions>
+                        <Button color='red' onClick={this.handleClose} inverted>
+                            <Icon name='cancel' /> Cancel
             </Button>
-            <Mutation mutation={NEW_PLAYLIST} variables={{ name: this.state.playlistName, creator: this.state.username }}
-                update={(cache, { data }) => {
-                    let res = data;
-                    this.handleCheck(res);
-                }
-                }
-            >
-                {newPlaylist => (
-                    <Button color='green' onClick={newPlaylist} inverted>
-                        <Icon name='check' /> Create
+                        <Mutation mutation={NEW_PLAYLIST} variables={{ name: this.state.playlistName, creator: this.state.username }}
+                            update={(cache, { data }) => {
+                                let res = data;
+                                this.handleCheck(res);
+                            }
+                            }
+                        >
+                            {newPlaylist => (
+                                <Button color='green' onClick={newPlaylist} inverted>
+                                    <Icon name='check' /> Create
                     </Button>
-                )}
-            </Mutation>
-        </Modal.Actions>
-    </Modal>
-  )
-} else if(cards.length === 0){
-  return (
-    <Header as='h3' inverted style={{marginTop:10}}>No playlists yet</Header>
-  )
-}
+                            )}
+                        </Mutation>
+                    </Modal.Actions>
+                </Modal>
+            )
+        } else if (cards.length === 0) {
+            return (
+                <Header as='h3' inverted style={{ marginTop: 10 }}>No playlists yet</Header>
+            )
+        }
     }
 
     renderUnfollow = () => {
-      if(this.state.username === Auth.getUserName()){
-      return(
-          <Mutation mutation={UNFOLLOW_PLAYLIST} variables={{ username: this.state.username, playlistName: this.state.playlistChoice }}
-              update={(cache, { data }) => {
-                  this.reset()
-              }
-              }
-          >
-              {unfollow => (
-                  <div>
-                      <Button onClick={this.open} floated='right' basic inverted color='teal'>
-                          Unfollow
+        if (this.state.username === Auth.getUserName()) {
+            return (
+                <Mutation mutation={UNFOLLOW_PLAYLIST} variables={{ username: this.state.username, playlistName: this.state.playlistChoice }}
+                    update={(cache, { data }) => {
+                        this.reset()
+                    }
+                    }
+                >
+                    {unfollow => (
+                        <div>
+                            <Button onClick={this.open} floated='right' basic inverted color='teal'>
+                                Unfollow
                       </Button>
-                      <Confirm
-                          size='mini'
-                          open={this.state.open}
-                          onCancel={this.close}
-                          onConfirm={unfollow}
-                      />
-                  </div>
-              )}
-          </Mutation>
-      )
-    }
+                            <Confirm
+                                size='mini'
+                                open={this.state.open}
+                                onCancel={this.close}
+                                onConfirm={unfollow}
+                            />
+                        </div>
+                    )}
+                </Mutation>
+            )
+        }
     }
 
     render() {
@@ -163,7 +165,7 @@ export default class PlaylistDisplay extends React.Component {
                         return (
                             <Grid.Row>
                                 <Grid.Column>
-                                {this.renderUnfollow()}
+                                    {this.renderUnfollow()}
                                     <SongList
                                         data={data.playlistsForUser.playlists}
                                         choice={this.state.playlistChoice}
@@ -177,17 +179,12 @@ export default class PlaylistDisplay extends React.Component {
                     } else {
                         if (data.playlistsForUser.playlists) {
                             for (const playlist of data.playlistsForUser.playlists) {
-                                let followerString = 'followers: ' + playlist.followers;
-                                let songString = 'songs: ' + playlist.song_count;
                                 playlistCards.push(
-                                    <Card
-                                        color='teal'
-                                        header={playlist.name}
-                                        meta={followerString}
-                                        description={songString}
-                                        key={index}
-                                        onClick={() => { this.displaySongs(playlist.name) }}
-                                    />
+                                    <div key={index} onClick={() => { this.displaySongs(playlist.name) }} className='cardDiv playlistSelect'>
+                                        <Playlists 
+                                            playlist={playlist}
+                                        />
+                                    </div>
                                 )
                                 index++;
                             }
@@ -195,7 +192,7 @@ export default class PlaylistDisplay extends React.Component {
                         response = (
                             <Container>
                                 <Grid.Row width={16}>
-                                    <Card.Group itemsPerRow={3}>
+                                    <Card.Group itemsPerRow={6}>
                                         {playlistCards}
                                         {this.renderNewPlaylistModal(playlistCards)}
                                     </Card.Group>
