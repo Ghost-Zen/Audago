@@ -66,7 +66,12 @@ class ViewRequests {
                     activeFriends.push({ friend, image: result.image });
                 }
             }
-            return { response: 'Friends found', data: activeFriends, status: true };
+            if (activeFriends.length === 0) {
+                return { response: 'No friends found', status: false };
+            }
+            else {
+                return { response: 'Friends found', data: activeFriends, status: true };
+            }
         });
     }
 }
