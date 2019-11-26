@@ -60,6 +60,7 @@ class UserData {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
             let timestamp;
+            let hash;
             let data = { username: '' };
             if (username.trim()) {
                 yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1, 'status': 1, 'timestamp': 1 }) // searching for user's data only want the username, password and email
@@ -67,6 +68,7 @@ class UserData {
                     if (res) { //if a document is found with the user name, load data for check
                         data.username = res.username;
                         data.status = res.status;
+                        hash = res.password;
                         timestamp = res.timestamp;
                         found = true;
                     }
@@ -76,15 +78,16 @@ class UserData {
                             if (res) { //if a document is found for email, load data for check
                                 data.username = res.username;
                                 data.status = res.status;
+                                hash = res.password;
                                 timestamp = res.timestamp;
                                 found = true;
                             }
                         });
                     }
                 }));
-                const match = yield bcrypt_1.default.compare(password, data.password);
                 // Returning separate from code as returns don't work in a promise
                 if (found) {
+                    const match = yield bcrypt_1.default.compare(password, hash);
                     if (match) {
                         // if(data.status === 'verified'){
                         let token = jsonwebtoken_1.default.sign({ data }, process.env.JWT_SECRET, {

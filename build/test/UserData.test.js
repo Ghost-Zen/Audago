@@ -45,11 +45,11 @@ describe('Testing the UserData functionality', () => {
         }));
         it("Should return with an error that Vuyo's data could not be found, as the account wasn't made", () => __awaiter(void 0, void 0, void 0, function* () {
             const userData = new UserData_1.default;
-            assert_1.default.strict.deepEqual(yield userData.loginData('vuyo_ma2', 'Fwgr123#'), { response: 'Username vuyo_ma2 not found', status: false });
+            assert_1.default.strict.deepEqual(yield userData.loginData('vuyo_ma2', 'Fwgr123#'), { response: 'Please enter the correct username and password', status: false });
         }));
         it("Should return with an error that the entered password is  incorrect", () => __awaiter(void 0, void 0, void 0, function* () {
             const userData = new UserData_1.default;
-            assert_1.default.strict.deepEqual(yield userData.loginData('Mikey', '1245'), { response: 'Password incorrect', status: false });
+            assert_1.default.strict.deepEqual(yield userData.loginData('Mikey', '1245'), { response: 'Please enter the correct username and password', status: false });
         }));
     });
     describe('User data return testing', () => {

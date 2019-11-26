@@ -43,6 +43,7 @@ export default class UserData {
     async loginData(username: string, password: string) {
         let found: boolean = false;
         let timestamp: any;
+        let hash;
         let data: any = { username: '' };
         if (username.trim()) {
             await Account.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1, 'status': 1, 'timestamp': 1 })   // searching for user's data only want the username, password and email
@@ -50,6 +51,7 @@ export default class UserData {
                     if (res) {      //if a document is found with the user name, load data for check
                         data.username = res.username;
                         data.status = res.status;
+                        hash = res.password;
                         timestamp = res.timestamp;
                         found = true;
                     } else {        //if no document is found for username, check if an email was entered
@@ -58,15 +60,16 @@ export default class UserData {
                                 if (res) {      //if a document is found for email, load data for check
                                     data.username = res.username;
                                     data.status = res.status;
+                                    hash = res.password;
                                     timestamp = res.timestamp;
                                     found = true;
                                 }
                             });
                     }
                 })
-            const match = await bcrypt.compare(password, data.password);
             // Returning separate from code as returns don't work in a promise
             if (found) {
+                const match = await bcrypt.compare(password, hash);
                 if (match) {
                     // if(data.status === 'verified'){
                     let token = jwt.sign({ data }, process.env.JWT_SECRET, {

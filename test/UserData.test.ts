@@ -27,17 +27,17 @@ describe('Testing the UserData functionality', () => {
     describe('Login service testing', () => {
         it("Should return with that Michael has logged in successfully and returns a token with true status", async () => {
             const userData = new UserData;
-            await Account.updateOne({username:'Mikey'},{status:'verified'});
+            await Account.updateOne({ username: 'Mikey' }, { status: 'verified' });
             let response = await userData.loginData('Mikey', 'Fwgr123#')
             assert.strict.deepEqual(response.status, true);
         });
         it("Should return with an error that Vuyo's data could not be found, as the account wasn't made", async () => {
             const userData = new UserData;
-            assert.strict.deepEqual(await userData.loginData('vuyo_ma2', 'Fwgr123#'), { response: 'Username vuyo_ma2 not found', status: false });
+            assert.strict.deepEqual(await userData.loginData('vuyo_ma2', 'Fwgr123#'), { response: 'Please enter the correct username and password', status: false });
         });
         it("Should return with an error that the entered password is  incorrect", async () => {
             const userData = new UserData;
-            assert.strict.deepEqual(await userData.loginData('Mikey', '1245'), { response: 'Password incorrect', status: false });
+            assert.strict.deepEqual(await userData.loginData('Mikey', '1245'), { response: 'Please enter the correct username and password', status: false });
         });
     });
     describe('User data return testing', () => {
@@ -51,7 +51,7 @@ describe('Testing the UserData functionality', () => {
             let response = await userData.userData('vuyo_ma2');
             assert.strict.deepEqual(response, {
                 response: 'Username vuyo_ma2 not found',
-                user: { firstName: '', lastName: '', email: '', image: '',timeStamp: { created: "", lastSeen: "" } },
+                user: { firstName: '', lastName: '', email: '', image: '', timeStamp: { created: "", lastSeen: "" } },
                 status: false
             });
         });
