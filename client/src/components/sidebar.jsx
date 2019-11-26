@@ -73,11 +73,6 @@ export default class Sidebar extends React.Component {
                         <NavText>
                             Settings
             </NavText>
-                        <NavItem >
-                            <NavText>
-                                Profile
-                            </NavText>
-                        </NavItem>
                         <NavItem eventKey="manage_playlist">
                             <NavText>
                                 Manage playlists
