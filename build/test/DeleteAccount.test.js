@@ -50,5 +50,11 @@ describe('Testing the delete account functionality', () => {
         let res = yield Accounts_1.default.findOne({ username: 'dyllanhope123' });
         assert_1.default.strict.deepEqual(res, null);
     }));
+    it('Should return that dyllanhope123 was deactivated', () => __awaiter(void 0, void 0, void 0, function* () {
+        const deleteAccount = new DeletingAccount_1.default;
+        yield deleteAccount.deactivateAccount('dyllanhope123');
+        let res = yield Accounts_1.default.findOne({ username: 'dyllanhope123' });
+        assert_1.default.equal(res.active, false);
+    }));
 });
 //# sourceMappingURL=DeleteAccount.test.js.map

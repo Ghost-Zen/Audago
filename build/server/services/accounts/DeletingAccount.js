@@ -28,6 +28,18 @@ class DeleteAccount {
             return { response: `All users deleted!`, status: true };
         });
     }
+    deactivateAccount(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res = yield Accounts_1.default.findOne({ username });
+            if (res) {
+                yield Accounts_1.default.updateOne({ username }, { active: false });
+                return { response: 'Account deactivated', status: true };
+            }
+            else {
+                return { response: 'Account not found', status: false };
+            }
+        });
+    }
 }
 exports.default = DeleteAccount;
 //# sourceMappingURL=DeletingAccount.js.map

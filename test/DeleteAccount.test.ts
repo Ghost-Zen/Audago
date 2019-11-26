@@ -38,4 +38,10 @@ describe('Testing the delete account functionality', () => {
         let res = await Account.findOne({ username: 'dyllanhope123' });
         assert.strict.deepEqual(res, null);
     });
+    it('Should return that dyllanhope123 was deactivated', async () => {
+        const deleteAccount = new DeleteAccount;
+        await deleteAccount.deactivateAccount('dyllanhope123');
+        let res = await Account.findOne({ username: 'dyllanhope123' });
+        assert.equal(res.active, false);
+    });
 });

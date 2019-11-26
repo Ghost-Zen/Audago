@@ -111,6 +111,9 @@ export default {
     },
     signOut: async (input) => {
         return await logOut.signOut(input.username, input.date);
+    },
+    deactivateAccount: async (input) =>{
+        return await deleteAccount.deactivateAccount(input.username);
     }
 
 }

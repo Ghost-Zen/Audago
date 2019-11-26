@@ -11,5 +11,14 @@ export default class DeleteAccount {
         await Account.deleteMany({});
         return { response: `All users deleted!`, status: true };
     }
+    async deactivateAccount(username: string) {
+        let res = await Account.findOne({ username });
+        if (res) {
+            await Account.updateOne({ username }, { active: false });
+            return { response: 'Account deactivated', status: true };
+        } else {
+            return { response: 'Account not found', status: false };
+        }
+    }
 }
 

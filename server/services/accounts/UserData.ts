@@ -42,15 +42,13 @@ export default class UserData {
 
     async loginData(username: string, password: string) {
         let found: boolean = false;
-        let timestamp:any;
-        let data: any = { username: '', password: '', email: '' };
+        let timestamp: any;
+        let data: any = { username: '' };
         if (username.trim()) {
             await Account.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1, 'status': 1, 'timestamp': 1 })   // searching for user's data only want the username, password and email
                 .then(async (res) => {
                     if (res) {      //if a document is found with the user name, load data for check
                         data.username = res.username;
-                        data.password = res.password;
-                        data.email = res.email;
                         data.status = res.status;
                         timestamp = res.timestamp;
                         found = true;
@@ -59,8 +57,6 @@ export default class UserData {
                             .then(res => {
                                 if (res) {      //if a document is found for email, load data for check
                                     data.username = res.username;
-                                    data.password = res.password;
-                                    data.email = res.email;
                                     data.status = res.status;
                                     timestamp = res.timestamp;
                                     found = true;
@@ -83,12 +79,9 @@ export default class UserData {
                     //   let emailUserAgain = email_service.verifyEmail(data.email,data.status) //email user everytime he forgets to verify and tries to login.
                     //   return { response: `Account not verified, check your emails`, status: false }; //added email verification link just for dev purposes
                     // }
-                } else {
-                    return { response: `Password incorrect`, status: false };
                 }
-            } else {
-                return { response: `Username ${username} not found`, status: false };
             }
+            return { response: 'Please enter the correct username and password', status: false };
         } else {
             return { response: `Please enter a username`, status: false };
         }

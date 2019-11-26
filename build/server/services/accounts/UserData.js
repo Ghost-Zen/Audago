@@ -60,14 +60,12 @@ class UserData {
         return __awaiter(this, void 0, void 0, function* () {
             let found = false;
             let timestamp;
-            let data = { username: '', password: '', email: '' };
+            let data = { username: '' };
             if (username.trim()) {
                 yield Accounts_1.default.findOne({ username: username }, { '_id': 0, 'username': 1, 'password': 1, 'email': 1, 'status': 1, 'timestamp': 1 }) // searching for user's data only want the username, password and email
                     .then((res) => __awaiter(this, void 0, void 0, function* () {
                     if (res) { //if a document is found with the user name, load data for check
                         data.username = res.username;
-                        data.password = res.password;
-                        data.email = res.email;
                         data.status = res.status;
                         timestamp = res.timestamp;
                         found = true;
@@ -77,8 +75,6 @@ class UserData {
                             .then(res => {
                             if (res) { //if a document is found for email, load data for check
                                 data.username = res.username;
-                                data.password = res.password;
-                                data.email = res.email;
                                 data.status = res.status;
                                 timestamp = res.timestamp;
                                 found = true;
@@ -102,13 +98,8 @@ class UserData {
                         //   return { response: `Account not verified, check your emails`, status: false }; //added email verification link just for dev purposes
                         // }
                     }
-                    else {
-                        return { response: `Password incorrect`, status: false };
-                    }
                 }
-                else {
-                    return { response: `Username ${username} not found`, status: false };
-                }
+                return { response: 'Please enter the correct username and password', status: false };
             }
             else {
                 return { response: `Please enter a username`, status: false };

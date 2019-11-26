@@ -119,6 +119,7 @@ type Mutation {
    acceptRequest(username:String, friend:String):Query
    denyRequest(username:String, friend:String):Query
    deleteFriend(username:String, friend:String):Query
+   deactivateAccount(username:String):Query
   }
 `);
 export default schema

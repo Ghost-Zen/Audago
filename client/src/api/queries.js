@@ -272,3 +272,12 @@ export const SIGNOUT = gql`
     }
   }
 `;
+
+export const DEACTIVATE = gql`
+  mutation($username:String){
+    deactivateAccount(username:$username){
+      response,
+      status
+    }
+  }
+`;
