@@ -3,10 +3,9 @@ import { Config } from '../services/accounts/config'
 
 export default class Auth {
 
-    verifyToken = (req, res, next) => {
-        let token = req.body.token
+    check = (req, res, next) => {
         try {
-            if (typeof token !== 'undefined') {
+                let token = req.body.token
                 let { data } = jwt.verify(token, Config.SECRET)
                 res.json({
                     status: "Token Verified",
@@ -14,23 +13,23 @@ export default class Auth {
                     client_id: data.username,
                     token: data.token
                 })
-            } else {
-                res.json({
-                    status: 'Token error',
-                    response: false,
-                    client_id: "Problem with token",
-                    token: "Please login again"
-                })
-            }
         }
-        catch{
-            res.json({
-                status: 'No Token',
-                response: false,
-                client_id: "No Token stored",
-                token: "Please login again"
-        })
+        catch(err){
+            res.send(err)
         }
+    }
+
+    graphqlAuth = (req,res,next) => {
+      try{
+        let header = req.headers.authorization
+        let token = header.split(':')
+        let { data } = jwt.verify(token[1], Config.SECRET)
+        next();
+      }
+      catch(err){
+        next(); //for now till i stop login resolver from being blocked
+        // res.json({response:'No, dont try.'})
+      }
     }
 
 

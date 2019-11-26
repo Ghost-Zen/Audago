@@ -1,33 +1,29 @@
 import React from 'react';
 import '../styling/App.css';
 import { Container, Card, Grid } from 'semantic-ui-react';
-import Cards from '../components/card';
+import Cards from '../components/musicInCard';
 import Player from '../components/player';
 import SidebarA from '../components/sidebar';
 import OnChangeSearch from '../components/onChangeSearch';
-import Playlists from '../components/webplayerPlaylists';
+import Playlists from '../components/playlistInCards';
 import { Redirect } from 'react-router-dom'
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       current_Tab:'',
-      track:''
+      track:[]
     }
   }
 
-  playTrack = (track) => {
-    let song_data = this.props.location.state.data.searchSong
-    // let x = document.querySelector("#player");
-    this.setState({track: song_data[track].song})
-    // x.src = song_data[track].song
-    // x.play();
+  playTrack = (music) => {
+    this.setState({track:music})
   }
 
   renderTab = (tab) => {
     if(tab === undefined) tab = 'home'
     if(tab === 'home') return this.renderData()
-    if(tab === 'playlist') return <Playlists />
+    if(tab === 'playlist') return <Playlists playTrack={this.playTrack}/>
     if(tab === 'manage_playlist') return <Redirect to='/profile'/>
   }
 

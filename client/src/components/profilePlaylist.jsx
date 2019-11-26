@@ -172,7 +172,7 @@ export default class PlaylistDisplay extends React.Component {
                                         reset={this.reset}
                                         username={this.props.username}
                                     />
-                                    <AudioPlayer />
+                                    {/* <AudioPlayer /> for time being */}
                                 </Grid.Column>
                             </Grid.Row>
                         )
