@@ -105,6 +105,19 @@ export default class settings extends Component {
         )
     }
 
+    renderActiveButton = () => {
+        return (
+            <div>
+                <Button inverted color='green'>
+                    Active
+                </Button>
+                <Button inverted color='red'>
+                    Deactivated
+                </Button>
+            </div>
+        )
+    }
+
     handleModalError = () => {
         if (this.state.modalError) {
             return (
@@ -191,6 +204,7 @@ export default class settings extends Component {
                         </Mutation>
                     </Modal.Actions>
                 </Modal>
+                {this.renderActiveButton}
             </div>
         )
     }
