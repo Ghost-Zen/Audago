@@ -114,6 +114,9 @@ export default {
     },
     deactivateAccount: async (input) =>{
         return await deleteAccount.deactivateAccount(input.username);
+    },
+    activateAccount: async (input) => {
+        return await deleteAccount.activateAccount(input.username);
     }
 
 }

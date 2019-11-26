@@ -127,6 +127,9 @@ exports.default = {
     }),
     deactivateAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield deleteAccount.deactivateAccount(input.username);
+    }),
+    activateAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield deleteAccount.activateAccount(input.username);
     })
 };
 //# sourceMappingURL=resolvers.js.map

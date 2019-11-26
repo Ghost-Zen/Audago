@@ -20,5 +20,14 @@ export default class DeleteAccount {
             return { response: 'Account not found', status: false };
         }
     }
+    async activateAccount(username: string) {
+        let res = await Account.findOne({ username });
+        if (res) {
+            await Account.updateOne({ username }, { active: true });
+            return { response: 'Account activated', status: true };
+        } else {
+            return { response: 'Account not found', status: false };
+        }
+    }
 }
 
