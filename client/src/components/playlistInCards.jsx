@@ -17,7 +17,7 @@ export default class PlayListInCards extends React.Component {
     }
 
     playTrack = (songList, item) => {
-      this.props.playTrack(songList)
+        this.props.playTrack(songList)
     }
 
     renderSongs = () => {
@@ -51,7 +51,7 @@ export default class PlayListInCards extends React.Component {
                                     playlist_meta={playlist}
                                     index={z}
                                 /><br />
-                                <strong className='playlistSelect'>{playlist.name}</strong>
+                                <strong className='playlistSelect' onClick={() => this.displaySongs(playlistData, playlist.name)}>{playlist.name}</strong>
                             </div>
                         )
                     }
@@ -60,6 +60,14 @@ export default class PlayListInCards extends React.Component {
             }}
         </Query>
     )
+
+    displaySongs = (data, choice) => {
+        this.setState({ 
+            viewSongs: true,
+            choice,
+            data
+        });
+    }
 
     reset = () => {
         this.setState({
