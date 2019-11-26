@@ -4,11 +4,11 @@ export default class ViewRequests {
 
     async ViewRequests(username: string) {
         let requesters = [];
-        let res = await Friends.find({ receiver: username, confirmed:false });
+        let res = await Friends.find({ receiver: username, confirmed: false });
         if (res.length > 0) {
             for (const request of res) {
-              let image = await Accounts.findOne({username});
-              let item = {friend: request.requester, image:image.image};
+                let image = await Accounts.findOne({ username });
+                let item = { friend: request.requester, image: image.image };
                 requesters.push(item);
             }
             return { response: 'Friends found', data: requesters, status: true }
@@ -44,9 +44,13 @@ export default class ViewRequests {
         for (const friend of friendList) {
             let result = await Accounts.findOne({ username: friend, active: true });
             if (result) {
-                activeFriends.push({friend,image:result.image});
+                activeFriends.push({ friend, image: result.image });
             }
         }
-        return { response: 'Friends found', data: activeFriends, status: true };
+        if (activeFriends.length === 0) {
+            return { response: 'No friends found', status: false };
+        } else {
+            return { response: 'Friends found', data: activeFriends, status: true };
+        }
     }
 }

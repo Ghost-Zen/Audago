@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Header, Grid, Input, Button, Message, Icon, Modal, Divider, Popup, List } from 'semantic-ui-react'
-import { USER_DATA, UPDATE_USER, UPDATE_PASSWORD } from '../api/queries';
+import { USER_DATA, UPDATE_USER, UPDATE_PASSWORD, DEACTIVATE, ACTIVATE } from '../api/queries';
 import { Query, Mutation } from 'react-apollo';
 import Auth from '../utils/Auth';
 
@@ -18,7 +18,8 @@ export default class settings extends Component {
             currentPass: '',
             newPass: '',
             testPass: '',
-            modalError: false
+            modalError: false,
+            test: false
         }
     }
 
@@ -34,12 +35,13 @@ export default class settings extends Component {
                 if (loading) return 'Loading...';
                 if (error) return `Error! ${error.message}`;
                 let info = data.userData.user;
+                let button = this.renderActiveButton(info.active);
                 return (
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
                                 <Header inverted floated='left' as='h4'>
-                                    Username: {this.state.username}
+                                    Username: {this.state.username} {button}
                                 </Header>
                             </Grid.Column>
                         </Grid.Row>
@@ -105,17 +107,43 @@ export default class settings extends Component {
         )
     }
 
-    renderActiveButton = () => {
-        return (
-            <div>
-                <Button inverted color='green'>
-                    Active
-                </Button>
-                <Button inverted color='red'>
-                    Deactivated
-                </Button>
-            </div>
-        )
+    renderActiveButton = (active) => {
+        let { username } = this.state;
+        if (active) {
+            return (
+                <Mutation mutation={DEACTIVATE} variables={{ username }}
+                    update={(cache, { data }) => {
+                        this.setState({
+                            test: active
+                        });
+                    }
+                    }
+                >
+                    {deactivate => (
+                        <Button onClick={deactivate} color='green'>
+                            Active
+                        </Button>
+                    )}
+                </Mutation>
+            )
+        } else {
+            return (
+                <Mutation mutation={ACTIVATE} variables={{ username }}
+                    update={(cache, { data }) => {
+                        this.setState({
+                            test: active
+                        });
+                    }
+                    }
+                >
+                    {activate => (
+                        <Button onClick={activate} color='red'>
+                            Disabled
+                        </Button>
+                    )}
+                </Mutation>
+            )
+        }
     }
 
     handleModalError = () => {

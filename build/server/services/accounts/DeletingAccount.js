@@ -40,6 +40,18 @@ class DeleteAccount {
             }
         });
     }
+    activateAccount(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res = yield Accounts_1.default.findOne({ username });
+            if (res) {
+                yield Accounts_1.default.updateOne({ username }, { active: true });
+                return { response: 'Account activated', status: true };
+            }
+            else {
+                return { response: 'Account not found', status: false };
+            }
+        });
+    }
 }
 exports.default = DeleteAccount;
 //# sourceMappingURL=DeletingAccount.js.map

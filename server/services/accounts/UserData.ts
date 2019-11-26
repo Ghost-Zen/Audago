@@ -21,7 +21,7 @@ export default class UserData {
 
     async userData(username: string) {
         let found: boolean = false;
-        let data = { firstName: '', lastName: '', email: '', image: '', timeStamp: { created: '', lastSeen: '' } };
+        let data = { firstName: '', lastName: '', email: '', image: '', active: false, timeStamp: { created: '', lastSeen: '' } };
         await Account.findOne({ username })
             .then(res => {
                 if (res) {        //check if account is in document
@@ -29,6 +29,7 @@ export default class UserData {
                     data.lastName = res.lastName;
                     data.email = res.email;
                     data.image = res.image;
+                    data.active = res.active;
                     data.timeStamp = res.timestamp;
                     found = true;
                 }

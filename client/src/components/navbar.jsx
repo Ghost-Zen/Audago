@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import { Menu, Image } from 'semantic-ui-react'
 import Auth from '../utils/Auth'
 import OnChangeSearch from './onChangeSearch';
@@ -68,7 +69,6 @@ export default class Navbar extends Component {
 
   render() {
     const { activeItem } = this.state
-
     return (
       <Menu inverted secondary className="navbar">
         <Menu.Header
@@ -82,19 +82,12 @@ export default class Navbar extends Component {
           onClick={this.handleItemClick}
         />
         <Menu.Item
-          content={<s>Explore</s>}
-          active={activeItem === 'explore'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          content={<s>About</s>}
+          name='about'
+          href='#/about'
           active={activeItem === 'about'}
           onClick={this.handleItemClick}
         />
         <Menu.Menu position='right'>
-          <Menu.Item>
-            <OnChangeSearch />
-          </Menu.Item>
           {this.userStatus()}
           {this.renderSignOut()}
         </Menu.Menu>

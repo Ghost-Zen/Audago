@@ -56,6 +56,7 @@ type UserData {
   lastName:String
   email: String,
   image: String,
+  active: Boolean,
   timeStamp: TimeStamp
 }
 input UpdateData {
@@ -122,6 +123,7 @@ type Mutation {
    denyRequest(username:String, friend:String):Query
    deleteFriend(username:String, friend:String):Query
    deactivateAccount(username:String):Query
+   activateAccount(username:String):Query
   }
 `);
 exports.default = schema;

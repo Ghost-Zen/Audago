@@ -53,6 +53,7 @@ query($username:String){
       lastName
       email
       image
+      active
       timeStamp{
         created
         lastSeen
@@ -276,6 +277,15 @@ export const SIGNOUT = gql`
 export const DEACTIVATE = gql`
   mutation($username:String){
     deactivateAccount(username:$username){
+      response,
+      status
+    }
+  }
+`;
+
+export const ACTIVATE = gql`
+  mutation($username:String){
+    activateAccount(username:$username){
       response,
       status
     }
