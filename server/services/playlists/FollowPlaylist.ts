@@ -55,7 +55,11 @@ export default class FollowPlaylist {
                                 playlistFound = true;
                                 let index = await res.users.indexOf(userID);        //if it exists then get index of user in the array in document
                                 await res.users.splice(index, 1);       //remove user using index
+                                if(res.users.length > 0){
                                 await Playlist.updateOne({ name: playlistName }, { users: res.users, follower_count: res.users.length });  //update documents users and follower count
+                              } else {
+                                await Playlist.deleteOne({name: playlistName});
+                              }
                             }
                         })
                 };

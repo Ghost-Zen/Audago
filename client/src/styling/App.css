@@ -23,6 +23,10 @@
   height: 40vmin;
 }
 
+.friendImage:hover {
+  cursor: pointer;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

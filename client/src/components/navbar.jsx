@@ -3,12 +3,43 @@ import { Menu, Image } from 'semantic-ui-react'
 import Auth from '../utils/Auth'
 import OnChangeSearch from './onChangeSearch';
 import NavBarDropDown from './dropdown';
+import { SIGNOUT } from '../api/queries';
+import { Query } from 'react-apollo';
+import moment from 'moment';
 
 export default class Navbar extends Component {
-  state = { activeItem: 'home' }
+  state = {
+    activeItem: 'home',
+    signOut: false
+  }
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name })
+  }
+
+  handleSignout = () => {
+    this.setState({
+      signOut: true
+    });
+  }
+
+  renderSignOut = () => {
+    if (this.state.signOut) {
+      return (
+        <Query query={SIGNOUT} variables={{ username: Auth.getUserName(), date: moment().format() }}>
+          {({ loading, error, data }) => {
+            if (loading) return 'Loading...';
+            if (error) return `Error! ${error.message}`;
+            console.log(data)
+            Auth.signOutUser()
+            return (
+              <div>
+              </div>
+            )
+          }}
+        </Query>
+      )
+    }
   }
 
   userStatus = () => {
@@ -16,7 +47,7 @@ export default class Navbar extends Component {
     if (Auth.getAuth() === true) {
       return (
         <Menu.Item>
-          <NavBarDropDown />
+          <NavBarDropDown test={this.handleSignout} />
         </Menu.Item>
       )
     } else {
@@ -39,7 +70,7 @@ export default class Navbar extends Component {
     const { activeItem } = this.state
 
     return (
-      <Menu inverted  secondary className="navbar">
+      <Menu inverted secondary className="navbar">
         <Menu.Header
           style={{ margin: 10, color: 'teal' }}
           content={this.logo()}
@@ -65,6 +96,7 @@ export default class Navbar extends Component {
             <OnChangeSearch />
           </Menu.Item>
           {this.userStatus()}
+          {this.renderSignOut()}
         </Menu.Menu>
       </Menu>
     )

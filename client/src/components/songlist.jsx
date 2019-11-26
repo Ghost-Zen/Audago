@@ -8,10 +8,11 @@ export default class songlist extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: Auth.getUserName(),
+      username: this.props.username,
       delete: false,
       trackInfo: {},
-      open: false
+      open: false,
+      currentTrack: -1
     }
   }
 
@@ -30,8 +31,10 @@ export default class songlist extends Component {
   }
 
   async playSong(songList, startTrack) {
-    if (!this.props.from) {
       let index = startTrack;
+      this.setState({
+        currentTrack: startTrack
+      });
       let x = document.querySelector("#player");
       x.src = songList[index];
       index++;
@@ -50,10 +53,15 @@ export default class songlist extends Component {
           .catch(error => {
           });
       }
-    } else {
-      this.props.playTrack(songList, startTrack);
-    }
   }
+
+  stopMusic = () => {
+    let x = document.querySelector("#player");
+    x.src = '';
+    this.setState({
+      currentTrack: -1
+    });
+  };
 
   deleteTrack = (event) => {
     let trackInfo = { track: event.target.id, artist: '', playlist_name: this.props.choice }
@@ -80,7 +88,6 @@ export default class songlist extends Component {
           {({ loading, error, data }) => {
             if (loading) return 'Loading...';
             if (error) return `Error! ${error.message}`;
-            console.log(data)
             return (
               <div>
                 {this.buildList()}
@@ -101,7 +108,7 @@ export default class songlist extends Component {
   }
 
   renderRemove = (song, creator) => {
-    if (this.state.username === creator && !this.props.from) {
+    if (this.state.username === creator && !this.props.from && this.state.username === Auth.getUserName()) {
       return (
         <List.Content floated='right'>
           {this.renderDelete()}
@@ -116,22 +123,32 @@ export default class songlist extends Component {
     let playlists = this.props.data;
     let listItems = [];
     let index = 0;
+    let button;
     for (const playlist of playlists) {
       if (playlist.name === this.props.choice) {
         let songs = playlist.songs;
         for (const song of songs) {
-
+          if (index === this.state.currentTrack) {
+            button = (
+              <Button inverted floated='left' size='mini' onClick={this.stopMusic} style={{ marginTop: 10 }} icon>
+                <Icon name='stop' />
+              </Button>
+            );
+          } else {
+            button = (
+              <Button inverted floated='left' size='mini' onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
+                <Icon name='play' />
+              </Button>
+            );
+          }
           listItems.push(
             <List.Item key={index}>
-            <Button inverted floated='left' size='mini' onClick={() => this.playTrack(song.song)} style={{ marginTop: 10 }} icon>
-              <Icon name='play'/>
-            </Button>
+              {button}
               <List.Header>
                 {song.track}
-                  </List.Header>
+              </List.Header>
               <List.Description>{song.artist} | {song.album}</List.Description>
               {this.renderRemove(song, playlist.creator)}
-
             </List.Item>
           )
           index++;
@@ -152,6 +169,9 @@ export default class songlist extends Component {
         <List celled relaxed inverted>
           {this.buildList()}
         </List>
+        <audio src="" id='player'>
+          <source src="" />
+        </audio>
       </div>
     )
   }

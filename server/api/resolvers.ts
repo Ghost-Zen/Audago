@@ -2,13 +2,23 @@ import CreateAccount from '../services/accounts/CreateAccount';
 import DeleteAccount from '../services/accounts/DeletingAccount';
 import UpdateAccount from '../services/accounts/UpdateAccount';
 import UserData from '../services/accounts/UserData';
+import SignOut from '../services/accounts/SignOut';
 import SearchSong from '../services/songsearch';
 import PlaylistsForUser from '../services/playlists/PlaylistsForUser';
 import FollowPlaylist from '../services/playlists/FollowPlaylist';
 import { CreatePlaylist } from '../services/playlists/CreatePlaylist';
 import AllPlaylists from '../services/playlists/AllPlaylists';
 import RemoveTrack from '../services/playlists/RemoveTrack';
+import SendFriendRequest from '../services/friends/SendFriendRequest';
+import RequestResponse from '../services/friends/RequestResponse';
+import ViewRequests from '../services/friends/ViewRequests';
+import DeleteFriends from '../services/friends/DeleteFriends';
+import FriendSearch from '../services/friends/FriendSearch';
 const dataRetrieval = new UserData;
+const sendFriendRequest = new SendFriendRequest;
+const requestResponse = new RequestResponse;
+const viewFriendData = new ViewRequests;
+const deleteFriends = new DeleteFriends;
 const createAccount = new CreateAccount;
 const searchSong = new SearchSong;
 const deleteAccount = new DeleteAccount;
@@ -18,6 +28,8 @@ const removeTrack = new RemoveTrack;
 const playlistsForUser = new PlaylistsForUser;
 const followPlaylist = new FollowPlaylist;
 const allPlaylists = new AllPlaylists;
+const friendSearch = new FriendSearch;
+const logOut = new SignOut;
 
 export default {
     hello: () => 'Hello World',
@@ -27,8 +39,8 @@ export default {
     createAccount: async (input) => {
         return await createAccount.create(input.account)
     },
-    verifyAccount: async (email,token) => {
-      return await dataRetrieval.verifyAccount(email,token)
+    verifyAccount: async (email, token) => {
+        return await dataRetrieval.verifyAccount(email, token)
     },
     searchSong: async (input) => {
         return await searchSong.getFromItunesAPI(input);
@@ -75,5 +87,33 @@ export default {
     },
     allPlaylists: async () => {
         return await allPlaylists.all();
+    },
+    sendRequest: async (input) => {
+        return await sendFriendRequest.FriendRequest(input.requester, input.receiver);
+    },
+    acceptRequest: async (input) => {
+        return await requestResponse.AcceptRequest(input.username, input.friend);
+    },
+    denyRequest: async (input) => {
+        return await requestResponse.DenyRequest(input.username, input.friend);
+    },
+    viewFriendRequests: async (input) => {
+        return await viewFriendData.ViewRequests(input.username);
+    },
+    viewFriendsList: async (input) => {
+        return await viewFriendData.ViewFriends(input.username);
+    },
+    deleteFriend: async (input) => {
+        return await deleteFriends.delete(input.username, input.friend);
+    },
+    accountSearch: async (input) => {
+        return await friendSearch.search(input.username, input.search);
+    },
+    signOut: async (input) => {
+        return await logOut.signOut(input.username, input.date);
+    },
+    deactivateAccount: async (input) =>{
+        return await deleteAccount.deactivateAccount(input.username);
     }
+
 }

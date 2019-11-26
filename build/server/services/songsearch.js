@@ -34,7 +34,11 @@ class SearchSong {
                         album: item.collectionCensoredName,
                         artwork
                     };
-                    allSongsBySearch.push(search);
+                    if (search.track && search.artist && search.song && search.album && search.artwork) {
+                        allSongsBySearch.push(search);
+                    }
+                    else {
+                    }
                 }
             });
             return allSongsBySearch;

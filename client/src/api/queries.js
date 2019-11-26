@@ -72,7 +72,7 @@ export const DELETE_USER = gql`
     }
 `;
 
-export const UPDATE_USER = gql`  
+export const UPDATE_USER = gql`
     mutation($username:String, $updateData:UpdateData){
       updateUser(username:$username, updateData: $updateData){
         response,
@@ -81,7 +81,7 @@ export const UPDATE_USER = gql`
     }
 `;
 
-export const UPDATE_PASSWORD = gql`  
+export const UPDATE_PASSWORD = gql`
     mutation($username:String, $currentPass:String, $newPass: String, $testPass:String){
       updatePassword(username:$username, currentPass:$currentPass, newPass:$newPass, testPass:$testPass){
         response,
@@ -90,7 +90,7 @@ export const UPDATE_PASSWORD = gql`
     }
 `;
 
-export const NEW_PLAYLIST = gql`  
+export const NEW_PLAYLIST = gql`
     mutation($name:String, $creator:String){
       newPlaylist(name:$name, creator:$creator){
         response,
@@ -99,7 +99,7 @@ export const NEW_PLAYLIST = gql`
     }
 `;
 
-export const NEW_TRACK = gql`  
+export const NEW_TRACK = gql`
     mutation($username:String, $track:PlaylistTrack){
       newTrack(username:$username, track:$track){
         response,
@@ -108,7 +108,7 @@ export const NEW_TRACK = gql`
     }
 `;
 
-export const DELETE_TRACK = gql`  
+export const DELETE_TRACK = gql`
     query($username:String,$trackInfo:TrackInfo){
       deleteTrack(username:$username,trackInfo:$trackInfo){
         response,
@@ -117,7 +117,7 @@ export const DELETE_TRACK = gql`
     }
 `;
 
-export const FOLLOW_PLAYLIST = gql`  
+export const FOLLOW_PLAYLIST = gql`
     mutation($username:String, $playlistName: String){
       followPlaylist(username:$username, playlistName:$playlistName){
         response,
@@ -126,7 +126,7 @@ export const FOLLOW_PLAYLIST = gql`
     }
 `;
 
-export const UNFOLLOW_PLAYLIST = gql`  
+export const UNFOLLOW_PLAYLIST = gql`
     mutation($username:String, $playlistName: String){
       unfollowPlaylist(username:$username, playlistName:$playlistName){
         response,
@@ -135,7 +135,7 @@ export const UNFOLLOW_PLAYLIST = gql`
     }
 `;
 
-export const USERS_PLAYLIST = gql`  
+export const USERS_PLAYLIST = gql`
   query($username:String) {
     playlistsForUser(username:$username) {
       playlists {
@@ -188,4 +188,96 @@ export const VERIFY_USER = gql`
       }
     }
 
+`;
+
+export const SEND_FRIEND_REQUEST = gql`
+  mutation ($requester:String, $receiver:String){
+    sendRequest(requester:$requester, receiver:$receiver){
+      response,
+      status
+    }
+  }
+`;
+
+export const DENY_FRIEND_REQUEST = gql`
+  mutation ($username:String, $friend:String){
+    denyRequest(username:$username, friend:$friend){
+      response,
+      status
+    }
+  }
+`;
+
+export const ACCEPT_FRIEND_REQUEST = gql`
+  mutation ($username:String, $friend:String){
+    acceptRequest(username:$username, friend:$friend){
+      response,
+      status
+    }
+  }
+`;
+
+export const VIEW_FRIEND_REQUESTS = gql`
+  query($username:String){
+    viewFriendRequests(username:$username){
+      response,
+      status,
+      data {
+        friend,
+        image
+      }
+    }
+  }
+`;
+
+export const VIEW_FRIEND_LIST = gql`
+  query($username:String){
+    viewFriendsList(username:$username){
+      response,
+      status,
+      data {
+        friend,
+        image
+      }
+    }
+  }
+`;
+
+export const DELETE_FRIEND = gql`
+  mutation($username:String, $friend:String){
+    deleteFriend(username:$username, friend:$friend){
+      response,
+      status
+    }
+  }
+`;
+
+export const FRIEND_SEARCH = gql`
+  query($username:String, $search:String){
+    accountSearch(username:$username, search:$search){
+      response,
+      data{
+        friend,
+        image
+      },
+      status
+    }
+  }
+`;
+
+export const SIGNOUT = gql`
+  query($username:String, $date:String){
+    signOut(username:$username, date:$date){
+      response
+    }
+  }
+`;
+
+export const DEACTIVATE = gql`
+  mutation($username:String){
+    deactivateAccount(username:$username){
+      response,
+      status
+    }
+  }
 `;

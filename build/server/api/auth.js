@@ -7,34 +7,31 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../services/accounts/config");
 class Auth {
     constructor() {
-        this.verifyToken = (req, res, next) => {
-            let token = req.body.token;
+        this.check = (req, res, next) => {
             try {
-                if (typeof token !== 'undefined') {
-                    let { data } = jsonwebtoken_1.default.verify(token, config_1.Config.SECRET);
-                    res.json({
-                        status: "Token Verified",
-                        response: true,
-                        client_id: data.username,
-                        token: data.token
-                    });
-                }
-                else {
-                    res.json({
-                        status: 'Token error',
-                        response: false,
-                        client_id: "Problem with token",
-                        token: "Please login again"
-                    });
-                }
-            }
-            catch (_a) {
+                let token = req.body.token;
+                let { data } = jsonwebtoken_1.default.verify(token, config_1.Config.SECRET);
                 res.json({
-                    status: 'No Token',
-                    response: false,
-                    client_id: "No Token stored",
-                    token: "Please login again"
+                    status: "Token Verified",
+                    response: true,
+                    client_id: data.username,
+                    token: data.token
                 });
+            }
+            catch (err) {
+                res.send(err);
+            }
+        };
+        this.graphqlAuth = (req, res, next) => {
+            try {
+                let header = req.headers.authorization;
+                let token = header.split(':');
+                let { data } = jsonwebtoken_1.default.verify(token[1], config_1.Config.SECRET);
+                next();
+            }
+            catch (err) {
+                next(); //for now till i stop login resolver from being blocked
+                // res.json({response:'No, dont try.'})
             }
         };
     }

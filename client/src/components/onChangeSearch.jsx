@@ -30,11 +30,16 @@ export default class OnChangeSearch extends React.Component {
 
     handleSearchChange = (e, { value }) => {
         this.setState({ isLoading: false, value, preventLoop: 1, results: [] })
-        console.log(this.props)
+        try{
         this.props.switchtab('home')
+      }
+      catch{
+        ////Component didnt mount yet
+      }
     }
 
     handleResData = (data) => {
+      if(!data) return;
         if (data.onChangeSearch.length > 0) {
             let top4Res = [];
             let rawData = [];

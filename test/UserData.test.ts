@@ -1,8 +1,8 @@
 import assert from 'assert';
-import Account, { Iaccounts } from '../server/services/models/Accounts';
+import Account from '../server/services/models/Accounts';
 import mongoose from 'mongoose';
-import CreateAccount from '../server/services/accounts/CreateAccount';
 import UserData from '../server/services/accounts/UserData';
+import accountsPremade from './accountsPremade';
 
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/audago_db_tests';
 
@@ -19,119 +19,39 @@ describe('Testing the UserData functionality', () => {
     });
     beforeEach(async () => {
         await Account.deleteMany({});
+        await accountsPremade();
     });
     after(() => {
         mongoose.connection.close();
     });
     describe('Login service testing', () => {
         it("Should return with that Michael has logged in successfully and returns a token with true status", async () => {
-            const createAccount = new CreateAccount;
             const userData = new UserData;
-            let user: Iaccounts = {
-                firstName: 'Micheal',
-                lastName: 'Dollman',
-                username: 'michaeldollman123',
-                password: 'Fwgr123#',
-                email: 'michaeldollman@gmail.com',
-                image: '',
-                active: false,
-                timestamp: {
-                    created: 'date',
-                    lastSeen: 'date'
-                },
-                status:''
-            }
-            await createAccount.create(user);
-            let response = await userData.loginData('michaeldollman123', 'Fwgr123#')
+            await Account.updateOne({ username: 'Mikey' }, { status: 'verified' });
+            let response = await userData.loginData('Mikey', 'Fwgr123#')
             assert.strict.deepEqual(response.status, true);
         });
-        it("Should return with an error that John's data could not be found, as the account wasn't made", async () => {
-            const createAccount = new CreateAccount;
+        it("Should return with an error that Vuyo's data could not be found, as the account wasn't made", async () => {
             const userData = new UserData;
-            let user: Iaccounts = {
-                firstName: 'Michael',
-                lastName: 'Dollman',
-                username: 'michaeldollman123',
-                password: 'Fwgr123#',
-                email: 'michaeldollman@gmail.com',
-                image: '',
-                active: false,
-                timestamp: {
-                    created: 'date',
-                    lastSeen: 'date'
-                },
-                status:''
-            }
-            await createAccount.create(user);
-            assert.strict.deepEqual(await userData.loginData('johnhope123', 'Fwgr123#'), { response: 'Username johnhope123 not found', status: false });
+            assert.strict.deepEqual(await userData.loginData('vuyo_ma2', 'Fwgr123#'), { response: 'Please enter the correct username and password', status: false });
         });
         it("Should return with an error that the entered password is  incorrect", async () => {
-            const createAccount = new CreateAccount;
             const userData = new UserData;
-            let user: Iaccounts = {
-                firstName: 'Michael',
-                lastName: 'Dollman',
-                username: 'michaeldollman123',
-                password: 'Fwgr123#',
-                email: 'michaeldollman@gmail.com',
-                image: '',
-                active: false,
-                timestamp: {
-                    created: 'date',
-                    lastSeen: 'date'
-                },
-                status:''
-            }
-            await createAccount.create(user);
-            assert.strict.deepEqual(await userData.loginData('michaeldollman123', '1245'), { response: 'Password incorrect', status: false });
+            assert.strict.deepEqual(await userData.loginData('Mikey', '1245'), { response: 'Please enter the correct username and password', status: false });
         });
     });
     describe('User data return testing', () => {
         it("Should return all dyllanhope123's data from DB", async () => {
-
-            const createAccount = new CreateAccount;
             const userData = new UserData;
-            let user: Iaccounts = {
-                firstName: 'Dyllan',
-                lastName: 'Hope',
-                username: 'dyllanhope123',
-                password: 'Fwgr123#',
-                email: 'dyllan@gmail.com',
-                image: 'image@picture.url',
-                active: true,
-                timestamp: {
-                    created: 'date',
-                    lastSeen: 'date'
-                },
-                status:''
-            }
-            await createAccount.create(user);
             let response = await userData.userData('dyllanhope123');
             assert.equal(response.response, 'User found');
         });
-        it("Should return that johnhope123 wasn't found in the DB", async () => {
-
-            const createAccount = new CreateAccount;
+        it("Should return that vuyo_ma2 wasn't found in the DB", async () => {
             const userData = new UserData;
-            let user: Iaccounts = {
-                firstName: 'Dyllan',
-                lastName: 'Hope',
-                username: 'dyllanhope123',
-                password: 'Fwgr123#',
-                email: 'dyllan@gmail.com',
-                image: 'image@picture.url',
-                active: true,
-                timestamp: {
-                    created: 'date',
-                    lastSeen: 'date'
-                },
-                status:''
-            }
-            await createAccount.create(user);
-            let response = await userData.userData('johnhope123');
+            let response = await userData.userData('vuyo_ma2');
             assert.strict.deepEqual(response, {
-                response: 'Username johnhope123 not found',
-                user: { firstName: '', lastName: '', email: '', image: '',timeStamp: { created: "", lastSeen: "" } },
+                response: 'Username vuyo_ma2 not found',
+                user: { firstName: '', lastName: '', email: '', image: '', timeStamp: { created: "", lastSeen: "" } },
                 status: false
             });
         });
