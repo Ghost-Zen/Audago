@@ -36,7 +36,7 @@ export default class Player extends React.Component{
 autoPlay={true}
 remove={true}
 showDownload={false}
-showPlayMode={false}
+showPlayMode={true}
 showThemeSwitch={false}
 mode='full'
 onAudioListsChange={this.playSong}
