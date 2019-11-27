@@ -120,9 +120,18 @@ export default class settings extends Component {
                     }
                 >
                     {deactivate => (
-                        <Button onClick={deactivate} color='green'>
-                            Active
-                        </Button>
+                        <Popup trigger={
+                            <Button onClick={deactivate} color='green'>
+                                Active
+                    </Button>
+                        } wide>
+                            <Header as='h2'>
+                                You're account is currently active
+                                    <Header.Subheader>
+                                    This means you are visible to friends and other users who search your profile.
+                                    </Header.Subheader>
+                            </Header>
+                        </Popup>
                     )}
                 </Mutation>
             )
@@ -137,9 +146,17 @@ export default class settings extends Component {
                     }
                 >
                     {activate => (
-                        <Button onClick={activate} color='red'>
+                        <Popup trigger={<Button onClick={activate} color='red'>
                             Disabled
                         </Button>
+                        } wide>
+                            <Header as='h2'>
+                                You're account is currently disabled
+                                        <Header.Subheader>
+                                    This means you are invisible to friends and other users who search your profile.
+                                        </Header.Subheader>
+                            </Header>
+                        </Popup>
                     )}
                 </Mutation>
             )
