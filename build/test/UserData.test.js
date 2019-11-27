@@ -63,7 +63,7 @@ describe('Testing the UserData functionality', () => {
             let response = yield userData.userData('vuyo_ma2');
             assert_1.default.strict.deepEqual(response, {
                 response: 'Username vuyo_ma2 not found',
-                user: { firstName: '', lastName: '', email: '', image: '', timeStamp: { created: "", lastSeen: "" } },
+                user: { firstName: '', lastName: '', email: '', image: '', active: false, timeStamp: { created: "", lastSeen: "" } },
                 status: false
             });
         }));
