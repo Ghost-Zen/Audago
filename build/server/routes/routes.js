@@ -30,13 +30,13 @@ class AppRoutes {
             res.redirect('/');
         }));
         this.app.post('/signOut', (req, res) => __awaiter(this, void 0, void 0, function* () {
-            yield signing.signOut(req.body.user, req.body.date);
+            yield signing.signOut(req.body.username, req.body.date);
             res.json({
                 status: 'success'
             });
         }));
         this.app.post('/signIn', (req, res) => __awaiter(this, void 0, void 0, function* () {
-            yield signing.signIn(req.body.user);
+            yield signing.signIn(req.body.username);
             res.json({
                 status: 'success'
             });

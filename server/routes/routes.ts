@@ -21,14 +21,14 @@ export default class AppRoutes {
         })
 
         this.app.post('/signOut', async (req, res) => {
-            await signing.signOut(req.body.user, req.body.date);
+            await signing.signOut(req.body.username, req.body.date);
             res.json({
                 status:'success'
             });
         })
 
         this.app.post('/signIn', async (req, res) => {
-            await signing.signIn(req.body.user);
+            await signing.signIn(req.body.username);
             res.json({
                 status:'success'
             });
