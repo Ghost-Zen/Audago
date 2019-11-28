@@ -10,5 +10,13 @@ export default class SignOut {
         return{response:'Signed out successfully'};
     }
 
+    async signIn(username){
+        let res = await Account.findOne({username});
+        let timestamp = res.timestamp;
+        timestamp.lastSeen = 'online';
+        await Account.updateOne({username},{timestamp});
+        return{response:'Signed in successfully'};
+    }
+
 }
 

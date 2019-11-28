@@ -16,7 +16,9 @@ const express_graphql_1 = __importDefault(require("express-graphql"));
 const resolvers_1 = __importDefault(require("../api/resolvers"));
 const typeDefs_1 = __importDefault(require("../api/typeDefs"));
 const auth_1 = __importDefault(require("../api/auth"));
+const SignOut_1 = __importDefault(require("../services/accounts/SignOut"));
 const authuser = new auth_1.default();
+const signing = new SignOut_1.default;
 class AppRoutes {
     constructor(app) {
         this.app = app;
@@ -26,6 +28,18 @@ class AppRoutes {
             let user_token = req.params.userToken.split('$');
             yield resolvers_1.default.verifyAccount(user_token[0], user_token[1]);
             res.redirect('/');
+        }));
+        this.app.post('/signOut', (req, res) => __awaiter(this, void 0, void 0, function* () {
+            yield signing.signOut(req.body.user, req.body.date);
+            res.json({
+                status: 'success'
+            });
+        }));
+        this.app.post('/signIn', (req, res) => __awaiter(this, void 0, void 0, function* () {
+            yield signing.signIn(req.body.user);
+            res.json({
+                status: 'success'
+            });
         }));
         this.app.post('/verify', authuser.check);
         this.app.use('/graphql', authuser.graphqlAuth, express_graphql_1.default({
