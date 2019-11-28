@@ -63,7 +63,7 @@ export default class Navbar extends Component {
 
   logo = () => {
     return (
-      <Image src="/audago.png" size='small'></Image>
+      <Image src="/assets/audago.png" size='small'></Image>
     )
   }
 

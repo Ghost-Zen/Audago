@@ -34,6 +34,11 @@ export default class AppRoutes {
             });
         })
 
+        this.app.post('/login', async (req,res) => {
+             let response = await Resolvers.loginCheck(req.body.input)
+             res.json({response})
+            })
+
         this.app.post('/verify', authuser.check)
 
         this.app.use('/graphql', authuser.graphqlAuth, graphqlHTTP({

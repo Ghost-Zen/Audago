@@ -41,6 +41,10 @@ class AppRoutes {
                 status: 'success'
             });
         }));
+        this.app.post('/login', (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let response = yield resolvers_1.default.loginCheck(req.body.input);
+            res.json({ response });
+        }));
         this.app.post('/verify', authuser.check);
         this.app.use('/graphql', authuser.graphqlAuth, express_graphql_1.default({
             schema: typeDefs_1.default,
