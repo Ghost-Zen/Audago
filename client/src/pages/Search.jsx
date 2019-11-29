@@ -4,11 +4,32 @@ import { SEARCH_SONG } from '../api/queries';
 import { Redirect } from 'react-router-dom';
 import { Mutation } from 'react-apollo'
 import Navbar from '../components/navbar';
+import moment from 'moment';
+import axios from 'axios';
+import Auth from '../utils/Auth';
+
 export default class Search extends React.Component {
   state = {
     search: "",
     gql_res: "",
     loading: false
+  }
+
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.beforeunload.bind(this));
+    axios
+      .post('/signIn', { username: Auth.getUserName() })
+      .then(res => { });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.beforeunload.bind(this));
+  }
+
+  beforeunload() {
+    axios
+      .post('/signOut', { username: Auth.getUserName(), date: moment().format() })
+      .then(res => { });
   }
 
   handleChange = (event) => {

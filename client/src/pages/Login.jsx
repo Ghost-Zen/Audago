@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { LOGIN_CHECK } from '../api/queries';
 import { Mutation } from 'react-apollo';
+import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Auth from '../utils/Auth';
 import Navbar from '../components/navbar';
@@ -12,6 +13,24 @@ export default class Login extends React.Component {
     password: '',
     status: Auth.getAuth(),
     message: '',
+  }
+
+  loginUser = async () => {
+    let { username, password } = this.state
+    let post_Data = {
+      input:
+        { username, password }
+    }
+    await axios.post(`/login`, post_Data)
+      .then(res => {
+        let postRes = res.data.response
+        if (postRes.status) {
+          this.setClientToken(postRes.response)
+          this.setState({ status: postRes.status })
+        } else {
+          this.setState({ message: postRes.response, status: postRes.status })
+        }
+      })
   }
 
   setClientToken = (token) => {
@@ -33,7 +52,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    let { username, password, status } = this.state
+    let { username, status } = this.state
     if (status) {
       Auth.userLogin(status, username)
       return <Redirect to='/' />
@@ -47,27 +66,14 @@ export default class Login extends React.Component {
               {/* <Image src='/logo.png' /> */}
               Log-in to your account
       </Header>
-            <Form size='large'>
+            <Form size='large' onSubmit={this.loginUser}>
               <Segment stacked>
-                <Form.Input fluid icon='user' name='username' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
-                <Form.Input fluid icon='lock' name='password' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />
+                <Form.Input required fluid icon='user' name='username' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
+                <Form.Input required fluid icon='lock' name='password' iconPosition='left' placeholder='Password' type='password' onChange={this.handleChange} />
                 {this.renderError()}
-                <Mutation mutation={LOGIN_CHECK} variables={{ username, password }}
-                  update={(cache, { data }) => {
-                    this.setState({
-                      status: data.loginCheck.status,
-                      message: data.loginCheck.response
-                    });
-                    this.setClientToken(data.loginCheck.response)
-                  }
-                  }
-                >
-                  {loginCheck => (
-                    <Button type="submit" color='teal' fluid size='large' onClick={loginCheck}>
-                      Login
+                <Button type="submit" color='teal' fluid size='large'>
+                  Login
                   </Button>
-                  )}
-                </Mutation>
               </Segment>
             </Form>
             <Message>

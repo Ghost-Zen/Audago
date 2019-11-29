@@ -23,6 +23,15 @@ class SignOut {
             return { response: 'Signed out successfully' };
         });
     }
+    signIn(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let res = yield Accounts_1.default.findOne({ username });
+            let timestamp = res.timestamp;
+            timestamp.lastSeen = 'online';
+            yield Accounts_1.default.updateOne({ username }, { timestamp });
+            return { response: 'Signed in successfully' };
+        });
+    }
 }
 exports.default = SignOut;
 //# sourceMappingURL=SignOut.js.map

@@ -8,7 +8,7 @@ const config_1 = require("../services/accounts/config");
 class Auth {
     constructor() {
         this.check = (req, res, next) => {
-            try {
+            try { //will remove soon, redundant will use graphqlAuth only in the future
                 let token = req.body.token;
                 let { data } = jsonwebtoken_1.default.verify(token, config_1.Config.SECRET);
                 res.json({
@@ -26,12 +26,11 @@ class Auth {
             try {
                 let header = req.headers.authorization;
                 let token = header.split(':');
-                let { data } = jsonwebtoken_1.default.verify(token[1], config_1.Config.SECRET);
+                jsonwebtoken_1.default.verify(token[1], config_1.Config.SECRET);
                 next();
             }
             catch (err) {
-                next(); //for now till i stop login resolver from being blocked
-                // res.json({response:'No, dont try.'})
+                res.json({ response: 'api requires valid token' });
             }
         };
     }

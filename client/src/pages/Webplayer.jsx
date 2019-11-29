@@ -6,7 +6,11 @@ import Player from '../components/player';
 import SidebarA from '../components/sidebar';
 import OnChangeSearch from '../components/onChangeSearch';
 import Playlists from '../components/playlistInCards';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import moment from 'moment';
+import axios from 'axios';
+import Auth from '../utils/Auth';
+
 export default class Webplayer extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +18,23 @@ export default class Webplayer extends React.Component {
       current_Tab:'',
       track:[]
     }
+  }
+
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.beforeunload.bind(this));
+    axios
+      .post('/signIn', { username: Auth.getUserName() })
+      .then(res => { });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.beforeunload.bind(this));
+  }
+
+  beforeunload() {
+    axios
+      .post('/signOut', { username: Auth.getUserName(), date: moment().format() })
+      .then(res => { });
   }
 
   playTrack = (music) => {
