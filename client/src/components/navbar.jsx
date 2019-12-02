@@ -52,9 +52,10 @@ export default class Navbar extends Component {
     };
     axios.get("/api/profile", config)
     .then(response => {
-        let image = URL.createObjectURL(response.data)
-        let imgElem = document.querySelector('#nav-profile')
-        imgElem.src = image
+      console.log(response)
+        let image = URL.createObjectURL(response.data);
+        let imgElem = document.querySelector('#nav-profile');
+        if(response.data.type === "application/octet-stream") imgElem.src = image
       })
 }
 
