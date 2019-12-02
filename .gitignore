@@ -2,7 +2,7 @@
 
 # dependencies
 node_modules/
-/server/uploads/
+uploads/
 # ../client/node_modules/
 /.pnp
 .pnp.js

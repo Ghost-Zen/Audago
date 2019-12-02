@@ -73,6 +73,9 @@ export default {
     updateUser: async (input) => {
         return await updateAccount.update(input.username, input.updateData);
     },
+    updateProfilePic: async (input) => {
+        return await updateAccount.updatePicture(input.user, input.file);
+    },
     updatePassword: async (input) => {
         return await updateAccount.updatePassword(input.username, input.currentPass, input.newPass, input.testPass);
     },

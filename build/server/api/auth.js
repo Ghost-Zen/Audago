@@ -26,7 +26,8 @@ class Auth {
             try {
                 let header = req.headers.authorization;
                 let token = header.split(':');
-                jsonwebtoken_1.default.verify(token[1], config_1.Config.SECRET);
+                let { data } = jsonwebtoken_1.default.verify(token[1], config_1.Config.SECRET);
+                req.user = data.username;
                 next();
             }
             catch (err) {

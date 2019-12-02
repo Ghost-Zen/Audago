@@ -17,6 +17,8 @@ const resolvers_1 = __importDefault(require("../api/resolvers"));
 const typeDefs_1 = __importDefault(require("../api/typeDefs"));
 const auth_1 = __importDefault(require("../api/auth"));
 const SignOut_1 = __importDefault(require("../services/accounts/SignOut"));
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const authuser = new auth_1.default();
 const signing = new SignOut_1.default;
 class AppRoutes {
@@ -28,6 +30,18 @@ class AppRoutes {
             let user_token = req.params.userToken.split('$');
             yield resolvers_1.default.verifyAccount(user_token[0], user_token[1]);
             res.redirect('/');
+        }));
+        this.app.post('/upload', authuser.graphqlAuth, upload.single('avatar'), (req, res) => {
+            let { user, file } = req;
+            let data = { user, file };
+            resolvers_1.default.updateProfilePic(data);
+            // req.body will hold the text fields, if there were any
+            res.json({ 'response': 'Profile picture updated' });
+        });
+        this.app.get('/api/profile', authuser.graphqlAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let input = { username: req.user };
+            let userData = yield resolvers_1.default.userData(input);
+            res.sendFile(`/${userData.user.image}`, { root: 'uploads' });
         }));
         this.app.post('/signOut', (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield signing.signOut(req.body.username, req.body.date);
