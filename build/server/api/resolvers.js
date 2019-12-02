@@ -86,6 +86,9 @@ exports.default = {
     updateUser: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield updateAccount.update(input.username, input.updateData);
     }),
+    updateProfilePic: (input) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield updateAccount.updatePicture(input.user, input.file);
+    }),
     updatePassword: (input) => __awaiter(void 0, void 0, void 0, function* () {
         return yield updateAccount.updatePassword(input.username, input.currentPass, input.newPass, input.testPass);
     }),

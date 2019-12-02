@@ -15,6 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Accounts_1 = __importDefault(require("../models/Accounts"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 class UpdateAccount {
+    constructor() {
+        this.updatePicture = (username, image) => __awaiter(this, void 0, void 0, function* () {
+            yield Accounts_1.default.updateOne({ username }, { image: image.filename });
+        });
+    }
     update(username, updateData) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Accounts_1.default.findOne({ username })

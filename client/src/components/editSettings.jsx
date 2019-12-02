@@ -3,6 +3,7 @@ import { Header, Grid, Input, Button, Message, Icon, Modal, Divider, Popup, List
 import { USER_DATA, UPDATE_USER, UPDATE_PASSWORD, DEACTIVATE, ACTIVATE } from '../api/queries';
 import { Query, Mutation } from 'react-apollo';
 import Auth from '../utils/Auth';
+import axios from 'axios';
 
 export default class settings extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ export default class settings extends Component {
             lastName: '',
             email: '',
             response: '',
+            file:'',
             status: false,
             modalOpen: false,
             currentPass: '',
@@ -22,13 +24,14 @@ export default class settings extends Component {
             test: false
         }
     }
+//component needs to made smaller
 
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         });
     };
-
+        
     renderUserSettings = () => (
         <Query query={USER_DATA} variables={{ username: Auth.getUserName() }} pollInterval={500}>
             {({ loading, error, data }) => {
@@ -40,16 +43,16 @@ export default class settings extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
-                                <Header inverted floated='left' as='h4'>
+                                <Header floated='left' as='h4' block>
                                     Username: {this.state.username} {button}
                                 </Header>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <Grid.Column width={7}>
+                            <Grid.Column width={5}>
                                 <Input style={{ width: 200, float: 'left' }} label={{ tag: false, color: 'teal', content: 'First name' }} placeholder={info.firstName} name='firstName' onChange={this.handleChange} />
                             </Grid.Column>
-                            <Grid.Column width={9}>
+                            <Grid.Column width={4}>
                                 <Input style={{ width: 200, float: 'left' }} label={{ tag: false, color: 'teal', content: 'Last name' }} placeholder={info.lastName} name='lastName' onChange={this.handleChange} />
                             </Grid.Column>
                         </Grid.Row>
@@ -59,6 +62,24 @@ export default class settings extends Component {
             }}
         </Query>
     )
+
+    onPictureUpload = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('avatar',e.target.files[0]);
+        const token = localStorage.getItem('sudo')
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+                authorization: token ? `Bearer:${token}` : ''
+            }
+        };
+        axios.post("/upload",formData,config)
+            .then((data) => {
+                this.setState({response:data.response})
+            }).catch((error) => {
+        });
+    }
 
     renderMessage = () => {
         if (this.state.status && this.state.response) {
@@ -99,11 +120,18 @@ export default class settings extends Component {
 
     renderEmail = (info) => {
         return (
+            <div>
             <Grid.Row>
                 <Grid.Column width={10}>
                     <Input fluid label={{ tag: false, color: 'teal', content: 'Email' }} placeholder={info.email} name='email' onChange={this.handleChange} />
                 </Grid.Column>
+                </Grid.Row>
+            <Grid.Row>
+                <Grid.Column width={3} style={{marginTop:10}}>
+        <Input type="file" name="avatar" onChange={this.onPictureUpload} />
+</Grid.Column>
             </Grid.Row>
+            </div>
         )
     }
 
@@ -121,7 +149,7 @@ export default class settings extends Component {
                 >
                     {deactivate => (
                         <Popup trigger={
-                            <Button onClick={deactivate} color='green'>
+                            <Button size='mini' onClick={deactivate} color='green'>
                                 Active
                     </Button>
                         } wide>
@@ -146,7 +174,7 @@ export default class settings extends Component {
                     }
                 >
                     {activate => (
-                        <Popup trigger={<Button onClick={activate} color='red'>
+                        <Popup trigger={<Button size='mini' onClick={activate} color='red'>
                             Disabled
                         </Button>
                         } wide>
@@ -249,7 +277,6 @@ export default class settings extends Component {
                         </Mutation>
                     </Modal.Actions>
                 </Modal>
-                {this.renderActiveButton}
             </div>
         )
     }

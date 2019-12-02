@@ -7,7 +7,7 @@ import { Query } from 'react-apollo';
 import Auth from '../utils/Auth';
 import Friends from '../components/friends';
 import moment from 'moment';
-
+import axios from 'axios';
 
 export default class ProfileDisplay extends React.Component {
     constructor(props) {
@@ -18,6 +18,7 @@ export default class ProfileDisplay extends React.Component {
             username: this.props.username
         }
     }
+    
     changeProfileDisplay = (username) => {
         this.setState({
             username,
@@ -46,8 +47,26 @@ export default class ProfileDisplay extends React.Component {
         }
     }
 
+    profilePic = () => {
+        const token = localStorage.getItem('sudo')
+        const config = {
+            headers: {
+                authorization: token ? `Bearer:${token}` : ''
+            },
+            responseType: 'blob'
+        };
+        axios.get("/api/profile", config)
+        .then(response => {
+            let image = URL.createObjectURL(response.data)
+            let imgElem = document.querySelector('#profile')
+            imgElem.src = image
+          })
+    }
+
+
     renderBannerInfo = () => {
         let { username } = this.state;
+        this.profilePic()
         return (
             <Query query={USER_DATA} variables={{ username }}>
                 {({ loading, error, data }) => {
@@ -148,7 +167,7 @@ export default class ProfileDisplay extends React.Component {
                         {this.renderBackButton()}
                         <Grid.Row color='teal' style={{ marginTop: 15, borderRadius: 10 }}>
                             <Grid.Column width={2}>
-                                <Image style={{ width: 112, height: 112 }} circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' />
+                                <Image id='profile' style={{ width: 100, height: 100 }} circular />
                             </Grid.Column>
                             <Grid.Column width={14}>
                                 {this.renderBannerInfo()}

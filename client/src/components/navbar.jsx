@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
-import { Menu, Image } from 'semantic-ui-react'
-import Auth from '../utils/Auth'
-import OnChangeSearch from './onChangeSearch';
+import { Menu, Image } from 'semantic-ui-react';
+import Auth from '../utils/Auth';
+import axios from 'axios';
 import NavBarDropDown from './dropdown';
 import { SIGNOUT } from '../api/queries';
 import { Query } from 'react-apollo';
@@ -43,6 +42,23 @@ export default class Navbar extends Component {
     }
   }
 
+  profilePic = () => {
+    const token = localStorage.getItem('sudo')
+    const config = {
+        headers: {
+            authorization: token ? `Bearer:${token}` : ''
+        },
+        responseType: 'blob'
+    };
+    axios.get("/api/profile", config)
+    .then(response => {
+        let image = URL.createObjectURL(response.data)
+        let imgElem = document.querySelector('#nav-profile')
+        imgElem.src = image
+      })
+}
+
+
   userStatus = () => {
     const { activeItem } = this.state
     if (Auth.getAuth() === true) {
@@ -70,6 +86,7 @@ export default class Navbar extends Component {
   render() {
     const { activeItem } = this.state
     return (
+      <div>
       <Menu inverted secondary className="navbar">
         <Menu.Header
           style={{ margin: 10, color: 'teal' }}
@@ -92,6 +109,10 @@ export default class Navbar extends Component {
           {this.renderSignOut()}
         </Menu.Menu>
       </Menu>
+      {
+        this.profilePic() /* pull profile pic from server and sets it after image elem renders */
+      }
+      </div>
     )
   }
 }

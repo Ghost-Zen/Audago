@@ -3,6 +3,8 @@ import Resolvers from '../api/resolvers';
 import typeDefs from '../api/typeDefs';
 import Auth from '../api/auth';
 import Signing from '../services/accounts/SignOut';
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const authuser = new Auth()
 const signing = new Signing;
 export default class AppRoutes {
@@ -19,6 +21,21 @@ export default class AppRoutes {
             await Resolvers.verifyAccount(user_token[0], user_token[1])
             res.redirect('/')
         })
+
+        this.app.post('/upload',authuser.graphqlAuth, upload.single('avatar'), (req, res) => {
+            let {user, file} = req
+            let data = { user,file }
+            Resolvers.updateProfilePic(data)
+            // req.body will hold the text fields, if there were any
+            res.json({'response':'Profile picture updated'})
+        })
+
+        this.app.get('/api/profile', authuser.graphqlAuth, async (req,res) => {
+            let input = {username :req.user}
+            let userData = await Resolvers.userData(input)
+            res.sendFile(`/${userData.user.image}`, { root: 'uploads' })
+        })
+           
 
         this.app.post('/signOut', async (req, res) => {
             await signing.signOut(req.body.username, req.body.date);

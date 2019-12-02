@@ -49,4 +49,8 @@ export default class UpdateAccount {
             return { response: `Password updated`, status: true };
         }
     }
+
+    updatePicture = async (username,image) => {
+        await Account.updateOne({ username }, { image: image.filename });
+    }
 }

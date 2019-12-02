@@ -16,7 +16,7 @@ export default class NavBarDropDown extends React.Component {
 
   let trigger = (
     <span>
-      <Image avatar src={'https://randomuser.me/api/portraits/lego/1.jpg'} /> {Auth.getUserName()}
+      <Image id="nav-profile" avatar /> {Auth.getUserName()}
     </span>
   )
 
