@@ -68,7 +68,7 @@ export default class ProfileDisplay extends React.Component {
         let { username } = this.state;
         this.profilePic()
         return (
-            <Query query={USER_DATA} variables={{ username }}>
+            <Query query={USER_DATA} pollInterval={500} variables={{ username }}>
                 {({ loading, error, data }) => {
                     if (loading) return 'Loading...';
                     if (error) return `Error! ${error.message}`;

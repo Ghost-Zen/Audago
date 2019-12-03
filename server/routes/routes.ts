@@ -36,7 +36,6 @@ export default class AppRoutes {
             res.sendFile(`/${userData.user.image}`, { root: 'uploads' })
         })
            
-
         this.app.post('/signOut', async (req, res) => {
             await signing.signOut(req.body.username, req.body.date);
             res.json({
