@@ -1,10 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Button, Form, Grid, Header, Segment, Message, Popup, List } from 'semantic-ui-react';
-import { ADD_USER } from '../api/queries';
-import { Mutation } from 'react-apollo';
 import Navbar from '../components/navbar';
-
+import axios from 'axios';
 
 export default class Signup extends React.Component {
   state = {
@@ -16,7 +14,25 @@ export default class Signup extends React.Component {
     confirm: "",
     image: "",
     active: true,
-    gql_res: {},
+    response: {},
+  }
+
+
+  Signup = async () => {
+    let { firstName, lastName, username, email, password,confirm , active } = this.state
+    let post_Data = {
+      input:
+        { firstName, lastName, username, email, password, active }
+    }
+    if(password === confirm){
+    await axios.post(`/signup`, post_Data)
+      .then(res => {
+        let postRes = res.data.response
+        this.setState({response:postRes})
+      })
+    }else{
+      this.setState({response:{response:"Passwords do not match", status:false}})
+    }
   }
 
   handleChange = (event) => {
@@ -26,10 +42,10 @@ export default class Signup extends React.Component {
   }
 
   renderError = () => {
-    let { gql_res } = this.state
-    if (!gql_res.status && gql_res.response) {
+    let { response } = this.state
+    if (!response.status && response.response) {
       return (<Message negative>
-        <Message.Header>{gql_res.response}</Message.Header>
+        <Message.Header>{response.response}</Message.Header>
       </Message>)
     }
   }
@@ -46,7 +62,7 @@ export default class Signup extends React.Component {
       image,
       active
     }
-    if (this.state.gql_res.status) {
+    if (this.state.response.status) {
       return <Redirect to="/" />
     }
     return (
@@ -77,19 +93,10 @@ export default class Signup extends React.Component {
                   </List>
                 </Popup>
                 <Form.Input name='confirm' fluid icon='lock' iconPosition='left' placeholder='Confirm Password' type='password' onChange={this.handleChange} />
-                <Mutation mutation={ADD_USER} variables={{ account }}
-                  update={(cache, { data }) => {
-                    console.log(data)
-                    this.setState({ gql_res: data.createAccount })
-                  }
-                  }
-                >
-                  {createAccount => (
-                    <Button type="submit" color='teal' fluid size='large' onClick={createAccount}>
-                      Signup
+
+                <Button type="submit" color='teal' fluid size='large' onClick={this.Signup}>
+                  Signup
                   </Button>
-                  )}
-                </Mutation>
                 {this.renderError()}
               </Segment>
             </Form>

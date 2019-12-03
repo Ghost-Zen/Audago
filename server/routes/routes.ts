@@ -55,6 +55,10 @@ export default class AppRoutes {
              let response = await Resolvers.loginCheck(req.body.input)
              res.json({response})
             })
+        this.app.post('/signup', async (req,res) => {
+            let response = await Resolvers.createAccount(req.body.input)
+            res.json({response})
+        })
 
         this.app.post('/verify', authuser.check)
 

@@ -50,7 +50,7 @@ exports.default = {
         return input;
     },
     createAccount: (input) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield createAccount.create(input.account);
+        return yield createAccount.create(input);
     }),
     verifyAccount: (email, token) => __awaiter(void 0, void 0, void 0, function* () {
         return yield dataRetrieval.verifyAccount(email, token);
