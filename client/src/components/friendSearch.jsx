@@ -60,9 +60,10 @@ export default class FriendSearch extends React.Component {
           for(const account of accounts){
             accountList.push(
               <Card key={index}>
-                <Image className='friendImage' onClick={()=>this.props.show(account.friend)} src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
-                  <Card.Content extra>
-                    <Card.Description>{account.friend}</Card.Description>
+                  <Card.Content>
+                    <Card.Header className='friendImage' onClick={()=>this.props.show(account.friend)}>{account.friend}</Card.Header>
+                    </Card.Content>
+                    <Card.Content extra>
                       <Mutation mutation={SEND_FRIEND_REQUEST} variables={{ requester: username, receiver:account.friend }}
                         update={(cache, { refetch }) => {
                           refetch()
