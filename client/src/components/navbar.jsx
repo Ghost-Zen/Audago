@@ -50,7 +50,7 @@ export default class Navbar extends Component {
         },
         responseType: 'blob'
     };
-    axios.get("/api/profile", config)
+    axios.post("/api/profile", {username:Auth.getUserName()},config)
     .then(response => {
         let image = URL.createObjectURL(response.data);
         let imgElem = document.querySelector('#nav-profile');

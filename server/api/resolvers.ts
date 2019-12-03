@@ -37,7 +37,7 @@ export default {
         return input;
     },
     createAccount: async (input) => {
-        return await createAccount.create(input.account)
+        return await createAccount.create(input)
     },
     verifyAccount: async (email, token) => {
         return await dataRetrieval.verifyAccount(email, token)
