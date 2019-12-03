@@ -30,13 +30,12 @@ export default class AppRoutes {
             res.json({'response':'Profile picture updated'})
         })
 
-        this.app.get('/api/profile', authuser.graphqlAuth, async (req,res) => {
-            let input = {username :req.user}
+        this.app.post('/api/profile', authuser.graphqlAuth, async (req,res) => {
+            let input = {username :req.body.username}
             let userData = await Resolvers.userData(input)
             res.sendFile(`/${userData.user.image}`, { root: 'uploads' })
         })
            
-
         this.app.post('/signOut', async (req, res) => {
             await signing.signOut(req.body.username, req.body.date);
             res.json({
@@ -55,6 +54,10 @@ export default class AppRoutes {
              let response = await Resolvers.loginCheck(req.body.input)
              res.json({response})
             })
+        this.app.post('/signup', async (req,res) => {
+            let response = await Resolvers.createAccount(req.body.input)
+            res.json({response})
+        })
 
         this.app.post('/verify', authuser.check)
 

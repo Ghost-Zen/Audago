@@ -25,9 +25,10 @@ export default class FriendRequests extends React.Component {
                   for(const account of requests){
                     requestList.push(
                       <Card key={index}>
-                        <Image className='friendImage' onClick={()=>this.props.show(account.friend)} src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
-                          <Card.Content extra>
-                            <Card.Description>{account.friend}</Card.Description>
+                          <Card.Content>
+                            <Card.Header onClick={()=>this.props.show(account.friend)}>{account.friend}</Card.Header>
+                            </Card.Content>
+                            <Card.Content extra>
                             <div className='ui two buttons'>
                               <Mutation mutation={ACCEPT_FRIEND_REQUEST} variables={{ username: this.state.username, friend:account.friend }}
                                 update={(cache, { refetch }) => {

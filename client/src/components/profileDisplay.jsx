@@ -47,15 +47,15 @@ export default class ProfileDisplay extends React.Component {
         }
     }
 
-    profilePic = () => {
+    profilePic = (username) => {
         const token = localStorage.getItem('sudo')
         const config = {
             headers: {
-                authorization: token ? `Bearer:${token}` : ''
+                authorization: token ? `Bearer:${token}` : '',
             },
             responseType: 'blob'
         };
-        axios.get("/api/profile", config)
+        axios.post("/api/profile", {username},config)
         .then(response => {
             let image = URL.createObjectURL(response.data)
             let imgElem = document.querySelector('#profile')
@@ -66,9 +66,9 @@ export default class ProfileDisplay extends React.Component {
 
     renderBannerInfo = () => {
         let { username } = this.state;
-        this.profilePic()
+        this.profilePic(username)
         return (
-            <Query query={USER_DATA} variables={{ username }}>
+            <Query query={USER_DATA} pollInterval={500} variables={{ username }}>
                 {({ loading, error, data }) => {
                     if (loading) return 'Loading...';
                     if (error) return `Error! ${error.message}`;
