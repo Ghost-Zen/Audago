@@ -38,8 +38,8 @@ class AppRoutes {
             // req.body will hold the text fields, if there were any
             res.json({ 'response': 'Profile picture updated' });
         });
-        this.app.get('/api/profile', authuser.graphqlAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
-            let input = { username: req.user };
+        this.app.post('/api/profile', authuser.graphqlAuth, (req, res) => __awaiter(this, void 0, void 0, function* () {
+            let input = { username: req.body.username };
             let userData = yield resolvers_1.default.userData(input);
             res.sendFile(`/${userData.user.image}`, { root: 'uploads' });
         }));

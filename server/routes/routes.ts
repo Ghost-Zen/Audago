@@ -30,8 +30,8 @@ export default class AppRoutes {
             res.json({'response':'Profile picture updated'})
         })
 
-        this.app.get('/api/profile', authuser.graphqlAuth, async (req,res) => {
-            let input = {username :req.user}
+        this.app.post('/api/profile', authuser.graphqlAuth, async (req,res) => {
+            let input = {username :req.body.username}
             let userData = await Resolvers.userData(input)
             res.sendFile(`/${userData.user.image}`, { root: 'uploads' })
         })
